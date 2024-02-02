@@ -1,0 +1,21 @@
+project:
+  type: book
+
+book:
+  title: "BioStatistics_Book"
+  author: "Norah Jones"
+  date: "02/02/2024"
+  chapters:
+    - index.qmd
+    - intro.qmd
+    - summary.qmd
+    - references.qmd
+
+bibliography: references.bib
+
+format:
+  html:
+    theme: cosmo
+
+editor: visual
+
