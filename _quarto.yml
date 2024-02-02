@@ -2,13 +2,21 @@ project:
   type: book
 
 book:
-  title: "BioStatistics_Book"
-  author: "Norah Jones"
+  title: "BioStatistics"
+  author: "William Hagedorn-Rasmussen"
   date: "02/02/2024"
   chapters:
     - index.qmd
-    - intro.qmd
-    - summary.qmd
+    
+    - part: tidy00.qmd
+      chapters: 
+        - tidy01.qmd
+        
+    - part: stat00.qmd
+      chapters:
+        - stat01.qmd
+        
+        
     - references.qmd
 
 bibliography: references.bib
@@ -17,5 +25,5 @@ format:
   html:
     theme: cosmo
 
-editor: visual
+editor: source
 
