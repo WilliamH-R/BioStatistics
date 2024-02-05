@@ -68,7 +68,7 @@ process_line() {
 
         # Download reads with fastq-dump
         echo $fastq_dump_options
-        fastq-dump $fastq_dump_options
+        /home/ctools/sratoolkit.3.0.7-ubuntu64/bin/fastq-dump $fastq_dump_options
 
     fi
 }
