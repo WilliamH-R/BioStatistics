@@ -3,7 +3,6 @@
 # Default values
 reads_dir=""
 trimmed_dir=""
-adapters_path=""
 read_type=""
 log_path=""
 thread=10
@@ -11,10 +10,9 @@ minlength=10
 
 # Function to show usage
 usage() {
-    echo "Usage: $0 -r <reads_dir> -t <trimmed_dir> -a <adapters_path> -T <read_type> -l <log_path> [-p <threads> -K <kmin> -R <ktrim> -Q <qtrim> -q <trimq> -m <minlength> -o <overwrite> -z <ziplevel>]"
+    echo "Usage: $0 -r <reads_dir> -t <trimmed_dir> -T <read_type> -l <log_path> [-p <threads> -K <kmin> -R <ktrim> -Q <qtrim> -q <trimq> -m <minlength> -o <overwrite> -z <ziplevel>]"
     echo "  -r  Directory containing raw FASTQ files"
     echo "  -t  Directory to store trimmed reads"
-    echo "  -a  Path to adapters file"
     echo "  -T  Type of reads (single or paired)"
     echo "  -l  Path to save the log file"
     echo "  -p  Number of threads (default 10)"
@@ -27,7 +25,6 @@ while getopts 'r:t:a:T:l:p:k:K:R:Q:q:m:o:z:' flag; do
     case "${flag}" in
         r) reads_dir=${OPTARG} ;;
         t) trimmed_dir=${OPTARG} ;;
-        a) adapters_path=${OPTARG} ;;
         T) read_type=${OPTARG} ;;
         l) log_path=${OPTARG} ;;
         p) threads=${OPTARG} ;;
@@ -37,7 +34,7 @@ while getopts 'r:t:a:T:l:p:k:K:R:Q:q:m:o:z:' flag; do
 done
 
 # Check if required options are provided
-if [ -z "$reads_dir" ] || [ -z "$trimmed_dir" ] || [ -z "$adapters_path" ] || [ -z "$read_type" ] || [ -z "$log_path" ]; then
+if [ -z "$reads_dir" ] || [ -z "$trimmed_dir" ] || [ -z "$read_type" ] || [ -z "$log_path" ]; then
     usage
 fi
 
@@ -49,7 +46,7 @@ fi
 
 
 # Export variables for use in the exported function
-export reads_dir trimmed_dir adapters_path read_type thread minlength overwrite ziplevel
+export reads_dir trimmed_dir read_type thread minlength overwrite ziplevel
 
 # Create the trimmed directory if it doesn't exist
 mkdir -p "$trimmed_dir"
@@ -66,10 +63,10 @@ trim_command() {
         trim1=$(echo $base | sed "s/.fastq.gz//")_trimmed_1.fastq.gz
         trim2=$(echo $base | sed "s/.fastq.gz//")_trimmed_2.fastq.gz
         st=$(echo $base | sed "s/.fastq.gz//")_trimmed_singleton.fastq.gz
-        /home/ctools/fastp/fastp in1=$1 in2=$read2 out1="$trimmed_dir"$trim1 out2="$trimmed_dir"$trim2 thread=$threads l=$minlength a=$adapters_path --cut-tail
+        /home/ctools/fastp/fastp in1=$1 in2=$read2 out1="$trimmed_dir"$trim1 out2="$trimmed_dir"$trim2 thread=$threads l=$minlength --cut-tail
     else
         trim1=$(echo $base | sed "s/.fastq.gz//")_trimmed.fastq.gz
-        /home/ctools/fastp/fastp in1=$1 out1="$trimmed_dir"$trim1 thread=$threads l=$minlength a=$adapters_path
+        /home/ctools/fastp/fastp in1=$1 out1="$trimmed_dir"$trim1 thread=$threads l=$minlength
     fi
 }
 
