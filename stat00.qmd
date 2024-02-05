@@ -1,1 +1,2 @@
 # Applied bio-statistical methods
+Some introduction to what the statistical chapter contains.

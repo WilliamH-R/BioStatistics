@@ -1,1 +1,8 @@
+```{r setup, include = FALSE}
+library("tidymodels")
+tidymodels::tidymodels_prefer()
+```
+
+
 # Introduction to Tidy Modelling
+

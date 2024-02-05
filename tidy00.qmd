@@ -1,1 +1,2 @@
 # Tidy Modelling with R
+Some introduction to the book.

@@ -62,7 +62,19 @@ main_effect_fit <-  lm(rate ~ temp + species, data = crickets)
 anova(main_effect_fit, interaction_fit)
 
 # As the p-value is above 0.05, we cannot support the nul-hypothesis that they are equal. It is better to use the model without the combined variable.
+
+# We can use the summary() method to inspect the coefficients, standard errors, and p-values of each model term:
+summary(main_effect_fit)
+
+# The species term has a value of -10.07. This indicates that, across all temperature values, O. niveus has a chirp rate that is about 10 fewer chirps per minute than O. exclamationis
 ```
+
+# Make predictions for new temperatures
+```{r}
+new_values <- data.frame(species = "O. exclamationis", temp = 15:20)
+predict(main_effect_fit, new_values)
+```
+
 
 # A tidyverse exmaple of applying models
 Say we want to apply a model to each of the different species in the data set, this is done by nesting the data as follows:
