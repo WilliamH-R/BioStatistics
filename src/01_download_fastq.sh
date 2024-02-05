@@ -68,7 +68,7 @@ process_line() {
 
         # Download reads with fastq-dump
         echo $fastq_dump_options
-        nice -n 19 fastq-dump $fastq_dump_options
+        fastq-dump $fastq_dump_options
 
     fi
 }
