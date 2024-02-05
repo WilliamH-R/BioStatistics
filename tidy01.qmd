@@ -1,9 +1,52 @@
 ```{r setup, include = FALSE}
+set.seed(1337)
+
 library("tidymodels")
 tidymodels::tidymodels_prefer()
+
+
+data("iris")
+iris <- iris %>%
+  tibble::as_tibble()
 ```
 
 
 # Introduction to Tidy Modelling
+For simplicity, the `iris` dataset is used as the structure is simple, and readers should be familiar with it. As a quick reminder, the dataset consists of five variables (columns) and 150 observations (rows). The first four variables are doubles describing the size of the flower, used as predictors. The last variable is a factor indicating the species of flower, used as the outcome.
+```{r}
+dim(iris)
 
+
+iris %>% 
+  slice_head(n = 5) %>%
+  str()
+```
+
+As is customary when modeling, the dataset is split into a training- and testing set. We need to check for class imbalance in case some outcomes (species) are more likely in the dataset. As seen from , it is not the case.
+```{r}
+#| label: iris_species_count
+#| fig-cap: "Count of each species in the iris dataset"
+iris %>% 
+  ggplot(aes(x = Species,
+             fill = Species)) +
+  geom_bar()
+```
+
+If we saw a class imbalance, we would have used the below code for splitting the data. The `prop` argument indicates that 80% of the data is used for training and 20% for testing.
+```{r}
+#| eval: FALSE
+
+iris_split <- initial_split(ames, prop = 0.80, strata = Species)
+iris_train <- training(iris_split)
+iris_test <- testing(iris_split)
+```
+
+As this is not the case, we use the below very similar code chunk.
+```{r}
+#| eval: FALSE
+
+iris_split <- initial_split(ames, prop = 0.80)
+iris_train <- training(iris_split)
+iris_test <- testing(iris_split)
+```
 
