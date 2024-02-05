@@ -63,7 +63,7 @@ trim_command() {
         trim1=$(echo $base | sed "s/.fastq.gz//")_trimmed_1.fastq.gz
         trim2=$(echo $base | sed "s/.fastq.gz//")_trimmed_2.fastq.gz
         st=$(echo $base | sed "s/.fastq.gz//")_trimmed_singleton.fastq.gz
-        /home/ctools/fastp/fastp in1=$1 in2=$read2 out1="$trimmed_dir"$trim1 out2="$trimmed_dir"$trim2 thread=$threads l=$minlength --cut-tail --adapter_sequence=AATGATACGGCGACCACCGAGATCTACACGCT --adapter_sequence_r2=CAAGCAGAAGACGGCATACGAGAT
+        /home/ctools/fastp/fastp in1=$1 in2=$read2 out1="$trimmed_dir"$trim1 out2="$trimmed_dir"$trim2 thread=$threads l=$minlength --cut_tail --adapter_sequence=AATGATACGGCGACCACCGAGATCTACACGCT --adapter_sequence_r2=CAAGCAGAAGACGGCATACGAGAT
     else
         trim1=$(echo $base | sed "s/.fastq.gz//")_trimmed.fastq.gz
         /home/ctools/fastp/fastp in1=$1 out1="$trimmed_dir"$trim1 thread=$threads l=$minlength
@@ -74,7 +74,6 @@ export -f trim_command
 
 # Run the trimming process and log the output
 if [ "$read_type" == "paired" ]; then
-    echo "HERE"
     ls "$reads_dir"*_1.fastq.gz | \
     parallel -j $thread trim_command 2>&1 | tee -a "$log_path"
 
