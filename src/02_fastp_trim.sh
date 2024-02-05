@@ -75,7 +75,6 @@ export -f trim_command
 # Run the trimming process and log the output
 if [ "$read_type" == "paired" ]; then
     ls "$reads_dir"*_1.fastq.gz | \
-    head -n 2 | \
     parallel -j $thread trim_command 2>&1 | tee -a "$log_path"
 
     # Rename files if run for paired reads
