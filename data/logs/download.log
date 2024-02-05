@@ -1,1368 +1,1824 @@
-Processing line: SRR14214860
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214860
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14214861
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214861
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14214862
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214862
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14214863
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214863
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14214864
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214864
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14214865
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214865
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14214866
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214866
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14214867
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214867
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14214868
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214868
-nice: ‘fastq-dump’: No such file or directory
 Processing line: SRR14214869
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214869
-nice: ‘fastq-dump’: No such file or directory
+Read 14327 spots for SRR14214869
+Written 14327 spots for SRR14214869
+Processing line: SRR14214860
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214860
+Read 16706 spots for SRR14214860
+Written 16706 spots for SRR14214860
+Processing line: SRR14214866
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214866
+Read 34084 spots for SRR14214866
+Written 34084 spots for SRR14214866
+Processing line: SRR14214867
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214867
+Read 17928 spots for SRR14214867
+Written 17928 spots for SRR14214867
+Processing line: SRR14214864
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214864
+Read 19493 spots for SRR14214864
+Written 19493 spots for SRR14214864
+Processing line: SRR14214862
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214862
+Read 29402 spots for SRR14214862
+Written 29402 spots for SRR14214862
 Processing line: SRR14214870
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214870
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14214871
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214871
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14214872
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214872
-nice: ‘fastq-dump’: No such file or directory
+Read 8811 spots for SRR14214870
+Written 8811 spots for SRR14214870
+Processing line: SRR14214861
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214861
+Read 33977 spots for SRR14214861
+Written 33977 spots for SRR14214861
+Processing line: SRR14214865
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214865
+Read 55327 spots for SRR14214865
+Written 55327 spots for SRR14214865
+Processing line: SRR14214863
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214863
+Read 38225 spots for SRR14214863
+Written 38225 spots for SRR14214863
 Processing line: SRR14214873
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214873
-nice: ‘fastq-dump’: No such file or directory
+Read 9388 spots for SRR14214873
+Written 9388 spots for SRR14214873
+Processing line: SRR14214868
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214868
+Read 58239 spots for SRR14214868
+Written 58239 spots for SRR14214868
 Processing line: SRR14214874
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214874
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14214875
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214875
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14214876
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214876
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14214877
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214877
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14214878
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214878
-nice: ‘fastq-dump’: No such file or directory
+Read 14502 spots for SRR14214874
+Written 14502 spots for SRR14214874
+Processing line: SRR14214871
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214871
+Read 42984 spots for SRR14214871
+Written 42984 spots for SRR14214871
+Processing line: SRR14214872
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214872
+Read 22578 spots for SRR14214872
+Written 22578 spots for SRR14214872
 Processing line: SRR14214879
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214879
-nice: ‘fastq-dump’: No such file or directory
+Read 5251 spots for SRR14214879
+Written 5251 spots for SRR14214879
+Processing line: SRR14214877
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214877
+Read 39475 spots for SRR14214877
+Written 39475 spots for SRR14214877
+Processing line: SRR14214876
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214876
+Read 44321 spots for SRR14214876
+Written 44321 spots for SRR14214876
 Processing line: SRR14214880
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214880
-nice: ‘fastq-dump’: No such file or directory
+Read 34219 spots for SRR14214880
+Written 34219 spots for SRR14214880
 Processing line: SRR14214881
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214881
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14214882
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214882
-nice: ‘fastq-dump’: No such file or directory
+Read 13617 spots for SRR14214881
+Written 13617 spots for SRR14214881
+Processing line: SRR14214878
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214878
+Read 29205 spots for SRR14214878
+Written 29205 spots for SRR14214878
 Processing line: SRR14214883
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214883
-nice: ‘fastq-dump’: No such file or directory
+Read 34025 spots for SRR14214883
+Written 34025 spots for SRR14214883
+Processing line: SRR14214882
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214882
+Read 18792 spots for SRR14214882
+Written 18792 spots for SRR14214882
 Processing line: SRR14214884
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214884
-nice: ‘fastq-dump’: No such file or directory
+Read 24713 spots for SRR14214884
+Written 24713 spots for SRR14214884
 Processing line: SRR14214885
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214885
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14214886
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214886
-nice: ‘fastq-dump’: No such file or directory
+Read 6435 spots for SRR14214885
+Written 6435 spots for SRR14214885
+Processing line: SRR14214875
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214875
+Read 60004 spots for SRR14214875
+Written 60004 spots for SRR14214875
 Processing line: SRR14214887
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214887
-nice: ‘fastq-dump’: No such file or directory
+Read 18211 spots for SRR14214887
+Written 18211 spots for SRR14214887
 Processing line: SRR14214888
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214888
-nice: ‘fastq-dump’: No such file or directory
+Read 24871 spots for SRR14214888
+Written 24871 spots for SRR14214888
 Processing line: SRR14214889
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214889
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14214890
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214890
-nice: ‘fastq-dump’: No such file or directory
+Read 26052 spots for SRR14214889
+Written 26052 spots for SRR14214889
 Processing line: SRR14214891
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214891
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14214892
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214892
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14214893
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214893
-nice: ‘fastq-dump’: No such file or directory
+Read 7352 spots for SRR14214891
+Written 7352 spots for SRR14214891
+Processing line: SRR14214890
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214890
+Read 30598 spots for SRR14214890
+Written 30598 spots for SRR14214890
+Processing line: SRR14214886
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214886
+Read 58974 spots for SRR14214886
+Written 58974 spots for SRR14214886
 Processing line: SRR14214894
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214894
-nice: ‘fastq-dump’: No such file or directory
+Read 45103 spots for SRR14214894
+Written 45103 spots for SRR14214894
 Processing line: SRR14214895
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214895
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14214896
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214896
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14214897
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214897
-nice: ‘fastq-dump’: No such file or directory
+Read 17058 spots for SRR14214895
+Written 17058 spots for SRR14214895
+Processing line: SRR14214893
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214893
+Read 35510 spots for SRR14214893
+Written 35510 spots for SRR14214893
 Processing line: SRR14214898
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214898
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14214899
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214899
-nice: ‘fastq-dump’: No such file or directory
+Read 14767 spots for SRR14214898
+Written 14767 spots for SRR14214898
+Processing line: SRR14214892
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214892
+Read 50488 spots for SRR14214892
+Written 50488 spots for SRR14214892
+Processing line: SRR14214897
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214897
+Read 15328 spots for SRR14214897
+Written 15328 spots for SRR14214897
 Processing line: SRR14214900
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214900
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14214901
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214901
-nice: ‘fastq-dump’: No such file or directory
+Read 38956 spots for SRR14214900
+Written 38956 spots for SRR14214900
+Processing line: SRR14214899
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214899
+Read 19844 spots for SRR14214899
+Written 19844 spots for SRR14214899
+Processing line: SRR14214896
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214896
+Read 38437 spots for SRR14214896
+Written 38437 spots for SRR14214896
 Processing line: SRR14214902
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214902
-nice: ‘fastq-dump’: No such file or directory
+Read 24663 spots for SRR14214902
+Written 24663 spots for SRR14214902
 Processing line: SRR14214903
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214903
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14214904
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214904
-nice: ‘fastq-dump’: No such file or directory
+Read 38114 spots for SRR14214903
+Written 38114 spots for SRR14214903
+Processing line: SRR14214901
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214901
+Read 50927 spots for SRR14214901
+Written 50927 spots for SRR14214901
 Processing line: SRR14214905
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214905
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14214906
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214906
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14214907
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214907
-nice: ‘fastq-dump’: No such file or directory
+Read 43467 spots for SRR14214905
+Written 43467 spots for SRR14214905
 Processing line: SRR14214908
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214908
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14214909
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214909
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14214910
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214910
-nice: ‘fastq-dump’: No such file or directory
+Read 33062 spots for SRR14214908
+Written 33062 spots for SRR14214908
+Processing line: SRR14214904
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214904
+Read 47397 spots for SRR14214904
+Written 47397 spots for SRR14214904
+Processing line: SRR14214906
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214906
+Read 42018 spots for SRR14214906
+Written 42018 spots for SRR14214906
 Processing line: SRR14214911
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214911
-nice: ‘fastq-dump’: No such file or directory
+Read 39517 spots for SRR14214911
+Written 39517 spots for SRR14214911
+Processing line: SRR14214909
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214909
+Read 42549 spots for SRR14214909
+Written 42549 spots for SRR14214909
+Processing line: SRR14214910
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214910
+Read 42684 spots for SRR14214910
+Written 42684 spots for SRR14214910
+Processing line: SRR14214907
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214907
+Read 50652 spots for SRR14214907
+Written 50652 spots for SRR14214907
 Processing line: SRR14214912
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214912
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14214913
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214913
-nice: ‘fastq-dump’: No such file or directory
+Read 55227 spots for SRR14214912
+Written 55227 spots for SRR14214912
 Processing line: SRR14214914
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214914
-nice: ‘fastq-dump’: No such file or directory
+Read 38239 spots for SRR14214914
+Written 38239 spots for SRR14214914
 Processing line: SRR14214915
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214915
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14214916
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214916
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14214917
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214917
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14214918
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214918
-nice: ‘fastq-dump’: No such file or directory
+Read 26940 spots for SRR14214915
+Written 26940 spots for SRR14214915
+Processing line: SRR14214913
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214913
+Read 60795 spots for SRR14214913
+Written 60795 spots for SRR14214913
 Processing line: SRR14214919
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214919
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14214920
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214920
-nice: ‘fastq-dump’: No such file or directory
+Read 8133 spots for SRR14214919
+Written 8133 spots for SRR14214919
+Processing line: SRR14214918
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214918
+Read 39023 spots for SRR14214918
+Written 39023 spots for SRR14214918
+Processing line: SRR14214916
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214916
+Read 41209 spots for SRR14214916
+Written 41209 spots for SRR14214916
+Processing line: SRR14214917
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214917
+Read 54716 spots for SRR14214917
+Written 54716 spots for SRR14214917
 Processing line: SRR14214921
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214921
-nice: ‘fastq-dump’: No such file or directory
+Read 45598 spots for SRR14214921
+Written 45598 spots for SRR14214921
+Processing line: SRR14214920
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214920
+Read 48306 spots for SRR14214920
+Written 48306 spots for SRR14214920
 Processing line: SRR14214922
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214922
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14214923
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214923
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14214924
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214924
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14214925
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214925
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14214926
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214926
-nice: ‘fastq-dump’: No such file or directory
+Read 28511 spots for SRR14214922
+Written 28511 spots for SRR14214922
 Processing line: SRR14214927
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214927
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14214928
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214928
-nice: ‘fastq-dump’: No such file or directory
+Read 42150 spots for SRR14214927
+Written 42150 spots for SRR14214927
+Processing line: SRR14214923
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214923
+Read 45978 spots for SRR14214923
+Written 45978 spots for SRR14214923
+Processing line: SRR14214925
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214925
+Read 50065 spots for SRR14214925
+Written 50065 spots for SRR14214925
 Processing line: SRR14214929
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214929
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14214930
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214930
-nice: ‘fastq-dump’: No such file or directory
+Read 23147 spots for SRR14214929
+Written 23147 spots for SRR14214929
+Processing line: SRR14214928
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214928
+Read 37342 spots for SRR14214928
+Written 37342 spots for SRR14214928
+Processing line: SRR14214924
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214924
+Read 61832 spots for SRR14214924
+Written 61832 spots for SRR14214924
 Processing line: SRR14214931
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214931
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14214932
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214932
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14214933
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214933
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14214934
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214934
-nice: ‘fastq-dump’: No such file or directory
+Read 46051 spots for SRR14214931
+Written 46051 spots for SRR14214931
+Processing line: SRR14214930
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214930
+Read 50114 spots for SRR14214930
+Written 50114 spots for SRR14214930
 Processing line: SRR14214935
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214935
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14214936
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214936
-nice: ‘fastq-dump’: No such file or directory
+Read 23829 spots for SRR14214935
+Written 23829 spots for SRR14214935
+Processing line: SRR14214934
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214934
+Read 44769 spots for SRR14214934
+Written 44769 spots for SRR14214934
+Processing line: SRR14214932
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214932
+Read 43296 spots for SRR14214932
+Written 43296 spots for SRR14214932
 Processing line: SRR14214937
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214937
-nice: ‘fastq-dump’: No such file or directory
+Read 28163 spots for SRR14214937
+Written 28163 spots for SRR14214937
+Processing line: SRR14214933
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214933
+Read 49078 spots for SRR14214933
+Written 49078 spots for SRR14214933
+Processing line: SRR14214926
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214926
+Read 89928 spots for SRR14214926
+Written 89928 spots for SRR14214926
 Processing line: SRR14214938
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214938
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14214939
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214939
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14214940
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214940
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14214941
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214941
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14214942
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214942
-nice: ‘fastq-dump’: No such file or directory
+Read 20575 spots for SRR14214938
+Written 20575 spots for SRR14214938
+Processing line: SRR14214936
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214936
+Read 45857 spots for SRR14214936
+Written 45857 spots for SRR14214936
 Processing line: SRR14214943
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214943
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14214944
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214944
-nice: ‘fastq-dump’: No such file or directory
+Read 28391 spots for SRR14214943
+Written 28391 spots for SRR14214943
+Processing line: SRR14214940
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214940
+Read 34858 spots for SRR14214940
+Written 34858 spots for SRR14214940
+Processing line: SRR14214939
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214939
+Read 35056 spots for SRR14214939
+Written 35056 spots for SRR14214939
 Processing line: SRR14214945
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214945
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14214946
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214946
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14214947
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214947
-nice: ‘fastq-dump’: No such file or directory
+Read 18318 spots for SRR14214945
+Written 18318 spots for SRR14214945
 Processing line: SRR14214948
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214948
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14214949
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214949
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14214950
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214950
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14214951
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214951
-nice: ‘fastq-dump’: No such file or directory
+Read 30488 spots for SRR14214948
+Written 30488 spots for SRR14214948
+Processing line: SRR14214941
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214941
+Read 38920 spots for SRR14214941
+Written 38920 spots for SRR14214941
+Processing line: SRR14214942
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214942
+Read 52113 spots for SRR14214942
+Written 52113 spots for SRR14214942
+Processing line: SRR14214946
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214946
+Read 32826 spots for SRR14214946
+Written 32826 spots for SRR14214946
+Processing line: SRR14214947
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214947
+Read 23223 spots for SRR14214947
+Written 23223 spots for SRR14214947
+Processing line: SRR14214944
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214944
+Read 53249 spots for SRR14214944
+Written 53249 spots for SRR14214944
 Processing line: SRR14214952
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214952
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14214953
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214953
-nice: ‘fastq-dump’: No such file or directory
+Read 11356 spots for SRR14214952
+Written 11356 spots for SRR14214952
+Processing line: SRR14214951
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214951
+Read 9196 spots for SRR14214951
+Written 9196 spots for SRR14214951
+Processing line: SRR14214950
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214950
+Read 21188 spots for SRR14214950
+Written 21188 spots for SRR14214950
 Processing line: SRR14214954
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214954
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14214955
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214955
-nice: ‘fastq-dump’: No such file or directory
+Read 25757 spots for SRR14214954
+Written 25757 spots for SRR14214954
+Processing line: SRR14214949
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214949
+Read 42373 spots for SRR14214949
+Written 42373 spots for SRR14214949
 Processing line: SRR14214956
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214956
-nice: ‘fastq-dump’: No such file or directory
+Read 10593 spots for SRR14214956
+Written 10593 spots for SRR14214956
+Processing line: SRR14214953
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214953
+Read 23038 spots for SRR14214953
+Written 23038 spots for SRR14214953
 Processing line: SRR14214957
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214957
-nice: ‘fastq-dump’: No such file or directory
+Read 30850 spots for SRR14214957
+Written 30850 spots for SRR14214957
+Processing line: SRR14214955
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214955
+Read 45225 spots for SRR14214955
+Written 45225 spots for SRR14214955
 Processing line: SRR14214958
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214958
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14214959
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214959
-nice: ‘fastq-dump’: No such file or directory
+Read 31640 spots for SRR14214958
+Written 31640 spots for SRR14214958
 Processing line: SRR14214960
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214960
-nice: ‘fastq-dump’: No such file or directory
+Read 23777 spots for SRR14214960
+Written 23777 spots for SRR14214960
 Processing line: SRR14214961
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214961
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14214962
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214962
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14214963
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214963
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14214964
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214964
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14214965
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214965
-nice: ‘fastq-dump’: No such file or directory
+Read 41459 spots for SRR14214961
+Written 41459 spots for SRR14214961
 Processing line: SRR14214966
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214966
-nice: ‘fastq-dump’: No such file or directory
+Read 12446 spots for SRR14214966
+Written 12446 spots for SRR14214966
+Processing line: SRR14214959
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214959
+Read 51652 spots for SRR14214959
+Written 51652 spots for SRR14214959
+Processing line: SRR14214962
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214962
+Read 19867 spots for SRR14214962
+Written 19867 spots for SRR14214962
 Processing line: SRR14214967
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214967
-nice: ‘fastq-dump’: No such file or directory
+Read 21046 spots for SRR14214967
+Written 21046 spots for SRR14214967
+Processing line: SRR14214965
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214965
+Read 25394 spots for SRR14214965
+Written 25394 spots for SRR14214965
+Processing line: SRR14214964
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214964
+Read 15397 spots for SRR14214964
+Written 15397 spots for SRR14214964
+Processing line: SRR14214963
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214963
+Read 30594 spots for SRR14214963
+Written 30594 spots for SRR14214963
 Processing line: SRR14214968
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214968
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14214969
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214969
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14214970
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214970
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14214971
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214971
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14214972
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214972
-nice: ‘fastq-dump’: No such file or directory
+Read 28518 spots for SRR14214968
+Written 28518 spots for SRR14214968
 Processing line: SRR14214973
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214973
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14214974
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214974
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14214975
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214975
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14214976
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214976
-nice: ‘fastq-dump’: No such file or directory
+Read 23650 spots for SRR14214973
+Written 23650 spots for SRR14214973
+Processing line: SRR14214971
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214971
+Read 43348 spots for SRR14214971
+Written 43348 spots for SRR14214971
+Processing line: SRR14214969
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214969
+Read 47884 spots for SRR14214969
+Written 47884 spots for SRR14214969
 Processing line: SRR14214977
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214977
-nice: ‘fastq-dump’: No such file or directory
+Read 29075 spots for SRR14214977
+Written 29075 spots for SRR14214977
+Processing line: SRR14214972
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214972
+Read 40238 spots for SRR14214972
+Written 40238 spots for SRR14214972
+Processing line: SRR14214970
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214970
+Read 51592 spots for SRR14214970
+Written 51592 spots for SRR14214970
+Processing line: SRR14214974
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214974
+Read 51357 spots for SRR14214974
+Written 51357 spots for SRR14214974
+Processing line: SRR14214976
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214976
+Read 37952 spots for SRR14214976
+Written 37952 spots for SRR14214976
+Processing line: SRR14214975
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214975
+Read 46167 spots for SRR14214975
+Written 46167 spots for SRR14214975
 Processing line: SRR14214978
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214978
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14214979
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214979
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14214980
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214980
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14214981
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214981
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14214982
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214982
-nice: ‘fastq-dump’: No such file or directory
+Read 41510 spots for SRR14214978
+Written 41510 spots for SRR14214978
 Processing line: SRR14214983
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214983
-nice: ‘fastq-dump’: No such file or directory
+Read 39604 spots for SRR14214983
+Written 39604 spots for SRR14214983
+Processing line: SRR14214981
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214981
+Read 49524 spots for SRR14214981
+Written 49524 spots for SRR14214981
+Processing line: SRR14214979
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214979
+Read 48107 spots for SRR14214979
+Written 48107 spots for SRR14214979
+Processing line: SRR14214982
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214982
+Read 44579 spots for SRR14214982
+Written 44579 spots for SRR14214982
 Processing line: SRR14214984
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214984
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14214985
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214985
-nice: ‘fastq-dump’: No such file or directory
+Read 38836 spots for SRR14214984
+Written 38836 spots for SRR14214984
 Processing line: SRR14214986
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214986
-nice: ‘fastq-dump’: No such file or directory
+Read 34612 spots for SRR14214986
+Written 34612 spots for SRR14214986
+Processing line: SRR14214985
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214985
+Read 39294 spots for SRR14214985
+Written 39294 spots for SRR14214985
+Processing line: SRR14214980
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214980
+Read 65392 spots for SRR14214980
+Written 65392 spots for SRR14214980
 Processing line: SRR14214987
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214987
-nice: ‘fastq-dump’: No such file or directory
+Read 47446 spots for SRR14214987
+Written 47446 spots for SRR14214987
 Processing line: SRR14214988
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214988
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14214989
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214989
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14214990
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214990
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14214991
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214991
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14214992
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214992
-nice: ‘fastq-dump’: No such file or directory
+Read 44079 spots for SRR14214988
+Written 44079 spots for SRR14214988
 Processing line: SRR14214993
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214993
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14214994
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214994
-nice: ‘fastq-dump’: No such file or directory
+Read 37923 spots for SRR14214993
+Written 37923 spots for SRR14214993
+Processing line: SRR14214991
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214991
+Read 54252 spots for SRR14214991
+Written 54252 spots for SRR14214991
+Processing line: SRR14214990
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214990
+Read 42661 spots for SRR14214990
+Written 42661 spots for SRR14214990
+Processing line: SRR14214989
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214989
+Read 42329 spots for SRR14214989
+Written 42329 spots for SRR14214989
+Processing line: SRR14214992
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214992
+Read 40966 spots for SRR14214992
+Written 40966 spots for SRR14214992
 Processing line: SRR14214995
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214995
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14214996
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214996
-nice: ‘fastq-dump’: No such file or directory
+Read 36621 spots for SRR14214995
+Written 36621 spots for SRR14214995
+Processing line: SRR14214994
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214994
+Read 44467 spots for SRR14214994
+Written 44467 spots for SRR14214994
 Processing line: SRR14214997
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214997
-nice: ‘fastq-dump’: No such file or directory
+Read 44850 spots for SRR14214997
+Written 44850 spots for SRR14214997
+Processing line: SRR14214996
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214996
+Read 38985 spots for SRR14214996
+Written 38985 spots for SRR14214996
 Processing line: SRR14214998
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214998
-nice: ‘fastq-dump’: No such file or directory
+Read 44159 spots for SRR14214998
+Written 44159 spots for SRR14214998
 Processing line: SRR14214999
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14214999
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215000
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215000
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215001
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215001
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215002
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215002
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215003
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215003
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215004
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215004
-nice: ‘fastq-dump’: No such file or directory
+Read 45399 spots for SRR14214999
+Written 45399 spots for SRR14214999
 Processing line: SRR14215005
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215005
-nice: ‘fastq-dump’: No such file or directory
+Read 23870 spots for SRR14215005
+Written 23870 spots for SRR14215005
+Processing line: SRR14215001
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215001
+Read 43063 spots for SRR14215001
+Written 43063 spots for SRR14215001
+Processing line: SRR14215002
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215002
+Read 49267 spots for SRR14215002
+Written 49267 spots for SRR14215002
+Processing line: SRR14215003
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215003
+Read 49709 spots for SRR14215003
+Written 49709 spots for SRR14215003
 Processing line: SRR14215006
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215006
-nice: ‘fastq-dump’: No such file or directory
+Read 26568 spots for SRR14215006
+Written 26568 spots for SRR14215006
+Processing line: SRR14215000
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215000
+Read 65885 spots for SRR14215000
+Written 65885 spots for SRR14215000
 Processing line: SRR14215007
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215007
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215008
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215008
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215009
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215009
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215010
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215010
-nice: ‘fastq-dump’: No such file or directory
+Read 46925 spots for SRR14215007
+Written 46925 spots for SRR14215007
+Processing line: SRR14215004
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215004
+Read 43771 spots for SRR14215004
+Written 43771 spots for SRR14215004
 Processing line: SRR14215011
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215011
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215012
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215012
-nice: ‘fastq-dump’: No such file or directory
+Read 31566 spots for SRR14215011
+Written 31566 spots for SRR14215011
 Processing line: SRR14215013
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215013
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215014
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215014
-nice: ‘fastq-dump’: No such file or directory
+Read 22686 spots for SRR14215013
+Written 22686 spots for SRR14215013
+Processing line: SRR14215008
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215008
+Read 36311 spots for SRR14215008
+Written 36311 spots for SRR14215008
 Processing line: SRR14215015
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215015
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215016
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215016
-nice: ‘fastq-dump’: No such file or directory
+Read 6773 spots for SRR14215015
+Written 6773 spots for SRR14215015
+Processing line: SRR14215009
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215009
+Read 44908 spots for SRR14215009
+Written 44908 spots for SRR14215009
+Processing line: SRR14215010
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215010
+Read 48895 spots for SRR14215010
+Written 48895 spots for SRR14215010
+Processing line: SRR14215014
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215014
+Read 26807 spots for SRR14215014
+Written 26807 spots for SRR14215014
+Processing line: SRR14215012
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215012
+Read 27448 spots for SRR14215012
+Written 27448 spots for SRR14215012
 Processing line: SRR14215017
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215017
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215018
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215018
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215019
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215019
-nice: ‘fastq-dump’: No such file or directory
+Read 23622 spots for SRR14215017
+Written 23622 spots for SRR14215017
+Processing line: SRR14215016
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215016
+Read 30302 spots for SRR14215016
+Written 30302 spots for SRR14215016
 Processing line: SRR14215020
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215020
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215021
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215021
-nice: ‘fastq-dump’: No such file or directory
+Read 24380 spots for SRR14215020
+Written 24380 spots for SRR14215020
+Processing line: SRR14215018
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215018
+Read 32526 spots for SRR14215018
+Written 32526 spots for SRR14215018
+Processing line: SRR14215019
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215019
+Read 37570 spots for SRR14215019
+Written 37570 spots for SRR14215019
 Processing line: SRR14215022
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215022
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215023
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215023
-nice: ‘fastq-dump’: No such file or directory
+Read 37999 spots for SRR14215022
+Written 37999 spots for SRR14215022
 Processing line: SRR14215024
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215024
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215025
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215025
-nice: ‘fastq-dump’: No such file or directory
+Read 11918 spots for SRR14215024
+Written 11918 spots for SRR14215024
 Processing line: SRR14215026
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215026
-nice: ‘fastq-dump’: No such file or directory
+Read 18967 spots for SRR14215026
+Written 18967 spots for SRR14215026
 Processing line: SRR14215027
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215027
-nice: ‘fastq-dump’: No such file or directory
+Read 9438 spots for SRR14215027
+Written 9438 spots for SRR14215027
+Processing line: SRR14215021
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215021
+Read 52654 spots for SRR14215021
+Written 52654 spots for SRR14215021
+Processing line: SRR14215023
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215023
+Read 41283 spots for SRR14215023
+Written 41283 spots for SRR14215023
+Processing line: SRR14215025
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215025
+Read 38047 spots for SRR14215025
+Written 38047 spots for SRR14215025
 Processing line: SRR14215028
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215028
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215029
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215029
-nice: ‘fastq-dump’: No such file or directory
+Read 4079 spots for SRR14215028
+Written 4079 spots for SRR14215028
 Processing line: SRR14215030
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215030
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215031
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215031
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215032
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215032
-nice: ‘fastq-dump’: No such file or directory
+Read 18529 spots for SRR14215030
+Written 18529 spots for SRR14215030
 Processing line: SRR14215033
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215033
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215034
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215034
-nice: ‘fastq-dump’: No such file or directory
+Read 12557 spots for SRR14215033
+Written 12557 spots for SRR14215033
+Processing line: SRR14215029
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215029
+Read 25447 spots for SRR14215029
+Written 25447 spots for SRR14215029
 Processing line: SRR14215035
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215035
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215036
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215036
-nice: ‘fastq-dump’: No such file or directory
+Read 35357 spots for SRR14215035
+Written 35357 spots for SRR14215035
+Processing line: SRR14215034
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215034
+Read 31705 spots for SRR14215034
+Written 31705 spots for SRR14215034
+Processing line: SRR14215031
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215031
+Read 27863 spots for SRR14215031
+Written 27863 spots for SRR14215031
+Processing line: SRR14215032
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215032
+Read 40344 spots for SRR14215032
+Written 40344 spots for SRR14215032
 Processing line: SRR14215037
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215037
-nice: ‘fastq-dump’: No such file or directory
+Read 52777 spots for SRR14215037
+Written 52777 spots for SRR14215037
 Processing line: SRR14215038
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215038
-nice: ‘fastq-dump’: No such file or directory
+Read 30244 spots for SRR14215038
+Written 30244 spots for SRR14215038
+Processing line: SRR14215036
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215036
+Read 48127 spots for SRR14215036
+Written 48127 spots for SRR14215036
 Processing line: SRR14215039
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215039
-nice: ‘fastq-dump’: No such file or directory
+Read 38462 spots for SRR14215039
+Written 38462 spots for SRR14215039
 Processing line: SRR14215040
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215040
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215041
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215041
-nice: ‘fastq-dump’: No such file or directory
+Read 48520 spots for SRR14215040
+Written 48520 spots for SRR14215040
 Processing line: SRR14215042
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215042
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215043
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215043
-nice: ‘fastq-dump’: No such file or directory
+Read 51119 spots for SRR14215042
+Written 51119 spots for SRR14215042
 Processing line: SRR14215044
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215044
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215045
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215045
-nice: ‘fastq-dump’: No such file or directory
+Read 41568 spots for SRR14215044
+Written 41568 spots for SRR14215044
+Processing line: SRR14215041
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215041
+Read 55124 spots for SRR14215041
+Written 55124 spots for SRR14215041
 Processing line: SRR14215046
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215046
-nice: ‘fastq-dump’: No such file or directory
+Read 30968 spots for SRR14215046
+Written 30968 spots for SRR14215046
+Processing line: SRR14215043
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215043
+Read 55367 spots for SRR14215043
+Written 55367 spots for SRR14215043
+Processing line: SRR14215045
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215045
+Read 46052 spots for SRR14215045
+Written 46052 spots for SRR14215045
 Processing line: SRR14215047
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215047
-nice: ‘fastq-dump’: No such file or directory
+Read 49602 spots for SRR14215047
+Written 49602 spots for SRR14215047
 Processing line: SRR14215048
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215048
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215049
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215049
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215050
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215050
-nice: ‘fastq-dump’: No such file or directory
+Read 47248 spots for SRR14215048
+Written 47248 spots for SRR14215048
 Processing line: SRR14215051
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215051
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215052
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215052
-nice: ‘fastq-dump’: No such file or directory
+Read 54458 spots for SRR14215051
+Written 54458 spots for SRR14215051
+Processing line: SRR14215049
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215049
+Read 44224 spots for SRR14215049
+Written 44224 spots for SRR14215049
+Processing line: SRR14215050
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215050
+Read 52861 spots for SRR14215050
+Written 52861 spots for SRR14215050
 Processing line: SRR14215053
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215053
-nice: ‘fastq-dump’: No such file or directory
+Read 29876 spots for SRR14215053
+Written 29876 spots for SRR14215053
 Processing line: SRR14215054
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215054
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215055
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215055
-nice: ‘fastq-dump’: No such file or directory
+Read 42274 spots for SRR14215054
+Written 42274 spots for SRR14215054
 Processing line: SRR14215056
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215056
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215057
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215057
-nice: ‘fastq-dump’: No such file or directory
+Read 32850 spots for SRR14215056
+Written 32850 spots for SRR14215056
+Processing line: SRR14215052
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215052
+Read 53342 spots for SRR14215052
+Written 53342 spots for SRR14215052
+Processing line: SRR14215055
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215055
+Read 51285 spots for SRR14215055
+Written 51285 spots for SRR14215055
 Processing line: SRR14215058
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215058
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215059
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215059
-nice: ‘fastq-dump’: No such file or directory
+Read 47019 spots for SRR14215058
+Written 47019 spots for SRR14215058
+Processing line: SRR14215057
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215057
+Read 41222 spots for SRR14215057
+Written 41222 spots for SRR14215057
 Processing line: SRR14215060
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215060
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215061
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215061
-nice: ‘fastq-dump’: No such file or directory
+Read 42995 spots for SRR14215060
+Written 42995 spots for SRR14215060
+Processing line: SRR14215059
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215059
+Read 44056 spots for SRR14215059
+Written 44056 spots for SRR14215059
 Processing line: SRR14215062
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215062
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215063
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215063
-nice: ‘fastq-dump’: No such file or directory
+Read 43752 spots for SRR14215062
+Written 43752 spots for SRR14215062
 Processing line: SRR14215064
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215064
-nice: ‘fastq-dump’: No such file or directory
+Read 31666 spots for SRR14215064
+Written 31666 spots for SRR14215064
+Processing line: SRR14215061
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215061
+Read 49193 spots for SRR14215061
+Written 49193 spots for SRR14215061
+Processing line: SRR14215063
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215063
+Read 53463 spots for SRR14215063
+Written 53463 spots for SRR14215063
 Processing line: SRR14215065
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215065
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215066
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215066
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215067
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215067
-nice: ‘fastq-dump’: No such file or directory
+Read 44251 spots for SRR14215065
+Written 44251 spots for SRR14215065
 Processing line: SRR14215068
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215068
-nice: ‘fastq-dump’: No such file or directory
+Read 33881 spots for SRR14215068
+Written 33881 spots for SRR14215068
+Processing line: SRR14215066
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215066
+Read 36662 spots for SRR14215066
+Written 36662 spots for SRR14215066
 Processing line: SRR14215069
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215069
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215070
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215070
-nice: ‘fastq-dump’: No such file or directory
+Read 16556 spots for SRR14215069
+Written 16556 spots for SRR14215069
+Processing line: SRR14215067
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215067
+Read 40378 spots for SRR14215067
+Written 40378 spots for SRR14215067
 Processing line: SRR14215071
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215071
-nice: ‘fastq-dump’: No such file or directory
+Read 28221 spots for SRR14215071
+Written 28221 spots for SRR14215071
+Processing line: SRR14215070
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215070
+Read 24499 spots for SRR14215070
+Written 24499 spots for SRR14215070
 Processing line: SRR14215072
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215072
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215073
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215073
-nice: ‘fastq-dump’: No such file or directory
+Read 37720 spots for SRR14215072
+Written 37720 spots for SRR14215072
 Processing line: SRR14215074
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215074
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215075
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215075
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215076
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215076
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215077
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215077
-nice: ‘fastq-dump’: No such file or directory
+Read 41919 spots for SRR14215074
+Written 41919 spots for SRR14215074
 Processing line: SRR14215078
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215078
-nice: ‘fastq-dump’: No such file or directory
+Read 13409 spots for SRR14215078
+Written 13409 spots for SRR14215078
+Processing line: SRR14215073
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215073
+Read 34567 spots for SRR14215073
+Written 34567 spots for SRR14215073
+Processing line: SRR14215075
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215075
+Read 35227 spots for SRR14215075
+Written 35227 spots for SRR14215075
 Processing line: SRR14215079
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215079
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215080
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215080
-nice: ‘fastq-dump’: No such file or directory
+Read 23418 spots for SRR14215079
+Written 23418 spots for SRR14215079
+Processing line: SRR14215076
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215076
+Read 36517 spots for SRR14215076
+Written 36517 spots for SRR14215076
 Processing line: SRR14215081
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215081
-nice: ‘fastq-dump’: No such file or directory
+Read 17764 spots for SRR14215081
+Written 17764 spots for SRR14215081
+Processing line: SRR14215080
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215080
+Read 42807 spots for SRR14215080
+Written 42807 spots for SRR14215080
 Processing line: SRR14215082
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215082
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215083
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215083
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215084
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215084
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215085
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215085
-nice: ‘fastq-dump’: No such file or directory
+Read 32150 spots for SRR14215082
+Written 32150 spots for SRR14215082
+Processing line: SRR14215077
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215077
+Read 78793 spots for SRR14215077
+Written 78793 spots for SRR14215077
 Processing line: SRR14215086
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215086
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215087
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215087
-nice: ‘fastq-dump’: No such file or directory
+Read 22551 spots for SRR14215086
+Written 22551 spots for SRR14215086
+Processing line: SRR14215084
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215084
+Read 25816 spots for SRR14215084
+Written 25816 spots for SRR14215084
+Processing line: SRR14215083
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215083
+Read 58834 spots for SRR14215083
+Written 58834 spots for SRR14215083
+Processing line: SRR14215085
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215085
+Read 78105 spots for SRR14215085
+Written 78105 spots for SRR14215085
 Processing line: SRR14215088
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215088
-nice: ‘fastq-dump’: No such file or directory
+Read 52432 spots for SRR14215088
+Written 52432 spots for SRR14215088
 Processing line: SRR14215089
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215089
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215090
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215090
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215091
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215091
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215092
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215092
-nice: ‘fastq-dump’: No such file or directory
+Read 51216 spots for SRR14215089
+Written 51216 spots for SRR14215089
 Processing line: SRR14215093
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215093
-nice: ‘fastq-dump’: No such file or directory
+Read 36351 spots for SRR14215093
+Written 36351 spots for SRR14215093
+Processing line: SRR14215091
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215091
+Read 39203 spots for SRR14215091
+Written 39203 spots for SRR14215091
+Processing line: SRR14215092
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215092
+Read 33295 spots for SRR14215092
+Written 33295 spots for SRR14215092
+Processing line: SRR14215087
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215087
+Read 85309 spots for SRR14215087
+Written 85309 spots for SRR14215087
 Processing line: SRR14215094
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215094
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215095
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215095
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215096
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215096
-nice: ‘fastq-dump’: No such file or directory
+Read 24405 spots for SRR14215094
+Written 24405 spots for SRR14215094
 Processing line: SRR14215097
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215097
-nice: ‘fastq-dump’: No such file or directory
+Read 29589 spots for SRR14215097
+Written 29589 spots for SRR14215097
+Processing line: SRR14215095
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215095
+Read 39843 spots for SRR14215095
+Written 39843 spots for SRR14215095
+Processing line: SRR14215090
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215090
+Read 99195 spots for SRR14215090
+Written 99195 spots for SRR14215090
+Processing line: SRR14215096
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215096
+Read 31549 spots for SRR14215096
+Written 31549 spots for SRR14215096
 Processing line: SRR14215098
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215098
-nice: ‘fastq-dump’: No such file or directory
+Read 39295 spots for SRR14215098
+Written 39295 spots for SRR14215098
 Processing line: SRR14215099
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215099
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215100
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215100
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215101
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215101
-nice: ‘fastq-dump’: No such file or directory
+Read 35667 spots for SRR14215099
+Written 35667 spots for SRR14215099
 Processing line: SRR14215102
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215102
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215103
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215103
-nice: ‘fastq-dump’: No such file or directory
+Read 35889 spots for SRR14215102
+Written 35889 spots for SRR14215102
+Processing line: SRR14215100
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215100
+Read 41382 spots for SRR14215100
+Written 41382 spots for SRR14215100
 Processing line: SRR14215104
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215104
-nice: ‘fastq-dump’: No such file or directory
+Read 14883 spots for SRR14215104
+Written 14883 spots for SRR14215104
+Processing line: SRR14215103
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215103
+Read 32155 spots for SRR14215103
+Written 32155 spots for SRR14215103
+Processing line: SRR14215101
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215101
+Read 47839 spots for SRR14215101
+Written 47839 spots for SRR14215101
 Processing line: SRR14215105
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215105
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215106
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215106
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215107
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215107
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215108
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215108
-nice: ‘fastq-dump’: No such file or directory
+Read 35065 spots for SRR14215105
+Written 35065 spots for SRR14215105
 Processing line: SRR14215109
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215109
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215110
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215110
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215111
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215111
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215112
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215112
-nice: ‘fastq-dump’: No such file or directory
+Read 37900 spots for SRR14215109
+Written 37900 spots for SRR14215109
+Processing line: SRR14215106
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215106
+Read 50122 spots for SRR14215106
+Written 50122 spots for SRR14215106
+Processing line: SRR14215107
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215107
+Read 60771 spots for SRR14215107
+Written 60771 spots for SRR14215107
 Processing line: SRR14215113
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215113
-nice: ‘fastq-dump’: No such file or directory
+Read 32559 spots for SRR14215113
+Written 32559 spots for SRR14215113
+Processing line: SRR14215108
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215108
+Read 55592 spots for SRR14215108
+Written 55592 spots for SRR14215108
+Processing line: SRR14215110
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215110
+Read 47109 spots for SRR14215110
+Written 47109 spots for SRR14215110
 Processing line: SRR14215114
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215114
-nice: ‘fastq-dump’: No such file or directory
+Read 45414 spots for SRR14215114
+Written 45414 spots for SRR14215114
+Processing line: SRR14215112
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215112
+Read 38088 spots for SRR14215112
+Written 38088 spots for SRR14215112
+Processing line: SRR14215111
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215111
+Read 60208 spots for SRR14215111
+Written 60208 spots for SRR14215111
 Processing line: SRR14215115
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215115
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215116
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215116
-nice: ‘fastq-dump’: No such file or directory
+Read 22510 spots for SRR14215115
+Written 22510 spots for SRR14215115
 Processing line: SRR14215117
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215117
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215118
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215118
-nice: ‘fastq-dump’: No such file or directory
+Read 46775 spots for SRR14215117
+Written 46775 spots for SRR14215117
+Processing line: SRR14215116
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215116
+Read 49572 spots for SRR14215116
+Written 49572 spots for SRR14215116
 Processing line: SRR14215119
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215119
-nice: ‘fastq-dump’: No such file or directory
+Read 40976 spots for SRR14215119
+Written 40976 spots for SRR14215119
 Processing line: SRR14215120
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215120
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215121
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215121
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215122
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215122
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215123
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215123
-nice: ‘fastq-dump’: No such file or directory
+Read 28579 spots for SRR14215120
+Written 28579 spots for SRR14215120
 Processing line: SRR14215124
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215124
-nice: ‘fastq-dump’: No such file or directory
+Read 38430 spots for SRR14215124
+Written 38430 spots for SRR14215124
+Processing line: SRR14215122
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215122
+Read 45023 spots for SRR14215122
+Written 45023 spots for SRR14215122
+Processing line: SRR14215118
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215118
+Read 51724 spots for SRR14215118
+Written 51724 spots for SRR14215118
 Processing line: SRR14215125
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215125
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215126
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215126
-nice: ‘fastq-dump’: No such file or directory
+Read 41792 spots for SRR14215125
+Written 41792 spots for SRR14215125
+Processing line: SRR14215123
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215123
+Read 48213 spots for SRR14215123
+Written 48213 spots for SRR14215123
+Processing line: SRR14215121
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215121
+Read 62682 spots for SRR14215121
+Written 62682 spots for SRR14215121
 Processing line: SRR14215127
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215127
-nice: ‘fastq-dump’: No such file or directory
+Read 27411 spots for SRR14215127
+Written 27411 spots for SRR14215127
+Processing line: SRR14215126
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215126
+Read 27197 spots for SRR14215126
+Written 27197 spots for SRR14215126
 Processing line: SRR14215128
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215128
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215129
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215129
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215130
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215130
-nice: ‘fastq-dump’: No such file or directory
+Read 34193 spots for SRR14215128
+Written 34193 spots for SRR14215128
 Processing line: SRR14215131
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215131
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215132
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215132
-nice: ‘fastq-dump’: No such file or directory
+Read 32724 spots for SRR14215131
+Written 32724 spots for SRR14215131
+Processing line: SRR14215129
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215129
+Read 35379 spots for SRR14215129
+Written 35379 spots for SRR14215129
+Processing line: SRR14215130
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215130
+Read 41240 spots for SRR14215130
+Written 41240 spots for SRR14215130
 Processing line: SRR14215133
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215133
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215134
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215134
-nice: ‘fastq-dump’: No such file or directory
+Read 41603 spots for SRR14215133
+Written 41603 spots for SRR14215133
 Processing line: SRR14215135
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215135
-nice: ‘fastq-dump’: No such file or directory
+Read 27003 spots for SRR14215135
+Written 27003 spots for SRR14215135
+Processing line: SRR14215132
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215132
+Read 47882 spots for SRR14215132
+Written 47882 spots for SRR14215132
 Processing line: SRR14215136
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215136
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215137
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215137
-nice: ‘fastq-dump’: No such file or directory
+Read 31461 spots for SRR14215136
+Written 31461 spots for SRR14215136
 Processing line: SRR14215138
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215138
-nice: ‘fastq-dump’: No such file or directory
+Read 28250 spots for SRR14215138
+Written 28250 spots for SRR14215138
+Processing line: SRR14215137
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215137
+Read 32358 spots for SRR14215137
+Written 32358 spots for SRR14215137
+Processing line: SRR14215134
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215134
+Read 38140 spots for SRR14215134
+Written 38140 spots for SRR14215134
 Processing line: SRR14215139
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215139
-nice: ‘fastq-dump’: No such file or directory
+Read 31824 spots for SRR14215139
+Written 31824 spots for SRR14215139
 Processing line: SRR14215140
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215140
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215141
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215141
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215142
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215142
-nice: ‘fastq-dump’: No such file or directory
+Read 36076 spots for SRR14215140
+Written 36076 spots for SRR14215140
 Processing line: SRR14215143
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215143
-nice: ‘fastq-dump’: No such file or directory
+Read 22883 spots for SRR14215143
+Written 22883 spots for SRR14215143
+Processing line: SRR14215142
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215142
+Read 37058 spots for SRR14215142
+Written 37058 spots for SRR14215142
+Processing line: SRR14215141
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215141
+Read 40074 spots for SRR14215141
+Written 40074 spots for SRR14215141
 Processing line: SRR14215144
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215144
-nice: ‘fastq-dump’: No such file or directory
+Read 28116 spots for SRR14215144
+Written 28116 spots for SRR14215144
 Processing line: SRR14215145
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215145
-nice: ‘fastq-dump’: No such file or directory
+Read 33297 spots for SRR14215145
+Written 33297 spots for SRR14215145
 Processing line: SRR14215146
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215146
-nice: ‘fastq-dump’: No such file or directory
+Read 33938 spots for SRR14215146
+Written 33938 spots for SRR14215146
 Processing line: SRR14215147
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215147
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215148
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215148
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215149
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215149
-nice: ‘fastq-dump’: No such file or directory
+Read 32546 spots for SRR14215147
+Written 32546 spots for SRR14215147
 Processing line: SRR14215150
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215150
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215151
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215151
-nice: ‘fastq-dump’: No such file or directory
+Read 34632 spots for SRR14215150
+Written 34632 spots for SRR14215150
+Processing line: SRR14215148
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215148
+Read 28141 spots for SRR14215148
+Written 28141 spots for SRR14215148
+Processing line: SRR14215149
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215149
+Read 41882 spots for SRR14215149
+Written 41882 spots for SRR14215149
 Processing line: SRR14215152
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215152
-nice: ‘fastq-dump’: No such file or directory
+Read 32584 spots for SRR14215152
+Written 32584 spots for SRR14215152
 Processing line: SRR14215153
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215153
-nice: ‘fastq-dump’: No such file or directory
+Read 34362 spots for SRR14215153
+Written 34362 spots for SRR14215153
 Processing line: SRR14215154
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215154
-nice: ‘fastq-dump’: No such file or directory
+Read 30427 spots for SRR14215154
+Written 30427 spots for SRR14215154
+Processing line: SRR14215151
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215151
+Read 48385 spots for SRR14215151
+Written 48385 spots for SRR14215151
 Processing line: SRR14215155
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215155
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215156
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215156
-nice: ‘fastq-dump’: No such file or directory
+Read 28301 spots for SRR14215155
+Written 28301 spots for SRR14215155
 Processing line: SRR14215157
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215157
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215158
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215158
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215159
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215159
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215160
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215160
-nice: ‘fastq-dump’: No such file or directory
+Read 32056 spots for SRR14215157
+Written 32056 spots for SRR14215157
+Processing line: SRR14215156
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215156
+Read 36916 spots for SRR14215156
+Written 36916 spots for SRR14215156
 Processing line: SRR14215161
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215161
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215162
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215162
-nice: ‘fastq-dump’: No such file or directory
+Read 40113 spots for SRR14215161
+Written 40113 spots for SRR14215161
+Processing line: SRR14215158
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215158
+Read 38091 spots for SRR14215158
+Written 38091 spots for SRR14215158
+Processing line: SRR14215159
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215159
+Read 43028 spots for SRR14215159
+Written 43028 spots for SRR14215159
+Processing line: SRR14215160
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215160
+Read 36860 spots for SRR14215160
+Written 36860 spots for SRR14215160
 Processing line: SRR14215163
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215163
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215164
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215164
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215165
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215165
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215166
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215166
-nice: ‘fastq-dump’: No such file or directory
+Read 36388 spots for SRR14215163
+Written 36388 spots for SRR14215163
 Processing line: SRR14215167
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215167
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215168
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215168
-nice: ‘fastq-dump’: No such file or directory
+Read 27211 spots for SRR14215167
+Written 27211 spots for SRR14215167
+Processing line: SRR14215166
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215166
+Read 35357 spots for SRR14215166
+Written 35357 spots for SRR14215166
 Processing line: SRR14215169
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215169
-nice: ‘fastq-dump’: No such file or directory
+Read 19507 spots for SRR14215169
+Written 19507 spots for SRR14215169
+Processing line: SRR14215165
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215165
+Read 27646 spots for SRR14215165
+Written 27646 spots for SRR14215165
+Processing line: SRR14215164
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215164
+Read 40036 spots for SRR14215164
+Written 40036 spots for SRR14215164
+Processing line: SRR14215162
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215162
+Read 59785 spots for SRR14215162
+Written 59785 spots for SRR14215162
 Processing line: SRR14215170
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215170
-nice: ‘fastq-dump’: No such file or directory
+Read 43067 spots for SRR14215170
+Written 43067 spots for SRR14215170
+Processing line: SRR14215168
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215168
+Read 48142 spots for SRR14215168
+Written 48142 spots for SRR14215168
 Processing line: SRR14215171
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215171
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215172
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215172
-nice: ‘fastq-dump’: No such file or directory
+Read 40879 spots for SRR14215171
+Written 40879 spots for SRR14215171
 Processing line: SRR14215173
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215173
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215174
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215174
-nice: ‘fastq-dump’: No such file or directory
+Read 29359 spots for SRR14215173
+Written 29359 spots for SRR14215173
 Processing line: SRR14215175
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215175
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215176
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215176
-nice: ‘fastq-dump’: No such file or directory
+Read 19133 spots for SRR14215175
+Written 19133 spots for SRR14215175
+Processing line: SRR14215172
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215172
+Read 38133 spots for SRR14215172
+Written 38133 spots for SRR14215172
+Processing line: SRR14215174
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215174
+Read 41093 spots for SRR14215174
+Written 41093 spots for SRR14215174
 Processing line: SRR14215177
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215177
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215178
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215178
-nice: ‘fastq-dump’: No such file or directory
+Read 43565 spots for SRR14215177
+Written 43565 spots for SRR14215177
 Processing line: SRR14215179
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215179
-nice: ‘fastq-dump’: No such file or directory
+Read 31882 spots for SRR14215179
+Written 31882 spots for SRR14215179
+Processing line: SRR14215178
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215178
+Read 40328 spots for SRR14215178
+Written 40328 spots for SRR14215178
+Processing line: SRR14215176
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215176
+Read 50294 spots for SRR14215176
+Written 50294 spots for SRR14215176
 Processing line: SRR14215180
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215180
-nice: ‘fastq-dump’: No such file or directory
+Read 44379 spots for SRR14215180
+Written 44379 spots for SRR14215180
 Processing line: SRR14215181
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215181
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215182
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215182
-nice: ‘fastq-dump’: No such file or directory
+Read 38118 spots for SRR14215181
+Written 38118 spots for SRR14215181
 Processing line: SRR14215183
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215183
-nice: ‘fastq-dump’: No such file or directory
+Read 32025 spots for SRR14215183
+Written 32025 spots for SRR14215183
 Processing line: SRR14215184
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215184
-nice: ‘fastq-dump’: No such file or directory
+Read 35927 spots for SRR14215184
+Written 35927 spots for SRR14215184
 Processing line: SRR14215185
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215185
-nice: ‘fastq-dump’: No such file or directory
+Read 41194 spots for SRR14215185
+Written 41194 spots for SRR14215185
+Processing line: SRR14215182
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215182
+Read 46386 spots for SRR14215182
+Written 46386 spots for SRR14215182
 Processing line: SRR14215186
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215186
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215187
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215187
-nice: ‘fastq-dump’: No such file or directory
+Read 37787 spots for SRR14215186
+Written 37787 spots for SRR14215186
 Processing line: SRR14215188
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215188
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215189
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215189
-nice: ‘fastq-dump’: No such file or directory
+Read 34321 spots for SRR14215188
+Written 34321 spots for SRR14215188
 Processing line: SRR14215190
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215190
-nice: ‘fastq-dump’: No such file or directory
+Read 39505 spots for SRR14215190
+Written 39505 spots for SRR14215190
+Processing line: SRR14215187
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215187
+Read 36239 spots for SRR14215187
+Written 36239 spots for SRR14215187
 Processing line: SRR14215191
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215191
-nice: ‘fastq-dump’: No such file or directory
+Read 25653 spots for SRR14215191
+Written 25653 spots for SRR14215191
+Processing line: SRR14215189
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215189
+Read 42105 spots for SRR14215189
+Written 42105 spots for SRR14215189
 Processing line: SRR14215192
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215192
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215193
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215193
-nice: ‘fastq-dump’: No such file or directory
+Read 39737 spots for SRR14215192
+Written 39737 spots for SRR14215192
 Processing line: SRR14215194
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215194
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215195
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215195
-nice: ‘fastq-dump’: No such file or directory
+Read 22944 spots for SRR14215194
+Written 22944 spots for SRR14215194
+Processing line: SRR14215193
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215193
+Read 40598 spots for SRR14215193
+Written 40598 spots for SRR14215193
 Processing line: SRR14215196
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215196
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215197
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215197
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215198
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215198
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215199
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215199
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215200
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215200
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215201
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215201
-nice: ‘fastq-dump’: No such file or directory
+Read 52985 spots for SRR14215196
+Written 52985 spots for SRR14215196
 Processing line: SRR14215202
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215202
-nice: ‘fastq-dump’: No such file or directory
+Read 9414 spots for SRR14215202
+Written 9414 spots for SRR14215202
+Processing line: SRR14215200
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215200
+Read 30094 spots for SRR14215200
+Written 30094 spots for SRR14215200
+Processing line: SRR14215195
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215195
+Read 50598 spots for SRR14215195
+Written 50598 spots for SRR14215195
+Processing line: SRR14215197
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215197
+Read 47558 spots for SRR14215197
+Written 47558 spots for SRR14215197
+Processing line: SRR14215199
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215199
+Read 50523 spots for SRR14215199
+Written 50523 spots for SRR14215199
+Processing line: SRR14215198
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215198
+Read 54000 spots for SRR14215198
+Written 54000 spots for SRR14215198
+Processing line: SRR14215201
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215201
+Read 44965 spots for SRR14215201
+Written 44965 spots for SRR14215201
 Processing line: SRR14215203
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215203
-nice: ‘fastq-dump’: No such file or directory
+Read 43092 spots for SRR14215203
+Written 43092 spots for SRR14215203
 Processing line: SRR14215204
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215204
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215205
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215205
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215206
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215206
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215207
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215207
-nice: ‘fastq-dump’: No such file or directory
+Read 46347 spots for SRR14215204
+Written 46347 spots for SRR14215204
 Processing line: SRR14215208
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215208
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215209
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215209
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215210
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215210
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215211
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215211
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215212
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215212
-nice: ‘fastq-dump’: No such file or directory
+Read 39563 spots for SRR14215208
+Written 39563 spots for SRR14215208
+Processing line: SRR14215207
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215207
+Read 49866 spots for SRR14215207
+Written 49866 spots for SRR14215207
 Processing line: SRR14215213
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215213
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215214
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215214
-nice: ‘fastq-dump’: No such file or directory
+Read 2887 spots for SRR14215213
+Written 2887 spots for SRR14215213
+Processing line: SRR14215206
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215206
+Read 52914 spots for SRR14215206
+Written 52914 spots for SRR14215206
+Processing line: SRR14215212
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215212
+Read 5969 spots for SRR14215212
+Written 5969 spots for SRR14215212
+Processing line: SRR14215205
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215205
+Read 43242 spots for SRR14215205
+Written 43242 spots for SRR14215205
+Processing line: SRR14215211
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215211
+Read 43998 spots for SRR14215211
+Written 43998 spots for SRR14215211
+Processing line: SRR14215209
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215209
+Read 57342 spots for SRR14215209
+Written 57342 spots for SRR14215209
 Processing line: SRR14215215
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215215
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215216
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215216
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215217
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215217
-nice: ‘fastq-dump’: No such file or directory
+Read 14052 spots for SRR14215215
+Written 14052 spots for SRR14215215
 Processing line: SRR14215218
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215218
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215219
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215219
-nice: ‘fastq-dump’: No such file or directory
+Read 20585 spots for SRR14215218
+Written 20585 spots for SRR14215218
+Processing line: SRR14215214
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215214
+Read 33118 spots for SRR14215214
+Written 33118 spots for SRR14215214
 Processing line: SRR14215220
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215220
-nice: ‘fastq-dump’: No such file or directory
+Read 33489 spots for SRR14215220
+Written 33489 spots for SRR14215220
+Processing line: SRR14215219
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215219
+Read 25802 spots for SRR14215219
+Written 25802 spots for SRR14215219
+Processing line: SRR14215217
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215217
+Read 38571 spots for SRR14215217
+Written 38571 spots for SRR14215217
+Processing line: SRR14215216
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215216
+Read 52131 spots for SRR14215216
+Written 52131 spots for SRR14215216
 Processing line: SRR14215221
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215221
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215222
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215222
-nice: ‘fastq-dump’: No such file or directory
+Read 12953 spots for SRR14215221
+Written 12953 spots for SRR14215221
 Processing line: SRR14215223
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215223
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215224
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215224
-nice: ‘fastq-dump’: No such file or directory
+Read 8795 spots for SRR14215223
+Written 8795 spots for SRR14215223
+Processing line: SRR14215222
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215222
+Read 36620 spots for SRR14215222
+Written 36620 spots for SRR14215222
+Processing line: SRR14215210
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215210
+Read 148323 spots for SRR14215210
+Written 148323 spots for SRR14215210
 Processing line: SRR14215225
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215225
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215226
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215226
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215227
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215227
-nice: ‘fastq-dump’: No such file or directory
+Read 20443 spots for SRR14215225
+Written 20443 spots for SRR14215225
+Processing line: SRR14215224
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215224
+Read 30283 spots for SRR14215224
+Written 30283 spots for SRR14215224
 Processing line: SRR14215228
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215228
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215229
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215229
-nice: ‘fastq-dump’: No such file or directory
+Read 23706 spots for SRR14215228
+Written 23706 spots for SRR14215228
+Processing line: SRR14215226
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215226
+Read 38618 spots for SRR14215226
+Written 38618 spots for SRR14215226
+Processing line: SRR14215227
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215227
+Read 19672 spots for SRR14215227
+Written 19672 spots for SRR14215227
 Processing line: SRR14215230
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215230
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215231
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215231
-nice: ‘fastq-dump’: No such file or directory
+Read 31575 spots for SRR14215230
+Written 31575 spots for SRR14215230
+Processing line: SRR14215229
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215229
+Read 36475 spots for SRR14215229
+Written 36475 spots for SRR14215229
 Processing line: SRR14215232
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215232
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215233
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215233
-nice: ‘fastq-dump’: No such file or directory
+Read 35082 spots for SRR14215232
+Written 35082 spots for SRR14215232
 Processing line: SRR14215234
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215234
-nice: ‘fastq-dump’: No such file or directory
+Read 35040 spots for SRR14215234
+Written 35040 spots for SRR14215234
+Processing line: SRR14215231
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215231
+Read 37287 spots for SRR14215231
+Written 37287 spots for SRR14215231
+Processing line: SRR14215233
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215233
+Read 34415 spots for SRR14215233
+Written 34415 spots for SRR14215233
 Processing line: SRR14215235
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215235
-nice: ‘fastq-dump’: No such file or directory
+Read 34736 spots for SRR14215235
+Written 34736 spots for SRR14215235
 Processing line: SRR14215236
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215236
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215237
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215237
-nice: ‘fastq-dump’: No such file or directory
+Read 46022 spots for SRR14215236
+Written 46022 spots for SRR14215236
 Processing line: SRR14215238
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215238
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215239
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215239
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215240
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215240
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215241
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215241
-nice: ‘fastq-dump’: No such file or directory
+Read 39658 spots for SRR14215238
+Written 39658 spots for SRR14215238
 Processing line: SRR14215242
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215242
-nice: ‘fastq-dump’: No such file or directory
+Read 32437 spots for SRR14215242
+Written 32437 spots for SRR14215242
+Processing line: SRR14215239
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215239
+Read 43317 spots for SRR14215239
+Written 43317 spots for SRR14215239
+Processing line: SRR14215240
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215240
+Read 45654 spots for SRR14215240
+Written 45654 spots for SRR14215240
 Processing line: SRR14215243
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215243
-nice: ‘fastq-dump’: No such file or directory
+Read 41593 spots for SRR14215243
+Written 41593 spots for SRR14215243
+Processing line: SRR14215241
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215241
+Read 42100 spots for SRR14215241
+Written 42100 spots for SRR14215241
 Processing line: SRR14215244
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215244
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215245
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215245
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215246
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215246
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215247
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215247
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215248
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215248
-nice: ‘fastq-dump’: No such file or directory
+Read 32900 spots for SRR14215244
+Written 32900 spots for SRR14215244
+Processing line: SRR14215237
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215237
+Read 83121 spots for SRR14215237
+Written 83121 spots for SRR14215237
 Processing line: SRR14215249
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215249
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215250
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215250
-nice: ‘fastq-dump’: No such file or directory
+Read 17678 spots for SRR14215249
+Written 17678 spots for SRR14215249
+Processing line: SRR14215245
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215245
+Read 58679 spots for SRR14215245
+Written 58679 spots for SRR14215245
+Processing line: SRR14215246
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215246
+Read 43945 spots for SRR14215246
+Written 43945 spots for SRR14215246
+Processing line: SRR14215247
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215247
+Read 37579 spots for SRR14215247
+Written 37579 spots for SRR14215247
 Processing line: SRR14215251
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215251
-nice: ‘fastq-dump’: No such file or directory
+Read 43821 spots for SRR14215251
+Written 43821 spots for SRR14215251
 Processing line: SRR14215252
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215252
-nice: ‘fastq-dump’: No such file or directory
+Read 42155 spots for SRR14215252
+Written 42155 spots for SRR14215252
+Processing line: SRR14215250
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215250
+Read 47860 spots for SRR14215250
+Written 47860 spots for SRR14215250
 Processing line: SRR14215253
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215253
-nice: ‘fastq-dump’: No such file or directory
+Read 39013 spots for SRR14215253
+Written 39013 spots for SRR14215253
 Processing line: SRR14215254
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215254
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215255
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215255
-nice: ‘fastq-dump’: No such file or directory
+Read 31465 spots for SRR14215254
+Written 31465 spots for SRR14215254
+Processing line: SRR14215248
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215248
+Read 78239 spots for SRR14215248
+Written 78239 spots for SRR14215248
 Processing line: SRR14215256
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215256
-nice: ‘fastq-dump’: No such file or directory
+Read 35766 spots for SRR14215256
+Written 35766 spots for SRR14215256
+Processing line: SRR14215255
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215255
+Read 42759 spots for SRR14215255
+Written 42759 spots for SRR14215255
 Processing line: SRR14215257
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215257
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215258
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215258
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215259
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215259
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215260
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215260
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215261
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215261
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215262
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215262
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215263
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215263
-nice: ‘fastq-dump’: No such file or directory
+Read 45645 spots for SRR14215257
+Written 45645 spots for SRR14215257
 Processing line: SRR14215264
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215264
-nice: ‘fastq-dump’: No such file or directory
+Read 12146 spots for SRR14215264
+Written 12146 spots for SRR14215264
+Processing line: SRR14215261
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215261
+Read 18016 spots for SRR14215261
+Written 18016 spots for SRR14215261
+Processing line: SRR14215262
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215262
+Read 29230 spots for SRR14215262
+Written 29230 spots for SRR14215262
+Processing line: SRR14215259
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215259
+Read 37059 spots for SRR14215259
+Written 37059 spots for SRR14215259
+Processing line: SRR14215258
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215258
+Read 52966 spots for SRR14215258
+Written 52966 spots for SRR14215258
+Processing line: SRR14215263
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215263
+Read 19524 spots for SRR14215263
+Written 19524 spots for SRR14215263
+Processing line: SRR14215260
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215260
+Read 37776 spots for SRR14215260
+Written 37776 spots for SRR14215260
 Processing line: SRR14215265
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215265
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215266
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215266
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215267
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215267
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215268
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215268
-nice: ‘fastq-dump’: No such file or directory
+Read 12884 spots for SRR14215265
+Written 12884 spots for SRR14215265
 Processing line: SRR14215269
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215269
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215270
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215270
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215271
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215271
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215272
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215272
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215273
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215273
-nice: ‘fastq-dump’: No such file or directory
+Read 9150 spots for SRR14215269
+Written 9150 spots for SRR14215269
 Processing line: SRR14215274
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215274
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215275
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215275
-nice: ‘fastq-dump’: No such file or directory
+Read 12317 spots for SRR14215274
+Written 12317 spots for SRR14215274
+Processing line: SRR14215266
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215266
+Read 27711 spots for SRR14215266
+Written 27711 spots for SRR14215266
+Processing line: SRR14215271
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215271
+Read 18009 spots for SRR14215271
+Written 18009 spots for SRR14215271
+Processing line: SRR14215268
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215268
+Read 19643 spots for SRR14215268
+Written 19643 spots for SRR14215268
+Processing line: SRR14215267
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215267
+Read 24699 spots for SRR14215267
+Written 24699 spots for SRR14215267
+Processing line: SRR14215270
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215270
+Read 16752 spots for SRR14215270
+Written 16752 spots for SRR14215270
+Processing line: SRR14215273
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215273
+Read 13105 spots for SRR14215273
+Written 13105 spots for SRR14215273
 Processing line: SRR14215276
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215276
-nice: ‘fastq-dump’: No such file or directory
+Read 13311 spots for SRR14215276
+Written 13311 spots for SRR14215276
+Processing line: SRR14215275
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215275
+Read 19852 spots for SRR14215275
+Written 19852 spots for SRR14215275
 Processing line: SRR14215277
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215277
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215278
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215278
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215279
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215279
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215280
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215280
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215281
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215281
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215282
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215282
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215283
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215283
-nice: ‘fastq-dump’: No such file or directory
+Read 11375 spots for SRR14215277
+Written 11375 spots for SRR14215277
+Processing line: SRR14215272
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215272
+Read 41731 spots for SRR14215272
+Written 41731 spots for SRR14215272
 Processing line: SRR14215284
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215284
-nice: ‘fastq-dump’: No such file or directory
+Read 9691 spots for SRR14215284
+Written 9691 spots for SRR14215284
+Processing line: SRR14215282
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215282
+Read 16716 spots for SRR14215282
+Written 16716 spots for SRR14215282
+Processing line: SRR14215279
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215279
+Read 16513 spots for SRR14215279
+Written 16513 spots for SRR14215279
+Processing line: SRR14215283
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215283
+Read 20150 spots for SRR14215283
+Written 20150 spots for SRR14215283
 Processing line: SRR14215285
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215285
-nice: ‘fastq-dump’: No such file or directory
+Read 11750 spots for SRR14215285
+Written 11750 spots for SRR14215285
+Processing line: SRR14215278
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215278
+Read 49313 spots for SRR14215278
+Written 49313 spots for SRR14215278
+Processing line: SRR14215280
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215280
+Read 31554 spots for SRR14215280
+Written 31554 spots for SRR14215280
 Processing line: SRR14215286
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215286
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215287
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215287
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215288
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215288
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215289
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215289
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215290
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215290
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215291
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215291
-nice: ‘fastq-dump’: No such file or directory
+Read 36510 spots for SRR14215286
+Written 36510 spots for SRR14215286
 Processing line: SRR14215292
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215292
-nice: ‘fastq-dump’: No such file or directory
+Read 12953 spots for SRR14215292
+Written 12953 spots for SRR14215292
+Processing line: SRR14215288
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215288
+Read 37965 spots for SRR14215288
+Written 37965 spots for SRR14215288
+Processing line: SRR14215281
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215281
+Read 55815 spots for SRR14215281
+Written 55815 spots for SRR14215281
+Processing line: SRR14215291
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215291
+Read 15313 spots for SRR14215291
+Written 15313 spots for SRR14215291
+Processing line: SRR14215287
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215287
+Read 26996 spots for SRR14215287
+Written 26996 spots for SRR14215287
 Processing line: SRR14215293
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215293
-nice: ‘fastq-dump’: No such file or directory
+Read 29337 spots for SRR14215293
+Written 29337 spots for SRR14215293
+Processing line: SRR14215289
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215289
+Read 36750 spots for SRR14215289
+Written 36750 spots for SRR14215289
+Processing line: SRR14215290
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215290
+Read 22899 spots for SRR14215290
+Written 22899 spots for SRR14215290
 Processing line: SRR14215294
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215294
-nice: ‘fastq-dump’: No such file or directory
+Read 25001 spots for SRR14215294
+Written 25001 spots for SRR14215294
 Processing line: SRR14215295
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215295
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215296
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215296
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215297
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215297
-nice: ‘fastq-dump’: No such file or directory
+Read 32639 spots for SRR14215295
+Written 32639 spots for SRR14215295
 Processing line: SRR14215298
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215298
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215299
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215299
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215300
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215300
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215301
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215301
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215302
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215302
-nice: ‘fastq-dump’: No such file or directory
+Read 11715 spots for SRR14215298
+Written 11715 spots for SRR14215298
+Processing line: SRR14215296
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215296
+Read 42855 spots for SRR14215296
+Written 42855 spots for SRR14215296
 Processing line: SRR14215303
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215303
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215304
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215304
-nice: ‘fastq-dump’: No such file or directory
+Read 20450 spots for SRR14215303
+Written 20450 spots for SRR14215303
+Processing line: SRR14215302
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215302
+Read 7517 spots for SRR14215302
+Written 7517 spots for SRR14215302
+Processing line: SRR14215299
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215299
+Read 30680 spots for SRR14215299
+Written 30680 spots for SRR14215299
+Processing line: SRR14215301
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215301
+Read 9733 spots for SRR14215301
+Written 9733 spots for SRR14215301
 Processing line: SRR14215305
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215305
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215306
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215306
-nice: ‘fastq-dump’: No such file or directory
+Read 26654 spots for SRR14215305
+Written 26654 spots for SRR14215305
+Processing line: SRR14215297
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215297
+Read 46794 spots for SRR14215297
+Written 46794 spots for SRR14215297
+Processing line: SRR14215300
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215300
+Read 45117 spots for SRR14215300
+Written 45117 spots for SRR14215300
+Processing line: SRR14215304
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215304
+Read 25337 spots for SRR14215304
+Written 25337 spots for SRR14215304
 Processing line: SRR14215307
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215307
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215308
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215308
-nice: ‘fastq-dump’: No such file or directory
+Read 21791 spots for SRR14215307
+Written 21791 spots for SRR14215307
+Processing line: SRR14215306
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215306
+Read 29826 spots for SRR14215306
+Written 29826 spots for SRR14215306
 Processing line: SRR14215309
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215309
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215310
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215310
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215311
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215311
-nice: ‘fastq-dump’: No such file or directory
-Processing line: SRR14215312
---gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215312
-nice: ‘fastq-dump’: No such file or directory
+Read 6532 spots for SRR14215309
+Written 6532 spots for SRR14215309
 Processing line: SRR14215313
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215313
-nice: ‘fastq-dump’: No such file or directory
+Read 10969 spots for SRR14215313
+Written 10969 spots for SRR14215313
+Processing line: SRR14215312
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215312
+Read 19751 spots for SRR14215312
+Written 19751 spots for SRR14215312
 Processing line: SRR14215314
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215314
-nice: ‘fastq-dump’: No such file or directory
+Read 18569 spots for SRR14215314
+Written 18569 spots for SRR14215314
+Processing line: SRR14215308
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215308
+Read 25129 spots for SRR14215308
+Written 25129 spots for SRR14215308
 Processing line: SRR14215315
 --gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215315
-nice: ‘fastq-dump’: No such file or directory
+Read 29611 spots for SRR14215315
+Written 29611 spots for SRR14215315
+Processing line: SRR14215310
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215310
+Read 44431 spots for SRR14215310
+Written 44431 spots for SRR14215310
+Processing line: SRR14215311
+--gzip --skip-technical --readids --read-filter pass --dumpbase --clip -O data/_raw/ --split-files SRR14215311
+Read 45295 spots for SRR14215311
+Written 45295 spots for SRR14215311
