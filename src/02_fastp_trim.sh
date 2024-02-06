@@ -64,7 +64,7 @@ trim_command() {
         trim2=$(echo $base | sed "s/.fastq.gz//")_trimmed_2.fastq.gz
         st=$(echo $base | sed "s/.fastq.gz//")_trimmed_singleton.fastq.gz
         unpaired=$(echo $base | sed "s/.fastq.gz//")_trimmed_unpaired.fastq.gz
-        /home/ctools/fastp/fastp --in1=$1 --in2=$read2 --out1="$trimmed_dir"$trim1 --out2="$trimmed_dir"$trim2 --merged_out=$st --thread $thread -l $minlength --cut_tail --adapter_sequence=AATGATACGGCGACCACCGAGATCTACACGCT --adapter_sequence_r2=CAAGCAGAAGACGGCATACGAGAT
+        /home/ctools/fastp/fastp --in1=$1 --in2=$read2 --out1="$trimmed_dir"$trim1 --out2="$trimmed_dir"$trim2 --merged_out=$st -m --thread $thread -l $minlength --cut_tail --adapter_sequence=AATGATACGGCGACCACCGAGATCTACACGCT --adapter_sequence_r2=CAAGCAGAAGACGGCATACGAGAT
     else
         trim1=$(echo $base | sed "s/.fastq.gz//")_trimmed.fastq.gz
         /home/ctools/fastp/fastp in1=$1 out1="$trimmed_dir"$trim1 thread=$threads l=$minlength
