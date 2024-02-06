@@ -62,8 +62,8 @@ trim_command() {
         read2=$(echo $1 | sed "s/_1/_2/")
         trim1=$(echo $base | sed "s/.fastq.gz//")_trimmed_1.fastq.gz
         trim2=$(echo $base | sed "s/.fastq.gz//")_trimmed_2.fastq.gz
-        st=$(echo $base | sed "s/.fastq.gz//")_trimmed_singleton.fastq.gz
-        up=$(echo $base | sed "s/.fastq.gz//")_trimmed_unpaired.fastq.gz
+        st=$(echo $1 | sed "s/.fastq.gz//")_trimmed_singleton.fastq.gz
+        up=$(echo $1 | sed "s/.fastq.gz//")_trimmed_unpaired.fastq.gz
         echo $read2
         echo $st
         echo $up
