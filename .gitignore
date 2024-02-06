@@ -7,3 +7,5 @@
 _book/
 data/_raw/
 data/trimmed_reads/
+data/fastqc
+data/multiqc
