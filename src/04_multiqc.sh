@@ -33,4 +33,4 @@ if [ -z "$output_dir" ] || [ -z "$log_path" ] || [ -z "$input_dir" ] || [ -z "$r
 fi
 
 # Run MultiQC
-multiqc -o "$output_dir" --title "$report_title" "${input_dir}"/* > "$log_path"
+/home/ctools/bin/multiqc -o "$output_dir" --title "$report_title" "${input_dir}"/* > "$log_path"
