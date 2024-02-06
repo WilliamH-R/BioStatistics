@@ -64,6 +64,7 @@ trim_command() {
         trim2=$(echo $base | sed "s/.fastq.gz//")_trimmed_2.fastq.gz
         st=$(echo $base | sed "s/.fastq.gz//")_trimmed_singleton.fastq.gz
         up=$(echo $base | sed "s/.fastq.gz//")_trimmed_unpaired.fastq.gz
+        echo $read2
         echo $st
         echo $up
         # /home/ctools/fastp/fastp --in1=$1 --in2=$read2 --out1="$trimmed_dir"$trim1 --out2="$trimmed_dir"$trim2 \
