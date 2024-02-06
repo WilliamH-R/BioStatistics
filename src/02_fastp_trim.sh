@@ -64,9 +64,11 @@ trim_command() {
         trim2=$(echo $base | sed "s/.fastq.gz//")_trimmed_2.fastq.gz
         st=$(echo $base | sed "s/.fastq.gz//")_trimmed_singleton.fastq.gz
         up=$(echo $base | sed "s/.fastq.gz//")_trimmed_unpaired.fastq.gz
-        /home/ctools/fastp/fastp --in1=$1 --in2=$read2 --out1="$trimmed_dir"$trim1 --out2="$trimmed_dir"$trim2 \
-        -m --merged_out=$st --unpaired1=$up --unpaired2=$up --thread $thread -l $minlength --cut_tail \
-        --adapter_sequence=AATGATACGGCGACCACCGAGATCTACACGCT --adapter_sequence_r2=CAAGCAGAAGACGGCATACGAGAT
+        echo st
+        echo up
+        # /home/ctools/fastp/fastp --in1=$1 --in2=$read2 --out1="$trimmed_dir"$trim1 --out2="$trimmed_dir"$trim2 \
+        # -m --merged_out=$st --unpaired1=$up --unpaired2=$up --thread $thread -l $minlength --cut_tail \
+        # --adapter_sequence=AATGATACGGCGACCACCGAGATCTACACGCT --adapter_sequence_r2=CAAGCAGAAGACGGCATACGAGAT
     else
         trim1=$(echo $base | sed "s/.fastq.gz//")_trimmed.fastq.gz
         /home/ctools/fastp/fastp in1=$1 out1="$trimmed_dir"$trim1 thread=$threads l=$minlength
@@ -81,9 +83,9 @@ if [ "$read_type" == "paired" ]; then
     parallel -j $thread trim_command 2>&1 | tee -a "$log_path"
 
     # Rename files if run for paired reads
-    paired_end_reads=($(ls ${trimmed_dir}*_1_trimmed_*.fastq.gz))
+    paired_end_reads=($(ls ${trimmed_dir}*_1_*.fastq.gz))
     for file in "${paired_end_reads[@]}"; do
-        mv "$file" "$(echo "$file" | sed 's/_1_trimmed_/_trimmed_/')"
+        mv "$file" "$(echo "$file" | sed 's/_1_/_/')"
     done
 else
     ls "$reads_dir"*.fastq.gz | parallel -j $threads trim_command 2>&1 | tee -a "$log_path"
