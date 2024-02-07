@@ -6,7 +6,7 @@ usage() {
   echo "  -i  Input directory containing trimmed fowards and reverse reads"
   echo "  -o  Output directory for Bowtie results"
   echo "  -x  Bowtie index file path base-prefix (eg. GHCh38_noalt_as)"
-  echo "  -m  Is paired-end reads already merged (true or false)"
+  echo "  -m  Is paired-end reads already merged (true or false, string)"
   echo "  -l  File path to log file output"
   echo "  -t  Number of threads per parallel instance"
   exit 1
@@ -32,7 +32,7 @@ if [[ -z "$reads_dir" || -z "$bowtie_dir" || -z "$index_file" || -z "$log_path" 
 fi
 
 # Check if the merge option is valod
-if [ "$merge" != true ] && [ "$read_type" != false ]; then
+if [ "$merge" != 'true' ] && [ "$read_type" != 'false' ]; then
     echo "Error: Read type must be either true or false (boolean)"
     exit 1
 fi
@@ -61,7 +61,7 @@ run_bowtie() {
         -1 $read1 -2 $read2 --very-sensitive-local --un-conc-gz $out > $out_sam
 
   # Singleton file, if paired-end reads are merged
-  if [ "$merge" == true ]; then
+  if [ "$merge" == 'true' ]; then
     /home/ctools/bowtie2-2.4.4/bowtie2 -p 10 -x $index_file \
         -U $st --very-sensitive-local --un-conc-gz $out > $out_sam_st
   fi

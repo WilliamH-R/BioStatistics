@@ -7,15 +7,15 @@ read_type=""
 log_path=""
 thread=10
 minlength=10
-merge=false
+merge='false'
 
 # Function to show usage
 usage() {
-    echo "Usage: $0 -r <reads_dir> -t <trimmed_dir> -T <read_type> -l <log_path> [-p <threads> -K <kmin> -R <ktrim> -Q <qtrim> -q <trimq> -m <minlength>]"
+    echo "Usage: $0 -r <reads_dir> -t <trimmed_dir> -T <read_type> -m <merge_pe> -l <log_path> [-p <threads>]"
     echo "  -r  Directory containing raw FASTQ files"
     echo "  -t  Directory to store trimmed reads"
     echo "  -T  Type of reads (single or paired)"
-    echo "  -m  Merge paired-end reads (default false)"
+    echo "  -m  Merge paired-end reads (default 'false')"
     echo "  -l  Path to save the log file"
     echo "  -p  Number of threads (default 10)"
     # Include other options in the usage message
@@ -48,8 +48,8 @@ if [ "$read_type" != "single" ] && [ "$read_type" != "paired" ]; then
 fi
 
 # Check if the merge option is valod
-if [ "$merge" != true ] && [ "$read_type" != false ]; then
-    echo "Error: Read type must be either true or false (boolean)"
+if [ "$merge" != 'true' ] && [ "$read_type" != 'false' ]; then
+    echo "Error: Read type must be either true or false (string)"
     exit 1
 fi
 
@@ -74,7 +74,7 @@ trim_command() {
         up=$(echo $base | sed "s/.fastq.gz//")_trimmed_unpaired.fastq.gz
 
         # Decide to merge or not
-        if [ "$merge" == true ]; then
+        if [ "$merge" == 'true' ]; then
             /home/ctools/fastp/fastp --in1=$1 --in2=$read2 --out1="$trimmed_dir"$trim1 --out2="$trimmed_dir"$trim2 \
             -m --merged_out="$trimmed_dir"$st --unpaired1="$trimmed_dir"$up --unpaired2="$trimmed_dir"$up --thread $thread -l $minlength --cut_tail \
             --adapter_sequence=AATGATACGGCGACCACCGAGATCTACACGCT --adapter_sequence_r2=CAAGCAGAAGACGGCATACGAGAT
@@ -103,7 +103,7 @@ if [ "$read_type" == "paired" ]; then
     done
     
     # Merge unpaired with singleton file, if enabled
-    if [ "$merge" == true ]; then
+    if [ "$merge" == 'true' ]; then
         unpaired=($(ls ${trimmed_dir}*_unpaired.fastq.gz))
         for file in "${unpaired[@]}"; do
             cat "$file" >> "$(echo "$file" | sed 's/unpaired/singleton/')"
