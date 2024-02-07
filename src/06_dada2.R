@@ -1,13 +1,13 @@
 library('tidyverse')
 library('dada2')
 library('here')
-library('phyloseq'); packageVersion("phyloseq")
+#library('phyloseq'); packageVersion("phyloseq")
 library('Biostrings'); packageVersion("Biostrings")
 #library('ggplot2'); packageVersion("ggplot2")
 #theme_set(theme_bw())
 
 # Set path to input trimmed files
-path <- here("data/bowtie2/")
+path <- here("data/bowtie2")
 
 # Get filenames of forward and reverse reads
 fnFs <- sort(list.files(path, pattern="_1.fastq.gz", full.names = TRUE))
@@ -109,11 +109,11 @@ baseSRAs_seqtab <- gsub("_1_filt.fastq.gz", "", rownames(seqtab.nochim))
 rownames(seqtab.nochim) <- baseSRAs_seqtab
 
 taxa <- assignTaxonomy(seqtab.nochim, 
-                       here("/home/databases/SILVA2/silva_nr99_v138.1_train_set.fa.gz"),
+                       "/home/databases/SILVA2/silva_nr99_v138.1_train_set.fa.gz",
                        multithread=TRUE)
 
 taxa <- addSpecies(taxa,
-                   here("/home/databases/SILVA2/silva_species_assignment_v138.1.fa.gz"))
+                   "/home/databases/SILVA2/silva_species_assignment_v138.1.fa.gz")
 
 
 ### Off to phyloseq
@@ -123,7 +123,7 @@ meta <- meta |> filter(Run %in% baseSRAs_seqtab)
 
 # Create sample_data object and set row/ sample_names
 META = sample_data(meta)
-rownames(META) <-meta$Run
+rownames(META) <- meta$Run
 
 # Create otu_table object
 OTU <- otu_table(seqtab.nochim, taxa_are_rows = FALSE)
