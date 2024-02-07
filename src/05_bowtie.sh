@@ -47,7 +47,7 @@ run_bowtie() {
   base=$(basename $1)
   out=$(echo "${bowtie_dir}${base}" | sed "s/_trimmed_1.fastq.gz/_host_removed/")
   out_sam=$(echo "${bowtie_dir}${base}" | sed "s/_trimmed_1.fastq.gz/_mapped_and_unmapped.sam/")
-  bowtie2 -p 10 -x $index_file \
+  /home/ctools/bowtie2-2.4.4/bowtie2 -p 10 -x $index_file \
         -1 $read1 -2 $read2 --very-sensitive-local --un-conc-gz $out > $out_sam
 }
 
