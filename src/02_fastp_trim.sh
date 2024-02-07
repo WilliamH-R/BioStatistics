@@ -15,15 +15,15 @@ usage() {
     echo "  -r  Directory containing raw FASTQ files"
     echo "  -t  Directory to store trimmed reads"
     echo "  -T  Type of reads (single or paired)"
+    echo "  -m  Merge paired-end reads (default false)"
     echo "  -l  Path to save the log file"
     echo "  -p  Number of threads (default 10)"
-    echo "  -m  Merge paired-end reads (default false)"
     # Include other options in the usage message
     exit 1
 }
 
 # Parse command-line options
-while getopts 'r:t:a:T:l:p:k:K:R:Q:q:m:o:z:' flag; do
+while getopts 'r:t:T:m:l:p:' flag; do
     case "${flag}" in
         r) reads_dir=${OPTARG} ;;
         t) trimmed_dir=${OPTARG} ;;
@@ -52,7 +52,6 @@ if [ "$merge" != true ] && [ "$read_type" != false ]; then
     echo "Error: Read type must be either true or false (boolean)"
     exit 1
 fi
-
 
 # Export variables for use in the exported function
 export reads_dir trimmed_dir read_type thread minlength merge
