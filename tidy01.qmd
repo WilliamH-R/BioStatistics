@@ -7,12 +7,15 @@ tidymodels::tidymodels_prefer()
 
 data("iris")
 iris <- iris %>%
-  tibble::as_tibble()
+  tibble::as_tibble() %>% 
+  filter(Species != "setosa") %>% 
+  droplevels()
 ```
 
 
 # Introduction to Tidy Modelling
-For simplicity, the `iris` dataset is used as the structure is simple, and readers should be familiar with it. As a quick reminder, the dataset consists of five variables (columns) and 150 observations (rows). The first four variables are doubles describing the size of the flower, used as predictors. The last variable is a factor indicating the species of flower, used as the outcome.
+## Introdution to dataset
+For simplicity, the `iris` dataset is used as the structure is simple, and readers should be familiar with it. As a quick reminder, the dataset consists of five variables (columns) and 150 observations (rows). The first four variables are doubles describing the size of the flower, used as predictors. The last variable is a factor indicating the species of flower, used as the outcome. To make this a binary logistic classification problem, and not nominal, the versicolor species have been excluded.
 ```{r}
 dim(iris)
 
@@ -22,9 +25,10 @@ iris %>%
   str()
 ```
 
-As is customary when modeling, the dataset is split into a training- and testing set. We need to check for class imbalance in case some outcomes (species) are more likely in the dataset. As seen from , it is not the case.
+## Training- and test set
+As is customary when modeling, the dataset is split into a training- and testing set. We need to check for class imbalance in case some outcomes (here species) are more likely in the dataset. As seen from @fig-iris-species-count, it is not the case.
 ```{r}
-#| label: iris_species_count
+#| label: fig-iris-species-count
 #| fig-cap: "Count of each species in the iris dataset"
 iris %>% 
   ggplot(aes(x = Species,
@@ -32,21 +36,91 @@ iris %>%
   geom_bar()
 ```
 
-If we saw a class imbalance, we would have used the below code for splitting the data. The `prop` argument indicates that 80% of the data is used for training and 20% for testing.
+If we saw a class imbalance, we would have used the below code for splitting the data. The `prop` argument indicates that 90% of the data is used for training and 20% for testing.
 ```{r}
 #| eval: FALSE
 
-iris_split <- initial_split(ames, prop = 0.80, strata = Species)
+iris_split <- initial_split(iris, prop = 0.90, strata = Species)
 iris_train <- training(iris_split)
 iris_test <- testing(iris_split)
 ```
 
 As this is not the case, we use the below very similar code chunk.
 ```{r}
-#| eval: FALSE
-
-iris_split <- initial_split(ames, prop = 0.80)
+iris_split <- initial_split(iris, prop = 0.90)
 iris_train <- training(iris_split)
 iris_test <- testing(iris_split)
 ```
+
+## Fitting a model
+The `parsnip` package standardize creating models. When learning a new technique, here `parsnip`, it is a good idea to apply well known theory. Therefore, a linear logistic regression model is used to predict the species of a flower given the dimensions of the sepal and the petal.
+```{r}
+lg_model <- logistic_reg()
+```
+
+Different packages contain different ways of applying a linear logistic regression model, and therefore different ways of supplying input, but the `parsnip` package standardize it. We choose which engine to use - i.e. which package.
+
+```{r}
+# Show available packages for the model
+show_engines("logistic_reg")
+
+lg_model <- lg_model %>% 
+  set_engine("glm")
+```
+
+As the goal is to predict flower species, it is necessary to specify how the model should be fit, e.g. what are the predictors and what is the outcome. This can be done via the `formula` syntax. From the p-values we see that some predictors are not statistically meaningful. This is ignored for now, but note that this metric is important.
+
+```{r}
+#| label: tbl-all-predictors
+
+lg_fit <- lg_model %>%
+  fit(Species ~ Sepal.Length + Sepal.Width + Petal.Length + Petal.Width,
+      data = iris_train)
+
+lg_fit %>% tidy()
+```
+
+## Prediction
+Making predictions is also standardized and requires the function `predict()`. The model seem to predict correctly in all cases.
+```{r}
+iris_test %>% 
+  select(Species) %>% 
+  bind_cols(predict(lg_fit,
+                    new_data = iris_test))
+```
+
+## Fitting multiple models
+As seen from @tbl-all-predictors some terms had `pvalue > 0.05` which is usually used as the significance cutoff. This suggests some terms should be removed from the model. One method could be removing one term at a time and look at the p-values. Note: the correct method is to determine which term to remove after each iteration, not removing them one by one from the given order of p-values as done here.
+```{r}
+dimension <- list(
+  remove_one = Species ~ Sepal.Width + Petal.Length + Petal.Width,
+  remove_two = Species ~ Petal.Length + Petal.Width,
+  remove_three = Species ~ Petal.Length
+)
+
+# Note that the lg_model is the object created further above.
+dimension_models <- workflow_set(preproc = dimension,
+                                 models = list(logistic = lg_model))
+
+dimension_models
+
+# Get info on a specific workflow
+extract_workflow(dimension_models,
+                 id = "remove_one_logistic")
+```
+
+To fit each model use mapping functions from the `purrr` package.
+```{r}
+dimension_models <- dimension_models %>% 
+  mutate(fit = map(info, ~ fit(.x$workflow[[1]], iris_train)))
+
+dimension_models
+```
+
+
+
+
+
+
+
 
