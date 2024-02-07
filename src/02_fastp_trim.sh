@@ -28,9 +28,9 @@ while getopts 'r:t:a:T:l:p:k:K:R:Q:q:m:o:z:' flag; do
         r) reads_dir=${OPTARG} ;;
         t) trimmed_dir=${OPTARG} ;;
         T) read_type=${OPTARG} ;;
+        m) merge=${OPTARG} ;;
         l) log_path=${OPTARG} ;;
         p) threads=${OPTARG} ;;
-        m) merge=${OPTARG} ;;
         # Include other options here
         *) usage ;;
     esac
