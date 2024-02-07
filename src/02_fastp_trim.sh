@@ -85,6 +85,13 @@ if [ "$read_type" == "paired" ]; then
     for file in "${paired_end_reads[@]}"; do
         mv "$file" "$(echo "$file" | sed 's/_1_/_/')"
     done
+    
+    # Merge unpaired with singleton file
+    unpaired=($(ls ${trimmed_dir}*_unpaired.fastq.gz))
+    for file in "${unpaired[@]}"; do
+        cat "$file" >> "$(echo "$file" | sed 's/unpaired/singleton/')"
+    done
+    
 else
     ls "$reads_dir"*.fastq.gz | parallel -j $threads trim_command 2>&1 | tee -a "$log_path"
 fi
