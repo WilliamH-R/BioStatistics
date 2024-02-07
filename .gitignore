@@ -9,3 +9,5 @@ data/_raw/
 data/trimmed_reads/
 data/fastqc
 data/multiqc
+data/bowtie2
+data/dada2
