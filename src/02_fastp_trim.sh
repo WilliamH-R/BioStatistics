@@ -90,6 +90,7 @@ if [ "$read_type" == "paired" ]; then
     unpaired=($(ls ${trimmed_dir}*_unpaired.fastq.gz))
     for file in "${unpaired[@]}"; do
         cat "$file" >> "$(echo "$file" | sed 's/unpaired/singleton/')"
+        rm "$file"
     done
     
 else
