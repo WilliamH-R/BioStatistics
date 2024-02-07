@@ -2,7 +2,7 @@
 
 # Function to display usage
 usage() {
-  echo "Usage: $0 -i input_dir -o output_dir -l log_path -t n_threads"
+  echo "Usage: $0 -i input_dir -o output_dir -x index_file -m merge -l log_path -t n_threads"
   echo "  -i  Input directory containing trimmed fowards and reverse reads"
   echo "  -o  Output directory for Bowtie results"
   echo "  -x  Bowtie index file path base-prefix (eg. GHCh38_noalt_as)"
@@ -32,8 +32,8 @@ if [[ -z "$reads_dir" || -z "$bowtie_dir" || -z "$index_file" || -z "$log_path" 
 fi
 
 # Check if the merge option is valod
-if [ "$merge" != 'true' ] && [ "$read_type" != 'false' ]; then
-    echo "Error: Read type must be either true or false (boolean)"
+if [ "$merge" != 'true' ] && [ "$merge" != 'false' ]; then
+    echo "Error: Read type must be either true or false (string)"
     exit 1
 fi
 
