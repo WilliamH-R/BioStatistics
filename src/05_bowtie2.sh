@@ -6,17 +6,19 @@ usage() {
   echo "  -i  Input directory containing trimmed fowards and reverse reads"
   echo "  -o  Output directory for Bowtie results"
   echo "  -x  Bowtie index file path base-prefix (eg. GHCh38_noalt_as)"
+  echo "  -m  Is paired-end reads already merged (true or false)"
   echo "  -l  File path to log file output"
   echo "  -t  Number of threads per parallel instance"
   exit 1
 }
 
 # Parse command-line options
-while getopts ":i:o:x:l:t:" opt; do
+while getopts ":i:o:x:m:l:t:" opt; do
   case $opt in
     i) reads_dir="$OPTARG";;
     o) bowtie_dir="$OPTARG";;
     x) index_file="$OPTARG";;
+    m) merge="$OPTARG";;
     l) log_path="$OPTARG";;
     t) threads="$OPTARG";;
     \?) echo "Invalid option: -$OPTARG" >&2; usage;;
@@ -25,12 +27,18 @@ while getopts ":i:o:x:l:t:" opt; do
 done
 
 # Check if required options are provided
-if [[ -z "$reads_dir" || -z "$bowtie_dir" || -z "$index_file" || -z "$log_path" || -z "$threads" ]]; then
+if [[ -z "$reads_dir" || -z "$bowtie_dir" || -z "$index_file" || -z "$log_path" || -z "$threads" || -z "$merge" ]]; then
   usage
 fi
 
+# Check if the merge option is valod
+if [ "$merge" != true ] && [ "$read_type" != false ]; then
+    echo "Error: Read type must be either true or false (boolean)"
+    exit 1
+fi
+
 # Export variables for use in the exported function
-export reads_dir bowtie_dir index_file
+export reads_dir bowtie_dir index_file merge
 
 # Create the trimmed directory if it doesn't exist
 mkdir -p "$bowtie_dir"
@@ -51,9 +59,12 @@ run_bowtie() {
   # Forward and reverse
   /home/ctools/bowtie2-2.4.4/bowtie2 -p 10 -x $index_file \
         -1 $read1 -2 $read2 --very-sensitive-local --un-conc-gz $out > $out_sam
-  # Singleton file
-  /home/ctools/bowtie2-2.4.4/bowtie2 -p 10 -x $index_file \
+
+  # Singleton file, if paired-end reads are merged
+  if [ "$merge" == true ]; then
+    /home/ctools/bowtie2-2.4.4/bowtie2 -p 10 -x $index_file \
         -U $st --very-sensitive-local --un-conc-gz $out > $out_sam_st
+  fi
 }
 
 # Export run_bowtie to be used in parallel
