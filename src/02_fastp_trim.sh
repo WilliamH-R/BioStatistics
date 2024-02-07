@@ -48,7 +48,7 @@ if [ "$read_type" != "single" ] && [ "$read_type" != "paired" ]; then
 fi
 
 # Check if the merge option is valod
-if [ "$merge" != 'true' ] && [ "$read_type" != 'false' ]; then
+if [ "$merge" != 'true' ] && [ "$merge" != 'false' ]; then
     echo "Error: Read type must be either true or false (string)"
     exit 1
 fi
