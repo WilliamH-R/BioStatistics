@@ -43,12 +43,17 @@ mkdir -p $(dirname "$log_path") # Ensure the log directory exists
 run_bowtie() {
   read1=$1
   read2=$(echo $read1 | sed "s/_1/_2/")
-  st=$(echo $read1 | sed "s/_1/_singleton/")
   base=$(basename $1)
   out=$(echo "${bowtie_dir}${base}" | sed "s/_trimmed_1.fastq.gz/_host_removed/")
   out_sam=$(echo "${bowtie_dir}${base}" | sed "s/_trimmed_1.fastq.gz/_mapped_and_unmapped.sam/")
+  st=$(echo $read1 | sed "s/_1/_singleton/")
+  out_sam_st=$(echo "${bowtie_dir}$(basename $st)" | sed "s/_trimmed_1.fastq.gz/singleton.sam/")
+  # Forward and reverse
   /home/ctools/bowtie2-2.4.4/bowtie2 -p 10 -x $index_file \
         -1 $read1 -2 $read2 --very-sensitive-local --un-conc-gz $out > $out_sam
+  # Singleton file
+  /home/ctools/bowtie2-2.4.4/bowtie2 -p 10 -x $index_file \
+        -U st --very-sensitive-local --un-conc-gz $out > $out_sam
 }
 
 # Export run_bowtie to be used in parallel
