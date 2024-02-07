@@ -53,7 +53,7 @@ run_bowtie() {
         -1 $read1 -2 $read2 --very-sensitive-local --un-conc-gz $out > $out_sam
   # Singleton file
   /home/ctools/bowtie2-2.4.4/bowtie2 -p 10 -x $index_file \
-        -U st --very-sensitive-local --un-conc-gz $out > $out_sam
+        -U $st --very-sensitive-local --un-conc-gz $out > $out_sam_st
 }
 
 # Export run_bowtie to be used in parallel
