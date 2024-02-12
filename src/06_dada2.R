@@ -1,7 +1,7 @@
 library('tidyverse')
 library('dada2')
 library('here')
-#library('phyloseq'); packageVersion("phyloseq")
+library('phyloseq'); packageVersion("phyloseq")
 library('Biostrings'); packageVersion("Biostrings")
 #library('ggplot2'); packageVersion("ggplot2")
 #theme_set(theme_bw())
