@@ -11,6 +11,7 @@ book:
     - part: tidy00.qmd
       chapters: 
         - tidy01.qmd
+        - tidy02.qmd
         
     - part: stat00.qmd
       chapters:

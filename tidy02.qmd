@@ -1,0 +1,145 @@
+```{r setup, include = FALSE}
+set.seed(1337)
+
+library("tidymodels")
+tidymodels::tidymodels_prefer()
+
+
+data("iris")
+iris <- iris %>%
+  tibble::as_tibble() %>% 
+  filter(Species != "setosa") %>% 
+  droplevels()
+
+iris_split <- initial_split(iris, prop = 0.90)
+iris_train <- training(iris_split)
+iris_test <- testing(iris_split)
+```
+
+# Creating multiple models
+## Cross-validation
+The reasonings for, and theoretical aspects of, cross-validation (CV) are expected to be already known. In the `tidymodels` universe, CV is setup as:
+```{r}
+iris_folds <- vfold_cv(iris_train,
+                       v = 10)
+iris_folds
+```
+
+
+
+## Recipes
+When it comes to modelling, creating and comparing multiple models is essential. This is easily achieved through the use of `recipe()` from the `recipes` package. A recipe is a collection of both a fomula and preprocessing steps. Here preprocessing steps is not applied, but could be: log-transforming data, creating dummy variables (e.g. one hot encoding) and sum up low occurring categories to handle class imbalance.
+
+```{r}
+SL_rec <- recipe(Species ~ Sepal.Length,
+                 data = iris_train)
+
+SLW_rec <- recipe(Species ~ Sepal.Length + Sepal.Width,
+                  data = iris_train)
+
+SLW_int_rec <- recipe(Species ~ Sepal.Length + Sepal.Width,
+                      data = iris_train) %>%
+  step_interact(~ Sepal.Length:Sepal.Width)
+
+PL_rec <- recipe(Species ~ Petal.Length,
+                 data = iris_train)
+
+PLW_rec <- recipe(Species ~ Petal.Length + Petal.Width,
+                  data = iris_train)
+
+PLW_int_rec <- recipe(Species ~ Petal.Length + Petal.Width,
+                      data = iris_train) %>%
+  step_interact(~ Petal.Length:Petal.Width)
+
+recipe_list <- list(SL = SL_rec,
+                    SLW = SLW_rec,
+                    SLW_int = SLW_int_rec,
+                    PL = PL_rec,
+                    PLW = PLW_rec,
+                    PLW_int = PLW_int_rec)
+
+lg_models <- workflow_set(preproc = recipe_list,
+                          models = list(logistic = logistic_reg()),
+                          cross = FALSE)
+```
+
+Each of the `v` folds are fitted with a `purr`-like workflow function:
+```{r}
+# To save the predicted values and used workflows
+keep_pred <- control_resamples(save_pred = TRUE, save_workflow = TRUE)
+
+
+lg_models <- lg_models %>% 
+  workflow_map("fit_resamples",
+               resamples = iris_folds,
+               control = keep_pred,
+               seed = 1337,
+               verbose = TRUE)
+lg_models
+```
+
+To view evaluation metrics:
+```{r}
+collect_metrics(lg_models) %>% 
+  select(-c(.config, preproc, .estimator)) %>% 
+  filter(.metric == "accuracy") %>% 
+  arrange(desc(mean))
+
+collect_metrics(lg_models) %>% 
+  select(-c(.config, preproc, .estimator)) %>% 
+  filter(.metric == "roc_auc") %>% 
+  arrange(desc(mean))
+```
+To illustrate the two metrics:
+```{r}
+lg_models %>% 
+  autoplot(metric = "accuracy") +
+  geom_label(aes(label = wflow_id)) +
+  theme(legend.position = "none") +
+  xlim(c(0.5, 6.5))
+  
+lg_models %>% 
+  collect_predictions() %>% 
+  roc_curve(truth = Species,
+            .pred_versicolor) %>% 
+  autoplot()
+```
+
+
+
+
+#### OLD #####
+## Fitting multiple models
+As seen from @tbl-all-predictors some terms had `pvalue > 0.05` which is usually used as the significance cutoff. This suggests some terms should be removed from the model. One method could be removing one term at a time and look at the p-values. Note: the correct method is to determine which term to remove after each iteration, not removing them one by one from the given order of p-values as done here.
+```{r}
+dimension <- list(
+  remove_one = Species ~ Sepal.Width + Petal.Length + Petal.Width,
+  remove_two = Species ~ Petal.Length + Petal.Width,
+  remove_three = Species ~ Petal.Length
+)
+
+# Note that the lg_model is the object created further above.
+dimension_models <- workflow_set(preproc = dimension,
+                                 models = list(logistic = lg_model))
+
+dimension_models
+
+# Get info on a specific workflow
+extract_workflow(dimension_models,
+                 id = "remove_one_logistic")
+```
+
+To fit and make predictions for each model use mapping functions from the `purrr` package. We also calculate the accuracy using the `yarstick` package.
+```{r}
+dimension_models <- dimension_models %>% 
+  mutate(fit = map(info, ~ fit(.x$workflow[[1]], data = iris_train))) %>% 
+  mutate(predict = map(fit, ~ predict(.x, new_data = iris_test)))
+
+dimension_models %>%
+  unnest(cols = predict) %>% 
+  select(wflow_id, .pred_class) %>% 
+  cbind(iris_test %>% select(Species)) %>% 
+  group_by(wflow_id) %>% 
+  yardstick::accuracy(truth = Species,
+                      estimate = .pred_class)
+```

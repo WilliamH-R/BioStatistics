@@ -15,7 +15,7 @@ iris <- iris %>%
 
 # Introduction to Tidy Modelling
 ## Introdution to dataset
-For simplicity, the `iris` dataset is used as the structure is simple, and readers should be familiar with it. As a quick reminder, the dataset consists of five variables (columns) and 150 observations (rows). The first four variables are doubles describing the size of the flower, used as predictors. The last variable is a factor indicating the species of flower, used as the outcome. To make this a binary logistic classification problem, and not nominal, the versicolor species have been excluded.
+For simplicity, the `iris` dataset is used since the structure is simple, and readers should be familiar with it. As a quick reminder, the dataset consists of five variables (columns) and 150 observations (rows). The first four variables are doubles describing the size of the flower, used as predictors. The last variable is a factor indicating the species of flower, used as the outcome. To make this a binary logistic classification problem, and not nominal, the versicolor species have been excluded.
 ```{r}
 dim(iris)
 
@@ -40,7 +40,9 @@ If we saw a class imbalance, we would have used the below code for splitting the
 ```{r}
 #| eval: FALSE
 
-iris_split <- initial_split(iris, prop = 0.90, strata = Species)
+iris_split <- initial_split(iris,
+                            prop = 0.90,
+                            strata = Species)
 iris_train <- training(iris_split)
 iris_test <- testing(iris_split)
 ```
@@ -89,33 +91,7 @@ iris_test %>%
                     new_data = iris_test))
 ```
 
-## Fitting multiple models
-As seen from @tbl-all-predictors some terms had `pvalue > 0.05` which is usually used as the significance cutoff. This suggests some terms should be removed from the model. One method could be removing one term at a time and look at the p-values. Note: the correct method is to determine which term to remove after each iteration, not removing them one by one from the given order of p-values as done here.
-```{r}
-dimension <- list(
-  remove_one = Species ~ Sepal.Width + Petal.Length + Petal.Width,
-  remove_two = Species ~ Petal.Length + Petal.Width,
-  remove_three = Species ~ Petal.Length
-)
 
-# Note that the lg_model is the object created further above.
-dimension_models <- workflow_set(preproc = dimension,
-                                 models = list(logistic = lg_model))
-
-dimension_models
-
-# Get info on a specific workflow
-extract_workflow(dimension_models,
-                 id = "remove_one_logistic")
-```
-
-To fit each model use mapping functions from the `purrr` package.
-```{r}
-dimension_models <- dimension_models %>% 
-  mutate(fit = map(info, ~ fit(.x$workflow[[1]], iris_train)))
-
-dimension_models
-```
 
 
 
