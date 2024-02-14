@@ -1,0 +1,43 @@
+```{r setup, include = FALSE}
+set.seed(1337)
+
+library("tidymodels")
+tidymodels::tidymodels_prefer()
+library("dials")
+
+
+data("iris")
+iris <- iris %>%
+  tibble::as_tibble() %>% 
+  filter(Species != "setosa") %>% 
+  droplevels()
+```
+# Tuning hyperparameters and overfitting
+A classical and simple example of a hyperparameter is the number of neighbors (k) in a k-nearest neighbors (KNN) algorithm. This is a hyperparameter as it is not estimated during model fitting, but is specified a priori making it impossible to optimize during parameter estimation. Instead, it is possible to mark parameters that should be tuned through the specifications for a model. To examplify, a range of weight functions are also tuned.
+
+```{r}
+knn_spec <- nearest_neighbor(neighbors = tune(),
+                             weight_func = tune()) %>% 
+  set_engine(engine = "kknn",
+             trace = 0) %>% 
+  set_mode("classification")
+```
+
+It is possible to inspect which hyperparameters that are being tuned, check which values that are tested and change those values. This is done through the use of the `dials` package.
+```{r}
+# Check hyperparameters
+knn_spec %>% extract_parameter_set_dials()
+
+# Check values tested
+knn_spec %>% extract_parameter_set_dials() %>% 
+  extract_parameter_dials("weight_func")
+
+# Change values
+knn_spec <- knn_spec %>% extract_parameter_set_dials() %>%
+  update(weight_func = weight_func(c("cos", "inv", "gaussian")))
+
+# Check that it is updated
+knn_spec %>% extract_parameter_set_dials() %>% 
+  extract_parameter_dials("weight_func")
+```
+
