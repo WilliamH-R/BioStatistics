@@ -19,7 +19,13 @@ iris_folds <- vfold_cv(iris)
 
 
 # Tuning hyperparameters and overfitting
-A classical and simple example of a hyperparameter is the number of neighbors (k) in a k-nearest neighbors (KNN) algorithm. This is a hyperparameter as it is not estimated during model fitting, but is specified a priori making it impossible to optimize during parameter estimation. Instead, it is possible to mark parameters that should be tuned through the specifications for a model. To examplify, a range of weight functions are also tuned.
+
+## What is a hyperparameter?
+
+A classical and simple example of a hyperparameter is the number of neighbors (k) in a k-nearest neighbors (KNN) algorithm. This is a hyperparameter as it is not estimated during model fitting, but is specified a priori making it impossible to optimize during parameter estimation.
+
+## Set up tuning
+In the `tidymodels` universe, hyperparameters are marked for tuning in the specifications for a model. To examplify, both the number of nearest neighbors and a range of weight functions are tuned.
 
 ```{r}
 knn_spec <- nearest_neighbor(neighbors = tune(),
@@ -32,7 +38,7 @@ knn_spec <- nearest_neighbor(neighbors = tune(),
 Secondly, the recipe is set up. As no preprocessing is applied (e.g. log-transformation) it is quite simple.
 
 ```{r}
-knn_rec <- recipe(Species ~ .,
+knn_rec <- recipe(Species ~ ., # Use all other columns as predictors
                   data = iris)
 ```
 
@@ -45,6 +51,7 @@ knn_wflow <- workflow() %>%
 ```
 
 It is possible to inspect which hyperparameters are being tuned, check which values that are tested and change those values. This is done through the use of the `dials` package.
+
 ```{r}
 # Check hyperparameters
 knn_spec %>% extract_parameter_set_dials()
@@ -70,6 +77,7 @@ grid_regular(knn_params,
              levels = 4)
 ```
 
+## Measure performance of tuning
 A metric is needed to measure the performance of the hyperparameters. The ROC curve is used. The regular grid is tuned:
 
 ```{r}
@@ -98,6 +106,8 @@ knn_tune %>%
   scale_x_continuous(breaks = c(1, 5, 10, 15)) +
   facet_wrap(~ weight_func)
 ```
+
+## Finalize hyperparameter selection
 It would seem there is no visual difference between the weight functions. For the number of neighbors, the performance is highest for 10 and 15 neighbors. Preferably, the simplest of the two models is chosen.
 
 ```{r}
