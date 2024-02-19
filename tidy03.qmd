@@ -12,6 +12,12 @@ iris <- iris %>%
   filter(Species != "setosa") %>% 
   droplevels()
 ```
+In this section the CV-folds are used
+```{r}
+iris_folds <- vfold_cv(iris)
+```
+
+
 # Tuning hyperparameters and overfitting
 A classical and simple example of a hyperparameter is the number of neighbors (k) in a k-nearest neighbors (KNN) algorithm. This is a hyperparameter as it is not estimated during model fitting, but is specified a priori making it impossible to optimize during parameter estimation. Instead, it is possible to mark parameters that should be tuned through the specifications for a model. To examplify, a range of weight functions are also tuned.
 
@@ -23,7 +29,22 @@ knn_spec <- nearest_neighbor(neighbors = tune(),
   set_mode("classification")
 ```
 
-It is possible to inspect which hyperparameters that are being tuned, check which values that are tested and change those values. This is done through the use of the `dials` package.
+Secondly, the recipe is set up. As no preprocessing is applied (e.g. log-transformation) it is quite simple.
+
+```{r}
+knn_rec <- recipe(Species ~ .,
+                  data = iris)
+```
+
+The specs and recipe is then combined into a workflow:
+
+```{r}
+knn_wflow <- workflow() %>% 
+  add_model(knn_spec) %>% 
+  add_recipe(knn_rec)
+```
+
+It is possible to inspect which hyperparameters are being tuned, check which values that are tested and change those values. This is done through the use of the `dials` package.
 ```{r}
 # Check hyperparameters
 knn_spec %>% extract_parameter_set_dials()
@@ -32,12 +53,65 @@ knn_spec %>% extract_parameter_set_dials()
 knn_spec %>% extract_parameter_set_dials() %>% 
   extract_parameter_dials("weight_func")
 
-# Change values
-knn_spec <- knn_spec %>% extract_parameter_set_dials() %>%
-  update(weight_func = weight_func(c("cos", "inv", "gaussian")))
+# Change values, save in new object
+knn_params <- knn_spec %>% extract_parameter_set_dials() %>%
+  update(weight_func = weight_func(c("cos", "inv", "gaussian")),
+         neighbors = neighbors(c(1, 15)))
 
 # Check that it is updated
-knn_spec %>% extract_parameter_set_dials() %>% 
+knn_params %>%
   extract_parameter_dials("weight_func")
+knn_params %>%
+  extract_parameter_dials("neighbors")
+```
+Different `grid_*` functions exist to combine the hyperparameters, e.g. `grid_random()` and `grid_regular()`. As exemplified below, `grid_regular()` combines the parameters in all possible ways dependent on the number of `levels` chosen.
+```{r}
+grid_regular(knn_params,
+             levels = 4)
 ```
 
+A metric is needed to measure the performance of the hyperparameters. The ROC curve is used. The regular grid is tuned:
+
+```{r}
+# Performance metric
+roc <- metric_set(roc_auc)
+
+# Tuning
+knn_tune <- knn_wflow %>% 
+  tune_grid(iris_folds,
+            grid = knn_params %>% grid_regular(levels = 4),
+            metrics = roc)
+knn_tune
+```
+
+To visualize the performance:
+```{r}
+knn_tune %>% 
+  unnest(cols = .metrics) %>% 
+  select(id, .metric, neighbors, weight_func, .estimate) %>%
+  group_by(neighbors, weight_func) %>% 
+  mutate(estimate_avg = mean(.estimate)) %>%
+  ggplot(aes(x = neighbors,
+             y = estimate_avg)) +
+  geom_point() +
+  geom_line() +
+  scale_x_continuous(breaks = c(1, 5, 10, 15)) +
+  facet_wrap(~ weight_func)
+```
+It would seem there is no visual difference between the weight functions. For the number of neighbors, the performance is highest for 10 and 15 neighbors. Preferably, the simplest of the two models is chosen.
+
+```{r}
+final_hyperparams <- tibble(weight_func = "gaussian",
+                            neighbors = 10)
+
+final_knn_wflow <- knn_wflow %>% 
+  finalize_workflow(final_hyperparams)
+final_knn_wflow
+```
+
+The model can now be fit to the data and used for prediction.
+```{r}
+final_knn_fit <- final_knn_wflow %>% 
+  fit(iris)
+final_knn_fit
+```
