@@ -76,8 +76,7 @@ lg_models <- lg_models %>%
   workflow_map("fit_resamples",
                resamples = iris_folds,
                control = keep_pred,
-               seed = 1337,
-               verbose = TRUE)
+               seed = 1337)
 lg_models
 ```
 ## Evaluation metrics across models
