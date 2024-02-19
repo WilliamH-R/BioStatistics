@@ -1,5 +1,6 @@
 project:
   type: book
+  output-dir: docs/_book
 
 book:
   title: "BioStatistics"

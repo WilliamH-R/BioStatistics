@@ -5,7 +5,6 @@
 .vscode/*
 
 /.quarto/
-_book/
 data/_raw/
 data/trimmed_reads/
 data/fastqc

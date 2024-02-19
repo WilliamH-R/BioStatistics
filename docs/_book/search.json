@@ -1,0 +1,164 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "BioStatistics",
+    "section": "",
+    "text": "Preface\nWrite some introduction to the book and its purpose.",
+    "crumbs": [
+      "Preface"
+    ]
+  },
+  {
+    "objectID": "tidy00.html",
+    "href": "tidy00.html",
+    "title": "Tidy Modelling with R",
+    "section": "",
+    "text": "Some introduction to the book.",
+    "crumbs": [
+      "Tidy Modelling with R"
+    ]
+  },
+  {
+    "objectID": "tidy01.html",
+    "href": "tidy01.html",
+    "title": "1  Introduction to Tidy Modelling",
+    "section": "",
+    "text": "1.1 Introdution to dataset\nFor simplicity, the iris dataset is used since the structure is simple, and readers should be familiar with it. As a quick reminder, the dataset consists of five variables (columns) and 150 observations (rows). The first four variables are doubles describing the size of the flower, used as predictors. The last variable is a factor indicating the species of flower, used as the outcome. To make this a binary logistic classification problem, and not nominal, the versicolor species have been excluded.\ndim(iris)\n\n[1] 100   5\n\niris %&gt;% \n  slice_head(n = 5) %&gt;%\n  str()\n\ntibble [5 × 5] (S3: tbl_df/tbl/data.frame)\n $ Sepal.Length: num [1:5] 7 6.4 6.9 5.5 6.5\n $ Sepal.Width : num [1:5] 3.2 3.2 3.1 2.3 2.8\n $ Petal.Length: num [1:5] 4.7 4.5 4.9 4 4.6\n $ Petal.Width : num [1:5] 1.4 1.5 1.5 1.3 1.5\n $ Species     : Factor w/ 2 levels \"versicolor\",\"virginica\": 1 1 1 1 1",
+    "crumbs": [
+      "Tidy Modelling with R",
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introduction to Tidy Modelling</span>"
+    ]
+  },
+  {
+    "objectID": "tidy01.html#training--and-test-set",
+    "href": "tidy01.html#training--and-test-set",
+    "title": "1  Introduction to Tidy Modelling",
+    "section": "1.2 Training- and test set",
+    "text": "1.2 Training- and test set\nAs is customary when modeling, the dataset is split into a training- and testing set. We need to check for class imbalance in case some outcomes (here species) are more likely in the dataset. As seen from Figure 1.1, it is not the case.\n\niris %&gt;% \n  ggplot(aes(x = Species,\n             fill = Species)) +\n  geom_bar()\n\n\n\n\n\n\n\nFigure 1.1: Count of each species in the iris dataset\n\n\n\n\n\nIf we saw a class imbalance, we would have used the below code for splitting the data. The prop argument indicates that 90% of the data is used for training and 20% for testing.\n\niris_split &lt;- initial_split(iris,\n                            prop = 0.90,\n                            strata = Species)\niris_train &lt;- training(iris_split)\niris_test &lt;- testing(iris_split)\n\nAs this is not the case, we use the below very similar code chunk.\n\niris_split &lt;- initial_split(iris, prop = 0.90)\niris_train &lt;- training(iris_split)\niris_test &lt;- testing(iris_split)",
+    "crumbs": [
+      "Tidy Modelling with R",
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introduction to Tidy Modelling</span>"
+    ]
+  },
+  {
+    "objectID": "tidy01.html#fitting-a-model",
+    "href": "tidy01.html#fitting-a-model",
+    "title": "1  Introduction to Tidy Modelling",
+    "section": "1.3 Fitting a model",
+    "text": "1.3 Fitting a model\nThe parsnip package standardize creating models. When learning a new technique, here parsnip, it is a good idea to apply well known theory. Therefore, a linear logistic regression model is used to predict the species of a flower given the dimensions of the sepal and the petal.\n\nlg_model &lt;- logistic_reg()\n\nDifferent packages contain different ways of applying a linear logistic regression model, and therefore different ways of supplying input, but the parsnip package standardize it. We choose which engine to use - i.e. which package.\n\n# Show available packages for the model\nshow_engines(\"logistic_reg\")\n\n# A tibble: 7 × 2\n  engine    mode          \n  &lt;chr&gt;     &lt;chr&gt;         \n1 glm       classification\n2 glmnet    classification\n3 LiblineaR classification\n4 spark     classification\n5 keras     classification\n6 stan      classification\n7 brulee    classification\n\nlg_model &lt;- lg_model %&gt;% \n  set_engine(\"glm\")\n\nAs the goal is to predict flower species, it is necessary to specify how the model should be fit, e.g. what are the predictors and what is the outcome. This can be done via the formula syntax. From the p-values we see that some predictors are not statistically meaningful. This is ignored for now, but note that this metric is important.\n\n\n\nTable 1.1\n\n\nlg_fit &lt;- lg_model %&gt;%\n  fit(Species ~ Sepal.Length + Sepal.Width + Petal.Length + Petal.Width,\n      data = iris_train)\n\nlg_fit %&gt;% tidy()\n\n# A tibble: 5 × 5\n  term         estimate std.error statistic p.value\n  &lt;chr&gt;           &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;\n1 (Intercept)    -41.6      24.6      -1.69  0.0912\n2 Sepal.Length    -2.35      2.33     -1.01  0.314 \n3 Sepal.Width     -6.94      4.49     -1.54  0.123 \n4 Petal.Length     9.55      4.86      1.97  0.0493\n5 Petal.Width     17.2       9.31      1.84  0.0653",
+    "crumbs": [
+      "Tidy Modelling with R",
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introduction to Tidy Modelling</span>"
+    ]
+  },
+  {
+    "objectID": "tidy01.html#prediction",
+    "href": "tidy01.html#prediction",
+    "title": "1  Introduction to Tidy Modelling",
+    "section": "1.4 Prediction",
+    "text": "1.4 Prediction\nMaking predictions is also standardized and requires the function predict(). The model seem to predict correctly in all cases.\n\niris_test %&gt;% \n  select(Species) %&gt;% \n  bind_cols(predict(lg_fit,\n                    new_data = iris_test))\n\n# A tibble: 10 × 2\n   Species    .pred_class\n   &lt;fct&gt;      &lt;fct&gt;      \n 1 versicolor versicolor \n 2 versicolor versicolor \n 3 versicolor versicolor \n 4 versicolor versicolor \n 5 versicolor versicolor \n 6 versicolor versicolor \n 7 virginica  virginica  \n 8 virginica  virginica  \n 9 virginica  virginica  \n10 virginica  virginica",
+    "crumbs": [
+      "Tidy Modelling with R",
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introduction to Tidy Modelling</span>"
+    ]
+  },
+  {
+    "objectID": "tidy02.html",
+    "href": "tidy02.html",
+    "title": "2  Creating multiple models",
+    "section": "",
+    "text": "2.1 Cross-validation\nThe reasonings for, and theoretical aspects of, cross-validation (CV) are expected to be already known. In the tidymodels universe, CV is setup as:\niris_folds &lt;- vfold_cv(iris_train,\n                       v = 10)\niris_folds\n\n#  10-fold cross-validation \n# A tibble: 10 × 2\n   splits         id    \n   &lt;list&gt;         &lt;chr&gt; \n 1 &lt;split [81/9]&gt; Fold01\n 2 &lt;split [81/9]&gt; Fold02\n 3 &lt;split [81/9]&gt; Fold03\n 4 &lt;split [81/9]&gt; Fold04\n 5 &lt;split [81/9]&gt; Fold05\n 6 &lt;split [81/9]&gt; Fold06\n 7 &lt;split [81/9]&gt; Fold07\n 8 &lt;split [81/9]&gt; Fold08\n 9 &lt;split [81/9]&gt; Fold09\n10 &lt;split [81/9]&gt; Fold10",
+    "crumbs": [
+      "Tidy Modelling with R",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Creating multiple models</span>"
+    ]
+  },
+  {
+    "objectID": "tidy02.html#recipes",
+    "href": "tidy02.html#recipes",
+    "title": "2  Creating multiple models",
+    "section": "2.2 Recipes",
+    "text": "2.2 Recipes\nWhen it comes to modelling, creating and comparing multiple models is essential. This is easily achieved through the use of recipe() from the recipes package. A recipe is a collection of both a fomula and preprocessing steps. Here preprocessing steps is not applied, but could be: log-transforming data, creating dummy variables (e.g. one hot encoding) and sum up low occurring categories to handle class imbalance.\n\nSL_rec &lt;- recipe(Species ~ Sepal.Length,\n                 data = iris_train)\n\nSLW_rec &lt;- recipe(Species ~ Sepal.Length + Sepal.Width,\n                  data = iris_train)\n\nSLW_int_rec &lt;- recipe(Species ~ Sepal.Length + Sepal.Width,\n                      data = iris_train) %&gt;%\n  step_interact(~ Sepal.Length:Sepal.Width)\n\nPL_rec &lt;- recipe(Species ~ Petal.Length,\n                 data = iris_train)\n\nPLW_rec &lt;- recipe(Species ~ Petal.Length + Petal.Width,\n                  data = iris_train)\n\nPLW_int_rec &lt;- recipe(Species ~ Petal.Length + Petal.Width,\n                      data = iris_train) %&gt;%\n  step_interact(~ Petal.Length:Petal.Width)\n\nrecipe_list &lt;- list(SL = SL_rec,\n                    SLW = SLW_rec,\n                    SLW_int = SLW_int_rec,\n                    PL = PL_rec,\n                    PLW = PLW_rec,\n                    PLW_int = PLW_int_rec)\n\nlg_models &lt;- workflow_set(preproc = recipe_list,\n                          models = list(logistic = logistic_reg()),\n                          cross = FALSE)\n\nEach of the v folds are fitted with a purr-like workflow function:\n\n# To save the predicted values and used workflows\nkeep_pred &lt;- control_resamples(save_pred = TRUE, save_workflow = TRUE)\n\n\nlg_models &lt;- lg_models %&gt;% \n  workflow_map(\"fit_resamples\",\n               resamples = iris_folds,\n               control = keep_pred,\n               seed = 1337)\n\n→ A | warning: glm.fit: fitted probabilities numerically 0 or 1 occurred\n\n\nThere were issues with some computations   A: x1\nThere were issues with some computations   A: x1\n\n\n\n\nlg_models\n\n# A workflow set/tibble: 6 × 4\n  wflow_id         info             option    result   \n  &lt;chr&gt;            &lt;list&gt;           &lt;list&gt;    &lt;list&gt;   \n1 SL_logistic      &lt;tibble [1 × 4]&gt; &lt;opts[2]&gt; &lt;rsmp[+]&gt;\n2 SLW_logistic     &lt;tibble [1 × 4]&gt; &lt;opts[2]&gt; &lt;rsmp[+]&gt;\n3 SLW_int_logistic &lt;tibble [1 × 4]&gt; &lt;opts[2]&gt; &lt;rsmp[+]&gt;\n4 PL_logistic      &lt;tibble [1 × 4]&gt; &lt;opts[2]&gt; &lt;rsmp[+]&gt;\n5 PLW_logistic     &lt;tibble [1 × 4]&gt; &lt;opts[2]&gt; &lt;rsmp[+]&gt;\n6 PLW_int_logistic &lt;tibble [1 × 4]&gt; &lt;opts[2]&gt; &lt;rsmp[+]&gt;",
+    "crumbs": [
+      "Tidy Modelling with R",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Creating multiple models</span>"
+    ]
+  },
+  {
+    "objectID": "tidy02.html#evaluation-metrics-across-models",
+    "href": "tidy02.html#evaluation-metrics-across-models",
+    "title": "2  Creating multiple models",
+    "section": "2.3 Evaluation metrics across models",
+    "text": "2.3 Evaluation metrics across models\nTwo simple evaluation metrics for logistic regressions are the accuracy and Area Under the Curve (AUC), in this case area under the Receiver Operating Characteristic (ROC) curve. To view these two evaluation metrics:\n\ncollect_metrics(lg_models) %&gt;% \n  select(-c(.config, preproc, .estimator)) %&gt;% \n  filter(.metric == \"accuracy\") %&gt;% \n  arrange(desc(mean))\n\n# A tibble: 6 × 6\n  wflow_id         model        .metric   mean     n std_err\n  &lt;chr&gt;            &lt;chr&gt;        &lt;chr&gt;    &lt;dbl&gt; &lt;int&gt;   &lt;dbl&gt;\n1 PLW_int_logistic logistic_reg accuracy 0.933    10  0.0246\n2 PL_logistic      logistic_reg accuracy 0.922    10  0.0237\n3 PLW_logistic     logistic_reg accuracy 0.922    10  0.0289\n4 SL_logistic      logistic_reg accuracy 0.733    10  0.0296\n5 SLW_logistic     logistic_reg accuracy 0.722    10  0.0299\n6 SLW_int_logistic logistic_reg accuracy 0.711    10  0.0339\n\ncollect_metrics(lg_models) %&gt;% \n  select(-c(.config, preproc, .estimator)) %&gt;% \n  filter(.metric == \"roc_auc\") %&gt;% \n  arrange(desc(mean))\n\n# A tibble: 6 × 6\n  wflow_id         model        .metric  mean     n std_err\n  &lt;chr&gt;            &lt;chr&gt;        &lt;chr&gt;   &lt;dbl&gt; &lt;int&gt;   &lt;dbl&gt;\n1 PL_logistic      logistic_reg roc_auc 0.991    10 0.00458\n2 PLW_logistic     logistic_reg roc_auc 0.988    10 0.00825\n3 PLW_int_logistic logistic_reg roc_auc 0.988    10 0.00825\n4 SL_logistic      logistic_reg roc_auc 0.800    10 0.0442 \n5 SLW_logistic     logistic_reg roc_auc 0.787    10 0.0404 \n6 SLW_int_logistic logistic_reg roc_auc 0.776    10 0.0458 \n\n\nTo illustrate the two metrics:\n\nlg_models %&gt;% \n  autoplot(metric = \"accuracy\") +\n  geom_label(aes(label = wflow_id)) +\n  theme(legend.position = \"none\") +\n  xlim(c(0.5, 6.5)) +\n  ggtitle(\"Accuracy stratified on model\")\n\n\n\n\n\n\n\nlg_models %&gt;% \n  collect_predictions() %&gt;% \n  group_by(wflow_id) %&gt;% \n  roc_curve(truth = Species,\n            .pred_versicolor) %&gt;% \n  autoplot() +\n  ggtitle(\"ROC curve statified on model\")",
+    "crumbs": [
+      "Tidy Modelling with R",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Creating multiple models</span>"
+    ]
+  },
+  {
+    "objectID": "tidy02.html#resample-to-resample-component-of-variation-consider-remove",
+    "href": "tidy02.html#resample-to-resample-component-of-variation-consider-remove",
+    "title": "2  Creating multiple models",
+    "section": "2.4 Resample-to-resample component of variation (consider remove)",
+    "text": "2.4 Resample-to-resample component of variation (consider remove)\nAll the models are tested on the same v-folds. In some cases, different models tends to perform well on the same folds - this effect is called a resample-to-resample component of variation. We can numerically investigate these correlations by correlating each model estimates with eachother:\n\nlg_models %&gt;% \n  collect_metrics(summarize = FALSE) %&gt;% \n  filter(.metric == \"accuracy\") %&gt;% \n  select(wflow_id, .estimate, id) %&gt;% \n  pivot_wider(id_cols = \"id\",\n              names_from = \"wflow_id\",\n              values_from = \".estimate\") %&gt;%\n  select(-id) %&gt;% \n  corrr::correlate(quiet = TRUE)\n\n# A tibble: 6 × 7\n  term        SL_logistic SLW_logistic SLW_int_logistic PL_logistic PLW_logistic\n  &lt;chr&gt;             &lt;dbl&gt;        &lt;dbl&gt;            &lt;dbl&gt;       &lt;dbl&gt;        &lt;dbl&gt;\n1 SL_logistic     NA            0.930            0.627      -0.547        0.0320\n2 SLW_logist…      0.930       NA                0.812      -0.291       -0.0794\n3 SLW_int_lo…      0.627        0.812           NA           0.136        0.112 \n4 PL_logistic     -0.547       -0.291            0.136      NA           -0.180 \n5 PLW_logist…      0.0320      -0.0794           0.112      -0.180       NA     \n6 PLW_int_lo…     -0.0754      -0.187            0.0658     -0.0471       0.927 \n# ℹ 1 more variable: PLW_int_logistic &lt;dbl&gt;\n\n\nThe correlation illustrated:\n\nlg_models %&gt;% \n  collect_metrics(summarize = FALSE) %&gt;% \n  filter(.metric == \"accuracy\") %&gt;% \n  mutate(wflow_id = reorder(wflow_id,\n                            .estimate)) %&gt;% \n  ggplot(aes(x = wflow_id,\n             y = .estimate,\n             group = id,\n             color = id)) + \n  geom_line(alpha = .5,\n            linewidth = 1.25) + \n  theme(legend.position = \"none\")",
+    "crumbs": [
+      "Tidy Modelling with R",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Creating multiple models</span>"
+    ]
+  },
+  {
+    "objectID": "tidy03.html",
+    "href": "tidy03.html",
+    "title": "3  Tuning hyperparameters and overfitting",
+    "section": "",
+    "text": "3.1 What is a hyperparameter?\nA classical and simple example of a hyperparameter is the number of neighbors (k) in a k-nearest neighbors (KNN) algorithm. This is a hyperparameter as it is not estimated during model fitting, but is specified a priori making it impossible to optimize during parameter estimation.",
+    "crumbs": [
+      "Tidy Modelling with R",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Tuning hyperparameters and overfitting</span>"
+    ]
+  },
+  {
+    "objectID": "tidy03.html#set-up-tuning",
+    "href": "tidy03.html#set-up-tuning",
+    "title": "3  Tuning hyperparameters and overfitting",
+    "section": "3.2 Set up tuning",
+    "text": "3.2 Set up tuning\nIn the tidymodels universe, hyperparameters are marked for tuning in the specifications for a model. To examplify, both the number of nearest neighbors and a range of weight functions are tuned.\n\nknn_spec &lt;- nearest_neighbor(neighbors = tune(),\n                             weight_func = tune()) %&gt;% \n  set_engine(engine = \"kknn\",\n             trace = 0) %&gt;% \n  set_mode(\"classification\")\n\nSecondly, the recipe is set up. As no preprocessing is applied (e.g. log-transformation) it is quite simple.\n\nknn_rec &lt;- recipe(Species ~ ., # Use all other columns as predictors\n                  data = iris)\n\nThe specs and recipe is then combined into a workflow:\n\nknn_wflow &lt;- workflow() %&gt;% \n  add_model(knn_spec) %&gt;% \n  add_recipe(knn_rec)\n\nIt is possible to inspect which hyperparameters are being tuned, check which values that are tested and change those values. This is done through the use of the dials package.\n\n# Check hyperparameters\nknn_spec %&gt;% extract_parameter_set_dials()\n\nCollection of 2 parameters for tuning\n\n  identifier        type    object\n   neighbors   neighbors nparam[+]\n weight_func weight_func dparam[+]\n\n# Check values tested\nknn_spec %&gt;% extract_parameter_set_dials() %&gt;% \n  extract_parameter_dials(\"weight_func\")\n\nDistance Weighting Function  (qualitative)\n\n\n10 possible values include:\n\n\n'rectangular', 'triangular', 'epanechnikov', 'biweight', 'triweight', 'cos', ... \n\n# Change values, save in new object\nknn_params &lt;- knn_spec %&gt;% extract_parameter_set_dials() %&gt;%\n  update(weight_func = weight_func(c(\"cos\", \"inv\", \"gaussian\")),\n         neighbors = neighbors(c(1, 15)))\n\n# Check that it is updated\nknn_params %&gt;%\n  extract_parameter_dials(\"weight_func\")\n\nDistance Weighting Function  (qualitative)\n\n\n3 possible values include:\n\n\n'cos', 'inv' and 'gaussian' \n\nknn_params %&gt;%\n  extract_parameter_dials(\"neighbors\")\n\n# Nearest Neighbors (quantitative)\nRange: [1, 15]\n\n\nDifferent grid_* functions exist to combine the hyperparameters, e.g. grid_random() and grid_regular(). As exemplified below, grid_regular() combines the parameters in all possible ways dependent on the number of levels chosen.\n\ngrid_regular(knn_params,\n             levels = 4)\n\n# A tibble: 12 × 2\n   neighbors weight_func\n       &lt;int&gt; &lt;chr&gt;      \n 1         1 cos        \n 2         5 cos        \n 3        10 cos        \n 4        15 cos        \n 5         1 inv        \n 6         5 inv        \n 7        10 inv        \n 8        15 inv        \n 9         1 gaussian   \n10         5 gaussian   \n11        10 gaussian   \n12        15 gaussian",
+    "crumbs": [
+      "Tidy Modelling with R",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Tuning hyperparameters and overfitting</span>"
+    ]
+  },
+  {
+    "objectID": "tidy03.html#measure-performance-of-tuning",
+    "href": "tidy03.html#measure-performance-of-tuning",
+    "title": "3  Tuning hyperparameters and overfitting",
+    "section": "3.3 Measure performance of tuning",
+    "text": "3.3 Measure performance of tuning\nA metric is needed to measure the performance of the hyperparameters. The ROC curve is used. The regular grid is tuned:\n\n# Performance metric\nroc &lt;- metric_set(roc_auc)\n\n# Tuning\nknn_tune &lt;- knn_wflow %&gt;% \n  tune_grid(iris_folds,\n            grid = knn_params %&gt;% grid_regular(levels = 4),\n            metrics = roc)\nknn_tune\n\n# Tuning results\n# 10-fold cross-validation \n# A tibble: 10 × 4\n   splits          id     .metrics          .notes          \n   &lt;list&gt;          &lt;chr&gt;  &lt;list&gt;            &lt;list&gt;          \n 1 &lt;split [90/10]&gt; Fold01 &lt;tibble [12 × 6]&gt; &lt;tibble [0 × 3]&gt;\n 2 &lt;split [90/10]&gt; Fold02 &lt;tibble [12 × 6]&gt; &lt;tibble [0 × 3]&gt;\n 3 &lt;split [90/10]&gt; Fold03 &lt;tibble [12 × 6]&gt; &lt;tibble [0 × 3]&gt;\n 4 &lt;split [90/10]&gt; Fold04 &lt;tibble [12 × 6]&gt; &lt;tibble [0 × 3]&gt;\n 5 &lt;split [90/10]&gt; Fold05 &lt;tibble [12 × 6]&gt; &lt;tibble [0 × 3]&gt;\n 6 &lt;split [90/10]&gt; Fold06 &lt;tibble [12 × 6]&gt; &lt;tibble [0 × 3]&gt;\n 7 &lt;split [90/10]&gt; Fold07 &lt;tibble [12 × 6]&gt; &lt;tibble [0 × 3]&gt;\n 8 &lt;split [90/10]&gt; Fold08 &lt;tibble [12 × 6]&gt; &lt;tibble [0 × 3]&gt;\n 9 &lt;split [90/10]&gt; Fold09 &lt;tibble [12 × 6]&gt; &lt;tibble [0 × 3]&gt;\n10 &lt;split [90/10]&gt; Fold10 &lt;tibble [12 × 6]&gt; &lt;tibble [0 × 3]&gt;\n\n\nTo visualize the performance:\n\nknn_tune %&gt;% \n  unnest(cols = .metrics) %&gt;% \n  select(id, .metric, neighbors, weight_func, .estimate) %&gt;%\n  group_by(neighbors, weight_func) %&gt;% \n  mutate(estimate_avg = mean(.estimate)) %&gt;%\n  ggplot(aes(x = neighbors,\n             y = estimate_avg)) +\n  geom_point() +\n  geom_line() +\n  scale_x_continuous(breaks = c(1, 5, 10, 15)) +\n  facet_wrap(~ weight_func)",
+    "crumbs": [
+      "Tidy Modelling with R",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Tuning hyperparameters and overfitting</span>"
+    ]
+  },
+  {
+    "objectID": "tidy03.html#finalize-hyperparameter-selection",
+    "href": "tidy03.html#finalize-hyperparameter-selection",
+    "title": "3  Tuning hyperparameters and overfitting",
+    "section": "3.4 Finalize hyperparameter selection",
+    "text": "3.4 Finalize hyperparameter selection\nIt would seem there is no visual difference between the weight functions. For the number of neighbors, the performance is highest for 10 and 15 neighbors. Preferably, the simplest of the two models is chosen.\n\nfinal_hyperparams &lt;- tibble(weight_func = \"gaussian\",\n                            neighbors = 10)\n\nfinal_knn_wflow &lt;- knn_wflow %&gt;% \n  finalize_workflow(final_hyperparams)\nfinal_knn_wflow\n\n══ Workflow ════════════════════════════════════════════════════════════════════\nPreprocessor: Recipe\nModel: nearest_neighbor()\n\n── Preprocessor ────────────────────────────────────────────────────────────────\n0 Recipe Steps\n\n── Model ───────────────────────────────────────────────────────────────────────\nK-Nearest Neighbor Model Specification (classification)\n\nMain Arguments:\n  neighbors = 10\n  weight_func = gaussian\n\nEngine-Specific Arguments:\n  trace = 0\n\nComputational engine: kknn \n\n\nThe model can now be fit to the data and used for prediction.\n\nfinal_knn_fit &lt;- final_knn_wflow %&gt;% \n  fit(iris)\nfinal_knn_fit\n\n══ Workflow [trained] ══════════════════════════════════════════════════════════\nPreprocessor: Recipe\nModel: nearest_neighbor()\n\n── Preprocessor ────────────────────────────────────────────────────────────────\n0 Recipe Steps\n\n── Model ───────────────────────────────────────────────────────────────────────\n\nCall:\nkknn::train.kknn(formula = ..y ~ ., data = data, ks = min_rows(10,     data, 5), kernel = ~\"gaussian\", trace = ~0)\n\nType of response variable: nominal\nMinimal misclassification: 0.07\nBest kernel: gaussian\nBest k: 10",
+    "crumbs": [
+      "Tidy Modelling with R",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Tuning hyperparameters and overfitting</span>"
+    ]
+  },
+  {
+    "objectID": "stat00.html",
+    "href": "stat00.html",
+    "title": "Applied bio-statistical methods",
+    "section": "",
+    "text": "Some introduction to what the statistical chapter contains.",
+    "crumbs": [
+      "Applied bio-statistical methods"
+    ]
+  }
+]
