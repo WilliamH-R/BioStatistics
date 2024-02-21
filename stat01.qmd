@@ -1,8 +1,13 @@
 ```{r}
 set.seed(1337)
 
-library("tidymodels")
-tidymodels::tidymodels_prefer()
+#library("tidymodels")
+#tidymodels::tidymodels_prefer()
+
+library("magrittr")
+library("phyloseq")
+library("dplyr")
+library("tidyr")
 ```
 
 
@@ -10,7 +15,5 @@ tidymodels::tidymodels_prefer()
 ## Alpha Diversity
 
 
-```{r}
-physeq_df <- dada2.phyloseq %>% psmelt()
-```
+
 
