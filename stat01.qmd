@@ -1,1 +1,16 @@
+```{r}
+set.seed(1337)
+
+library("tidymodels")
+tidymodels::tidymodels_prefer()
+```
+
+
 # Diversity measures
+## Alpha Diversity
+
+
+```{r}
+physeq_df <- dada2.phyloseq %>% psmelt()
+```
+
