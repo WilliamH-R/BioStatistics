@@ -1,13 +1,8 @@
 ```{r}
 set.seed(1337)
 
-#library("tidymodels")
-#tidymodels::tidymodels_prefer()
-
-library("magrittr")
-library("phyloseq")
-library("dplyr")
-library("tidyr")
+library("tidymodels")
+tidymodels::tidymodels_prefer()
 ```
 
 
