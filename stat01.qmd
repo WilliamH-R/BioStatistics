@@ -3,12 +3,72 @@ set.seed(1337)
 
 library("tidymodels")
 tidymodels::tidymodels_prefer()
+library("vegan")
+
+count_matrix_test <- readRDS(file = "data/count_matrix/count_matrix_test.rds")
 ```
 
-
 # Diversity measures
+
+A series of different measures exist meant to quantify the diversity in or between samples. Examples of these, which will be explained below, are:
+
+-   Alpha Diversity
+
+    -   Species Richness
+
+    -   Shannon Index
+
+    -   Faith's phylogenetic diversity (Faith's PD)
+
+-   Beta Diversity
+
+    -   Bray-Curtis dissimilarity
+
+As a quick reminder, the subset of the count matrix mentioned in the introduction contain the following data:
+
+```{r}
+count_matrix_test
+```
+
 ## Alpha Diversity
 
+Generally, alpha diversity measures the within sample diversity. Multiple ways of doing this exists. A crude way is simply to count unique organisms per sample. One could also take the distribution into account or the phylogeny.
 
+The R package `vegan` is widely used to help calculate diversity and is used here.
 
+### Species Richness
+
+As mentioned above, a crude way to measure diversity is to count the number of unique organisms in a given taxon for each sample. That is exactly what the Richness of a species is. Through the `vegan` package, it can be calculated as follows:
+
+```{r}
+richness <- count_matrix_test |>
+  column_to_rownames(var = "Sample") |> 
+  specnumber() |>
+  as_tibble(rownames = "Sample") |>
+  rename(Richness = value)
+
+count_matrix_test |>
+  left_join(richness,
+            by = "Sample")
+```
+
+### Shannon Index
+
+The measure is usually referred to as Shannon Index or Shannon Entropy. It is able to take both the richness (described above) and the evenness into account. The evenness refers to how evenly the abundances are distributed among taxa for a species. The richness is considered as we sum over all taxonomic units at a specified taxonomic rank. The index is calculated via the following formula:
+
+$H = -\sum_{i=1}^{n} p_i \ln(p_i)$
+
+WRITE EXAMPLES FOR WHEN PROPORTIONS BETWEEN SAMPLES ARE COMPLETELY EVEN AND FOR WHEN THEY ARE COMPLETELY SKEWERED.
+
+```{r}
+shannon <- count_matrix_test |>
+  column_to_rownames(var = "Sample") |>
+  diversity(index = "shannon") |> 
+  as_tibble(rownames = "Sample") |> 
+  rename(Shannon = value)
+
+count_matrix_test |>
+  left_join(shannon,
+            by = "Sample")
+```
 
