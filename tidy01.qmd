@@ -6,9 +6,9 @@ tidymodels::tidymodels_prefer()
 
 
 data("iris")
-iris <- iris %>%
-  tibble::as_tibble() %>% 
-  filter(Species != "setosa") %>% 
+iris <- iris |>
+  tibble::as_tibble() |> 
+  filter(Species != "setosa") |> 
   droplevels()
 ```
 
@@ -20,8 +20,8 @@ For simplicity, the `iris` dataset is used since the structure is simple, and re
 dim(iris)
 
 
-iris %>% 
-  slice_head(n = 5) %>%
+iris |> 
+  slice_head(n = 5) |>
   str()
 ```
 
@@ -30,7 +30,7 @@ As is customary when modeling, the dataset is split into a training- and testing
 ```{r}
 #| label: fig-iris-species-count
 #| fig-cap: "Count of each species in the iris dataset"
-iris %>% 
+iris |> 
   ggplot(aes(x = Species,
              fill = Species)) +
   geom_bar()
@@ -66,7 +66,7 @@ Different packages contain different ways of applying a linear logistic regressi
 # Show available packages for the model
 show_engines("logistic_reg")
 
-lg_model <- lg_model %>% 
+lg_model <- lg_model |> 
   set_engine("glm")
 ```
 
@@ -75,18 +75,18 @@ As the goal is to predict flower species, it is necessary to specify how the mod
 ```{r}
 #| label: tbl-all-predictors
 
-lg_fit <- lg_model %>%
+lg_fit <- lg_model |>
   fit(Species ~ Sepal.Length + Sepal.Width + Petal.Length + Petal.Width,
       data = iris_train)
 
-lg_fit %>% tidy()
+lg_fit |> tidy()
 ```
 
 ## Prediction
 Making predictions is also standardized and requires the function `predict()`. The model seem to predict correctly in all cases.
 ```{r}
-iris_test %>% 
-  select(Species) %>% 
+iris_test |> 
+  select(Species) |> 
   bind_cols(predict(lg_fit,
                     new_data = iris_test))
 ```

@@ -9,9 +9,9 @@ library("rstanarm")
 
 
 data("iris")
-iris <- iris %>%
-  tibble::as_tibble() %>% 
-  filter(Species != "setosa") %>% 
+iris <- iris |>
+  tibble::as_tibble() |> 
+  filter(Species != "setosa") |> 
   droplevels()
 
 iris_split <- initial_split(iris, prop = 0.90)
@@ -41,7 +41,7 @@ SLW_rec <- recipe(Species ~ Sepal.Length + Sepal.Width,
                   data = iris_train)
 
 SLW_int_rec <- recipe(Species ~ Sepal.Length + Sepal.Width,
-                      data = iris_train) %>%
+                      data = iris_train) |>
   step_interact(~ Sepal.Length:Sepal.Width)
 
 PL_rec <- recipe(Species ~ Petal.Length,
@@ -51,7 +51,7 @@ PLW_rec <- recipe(Species ~ Petal.Length + Petal.Width,
                   data = iris_train)
 
 PLW_int_rec <- recipe(Species ~ Petal.Length + Petal.Width,
-                      data = iris_train) %>%
+                      data = iris_train) |>
   step_interact(~ Petal.Length:Petal.Width)
 
 recipe_list <- list(SL = SL_rec,
@@ -72,7 +72,7 @@ Each of the `v` folds are fitted with a `purr`-like workflow function:
 keep_pred <- control_resamples(save_pred = TRUE, save_workflow = TRUE)
 
 
-lg_models <- lg_models %>% 
+lg_models <- lg_models |> 
   workflow_map("fit_resamples",
                resamples = iris_folds,
                control = keep_pred,
@@ -82,30 +82,30 @@ lg_models
 ## Evaluation metrics across models
 Two simple evaluation metrics for logistic regressions are the accuracy and Area Under the Curve (AUC), in this case area under the Receiver Operating Characteristic (ROC) curve. To view these two evaluation metrics:
 ```{r}
-collect_metrics(lg_models) %>% 
-  select(-c(.config, preproc, .estimator)) %>% 
-  filter(.metric == "accuracy") %>% 
+collect_metrics(lg_models) |> 
+  select(-c(.config, preproc, .estimator)) |> 
+  filter(.metric == "accuracy") |> 
   arrange(desc(mean))
 
-collect_metrics(lg_models) %>% 
-  select(-c(.config, preproc, .estimator)) %>% 
-  filter(.metric == "roc_auc") %>% 
+collect_metrics(lg_models) |> 
+  select(-c(.config, preproc, .estimator)) |> 
+  filter(.metric == "roc_auc") |> 
   arrange(desc(mean))
 ```
 To illustrate the two metrics:
 ```{r}
-lg_models %>% 
+lg_models |> 
   autoplot(metric = "accuracy") +
   geom_label(aes(label = wflow_id)) +
   theme(legend.position = "none") +
   xlim(c(0.5, 6.5)) +
   ggtitle("Accuracy stratified on model")
   
-lg_models %>% 
-  collect_predictions() %>% 
-  group_by(wflow_id) %>% 
+lg_models |> 
+  collect_predictions() |> 
+  group_by(wflow_id) |> 
   roc_curve(truth = Species,
-            .pred_versicolor) %>% 
+            .pred_versicolor) |> 
   autoplot() +
   ggtitle("ROC curve statified on model")
 ```
@@ -113,24 +113,24 @@ lg_models %>%
 ## Resample-to-resample component of variation (consider remove)
 All the models are tested on the same v-folds. In some cases, different models tends to perform well on the same folds - this effect is called a resample-to-resample component of variation. We can numerically investigate these correlations by correlating each model estimates with eachother:
 ```{r}
-lg_models %>% 
-  collect_metrics(summarize = FALSE) %>% 
-  filter(.metric == "accuracy") %>% 
-  select(wflow_id, .estimate, id) %>% 
+lg_models |> 
+  collect_metrics(summarize = FALSE) |> 
+  filter(.metric == "accuracy") |> 
+  select(wflow_id, .estimate, id) |> 
   pivot_wider(id_cols = "id",
               names_from = "wflow_id",
-              values_from = ".estimate") %>%
-  select(-id) %>% 
+              values_from = ".estimate") |>
+  select(-id) |> 
   corrr::correlate(quiet = TRUE)
 ```
 
 The correlation illustrated:
 ```{r}
-lg_models %>% 
-  collect_metrics(summarize = FALSE) %>% 
-  filter(.metric == "accuracy") %>% 
+lg_models |> 
+  collect_metrics(summarize = FALSE) |> 
+  filter(.metric == "accuracy") |> 
   mutate(wflow_id = reorder(wflow_id,
-                            .estimate)) %>% 
+                            .estimate)) |> 
   ggplot(aes(x = wflow_id,
              y = .estimate,
              group = id,

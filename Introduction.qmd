@@ -80,7 +80,7 @@ predict(main_effect_fit, new_values)
 Say we want to apply a model to each of the different species in the data set, this is done by nesting the data as follows:
 ```{r}
 split_by_species <- 
-  crickets %>% 
+  crickets |> 
   group_nest(species) 
 split_by_species
 ```
@@ -88,7 +88,7 @@ split_by_species
 We can apply a model to each of the species with the map functions:
 ```{r}
 model_by_species <- 
-  split_by_species %>% 
+  split_by_species |> 
   mutate(model = map(data, ~ lm(rate ~ temp, data = .x)))
 model_by_species
 ```
@@ -98,9 +98,9 @@ Usually, the output of such a model as `lm` produces a chunk of text. What we wa
 # Notice that the function `tidy()` exists both in the rsample and broom package.
 # You might have an issue running the code if you do not specify which package to be used.
 # To avoid some of these problems, the function tidymodels::tidymodels_prefer() exists.
-model_by_species %>% 
-  mutate(coef = map(model, broom::tidy)) %>% 
-  select(species, coef) %>% 
+model_by_species |> 
+  mutate(coef = map(model, broom::tidy)) |> 
+  select(species, coef) |> 
   unnest(cols = c(coef))
 ```
 

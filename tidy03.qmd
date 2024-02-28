@@ -7,9 +7,9 @@ library("dials")
 
 
 data("iris")
-iris <- iris %>%
-  tibble::as_tibble() %>% 
-  filter(Species != "setosa") %>% 
+iris <- iris |>
+  tibble::as_tibble() |> 
+  filter(Species != "setosa") |> 
   droplevels()
 ```
 In this section the CV-folds are used
@@ -29,9 +29,9 @@ In the `tidymodels` universe, hyperparameters are marked for tuning in the speci
 
 ```{r}
 knn_spec <- nearest_neighbor(neighbors = tune(),
-                             weight_func = tune()) %>% 
+                             weight_func = tune()) |> 
   set_engine(engine = "kknn",
-             trace = 0) %>% 
+             trace = 0) |> 
   set_mode("classification")
 ```
 
@@ -45,8 +45,8 @@ knn_rec <- recipe(Species ~ ., # Use all other columns as predictors
 The specs and recipe is then combined into a workflow:
 
 ```{r}
-knn_wflow <- workflow() %>% 
-  add_model(knn_spec) %>% 
+knn_wflow <- workflow() |> 
+  add_model(knn_spec) |> 
   add_recipe(knn_rec)
 ```
 
@@ -54,21 +54,21 @@ It is possible to inspect which hyperparameters are being tuned, check which val
 
 ```{r}
 # Check hyperparameters
-knn_spec %>% extract_parameter_set_dials()
+knn_spec |> extract_parameter_set_dials()
 
 # Check values tested
-knn_spec %>% extract_parameter_set_dials() %>% 
+knn_spec |> extract_parameter_set_dials() |> 
   extract_parameter_dials("weight_func")
 
 # Change values, save in new object
-knn_params <- knn_spec %>% extract_parameter_set_dials() %>%
+knn_params <- knn_spec |> extract_parameter_set_dials() |>
   update(weight_func = weight_func(c("cos", "inv", "gaussian")),
          neighbors = neighbors(c(1, 15)))
 
 # Check that it is updated
-knn_params %>%
+knn_params |>
   extract_parameter_dials("weight_func")
-knn_params %>%
+knn_params |>
   extract_parameter_dials("neighbors")
 ```
 Different `grid_*` functions exist to combine the hyperparameters, e.g. `grid_random()` and `grid_regular()`. As exemplified below, `grid_regular()` combines the parameters in all possible ways dependent on the number of `levels` chosen.
@@ -85,20 +85,20 @@ A metric is needed to measure the performance of the hyperparameters. The ROC cu
 roc <- metric_set(roc_auc)
 
 # Tuning
-knn_tune <- knn_wflow %>% 
+knn_tune <- knn_wflow |> 
   tune_grid(iris_folds,
-            grid = knn_params %>% grid_regular(levels = 4),
+            grid = knn_params |> grid_regular(levels = 4),
             metrics = roc)
 knn_tune
 ```
 
 To visualize the performance:
 ```{r}
-knn_tune %>% 
-  unnest(cols = .metrics) %>% 
-  select(id, .metric, neighbors, weight_func, .estimate) %>%
-  group_by(neighbors, weight_func) %>% 
-  mutate(estimate_avg = mean(.estimate)) %>%
+knn_tune |> 
+  unnest(cols = .metrics) |> 
+  select(id, .metric, neighbors, weight_func, .estimate) |>
+  group_by(neighbors, weight_func) |> 
+  mutate(estimate_avg = mean(.estimate)) |>
   ggplot(aes(x = neighbors,
              y = estimate_avg)) +
   geom_point() +
@@ -114,14 +114,14 @@ It would seem there is no visual difference between the weight functions. For th
 final_hyperparams <- tibble(weight_func = "gaussian",
                             neighbors = 10)
 
-final_knn_wflow <- knn_wflow %>% 
+final_knn_wflow <- knn_wflow |> 
   finalize_workflow(final_hyperparams)
 final_knn_wflow
 ```
 
 The model can now be fit to the data and used for prediction.
 ```{r}
-final_knn_fit <- final_knn_wflow %>% 
+final_knn_fit <- final_knn_wflow |> 
   fit(iris)
 final_knn_fit
 ```
