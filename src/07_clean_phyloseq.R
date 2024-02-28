@@ -34,9 +34,17 @@ count_matrix <- physeq_tbl_amal_filt |>
               values_from = Abundance,
               values_fill = 0)
 
+# Create a small subset used for testing
+count_matrix_test <- count_matrix |> 
+  slice_head(n = 10) |> 
+  select(Sample, Actinomyces,
+         Adlercreutzia, Agathobacter, Akkermansia)
 
+# Save data
 saveRDS(object = count_matrix,
         file = "data/count_matrix/count_matrix.rds")
+saveRDS(object = count_matrix_test,
+        file = "data/count_matrix/count_matrix_test.rds")
 
 # OTU, Sample, Abundance, chem_administration, ETHNICITY, geo_loc_name,
 # Host_age, host_body_mass_index, Host_disease, host_phenotype, host_sex,
