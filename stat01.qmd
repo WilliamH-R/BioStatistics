@@ -1,4 +1,4 @@
-```{r}
+```{r, include = FALSE}
 set.seed(1337)
 
 library("tidymodels")
@@ -24,7 +24,7 @@ A series of different measures exist meant to quantify the diversity in or betwe
 
     -   Bray-Curtis dissimilarity
 
-As a quick reminder, the subset of the count matrix mentioned in the introduction contain the following data:
+As a quick reminder of what the test count matrix contains:
 
 ```{r}
 count_matrix_test
@@ -32,13 +32,13 @@ count_matrix_test
 
 ## Alpha Diversity
 
-Generally, alpha diversity measures the within sample diversity. Multiple ways of doing this exists. A crude way is simply to count unique organisms per sample. One could also take the distribution into account or the phylogeny.
+Generally, alpha diversity measures the within-sample diversity. Multiple ways of calculating alpha diversity exists. A crude way is simply to count unique organisms per sample. One could also take the distribution into account or the phylogeny.
 
 The R package `vegan` is widely used to help calculate diversity and is used here.
 
 ### Species Richness
 
-As mentioned above, a crude way to measure diversity is to count the number of unique organisms in a given taxon for each sample. That is exactly what the Richness of a species is. Through the `vegan` package, it can be calculated as follows:
+As mentioned above, a crude way to measure diversity is to count the number of unique organisms in a given taxon for each sample. That is exactly what the species richness is. Through the `vegan` package, it can be calculated as follows:
 
 ```{r}
 richness <- count_matrix_test |>
@@ -54,11 +54,64 @@ count_matrix_test |>
 
 ### Shannon Index
 
-The measure is usually referred to as Shannon Index or Shannon Entropy. It is able to take both the richness (described above) and the evenness into account. The evenness refers to how evenly the abundances are distributed among taxa for a species. The richness is considered as we sum over all taxonomic units at a specified taxonomic rank. The index is calculated via the following formula:
+The measure is usually referred to as Shannon Index or Shannon Entropy. It is able to take both the richness (described above) and the evenness into account. The evenness refers to how evenly the abundances are distributed among taxa for a species. The richness is considered when summing over all taxonomic units at a specified taxonomic rank. The index is calculated via the following formula:
 
-$H = -\sum_{i=1}^{n} p_i \ln(p_i)$
+$$
+H' = -\sum_{i=1}^{R} p_i \ln(p_i)
+$$
 
-WRITE EXAMPLES FOR WHEN PROPORTIONS BETWEEN SAMPLES ARE COMPLETELY EVEN AND FOR WHEN THEY ARE COMPLETELY SKEWERED.
+$R$ is the number of observed species within a sample, i.e. the Richness. $p_{i}$ is the proportion of the abundance belonging to the $i$'th species out of the total abundance for a specific sample.
+
+To illustrate the meaning of the value of the Shannon Index a few examples are calculated. In the first scenario, three species and three samples exists. For the first sample, the proportion of abundances are spread evenly between the three species. For the second and third sample, the proportions are more skewered towards one species. These examples show how the evenness affect the Shannon Index.
+
+```{r}
+#| echo: FALSE
+tribble(~sample,    ~species_1, ~species_2, ~species_3,
+        "sample_A", 0.3,        0.3,        0.3,
+        "sample_B", 0.6,        0.2,        0.2,
+        "sample_C", 1,          0,          0)
+
+```
+
+For each of the three samples, the calculation would be as follows:
+
+$$
+H'_{sample_{A}} = -(0.3 \cdot ln{(0.3)} + 0.3 \cdot ln{(0.3)} + 0.3 \cdot ln{(0.3)}) = 1.08
+$$
+
+$$
+H'_{sample_{B}} = -(0.6 \cdot ln{(0.6)} + 0.2 \cdot ln{(0.2)} + 0.2 \cdot ln{(0.2)}) = 0.95
+$$
+$$
+H'_{sample_{C}} = -(1 \cdot ln{(1)}) = 0
+$$
+When the samples are evenly distributed, we observe a higher Shannon Index.
+
+In the following example, the number of species are increased to five. Three different samples with different distributions are still investigated.
+```{r}
+#| echo: FALSE
+tribble(~sample,    ~species_1, ~species_2, ~species_3, ~species_4, ~species_5,
+        "sample_D", 0.2,        0.2,        0.2,        0.2,        0.2,
+        "sample_E", 0.6,        0.1,        0.1,        0.1,        0.1,
+        "sample_F", 1,          0,          0,          0,          0)
+```
+
+$$
+H'_{sample_{D}} = 1.61
+$$
+
+$$
+H'_{sample_{E}} = 1.23
+$$
+
+$$
+H'_{sample_{F}} = 0
+$$
+As before, the Shannon Index decreases with a more skewered distribution. Both $sample_{A}$ and $sample_{D}$ have even distributions, but the Shannon Index for $sample_{D}$ higher since the richness is higher, i.e. more species with an even distribution.
+
+The diversity in a sample is said to be high when the number of species are high, and the distribution is even. As shown above, that would yield a high Shannon Index. So, to conclude, a high Shannon Index suggests high diversity.
+
+Finally, Shannon Index calculated for the test set. The index does seem to be higher when the genera are more evenly distributed as show in the above.
 
 ```{r}
 shannon <- count_matrix_test |>
@@ -70,5 +123,13 @@ shannon <- count_matrix_test |>
 count_matrix_test |>
   left_join(shannon,
             by = "Sample")
+```
+
+### Faith's phylogenetic diversity (Faith's PD)
+Faith's PD consider phylogenetic distances within a sample. 
+
+I CREATED AND EXAMPLE THAT IS NOW LOCATED IN IMAGES FOLDER
+```{r}
+pd(count_matrix_test)
 ```
 
