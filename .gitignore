@@ -11,4 +11,4 @@ data/fastqc
 data/multiqc
 data/bowtie2
 data/dada2
-.Rhistory
+docs/_book/
