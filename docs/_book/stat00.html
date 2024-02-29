@@ -20,7 +20,61 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -194,9 +248,65 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>Some introduction to what the statistical chapter contains.</p>
+<p>Each of the following chapters delve into an area of statistics. This ranges from biostatistics such as diversity measures and different statistical models such as Ordinary Linear Regression (OLS).</p>
+<p>In the first part of the book, the <code>iris</code> data set was used to exemplify the usage of the <code>tidymodels</code> package. For the following chapters, a count matrix from a metagenomics study is used instead. The raw data can be obtained from Cox et al.<span class="citation" data-cites="Cox2021">(<a href="references.html#ref-Cox2021" role="doc-biblioref">Cox et al. 2021</a>)</span>. The structure of the data is quite similar to the <code>iris</code> data. In this case, each row is a sample from a person, each column is a genus and the values represent the abundance of said genus in said sample. Explaining how the count matrix is acquired from raw sequences is out of scope for this book. Scripts used for the pre-processing exists on the <a href="https://github.com/WilliamH-R/BioStatistics">GitHub page</a> from which this book is created, located in the <code>src/</code> sub-folder.</p>
+<p>A snippet of the data set can be seen here:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>count_matrix <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">"data/count_matrix/count_matrix.rds"</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>count_matrix</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 456 × 124
+   Sample      Actinomyces Adlercreutzia Agathobacter Akkermansia Alistipes
+   &lt;chr&gt;             &lt;int&gt;         &lt;int&gt;        &lt;int&gt;       &lt;int&gt;     &lt;int&gt;
+ 1 SRR14214860           0            11          190         486       272
+ 2 SRR14214861           0            12            0           5      1158
+ 3 SRR14214862           0             0            0           0         0
+ 4 SRR14214863           4             0          505          94       361
+ 5 SRR14214864           0            45          744           3       794
+ 6 SRR14214865           0            29          924         933        45
+ 7 SRR14214866           0            41         1187         308       145
+ 8 SRR14214867           0            45          648         323       193
+ 9 SRR14214868           0             0         6973           0       287
+10 SRR14214869           0             0          362         270        30
+# ℹ 446 more rows
+# ℹ 118 more variables: Anaerofustis &lt;int&gt;, Anaerostipes &lt;int&gt;,
+#   Anaerotruncus &lt;int&gt;, Angelakisella &lt;int&gt;, Bacteroides &lt;int&gt;,
+#   Barnesiella &lt;int&gt;, Bifidobacterium &lt;int&gt;, Bilophila &lt;int&gt;, Blautia &lt;int&gt;,
+#   Butyricicoccus &lt;int&gt;, Butyricimonas &lt;int&gt;, `CAG-352` &lt;int&gt;, `CAG-56` &lt;int&gt;,
+#   `Candidatus Soleaferrea` &lt;int&gt;, `Candidatus Stoquefichus` &lt;int&gt;,
+#   Catenibacillus &lt;int&gt;, Catenibacterium &lt;int&gt;, …</code></pre>
+</div>
+</div>
+<p>The shown snippet is used as test data when exemplifying.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>count_matrix_test <span class="ot">&lt;-</span> count_matrix <span class="sc">|&gt;</span> </span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">10</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Sample, Actinomyces,</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>         Adlercreutzia, Agathobacter, Akkermansia)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>count_matrix_test</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 10 × 5
+   Sample      Actinomyces Adlercreutzia Agathobacter Akkermansia
+   &lt;chr&gt;             &lt;int&gt;         &lt;int&gt;        &lt;int&gt;       &lt;int&gt;
+ 1 SRR14214860           0            11          190         486
+ 2 SRR14214861           0            12            0           5
+ 3 SRR14214862           0             0            0           0
+ 4 SRR14214863           4             0          505          94
+ 5 SRR14214864           0            45          744           3
+ 6 SRR14214865           0            29          924         933
+ 7 SRR14214866           0            41         1187         308
+ 8 SRR14214867           0            45          648         323
+ 9 SRR14214868           0             0         6973           0
+10 SRR14214869           0             0          362         270</code></pre>
+</div>
+</div>
 
 
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
+<div id="ref-Cox2021" class="csl-entry" role="listitem">
+Cox, Laura M., Amir Hadi Maghzi, Shirong Liu, Stephanie K. Tankou, Fyonn H. Dhang, Valerie Willocq, Anya Song, et al. 2021. <span>“<span class="nocase">Gut Microbiome in Progressive Multiple Sclerosis</span>.”</span> <em>Annals of Neurology</em> 89 (6): 1195–1211. <a href="https://doi.org/10.1002/ANA.26084">https://doi.org/10.1002/ANA.26084</a>.
+</div>
+</div>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
