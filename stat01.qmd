@@ -131,9 +131,9 @@ count_matrix_test |>
 
 ### Faith's phylogenetic diversity (Faith's PD)
 
-Faith's PD consider phylogenetic distances within a sample. The PD for a sample is calculated as the total sum of branch lengths from a phylogenetic tree, where the tree only contains the organisms found in a given sample [@Faith1992]. Imagine a scenario with four organisms, organism a and b are closely related, and so are organism c and d (@tree_example). 
+Faith's PD consider phylogenetic distances within a sample. The PD for a sample is calculated as the total sum of branch lengths from a phylogenetic tree, where the tree only contains the organisms found in a given sample [@Faith1992]. Imagine a scenario with four organisms, organism a and b are closely related, and so are organism c and d (@fig-tree_example). 
 
-![Phylogenetic tree](images/tree_example.png){#fig:tree_example}
+![Phylogenetic tree](images/tree_example.png){#fig-tree_example}
 
 In the case where all four organisms were found in the same sample, the PD would be calculated as:
 
