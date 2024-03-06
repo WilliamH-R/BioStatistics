@@ -1,0 +1,11 @@
+```{r, include = FALSE}
+set.seed(1337)
+
+library("tidymodels")
+tidymodels::tidymodels_prefer()
+library("vegan")
+
+count_matrix_test <- readRDS(file = "data/count_matrix/count_matrix_test.rds")
+```
+
+EXPLAIN WILCOXON, PERHAPS ALSO CALCULATE WILCOXON FOR SHANNON INDEX WITH DIFFERENT COHORTS
