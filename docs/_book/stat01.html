@@ -253,15 +253,21 @@ window.Quarto = {
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
+        <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="4">
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
   <li><a href="#alpha-diversity" id="toc-alpha-diversity" class="nav-link active" data-scroll-target="#alpha-diversity"><span class="header-section-number">4.1</span> Alpha Diversity</a>
-  <ul class="collapse">
+  <ul>
   <li><a href="#species-richness" id="toc-species-richness" class="nav-link" data-scroll-target="#species-richness"><span class="header-section-number">4.1.1</span> Species Richness</a></li>
   <li><a href="#shannon-index" id="toc-shannon-index" class="nav-link" data-scroll-target="#shannon-index"><span class="header-section-number">4.1.2</span> Shannon Index</a></li>
   <li><a href="#faiths-phylogenetic-diversity-faiths-pd" id="toc-faiths-phylogenetic-diversity-faiths-pd" class="nav-link" data-scroll-target="#faiths-phylogenetic-diversity-faiths-pd"><span class="header-section-number">4.1.3</span> Faith’s phylogenetic diversity (Faith’s PD)</a></li>
+  </ul></li>
+  <li><a href="#beta-diversity" id="toc-beta-diversity" class="nav-link" data-scroll-target="#beta-diversity"><span class="header-section-number">4.2</span> Beta Diversity</a>
+  <ul>
+  <li><a href="#jaccard-similarity-index" id="toc-jaccard-similarity-index" class="nav-link" data-scroll-target="#jaccard-similarity-index"><span class="header-section-number">4.2.1</span> Jaccard similarity index</a></li>
+  <li><a href="#bray-curtis-dissimilarity" id="toc-bray-curtis-dissimilarity" class="nav-link" data-scroll-target="#bray-curtis-dissimilarity"><span class="header-section-number">4.2.2</span> Bray-Curtis dissimilarity</a></li>
+  <li><a href="#unifrac" id="toc-unifrac" class="nav-link" data-scroll-target="#unifrac"><span class="header-section-number">4.2.3</span> UniFrac</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -298,7 +304,9 @@ window.Quarto = {
 </ul></li>
 <li><p>Beta Diversity</p>
 <ul>
-<li>Bray-Curtis dissimilarity</li>
+<li><p>Bray-Curtis dissimilarity</p></li>
+<li><p>UniFrac</p></li>
+<li><p>Jaccard similarity index</p></li>
 </ul></li>
 </ul>
 <p>As a quick reminder of what the test count matrix contains:</p>
@@ -450,7 +458,107 @@ Figure&nbsp;4.1: Phylogenetic tree
 <p><span class="math display">\[
 PD = 15 + 6 + 4 + 3 + 1 + 2 + 4 = 35
 \]</span></p>
-<p>If organism a was lost, the PD would be decreased with 4 units to a value of 31. A higher PD is thus indicative of a higher diversity.</p>
+<p>If an organism a was lost, the PD would be decreased with 4 units to a value of 31. A higher PD is thus indicative of a higher diversity.</p>
+</section>
+</section>
+<section id="beta-diversity" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="beta-diversity"><span class="header-section-number">4.2</span> Beta Diversity</h2>
+<p>Beta diversity describes the between-sample diversity. The diversity is calculated by comparing the diversity in one sample to the diversity in another sample. The diversity can be calculated in different ways, and the choice of method is dependent on the data and the question at hand. The most common methods include Bray-Curtis dissimilarity, UniFrac, and Jaccard similarity index (sometimes called Jaccard similarity coefficient).</p>
+<p>A crude way to calculate beta diversity is to simply count the number of organisms which exists in one sample, but not the other. The mathematical expression is:</p>
+<p><span class="math display">\[
+\beta =  (\alpha_{sample_{1}} - c) + (\alpha_{sample_{2}} - c)
+\]</span></p>
+<p>Where <span class="math inline">\(\alpha_{sample_{1}}\)</span> and <span class="math inline">\(\alpha_{sample_{2}}\)</span> are the number of unique organisms in sample 1 and 2 (the richness), respectively. <span class="math inline">\(c\)</span> is the number of organisms which exists in both samples.</p>
+<p>As an example, consider the following two samples (the top two rows of the test set):</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>count_matrix_test <span class="sc">|&gt;</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 5
+  Sample      Actinomyces Adlercreutzia Agathobacter Akkermansia
+  &lt;chr&gt;             &lt;int&gt;         &lt;int&gt;        &lt;int&gt;       &lt;int&gt;
+1 SRR14214860           0            11          190         486
+2 SRR14214861           0            12            0           5</code></pre>
+</div>
+</div>
+<p>Sample 1 (SRR14214860 ) has a richness of 3 and sample 2 (SRR14214861) has a richness of 2. They share 2 genera. The beta diversity would be calculated as:</p>
+<p><span class="math display">\[
+\beta = (3 - 2) + (2 - 2) = 1
+\]</span></p>
+<section id="jaccard-similarity-index" class="level3" data-number="4.2.1">
+<h3 data-number="4.2.1" class="anchored" data-anchor-id="jaccard-similarity-index"><span class="header-section-number">4.2.1</span> Jaccard similarity index</h3>
+<p>The Jaccard index is another way to calculate beta diversity where only the presence/absence of an organism is taken into account. It is calculated as the number of shared organisms (intersection) divided by the number of unique organisms (union) in the two samples. The equation is as follows::</p>
+<p><span class="math display">\[
+J(A, B) = \frac{|A \cap B|}{|A \cup B|}
+\]</span></p>
+<p>From the equation we see why it is called a similarity index. The union (denominator) is just the number of observed organisms, and the intersection (numerator) is the number of shared organisms. The Jaccard index then represent the fraction of the observed organisms which were observed in both samples, i.e.&nbsp;the similarity of the two samples. The value ranges from 0 to 1, where 0 indicates that the two samples do not share any organisms, and 1 indicates that the two samples are identical.</p>
+<p>When comparing the two first samples in the subset, it is apparent that they share 2 genera, and a total of 3 genera is present between the two samples. The calculation by hand gives: <span class="math display">\[
+J(SRR14214860, SRR14214861) = \frac{2}{3} \approx 0.67
+\]</span></p>
+<p>The two samples are only somewhat similar, as the Jaccard index is close to 1.</p>
+<p>To calculate the Jaccard index by using the <code>vegan</code> package, the argument <code>binary</code> is set to <code>TRUE</code> to indicate that the data is binary, i.e.&nbsp;presence/absence of organisms instead of abundance. It is also important to note, that the <code>vegan</code> package actually calculates the dissimilarities, <span class="math inline">\(1 - \frac{|A \cap B|}{|A \cup B|}\)</span> so a higher value indicates a higher dissimilarity. The Jaccard index is calculated for the test data as follows:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>count_matrix_test <span class="sc">|&gt;</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">2</span>) <span class="sc">|&gt;</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">column_to_rownames</span>(<span class="at">var =</span> <span class="st">"Sample"</span>)<span class="sc">|&gt;</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">vegdist</span>(<span class="at">method =</span> <span class="st">"jaccard"</span>,</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>          <span class="at">binary =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>            SRR14214860
+SRR14214861   0.3333333</code></pre>
+</div>
+</div>
+<p>The result is in agreement with the manual calculation since the <code>vegan</code> package calculates the dissimilarity. When inspecting the two samples, they also appear somewhat similar, as the majority of the organisms are present in both sample (even though talking about a majority is a bit misleading when only four organisms are compared). The abundances of the organisms are quite different, and to take that into account, another method is needed.</p>
+</section>
+<section id="bray-curtis-dissimilarity" class="level3" data-number="4.2.2">
+<h3 data-number="4.2.2" class="anchored" data-anchor-id="bray-curtis-dissimilarity"><span class="header-section-number">4.2.2</span> Bray-Curtis dissimilarity</h3>
+<p>This measure is a widely used method to calculate beta diversity. Bray-Curtis dissimilarity takes the composition and abundance of the two compared samples into account. It is also important to note that it is a dissimilarity measure, so a higher value indicates a higher dissimilarity. The value ranges from 0 to 1. A value of 0 indicates that the two samples are identical, while a value of 1 indicates that the two samples do not share any organisms. The metric is calculated as:</p>
+<p><span class="math display">\[
+BC_{jk} = \frac{\sum_{i=1}^{p} |S_{ij} - S_{ik}|}{\sum_{i=1}^{p} (S_{ij} + S_{ik})}
+\]</span></p>
+<p>Where <span class="math inline">\(S_{ij}\)</span> and <span class="math inline">\(S_{ik}\)</span> are the abundances of the <span class="math inline">\(i\)</span>’th taxon in sample <span class="math inline">\(j\)</span> and <span class="math inline">\(k\)</span>, respectively. <span class="math inline">\(p\)</span> is the number of taxa. With the test data, the Bray-Curtis dissimilarity is calculated as follows:</p>
+<p><span class="math display">\[
+BC_{SRR14214860, SRR14214861} = \frac{|0 - 0| + |11 - 12| + |190 - 0| + |486 - 5|}
+                                     {(0 + 0) + (11 + 12) + (190 + 0) + (486 + 5)}
+                                     = 0.955
+\]</span></p>
+<p>By using the <code>vegan</code> package the Bray-Curtis dissimilarity can be calculated as follows:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>count_matrix_test <span class="sc">|&gt;</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">2</span>) <span class="sc">|&gt;</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">column_to_rownames</span>(<span class="at">var =</span> <span class="st">"Sample"</span>)<span class="sc">|&gt;</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">vegdist</span>(<span class="at">method =</span> <span class="st">"bray"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>            SRR14214860
+SRR14214861   0.9545455</code></pre>
+</div>
+</div>
+<p>The results are in agreement. The value is close to 1, indicating a high dissimilarity between the two samples. Interestingly, this is a different find compared to the Jaccard index, which indicated a higher similarity between the two samples. The abundances of the organisms in the two samples are quite different, and the Bray-Curtis dissimilarity takes that into account.</p>
+</section>
+<section id="unifrac" class="level3" data-number="4.2.3">
+<h3 data-number="4.2.3" class="anchored" data-anchor-id="unifrac"><span class="header-section-number">4.2.3</span> UniFrac</h3>
+<p>The method is based on the phylogenetic tree of the organisms and thereby take the phylogenetic distances into account. UniFrac is shorthand notation for Unique Fraction and is calculated as the sum of unique branch lengths in the phylogenetic tree over the sum of shared branch lengths:</p>
+<p><span class="math display">\[
+U = \frac{sum \; of \; unique \; branches' \; length}{sum \; of \; all \; branches'  \; length}
+\]</span></p>
+<p>The possible values range from 0 to 1. In the case where the two compared samples share all organisms, the value of the numerator would sum to 0, and the UniFrac would be 0. If the two samples do not share any organisms, the value of the numerator would sum to the total length of the phylogenetic tree (the denominator), and the UniFrac would be 1.</p>
+<p>Imagine a phylogenetic tree made from two samples, red and blue. Four different organisms were found in total (<a href="#fig-tree_example_unifrac" class="quarto-xref">Figure&nbsp;<span>4.2</span></a>). A red colour indicate an organism found in the red sample, a blue colour indicate an organism found in the blue sample and a purple colour indicate an organism was found in both samples.</p>
+<div id="fig-tree_example_unifrac" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-tree_example_unifrac-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/tree_example_unifrac.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-tree_example_unifrac-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4.2: Phylogenetic tree with cohorts
+</figcaption>
+</figure>
+</div>
+<p>Following the equation above, the UniFrac distance would be calculated as:</p>
+<p><span class="math display">\[
+U = \frac{4 + 2 + 4}{15 + 6 + 4 + 3 + 1 + 2 + 4} = 0.286
+\]</span></p>
+<p>The value indicates that the blue and red samples are quite similar.</p>
+<p>The method is divided into two different types, unweighted and weighted. It is the unweighted method which is described above. The weighted method takes the abundance of the organisms into account. The weighted method biases towards the most abundant organisms, while the unweighted method biases more towards the rare organisms. A third version exists, called Generalized UniFrac. This metric has another parameter, usually called <span class="math inline">\(\alpha\)</span>, which can be used to control the balance between the unweighted and weighted methods.</p>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">

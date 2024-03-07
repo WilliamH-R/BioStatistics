@@ -23,9 +23,9 @@ A series of different measures exist meant to quantify the diversity in or betwe
 -   Beta Diversity
 
     -   Bray-Curtis dissimilarity
-    
+
     -   UniFrac
-    
+
     -   Jaccard similarity index
 
 As a quick reminder of what the test count matrix contains:
@@ -135,7 +135,7 @@ count_matrix_test |>
 
 ### Faith's phylogenetic diversity (Faith's PD)
 
-Faith's PD consider phylogenetic distances within a sample. The PD for a sample is calculated as the total sum of branch lengths from a phylogenetic tree, where the tree only contains the organisms found in a given sample [@Faith1992]. Imagine a scenario with four organisms, organism a and b are closely related, and so are organism c and d (@fig-tree_example). 
+Faith's PD consider phylogenetic distances within a sample. The PD for a sample is calculated as the total sum of branch lengths from a phylogenetic tree, where the tree only contains the organisms found in a given sample [@Faith1992]. Imagine a scenario with four organisms, organism a and b are closely related, and so are organism c and d (@fig-tree_example).
 
 ![Phylogenetic tree](images/tree_example.png){#fig-tree_example}
 
@@ -148,6 +148,7 @@ $$
 If an organism a was lost, the PD would be decreased with 4 units to a value of 31. A higher PD is thus indicative of a higher diversity.
 
 ## Beta Diversity
+
 Beta diversity describes the between-sample diversity. The diversity is calculated by comparing the diversity in one sample to the diversity in another sample. The diversity can be calculated in different ways, and the choice of method is dependent on the data and the question at hand. The most common methods include Bray-Curtis dissimilarity, UniFrac, and Jaccard similarity index (sometimes called Jaccard similarity coefficient).
 
 A crude way to calculate beta diversity is to simply count the number of organisms which exists in one sample, but not the other. The mathematical expression is:
@@ -165,7 +166,7 @@ count_matrix_test |>
   slice_head(n = 2)
 ```
 
-Sample 1 (SRR14214860	) has a richness of 3 and sample 2 (SRR14214861) has a richness of 2. They share 2 genera. The beta diversity would be calculated as:
+Sample 1 (SRR14214860 ) has a richness of 3 and sample 2 (SRR14214861) has a richness of 2. They share 2 genera. The beta diversity would be calculated as:
 
 $$
 \beta = (3 - 2) + (2 - 2) = 1
@@ -181,8 +182,7 @@ $$
 
 From the equation we see why it is called a similarity index. The union (denominator) is just the number of observed organisms, and the intersection (numerator) is the number of shared organisms. The Jaccard index then represent the fraction of the observed organisms which were observed in both samples, i.e. the similarity of the two samples. The value ranges from 0 to 1, where 0 indicates that the two samples do not share any organisms, and 1 indicates that the two samples are identical.
 
-When comparing the two first samples in the subset, it is apparent that they share 2 genera, and a total of 3 genera is present between the two samples. The calculation by hand gives:
-$$
+When comparing the two first samples in the subset, it is apparent that they share 2 genera, and a total of 3 genera is present between the two samples. The calculation by hand gives: $$
 J(SRR14214860, SRR14214861) = \frac{2}{3} \approx 0.67
 $$
 
@@ -211,8 +211,8 @@ $$
 Where $S_{ij}$ and $S_{ik}$ are the abundances of the $i$'th taxon in sample $j$ and $k$, respectively. $p$ is the number of taxa. With the test data, the Bray-Curtis dissimilarity is calculated as follows:
 
 $$
-BC_{SRR14214860, SRR14214861} = \frac{|0 - 0| + |11 - 12| + |190 - 0| + |486 - 5|} &&
-                                     {(0 + 0) + (11 + 12) + (190 + 0) + (486 + 5)} &&
+BC_{SRR14214860, SRR14214861} = \frac{|0 - 0| + |11 - 12| + |190 - 0| + |486 - 5|}
+                                     {(0 + 0) + (11 + 12) + (190 + 0) + (486 + 5)}
                                      = 0.955
 $$
 
@@ -224,9 +224,11 @@ count_matrix_test |>
   column_to_rownames(var = "Sample")|>
   vegdist(method = "bray")
 ```
+
 The results are in agreement. The value is close to 1, indicating a high dissimilarity between the two samples. Interestingly, this is a different find compared to the Jaccard index, which indicated a higher similarity between the two samples. The abundances of the organisms in the two samples are quite different, and the Bray-Curtis dissimilarity takes that into account.
 
 ### UniFrac
+
 The method is based on the phylogenetic tree of the organisms and thereby take the phylogenetic distances into account. UniFrac is shorthand notation for Unique Fraction and is calculated as the sum of unique branch lengths in the phylogenetic tree over the sum of shared branch lengths:
 
 $$
@@ -238,11 +240,13 @@ The possible values range from 0 to 1. In the case where the two compared sample
 Imagine a phylogenetic tree made from two samples, red and blue. Four different organisms were found in total (@fig-tree_example_unifrac). A red colour indicate an organism found in the red sample, a blue colour indicate an organism found in the blue sample and a purple colour indicate an organism was found in both samples.
 
 ![Phylogenetic tree with cohorts](images/tree_example_unifrac.png){#fig-tree_example_unifrac}
+
 Following the equation above, the UniFrac distance would be calculated as:
 
 $$
 U = \frac{4 + 2 + 4}{15 + 6 + 4 + 3 + 1 + 2 + 4} = 0.286
 $$
+
 The value indicates that the blue and red samples are quite similar.
 
 The method is divided into two different types, unweighted and weighted. It is the unweighted method which is described above. The weighted method takes the abundance of the organisms into account. The weighted method biases towards the most abundant organisms, while the unweighted method biases more towards the rare organisms. A third version exists, called Generalized UniFrac. This metric has another parameter, usually called $\alpha$, which can be used to control the balance between the unweighted and weighted methods.

@@ -26,6 +26,9 @@ bibliography: references.bib
 
 format:
   html:
+    toc: TRUE
+    toc-depth: 4
+    toc-expand: 4
     theme: cosmo
 
 editor: source
