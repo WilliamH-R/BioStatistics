@@ -171,12 +171,24 @@ $$
 \beta = (3 - 2) + (2 - 2) = 1
 $$
 
-### Jaccard distance
+### Jaccard similarity index
 
-The Jaccard index is another way to calculate beta diversity. It is calculated as the number of shared organisms divided by the number of unique organisms in the two samples.
+The Jaccard index is another way to calculate beta diversity where only the presence/absence of an organism is taken into account. It is calculated as the number of shared organisms (intersection) divided by the number of unique organisms (union) in the two samples. The equation is as follows::
 
+$$
+J(A, B) = \frac{|A \cap B|}{|A \cup B|}
+$$
 
-The index is calculated as:
+From the equation we see why it is called a similarity index. The union (denominator) is just the number of observed organisms, and the intersection (numerator) is the number of shared organisms. The Jaccard index then represent the fraction of the observed organisms which were observed in both samples, i.e. the similarity of the two samples. The value ranges from 0 to 1, where 0 indicates that the two samples do not share any organisms, and 1 indicates that the two samples are identical.
+
+When comparing the two first samples in the subset, it is apparent that they share 2 genera, and a total of 3 genera is present between the two samples. The calculation by hand gives:
+$$
+J(SRR14214860, SRR14214861) = \frac{2}{3} \approx 0.67
+$$
+
+The two samples are only somewhat similar, as the Jaccard index is close to 1.
+
+To calculate the Jaccard index by using the `vegan` package, the argument `binary` is set to `TRUE` to indicate that the data is binary, i.e. presence/absence of organisms instead of abundance. It is also important to note, that the `vegan` package actually calculates the dissimilarities, $1 - \frac{|A \cap B|}{|A \cup B|}$ so a higher value indicates a higher dissimilarity. The Jaccard index is calculated for the test data as follows:
 
 ```{r}
 count_matrix_test |>
@@ -186,9 +198,11 @@ count_matrix_test |>
           binary = TRUE)
 ```
 
+The result is in agreement with the manual calculation since the `vegan` package calculates the dissimilarity. When inspecting the two samples, they also appear somewhat similar, as the majority of the organisms are present in both sample (even though talking about a majority is a bit misleading when only four organisms are compared). The abundances of the organisms are quite different, and to take that into account, another method is needed.
+
 ### Bray-Curtis dissimilarity
 
-This measure is a widely used method to calculate beta diversity. Bray-Curtis dissimilarity takes the composition and abundance of the two compared samples into account. It is also important to note, that it is a dissimilarity measure, so a higher value indicates a higher dissimilarity. The value ranges from 0 to 1. A value of 0 indicates that the two samples are identical, while a value of 1 indicates that the two samples do not share any organisms. The metric is calculated as:
+This measure is a widely used method to calculate beta diversity. Bray-Curtis dissimilarity takes the composition and abundance of the two compared samples into account. It is also important to note that it is a dissimilarity measure, so a higher value indicates a higher dissimilarity. The value ranges from 0 to 1. A value of 0 indicates that the two samples are identical, while a value of 1 indicates that the two samples do not share any organisms. The metric is calculated as:
 
 $$
 BC_{jk} = \frac{\sum_{i=1}^{p} |S_{ij} - S_{ik}|}{\sum_{i=1}^{p} (S_{ij} + S_{ik})}
@@ -210,7 +224,7 @@ count_matrix_test |>
   column_to_rownames(var = "Sample")|>
   vegdist(method = "bray")
 ```
-The results are in agreement. The value is close to 1, indicating a high dissimilarity between the two samples. 
+The results are in agreement. The value is close to 1, indicating a high dissimilarity between the two samples. Interestingly, this is a different find compared to the Jaccard index, which indicated a higher similarity between the two samples. The abundances of the organisms in the two samples are quite different, and the Bray-Curtis dissimilarity takes that into account.
 
 ### UniFrac
 The method is based on the phylogenetic tree of the organisms and thereby take the phylogenetic distances into account. UniFrac is shorthand notation for Unique Fraction and is calculated as the sum of unique branch lengths in the phylogenetic tree over the sum of shared branch lengths:
