@@ -5,7 +5,116 @@ library("tidymodels")
 tidymodels::tidymodels_prefer()
 library("vegan")
 
-count_matrix_test <- readRDS(file = "data/count_matrix/count_matrix_test.rds")
+count_matrix <- readRDS(file = "data/count_matrix/count_matrix.rds")
+meta <- read.csv(file = "data/metadata.txt") |> 
+  as_tibble() |>
+  select(Run, chem_administration, ETHNICITY, geo_loc_name,
+         Host_age, host_body_mass_index, Host_disease, host_phenotype, host_sex) |> 
+  rename(Sample = Run,
+         Treatment = chem_administration,
+         Ethnicity = ETHNICITY,
+         Location = geo_loc_name,
+         Age = Host_age,
+         BMI = host_body_mass_index,
+         Disease_severity = Host_disease,
+         EDSS = host_phenotype,
+         Sex = host_sex) |>
+  mutate(Patient_status = case_when(Disease_severity == "1HealthyControl" ~ "Healthy",
+                                    TRUE ~ "MS"),
+         EDSS = as.factor(EDSS),
+         EDSS = case_when(is.na(EDSS) & Disease_severity == "1HealthyControl" ~ "-1",
+                          is.na(EDSS) & Disease_severity != "1HealthyControl" ~ "Unknown",
+                          TRUE ~ EDSS),
+         EDSS = as.factor(EDSS))
 ```
 
-EXPLAIN WILCOXON, PERHAPS ALSO CALCULATE WILCOXON FOR SHANNON INDEX WITH DIFFERENT COHORTS
+# Wilcoxon test
+A plethora of statistical tests exists. The choice of test depends on the type of data. For example, if the data is normally distributed, the t-test can be used to compare the means of two groups. If the data is not normally distributed, the Wilcoxon test can be used instead. Below the Shannon Index for the full data set have been calculated and plotted stratified by the patient status, Healthy vs Multiple Sclerosis (MS). As can be seen from the plots, the Shannon Index does not seem to follow a normal distribution.
+
+```{r}
+shannon <- count_matrix |>
+  column_to_rownames(var = "Sample") |>
+  diversity(index = "shannon") |> 
+  as_tibble(rownames = "Sample") |> 
+  rename(Shannon = value) |> 
+  left_join(meta,
+            by = "Sample")
+
+shannon |>
+ggplot(aes(x = Shannon,
+           fill = Patient_status)) +
+  geom_density(alpha = 0.7) +
+  facet_wrap(~ Patient_status)
+```
+
+The Wilcoxon test is a non-parametric test, which means it do not assume that the samples have been taken from a specific distribution, e.g. the normal distribution. Two different Wilcoxon tests exists, one for comparing dependent samples and one for comparing independent samples. Our samples would be dependent if they were taken from the same patient at different times. Since we are comparing different patients, our samples are independent. Hence, the specific Wilcoxon test we will use is the Wilcoxon Rank Sum test, also called the Mann-Whitney U test.
+
+The test is rank-based, which means that all the data is ranked and are then used to calculate the test statistic, in this case the U statistic. After ranking the data, the sum of the ranks for the two groups are calculated. U is then calculated as:
+
+$$
+U = min(U_1, \; U_2) = min(R_1 - \frac{n_1(n_1+1)} {2}, \; R_2 - \frac{n_2(n_2+1)} {2})
+$$
+
+Where $R_1$ and $R_2$ is the sum of the ranks for the first and second group, respectively. Likewise, $n_1$ and $n_2$ is the number of samples in the first and second group, respectively. The U statistic is then used to find the p-value, which is used to determine if the difference between the two groups is statistically significant. The p-value is the probability of observing a U statistic as extreme as the one observed, given that the null hypothesis of no difference between the distributions of $U_1$ and $U_2$ is true. Due to the Central Limit Theorem, the distributions of $U_1$ and $U_2$, and thereby $U$, can be assumed to follow a normal distribution when the sample size is larger than approximately 20. The Wilcoxon Rank Sum test for the Shannon Index is shown below. As the p-value is much lower than the usual significance level of 0.05, we can conclude that the Shannon Index is significantly different between the two groups.
+
+```{r}
+wilcox.test(Shannon ~ Patient_status,
+            data = shannon) |> 
+  broom::tidy()
+```
+
+
+
+
+CALCULATE WILCOXON FOR SHANNON INDEX WITH DIFFERENT COHORTS
+
+
+
+
+#### OLD ####
+Try to manually calculate U statistic (successful) and p-value (no success)
+```{r}
+# Select 3 healthy samples
+healthy_samples <- count_matrix |>
+  column_to_rownames(var = "Sample") |>
+  diversity(index = "shannon") |> 
+  as_tibble(rownames = "Sample") |> 
+  rename(Shannon = value) |> 
+  left_join(meta,
+            by = "Sample") |> 
+  select(Sample, Patient_status, Shannon) |>
+  filter(Patient_status == "Healthy") |>
+  slice_head(n = 25)
+
+# Select 7 sick samples
+sick_samples <- count_matrix |>
+  column_to_rownames(var = "Sample") |>
+  diversity(index = "shannon") |> 
+  as_tibble(rownames = "Sample") |> 
+  rename(Shannon = value) |> 
+  left_join(meta,
+            by = "Sample") |> 
+  select(Sample, Patient_status, Shannon) |>
+  filter(Patient_status == "MS") |>
+  slice_head(n = 25)
+
+# Combine the selected samples
+selected_samples <- bind_rows(healthy_samples, sick_samples) |> 
+  arrange(Shannon) |> 
+  tibble::rowid_to_column("Rank") # no ties between values
+
+
+# Calculate the U statistic
+U_statistic <- selected_samples |>
+  group_by(Patient_status) |>
+  mutate(R = sum(Rank),
+         U = R - (n()*(n()+1)/2)) |> 
+  pull(U) |>
+  min()
+
+
+wilcox.test(Shannon ~ Patient_status,
+            data = selected_samples, paired= FALSE) |> 
+  broom::tidy()
+```
+
