@@ -195,6 +195,28 @@
     ]
   },
   {
+    "objectID": "stat02.html",
+    "href": "stat02.html",
+    "title": "5  Wilcoxon test",
+    "section": "",
+    "text": "A plethora of statistical tests exists. The choice of test depends on the type of data. For example, if the data is normally distributed, the t-test can be used to compare the means of two groups. If the data is not normally distributed, the Wilcoxon test can be used instead. Below the Shannon Index for the full data set have been calculated and plotted stratified by the patient status, Healthy vs Multiple Sclerosis (MS). As can be seen from the plots, the Shannon Index does not seem to follow a normal distribution.\n\nshannon &lt;- count_matrix |&gt;\n  column_to_rownames(var = \"Sample\") |&gt;\n  diversity(index = \"shannon\") |&gt; \n  as_tibble(rownames = \"Sample\") |&gt; \n  rename(Shannon = value) |&gt; \n  left_join(meta,\n            by = \"Sample\")\n\nshannon |&gt;\nggplot(aes(x = Shannon,\n           fill = Patient_status)) +\n  geom_density(alpha = 0.7) +\n  facet_wrap(~ Patient_status)\n\n\n\n\n\n\n\n\nThe Wilcoxon test is a non-parametric test, which means it do not assume that the samples have been taken from a specific distribution, e.g. the normal distribution. Two different Wilcoxon tests exists, one for comparing dependent samples and one for comparing independent samples. Our samples would be dependent if they were taken from the same patient at different times. Since we are comparing different patients, our samples are independent. Hence, the specific Wilcoxon test we will use is the Wilcoxon Rank Sum test, also called the Mann-Whitney U test.\nThe test is rank-based, which means that all the data is ranked and are then used to calculate the test statistic, in this case the U statistic. After ranking the data, the sum of the ranks for the two groups are calculated. U is then calculated as:\n\\[\nU = min(U_1, \\; U_2) = min(R_1 - \\frac{n_1(n_1+1)} {2}, \\; R_2 - \\frac{n_2(n_2+1)} {2})\n\\]\nWhere \\(R_1\\) and \\(R_2\\) is the sum of the ranks for the first and second group, respectively. Likewise, \\(n_1\\) and \\(n_2\\) is the number of samples in the first and second group, respectively. The U statistic is then used to find the p-value, which is used to determine if the difference between the two groups is statistically significant. The p-value is the probability of observing a U statistic as extreme as the one observed, given that the null hypothesis of no difference between the distributions of \\(U_1\\) and \\(U_2\\) is true. Due to the Central Limit Theorem, the distributions of \\(U_1\\) and \\(U_2\\), and thereby \\(U\\), can be assumed to follow a normal distribution when the sample size is larger than approximately 20. The Wilcoxon Rank Sum test for the Shannon Index is shown below. As the p-value is much lower than the usual significance level of 0.05, we can conclude that the Shannon Index is significantly different between the two groups. Here, the two groups are the healthy and MS patients.\n\nwilcox.test(Shannon ~ Patient_status,\n            data = shannon) |&gt; \n  broom::tidy()\n\n# A tibble: 1 × 4\n  statistic p.value method                                           alternative\n      &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;                                            &lt;chr&gt;      \n1      7016 0.00440 Wilcoxon rank sum test with continuity correcti… two.sided  \n\n\n\n5.0.0.1 OLD\nTry to manually calculate U statistic (successful) and p-value (no success)\n\n# Select 3 healthy samples\nhealthy_samples &lt;- count_matrix |&gt;\n  column_to_rownames(var = \"Sample\") |&gt;\n  diversity(index = \"shannon\") |&gt; \n  as_tibble(rownames = \"Sample\") |&gt; \n  rename(Shannon = value) |&gt; \n  left_join(meta,\n            by = \"Sample\") |&gt; \n  select(Sample, Patient_status, Shannon) |&gt;\n  filter(Patient_status == \"Healthy\") |&gt;\n  slice_head(n = 25)\n\n# Select 7 sick samples\nsick_samples &lt;- count_matrix |&gt;\n  column_to_rownames(var = \"Sample\") |&gt;\n  diversity(index = \"shannon\") |&gt; \n  as_tibble(rownames = \"Sample\") |&gt; \n  rename(Shannon = value) |&gt; \n  left_join(meta,\n            by = \"Sample\") |&gt; \n  select(Sample, Patient_status, Shannon) |&gt;\n  filter(Patient_status == \"MS\") |&gt;\n  slice_head(n = 25)\n\n# Combine the selected samples\nselected_samples &lt;- bind_rows(healthy_samples, sick_samples) |&gt; \n  arrange(Shannon) |&gt; \n  tibble::rowid_to_column(\"Rank\") # no ties between values\n\n\n# Calculate the U statistic\nU_statistic &lt;- selected_samples |&gt;\n  group_by(Patient_status) |&gt;\n  mutate(R = sum(Rank),\n         U = R - (n()*(n()+1)/2)) |&gt; \n  pull(U) |&gt;\n  min()\n\n\nwilcox.test(Shannon ~ Patient_status,\n            data = selected_samples, paired= FALSE) |&gt; \n  broom::tidy()\n\n# A tibble: 1 × 4\n  statistic p.value method                       alternative\n      &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;                        &lt;chr&gt;      \n1       263   0.345 Wilcoxon rank sum exact test two.sided",
+    "crumbs": [
+      "Applied bio-statistical methods",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Wilcoxon test</span>"
+    ]
+  },
+  {
+    "objectID": "stat03.html",
+    "href": "stat03.html",
+    "title": "6  Multiple testing",
+    "section": "",
+    "text": "CALCULATE WILCOXON FOR SHANNON INDEX WITH DIFFERENT COHORTS AND ADJUST FOR MULTIPLE TESTING",
+    "crumbs": [
+      "Applied bio-statistical methods",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Multiple testing</span>"
+    ]
+  },
+  {
     "objectID": "references.html",
     "href": "references.html",
     "title": "References",
