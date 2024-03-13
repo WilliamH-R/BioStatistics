@@ -18,6 +18,8 @@ book:
     - part: stat00.qmd
       chapters:
         - stat01.qmd
+        - stat02.qmd
+        - stat03.qmd
         
         
     - references.qmd

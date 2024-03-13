@@ -1,0 +1,34 @@
+```{r, include = FALSE}
+set.seed(1337)
+
+library("tidymodels")
+tidymodels::tidymodels_prefer()
+library("vegan")
+
+count_matrix <- readRDS(file = "data/count_matrix/count_matrix.rds") |> 
+  select(-"NA")
+meta <- read.csv(file = "data/metadata.txt") |> 
+  as_tibble() |>
+  select(Run, chem_administration, ETHNICITY, geo_loc_name,
+         Host_age, host_body_mass_index, Host_disease, host_phenotype, host_sex) |> 
+  rename(Sample = Run,
+         Treatment = chem_administration,
+         Ethnicity = ETHNICITY,
+         Location = geo_loc_name,
+         Age = Host_age,
+         BMI = host_body_mass_index,
+         Disease_severity = Host_disease,
+         EDSS = host_phenotype,
+         Sex = host_sex) |>
+  mutate(Patient_status = case_when(Disease_severity == "1HealthyControl" ~ "Healthy",
+                                    TRUE ~ "MS"),
+         EDSS = as.factor(EDSS),
+         EDSS = case_when(is.na(EDSS) & Disease_severity == "1HealthyControl" ~ "-1",
+                          is.na(EDSS) & Disease_severity != "1HealthyControl" ~ "Unknown",
+                          TRUE ~ EDSS),
+         EDSS = as.factor(EDSS))
+```
+
+# Multiple testing
+
+CALCULATE WILCOXON FOR SHANNON INDEX WITH DIFFERENT COHORTS AND ADJUST FOR MULTIPLE TESTING
