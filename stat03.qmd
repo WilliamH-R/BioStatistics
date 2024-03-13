@@ -32,3 +32,5 @@ meta <- read.csv(file = "data/metadata.txt") |>
 # Multiple testing
 
 CALCULATE WILCOXON FOR SHANNON INDEX WITH DIFFERENT COHORTS AND ADJUST FOR MULTIPLE TESTING
+
+Good video for multiple testing: https://www.youtube.com/watch?v=RUX94txw4Qo
