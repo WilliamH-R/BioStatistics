@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>BioStatistics - 3&nbsp; Tuning hyperparameters and overfitting</title>
+<title>BioStatistics - 1&nbsp; Introduction to Tidy Modelling</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -64,8 +64,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./stat00.html" rel="next">
-<link href="./tidy02.html" rel="prev">
+<link href="./tidy02_mult_models.html" rel="next">
+<link href="./tidy00_book_intro.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -115,7 +115,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./tidy00.html">Tidy Modelling with R</a></li><li class="breadcrumb-item"><a href="./tidy03.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Tuning hyperparameters and overfitting</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./tidy00_book_intro.html">Tidy Modelling with R</a></li><li class="breadcrumb-item"><a href="./tidy01_intro_package.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction to Tidy Modelling</span></a></li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -148,7 +148,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="./tidy00.html" class="sidebar-item-text sidebar-link">
+            <a href="./tidy00_book_intro.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Tidy Modelling with R</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -157,19 +157,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./tidy01.html" class="sidebar-item-text sidebar-link">
+  <a href="./tidy01_intro_package.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction to Tidy Modelling</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./tidy02.html" class="sidebar-item-text sidebar-link">
+  <a href="./tidy02_mult_models.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Creating multiple models</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./tidy03.html" class="sidebar-item-text sidebar-link active">
+  <a href="./tidy03_hyperparam.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Tuning hyperparameters and overfitting</span></span></a>
   </div>
 </li>
@@ -177,7 +177,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="./stat00.html" class="sidebar-item-text sidebar-link">
+            <a href="./stat00_intro.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Applied bio-statistical methods</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -186,26 +186,38 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./stat01.html" class="sidebar-item-text sidebar-link">
+  <a href="./stat01_diversity.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Diversity measures</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./stat02.html" class="sidebar-item-text sidebar-link">
+  <a href="./stat02_wilcoxon.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Wilcoxon test</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./stat03.html" class="sidebar-item-text sidebar-link">
+  <a href="./stat03_mult_testing.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Multiple testing</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./stat04.html" class="sidebar-item-text sidebar-link">
+  <a href="./stat04_OLS.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Ordinary Least Squares Regression</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./stat05_log_reg.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Logistic Regression</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./stat06_enet.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Elastic Net</span></span></a>
   </div>
 </li>
       </ul>
@@ -226,19 +238,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#what-is-a-hyperparameter" id="toc-what-is-a-hyperparameter" class="nav-link active" data-scroll-target="#what-is-a-hyperparameter"><span class="header-section-number">3.1</span> What is a hyperparameter?</a></li>
-  <li><a href="#set-up-tuning" id="toc-set-up-tuning" class="nav-link" data-scroll-target="#set-up-tuning"><span class="header-section-number">3.2</span> Set up tuning</a></li>
-  <li><a href="#measure-performance-of-tuning" id="toc-measure-performance-of-tuning" class="nav-link" data-scroll-target="#measure-performance-of-tuning"><span class="header-section-number">3.3</span> Measure performance of tuning</a></li>
-  <li><a href="#finalize-hyperparameter-selection" id="toc-finalize-hyperparameter-selection" class="nav-link" data-scroll-target="#finalize-hyperparameter-selection"><span class="header-section-number">3.4</span> Finalize hyperparameter selection</a></li>
+  <li><a href="#introdution-to-dataset" id="toc-introdution-to-dataset" class="nav-link active" data-scroll-target="#introdution-to-dataset"><span class="header-section-number">1.1</span> Introdution to dataset</a></li>
+  <li><a href="#training--and-test-set" id="toc-training--and-test-set" class="nav-link" data-scroll-target="#training--and-test-set"><span class="header-section-number">1.2</span> Training- and test set</a></li>
+  <li><a href="#fitting-a-model" id="toc-fitting-a-model" class="nav-link" data-scroll-target="#fitting-a-model"><span class="header-section-number">1.3</span> Fitting a model</a></li>
+  <li><a href="#prediction" id="toc-prediction" class="nav-link" data-scroll-target="#prediction"><span class="header-section-number">1.4</span> Prediction</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./tidy00.html">Tidy Modelling with R</a></li><li class="breadcrumb-item"><a href="./tidy03.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Tuning hyperparameters and overfitting</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./tidy00_book_intro.html">Tidy Modelling with R</a></li><li class="breadcrumb-item"><a href="./tidy01_intro_package.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction to Tidy Modelling</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Tuning hyperparameters and overfitting</span></h1>
+<h1 class="title"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction to Tidy Modelling</span></h1>
 </div>
 
 
@@ -255,211 +267,136 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>In this section the CV-folds are used</p>
+<section id="introdution-to-dataset" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="introdution-to-dataset"><span class="header-section-number">1.1</span> Introdution to dataset</h2>
+<p>For simplicity, the <code>iris</code> dataset is used since the structure is simple, and readers should be familiar with it. As a quick reminder, the dataset consists of five variables (columns) and 150 observations (rows). The first four variables are doubles describing the size of the flower, used as predictors. The last variable is a factor indicating the species of flower, used as the outcome. To make this a binary logistic classification problem, and not nominal, the versicolor species have been excluded.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>iris_folds <span class="ot">&lt;-</span> <span class="fu">vfold_cv</span>(iris)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<section id="what-is-a-hyperparameter" class="level2" data-number="3.1">
-<h2 data-number="3.1" class="anchored" data-anchor-id="what-is-a-hyperparameter"><span class="header-section-number">3.1</span> What is a hyperparameter?</h2>
-<p>A classical and simple example of a hyperparameter is the number of neighbors (k) in a k-nearest neighbors (KNN) algorithm. This is a hyperparameter as it is not estimated during model fitting, but is specified a priori making it impossible to optimize during parameter estimation.</p>
-</section>
-<section id="set-up-tuning" class="level2" data-number="3.2">
-<h2 data-number="3.2" class="anchored" data-anchor-id="set-up-tuning"><span class="header-section-number">3.2</span> Set up tuning</h2>
-<p>In the <code>tidymodels</code> universe, hyperparameters are marked for tuning in the specifications for a model. To examplify, both the number of nearest neighbors and a range of weight functions are tuned.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>knn_spec <span class="ot">&lt;-</span> <span class="fu">nearest_neighbor</span>(<span class="at">neighbors =</span> <span class="fu">tune</span>(),</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>                             <span class="at">weight_func =</span> <span class="fu">tune</span>()) <span class="sc">|&gt;</span> </span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_engine</span>(<span class="at">engine =</span> <span class="st">"kknn"</span>,</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>             <span class="at">trace =</span> <span class="dv">0</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_mode</span>(<span class="st">"classification"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>Secondly, the recipe is set up. As no preprocessing is applied (e.g.&nbsp;log-transformation) it is quite simple.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>knn_rec <span class="ot">&lt;-</span> <span class="fu">recipe</span>(Species <span class="sc">~</span> ., <span class="co"># Use all other columns as predictors</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>                  <span class="at">data =</span> iris)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>The specs and recipe is then combined into a workflow:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>knn_wflow <span class="ot">&lt;-</span> <span class="fu">workflow</span>() <span class="sc">|&gt;</span> </span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_model</span>(knn_spec) <span class="sc">|&gt;</span> </span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_recipe</span>(knn_rec)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>It is possible to inspect which hyperparameters are being tuned, check which values that are tested and change those values. This is done through the use of the <code>dials</code> package.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check hyperparameters</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>knn_spec <span class="sc">|&gt;</span> <span class="fu">extract_parameter_set_dials</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(iris)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Collection of 2 parameters for tuning
-
-  identifier        type    object
-   neighbors   neighbors nparam[+]
- weight_func weight_func dparam[+]</code></pre>
+<pre><code>[1] 100   5</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Check values tested</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>knn_spec <span class="sc">|&gt;</span> <span class="fu">extract_parameter_set_dials</span>() <span class="sc">|&gt;</span> </span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">extract_parameter_dials</span>(<span class="st">"weight_func"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>iris <span class="sc">|&gt;</span> </span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">5</span>) <span class="sc">|&gt;</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">str</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Distance Weighting Function  (qualitative)</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>10 possible values include:</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>'rectangular', 'triangular', 'epanechnikov', 'biweight', 'triweight', 'cos', ... </code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Change values, save in new object</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>knn_params <span class="ot">&lt;-</span> knn_spec <span class="sc">|&gt;</span> <span class="fu">extract_parameter_set_dials</span>() <span class="sc">|&gt;</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">update</span>(<span class="at">weight_func =</span> <span class="fu">weight_func</span>(<span class="fu">c</span>(<span class="st">"cos"</span>, <span class="st">"inv"</span>, <span class="st">"gaussian"</span>)),</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">neighbors =</span> <span class="fu">neighbors</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">15</span>)))</span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Check that it is updated</span></span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>knn_params <span class="sc">|&gt;</span></span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">extract_parameter_dials</span>(<span class="st">"weight_func"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Distance Weighting Function  (qualitative)</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>3 possible values include:</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>'cos', 'inv' and 'gaussian' </code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>knn_params <span class="sc">|&gt;</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">extract_parameter_dials</span>(<span class="st">"neighbors"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># Nearest Neighbors (quantitative)
-Range: [1, 15]</code></pre>
-</div>
-</div>
-<p>Different <code>grid_*</code> functions exist to combine the hyperparameters, e.g.&nbsp;<code>grid_random()</code> and <code>grid_regular()</code>. As exemplified below, <code>grid_regular()</code> combines the parameters in all possible ways dependent on the number of <code>levels</code> chosen.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grid_regular</span>(knn_params,</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>             <span class="at">levels =</span> <span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 12 × 2
-   neighbors weight_func
-       &lt;int&gt; &lt;chr&gt;      
- 1         1 cos        
- 2         5 cos        
- 3        10 cos        
- 4        15 cos        
- 5         1 inv        
- 6         5 inv        
- 7        10 inv        
- 8        15 inv        
- 9         1 gaussian   
-10         5 gaussian   
-11        10 gaussian   
-12        15 gaussian   </code></pre>
+<pre><code>tibble [5 × 5] (S3: tbl_df/tbl/data.frame)
+ $ Sepal.Length: num [1:5] 7 6.4 6.9 5.5 6.5
+ $ Sepal.Width : num [1:5] 3.2 3.2 3.1 2.3 2.8
+ $ Petal.Length: num [1:5] 4.7 4.5 4.9 4 4.6
+ $ Petal.Width : num [1:5] 1.4 1.5 1.5 1.3 1.5
+ $ Species     : Factor w/ 2 levels "versicolor","virginica": 1 1 1 1 1</code></pre>
 </div>
 </div>
 </section>
-<section id="measure-performance-of-tuning" class="level2" data-number="3.3">
-<h2 data-number="3.3" class="anchored" data-anchor-id="measure-performance-of-tuning"><span class="header-section-number">3.3</span> Measure performance of tuning</h2>
-<p>A metric is needed to measure the performance of the hyperparameters. The ROC curve is used. The regular grid is tuned:</p>
+<section id="training--and-test-set" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="training--and-test-set"><span class="header-section-number">1.2</span> Training- and test set</h2>
+<p>As is customary when modeling, the dataset is split into a training- and testing set. We need to check for class imbalance in case some outcomes (here species) are more likely in the dataset. As seen from <a href="#fig-iris-species-count" class="quarto-xref">Figure&nbsp;<span>1.1</span></a>, it is not the case.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Performance metric</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>roc <span class="ot">&lt;-</span> <span class="fu">metric_set</span>(roc_auc)</span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Tuning</span></span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>knn_tune <span class="ot">&lt;-</span> knn_wflow <span class="sc">|&gt;</span> </span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tune_grid</span>(iris_folds,</span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>            <span class="at">grid =</span> knn_params <span class="sc">|&gt;</span> <span class="fu">grid_regular</span>(<span class="at">levels =</span> <span class="dv">4</span>),</span>
-<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>            <span class="at">metrics =</span> roc)</span>
-<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>knn_tune</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># Tuning results
-# 10-fold cross-validation 
-# A tibble: 10 × 4
-   splits          id     .metrics          .notes          
-   &lt;list&gt;          &lt;chr&gt;  &lt;list&gt;            &lt;list&gt;          
- 1 &lt;split [90/10]&gt; Fold01 &lt;tibble [12 × 6]&gt; &lt;tibble [0 × 3]&gt;
- 2 &lt;split [90/10]&gt; Fold02 &lt;tibble [12 × 6]&gt; &lt;tibble [0 × 3]&gt;
- 3 &lt;split [90/10]&gt; Fold03 &lt;tibble [12 × 6]&gt; &lt;tibble [0 × 3]&gt;
- 4 &lt;split [90/10]&gt; Fold04 &lt;tibble [12 × 6]&gt; &lt;tibble [0 × 3]&gt;
- 5 &lt;split [90/10]&gt; Fold05 &lt;tibble [12 × 6]&gt; &lt;tibble [0 × 3]&gt;
- 6 &lt;split [90/10]&gt; Fold06 &lt;tibble [12 × 6]&gt; &lt;tibble [0 × 3]&gt;
- 7 &lt;split [90/10]&gt; Fold07 &lt;tibble [12 × 6]&gt; &lt;tibble [0 × 3]&gt;
- 8 &lt;split [90/10]&gt; Fold08 &lt;tibble [12 × 6]&gt; &lt;tibble [0 × 3]&gt;
- 9 &lt;split [90/10]&gt; Fold09 &lt;tibble [12 × 6]&gt; &lt;tibble [0 × 3]&gt;
-10 &lt;split [90/10]&gt; Fold10 &lt;tibble [12 × 6]&gt; &lt;tibble [0 × 3]&gt;</code></pre>
-</div>
-</div>
-<p>To visualize the performance:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>knn_tune <span class="sc">|&gt;</span> </span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest</span>(<span class="at">cols =</span> .metrics) <span class="sc">|&gt;</span> </span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(id, .metric, neighbors, weight_func, .estimate) <span class="sc">|&gt;</span></span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(neighbors, weight_func) <span class="sc">|&gt;</span> </span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">estimate_avg =</span> <span class="fu">mean</span>(.estimate)) <span class="sc">|&gt;</span></span>
-<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> neighbors,</span>
-<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>             <span class="at">y =</span> estimate_avg)) <span class="sc">+</span></span>
-<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
-<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">10</span>, <span class="dv">15</span>)) <span class="sc">+</span></span>
-<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> weight_func)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>iris <span class="sc">|&gt;</span> </span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Species,</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>             <span class="at">fill =</span> Species)) <span class="sc">+</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="tidy03_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
+<div id="fig-iris-species-count" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-iris-species-count-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="tidy01_intro_package_files/figure-html/fig-iris-species-count-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-iris-species-count-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1.1: Count of each species in the iris dataset
+</figcaption>
 </figure>
 </div>
 </div>
 </div>
+<p>If we saw a class imbalance, we would have used the below code for splitting the data. The <code>prop</code> argument indicates that 90% of the data is used for training and 20% for testing.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>iris_split <span class="ot">&lt;-</span> <span class="fu">initial_split</span>(iris,</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>                            <span class="at">prop =</span> <span class="fl">0.90</span>,</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>                            <span class="at">strata =</span> Species)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>iris_train <span class="ot">&lt;-</span> <span class="fu">training</span>(iris_split)</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>iris_test <span class="ot">&lt;-</span> <span class="fu">testing</span>(iris_split)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>As this is not the case, we use the below very similar code chunk.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>iris_split <span class="ot">&lt;-</span> <span class="fu">initial_split</span>(iris, <span class="at">prop =</span> <span class="fl">0.90</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>iris_train <span class="ot">&lt;-</span> <span class="fu">training</span>(iris_split)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>iris_test <span class="ot">&lt;-</span> <span class="fu">testing</span>(iris_split)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </section>
-<section id="finalize-hyperparameter-selection" class="level2" data-number="3.4">
-<h2 data-number="3.4" class="anchored" data-anchor-id="finalize-hyperparameter-selection"><span class="header-section-number">3.4</span> Finalize hyperparameter selection</h2>
-<p>It would seem there is no visual difference between the weight functions. For the number of neighbors, the performance is highest for 10 and 15 neighbors. Preferably, the simplest of the two models is chosen.</p>
+<section id="fitting-a-model" class="level2" data-number="1.3">
+<h2 data-number="1.3" class="anchored" data-anchor-id="fitting-a-model"><span class="header-section-number">1.3</span> Fitting a model</h2>
+<p>The <code>parsnip</code> package standardize creating models. When learning a new technique, here <code>parsnip</code>, it is a good idea to apply well known theory. Therefore, a linear logistic regression model is used to predict the species of a flower given the dimensions of the sepal and the petal.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>final_hyperparams <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">weight_func =</span> <span class="st">"gaussian"</span>,</span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>                            <span class="at">neighbors =</span> <span class="dv">10</span>)</span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>final_knn_wflow <span class="ot">&lt;-</span> knn_wflow <span class="sc">|&gt;</span> </span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">finalize_workflow</span>(final_hyperparams)</span>
-<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>final_knn_wflow</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>lg_model <span class="ot">&lt;-</span> <span class="fu">logistic_reg</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Different packages contain different ways of applying a linear logistic regression model, and therefore different ways of supplying input, but the <code>parsnip</code> package standardize it. We choose which engine to use - i.e.&nbsp;which package.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Show available packages for the model</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">show_engines</span>(<span class="st">"logistic_reg"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>══ Workflow ════════════════════════════════════════════════════════════════════
-Preprocessor: Recipe
-Model: nearest_neighbor()
-
-── Preprocessor ────────────────────────────────────────────────────────────────
-0 Recipe Steps
-
-── Model ───────────────────────────────────────────────────────────────────────
-K-Nearest Neighbor Model Specification (classification)
-
-Main Arguments:
-  neighbors = 10
-  weight_func = gaussian
-
-Engine-Specific Arguments:
-  trace = 0
-
-Computational engine: kknn </code></pre>
+<pre><code># A tibble: 7 × 2
+  engine    mode          
+  &lt;chr&gt;     &lt;chr&gt;         
+1 glm       classification
+2 glmnet    classification
+3 LiblineaR classification
+4 spark     classification
+5 keras     classification
+6 stan      classification
+7 brulee    classification</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>lg_model <span class="ot">&lt;-</span> lg_model <span class="sc">|&gt;</span> </span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_engine</span>(<span class="st">"glm"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>As the goal is to predict flower species, it is necessary to specify how the model should be fit, e.g.&nbsp;what are the predictors and what is the outcome. This can be done via the <code>formula</code> syntax. From the p-values we see that some predictors are not statistically meaningful. This is ignored for now, but note that this metric is important.</p>
+<div id="tbl-all-predictors" class="cell quarto-float anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl quarto-uncaptioned" id="tbl-all-predictors-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;1.1
+</figcaption>
+<div aria-describedby="tbl-all-predictors-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>lg_fit <span class="ot">&lt;-</span> lg_model <span class="sc">|&gt;</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit</span>(Species <span class="sc">~</span> Sepal.Length <span class="sc">+</span> Sepal.Width <span class="sc">+</span> Petal.Length <span class="sc">+</span> Petal.Width,</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>      <span class="at">data =</span> iris_train)</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>lg_fit <span class="sc">|&gt;</span> <span class="fu">tidy</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 5
+  term         estimate std.error statistic p.value
+  &lt;chr&gt;           &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;
+1 (Intercept)    -41.6      24.6      -1.69  0.0912
+2 Sepal.Length    -2.35      2.33     -1.01  0.314 
+3 Sepal.Width     -6.94      4.49     -1.54  0.123 
+4 Petal.Length     9.55      4.86      1.97  0.0493
+5 Petal.Width     17.2       9.31      1.84  0.0653</code></pre>
 </div>
 </div>
-<p>The model can now be fit to the data and used for prediction.</p>
+</figure>
+</div>
+</section>
+<section id="prediction" class="level2" data-number="1.4">
+<h2 data-number="1.4" class="anchored" data-anchor-id="prediction"><span class="header-section-number">1.4</span> Prediction</h2>
+<p>Making predictions is also standardized and requires the function <code>predict()</code>. The model seem to predict correctly in all cases.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>final_knn_fit <span class="ot">&lt;-</span> final_knn_wflow <span class="sc">|&gt;</span> </span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit</span>(iris)</span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>final_knn_fit</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>iris_test <span class="sc">|&gt;</span> </span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Species) <span class="sc">|&gt;</span> </span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_cols</span>(<span class="fu">predict</span>(lg_fit,</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>                    <span class="at">new_data =</span> iris_test))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>══ Workflow [trained] ══════════════════════════════════════════════════════════
-Preprocessor: Recipe
-Model: nearest_neighbor()
-
-── Preprocessor ────────────────────────────────────────────────────────────────
-0 Recipe Steps
-
-── Model ───────────────────────────────────────────────────────────────────────
-
-Call:
-kknn::train.kknn(formula = ..y ~ ., data = data, ks = min_rows(10,     data, 5), kernel = ~"gaussian", trace = ~0)
-
-Type of response variable: nominal
-Minimal misclassification: 0.07
-Best kernel: gaussian
-Best k: 10</code></pre>
+<pre><code># A tibble: 10 × 2
+   Species    .pred_class
+   &lt;fct&gt;      &lt;fct&gt;      
+ 1 versicolor versicolor 
+ 2 versicolor versicolor 
+ 3 versicolor versicolor 
+ 4 versicolor versicolor 
+ 5 versicolor versicolor 
+ 6 versicolor versicolor 
+ 7 virginica  virginica  
+ 8 virginica  virginica  
+ 9 virginica  virginica  
+10 virginica  virginica  </code></pre>
 </div>
 </div>
 
@@ -856,13 +793,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./tidy02.html" class="pagination-link" aria-label="Creating multiple models">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Creating multiple models</span></span>
+      <a href="./tidy00_book_intro.html" class="pagination-link" aria-label="Tidy Modelling with R">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Tidy Modelling with R</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./stat00.html" class="pagination-link" aria-label="Applied bio-statistical methods">
-        <span class="nav-page-text">Applied bio-statistical methods</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./tidy02_mult_models.html" class="pagination-link" aria-label="Creating multiple models">
+        <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Creating multiple models</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

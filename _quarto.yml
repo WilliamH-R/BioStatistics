@@ -9,18 +9,20 @@ book:
   chapters:
     - index.qmd
     
-    - part: tidy00.qmd
+    - part: tidy00_book_intro.qmd
       chapters: 
-        - tidy01.qmd
-        - tidy02.qmd
-        - tidy03.qmd
+        - tidy01_intro_package.qmd
+        - tidy02_mult_models.qmd
+        - tidy03_hyperparam.qmd
         
-    - part: stat00.qmd
+    - part: stat00_intro.qmd
       chapters:
-        - stat01.qmd
-        - stat02.qmd
-        - stat03.qmd
-        - stat04.qmd
+        - stat01_diversity.qmd
+        - stat02_wilcoxon.qmd
+        - stat03_mult_testing.qmd
+        - stat04_OLS.qmd
+        - stat05_log_reg.qmd
+        - stat06_enet.qmd
         
         
     - references.qmd

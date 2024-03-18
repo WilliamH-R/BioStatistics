@@ -1,0 +1,41 @@
+```{r setup, include = FALSE}
+set.seed(1337)
+
+library("tidymodels")
+tidymodels::tidymodels_prefer()
+
+mtcars <- mtcars |> 
+  as_tibble()
+```
+
+# Elastic Net
+
+Elastic Net is a combination of Ridge and Lasso regression. Generally, Ridge is used to penalize large coefficients and Lasso is used to select variables. Elastic Net is a compromise between the two. These two methods is explained separately in the next two sections and lastly it is explained how they are combined in Elastic Net.
+
+## Ridge Regression
+
+Essentially OLS. Introduce bias to reduce variance. OLS minimizes the sum of squared residuals (SSR), Ridge minimizes the SSR and lambda X slope^2. lambda X slope^2 introduces a penalty varied by lambda. Slope is the coefficient of the variable, so when lambda increases, the penalty increases and the slope decreases, meaning the coefficient of the variable decreases.
+
+
+Higher values for variables means more sensitive to small changes in data, it is those high values we want to reduce. As our model is less sensitive to the small changes, we have introduced bias in our model. Find values for lambda by testing many values with CV.
+
+It also gives an extra incentive to reduce especially high variable coefficients. Makes this model more robust to outliers? Outliers could result in large coefficients and Ridge regression would reduce these.
+
+Mention what happens with lambda = 0, and with very high lambda values. Can only shrink slope asymptotically to 0.
+
+Why can Ridge not set variables to 0?
+
+### Logistic Regression
+Can be used for Logistic Regression. Instead optimizes the sum of likelihoods and lambda X slope^2 since logistic regression uses maximum likelihood.
+
+
+## Lasso Regression
+Also introduces bias for lowering variance.
+
+Instead of squaring the slope as Ridge, take absolute value.
+
+Mention what happens with lambda = 0, and with very high lambda values. Can shrink slope to 0. 
+
+Why can Lasso set variables to 0?
+
+### Logistic Regression
