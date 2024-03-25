@@ -4,18 +4,56 @@ set.seed(1337)
 library("tidymodels")
 tidymodels::tidymodels_prefer()
 
-mtcars <- mtcars |> 
-  as_tibble()
+data("iris")
+iris <- iris |>
+  tibble::as_tibble() |> 
+  filter(Species != "setosa") |> 
+  droplevels()
 ```
 
 # Logistic Regression
-Predict TRUE or FALSE, not a continuous value. The output is a probability from 0 to 1.
+Opposite Ordinary Least Squares (OLS), which predicts a continuous value, logistic regression predicts a probability between two classes (usually referred to as a TRUE/FALSE). This is done by fitting a logistic function, also called a sigmoid function, which has the form $f(x) = \frac{1}{1 + e^{-x}}$. Fitting is performed by converting the probabilities into log-odds. Converting is done with the logit function on the form $log(odds) = log(\frac{p}{1-p})$. The data then exists on a continuous scale. Logistic regression cannot apply sum of squared residuals as OLS did, as converting the probabilities into log-odds pushes the data points to positive and negative infinity. Instead maximum likelihoods is used to find the best fit line. After finding a line on the log-odds scale, the values are converted back into probabilities with the logistic function. The product of probabilities is then calculated, where the product is found differently for the TRUE and FALSE class:
+
+$$
+L(\beta) = \prod_{i \; in \; y = 1}^{n} x_i \cdot \prod_{i \; in \; y = 0}^{n} (1-x_i)
+$$
+
+Where 'n' is the number of observations, 'y' is the class, and 'x' is individual probabilities. It is the above product that is maximized by trying different lines on the log-odds scale. The line that maximizes the product is the best fit line which can be written as:
+
+$$
+\beta_{LR} = argmax_{\beta} \; L(\beta)
+$$
+
+
+```{r}
+iris |>
+  mutate(Species_integer = case_when(Species == "versicolor" ~ 0,
+                                     Species == "virginica" ~ 1)) |>
+  ggplot(aes(x = Petal.Length,
+             y = Species_integer)) +
+  geom_point() +
+  geom_smooth(method = "glm",
+              se = FALSE,
+              method.args = list(family=binomial)) +
+  labs(x = "Petal Length",
+       y = "Probability of virginica")
+```
+
+
 
 OLS uses sum of squared residuals (SSR). Logistic regression uses maximum likelihood.
 
 Maximum likelihood: Imagine a range of data and we want to fit a normal distribution. We want to find the mean and standard deviation that maximizes the likelihood of the data. Maximizing likelihood here means, the highest chance of observing the range of data we got if we assume it follow the particular normal distribution we are testing. Say the true mean of our data was 10, but we tested a normal distribution centered around 0, the likelihood of observing the data with mean 10 is very low. We do the same thing for the standard deviation.
 
 The y-axis for logistic regression goes from 0 to 1 reflecting the probability of the class measured along the y-axis. This can be transformed into a more standard y-axis på taking the log of the odds ratio. The log-odds ratio is the logit function, $log(p)=log10(p/1-p)$. For example, 0.5 probability is 0 log-odds ratio, the center on the transformed y-axis. 0.731 probability is 1 log-odds ratio and 0.88 probability is 2 log-odds ratio, 0.95 probability is 3 log-odds ratio.
+
+$$
+log(odds) = log(\frac{p}{1-p}) = log(\frac{1}{1-1}) = log(\frac{1}{0}) = log(1) - log(0) = \infty
+$$
+
+$$
+log(odds) = log(\frac{p}{1-p}) = log(\frac{0}{1-0}) = log(\frac{0}{1}) = log(0) - log(1) = -\infty
+$$
 
 The points that were classified as TRUE, i.e. 1 on the previous y-axis, is transformed to positive infinity on the new y-axis as $log10(1/1-1)=log10(1/0)=log10(1)-log10(0)$, which is positive infinity. The points that were classified as FALSE, i.e. 0 on the previous y-axis, is transformed to negative infinity on the new y-axis as $log10(0/1-0)=log10(0/1)=log10(0)-log10(1)$, which is negative infinity. So, the interval of 0.5 to 1 on the old axis as been transformed into an interval from 0 to positive infinity and vice versa.
 
