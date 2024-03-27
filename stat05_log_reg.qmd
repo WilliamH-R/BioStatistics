@@ -12,16 +12,16 @@ iris <- iris |>
 ```
 
 # Logistic Regression
-Opposite Ordinary Least Squares (OLS), which predicts a continuous value, logistic regression predicts a probability between two classes (usually referred to as a TRUE/FALSE). This is done by fitting a logistic function, also called a sigmoid function, which has the form $f(x) = \frac{1}{1 + e^{-x}}$. Fitting is performed by converting the probabilities into log-odds. Converting is done with the logit function on the form $log(odds) = log(\frac{p}{1-p})$. The data then exists on a continuous scale. Logistic regression cannot apply sum of squared residuals as OLS did, as converting the probabilities into log-odds pushes the data points to positive and negative infinity. Instead maximum likelihoods is used to find the best fit line. After finding a line on the log-odds scale, the values are converted back into probabilities with the logistic function. The product of probabilities is then calculated, where the product is found differently for the TRUE and FALSE class:
+Opposite Ordinary Least Squares (OLS), which predicts a continuous value, logistic regression predicts a probability between two classes (usually referred to as a TRUE/FALSE). This is done by fitting a logistic function, also called a sigmoid function, which has the form $f(x) = \frac{1}{1 + e^{-x}}$. Fitting is performed by converting the probabilities into log-odds. Converting is done with the logit function on the form $log(odds) = log(\frac{p}{1-p})$. The data then exists on a continuous scale. Logistic regression cannot apply sum of squared residuals as OLS did, as converting the probabilities into log-odds pushes the data points to positive and negative infinity. Instead maximum likelihoods is used to find the best fit line. After finding a line on the log-odds scale, the values are converted back into probabilities with the logistic function. The product of probabilities is then calculated, where the product is found differently for the TRUE and FALSE class
 
 $$
-L(\beta) = \prod_{i \; in \; y = 1}^{n} x_i \cdot \prod_{i \; in \; y = 0}^{n} (1-x_i)
+L(\beta,x_i,y_i) = \prod_{i \; in \; y = 1}^{n} x_i \cdot \prod_{i \; in \; y = 0}^{n} (1-x_i)
 $$
 
 Where 'n' is the number of observations, 'y' is the class, and 'x' is individual probabilities. It is the above product that is maximized by trying different lines on the log-odds scale. The line that maximizes the product is the best fit line which can be written as:
 
 $$
-\beta_{LR} = argmax_{\beta} \; L(\beta)
+\beta_{LR} = argmax_{\beta} \; L(\beta,x_i,y_i)
 $$
 
 
