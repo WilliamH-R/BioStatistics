@@ -15,7 +15,7 @@ iris <- iris |>
 # Logistic Regression
 Opposite Ordinary Least Squares (OLS), which predicts a continuous value, logistic regression predicts a probability between two classes (usually referred to as a TRUE/FALSE). This is done by fitting a logistic function, also called a sigmoid function, which has the form $p = \frac{1}{1 + e^{-y}}$ and have a characteristic S-shape. When plotting these probabilites, the y-axis ranges from 0 to 1 reflecting the probability of the class measured along the y-axis.
 
-When applying logistic regression, the probabilites are transformed into a continuous scale with the logit function which has the form $log(odds) = log(\frac{p}{1-p})$. The logit function converts the probabilities into log-odds. For example, a probability of is 0 log-odds, the center on the transformed y-axis. A probability of 0.731 is 1 log-odds and so forth. The points that were classified as TRUE, i.e. 1 on the y-axis, is transformed to positive infinity on the new y-axis as:
+When applying logistic regression, the probabilites are transformed into a continuous scale with the logit function which has the form $log(odds) = log(\frac{p}{1-p})$. The logit function converts the probabilities into log-odds. For example, a probability of 0.5 is 0 log-odds, the center on both y-axes. A probability of 0.731 is 1 log-odds and so forth. The points that were classified as TRUE, i.e. 1 on the y-axis, is transformed to positive infinity on the new y-axis as:
 
 $$
 log(odds) = log(\frac{p}{1-p}) = log(\frac{1}{1-1}) = log(\frac{1}{0}) = log(1) - log(0) = \infty
@@ -29,7 +29,9 @@ $$
 
 So, the interval of 0.5 to 1 on the old axis as been transformed into an interval from 0 to positive infinity and vice versa. The data now exists on a continuous scale from negative to positive infinity, and a straight line can be fitted to the data.
 
-For finding the coefficients, logistic regression cannot apply sum of squared residuals as OLS did, as the distance between a point and a given candidate line tends to be infinity given the transformation mentioned above. Instead, maximum likelihoods is used to find the best fit line. After finding a candidate line on the log-odds scale (the continuous scale), the data points are projected onto the line. The log-odds values are then read off the y-axis. The log-odds values are then converted back into probabilities with the logistic function. The product of probabilities is then calculated, where the product is found differently for the TRUE and FALSE classes:
+For finding the coefficients for the fitted line, logistic regression cannot apply sum of squared residuals as OLS did, as the distance between a point and a candidate line tends to be infinity given the transformation mentioned above. Instead, maximum likelihood is used to find the best fit line. The term refers to maximizing the likelihood of observing the data given the model. The likelihood is the product of the probabilities of the data points, so a good fit also maximizes the product of the probabilities.
+
+After finding a candidate line on the log-odds scale (the continuous scale), the data points are projected onto the line. The log-odds values are read off the y-axis and converted back into probabilities with the logistic function. The product of probabilities, the likelihood, is calculated where the product is found differently for the TRUE and FALSE classes:
 
 $$
 L(\beta,x_i,y_i) = \prod_{i \; in \; y = 1}^{n} x_i \cdot \prod_{i \; in \; y = 0}^{n} (1-x_i)
@@ -41,7 +43,7 @@ $$
 \beta_{LR} = argmax_{\beta} \; L(\beta,x_i,y_i)
 $$
 
-The process results in the best set of coefficients for the linear line that maximizes the product of probabilities. It is possible to convert the linearly fit line back to the original scale with the logistic function by replacing 'y' with the linear equation:
+The process results in the best set of coefficients for the linear line that maximizes the product of probabilities, i.e. maximum likelihood. It is possible to convert the linearly fit line back to the original scale with the logistic function by replacing 'y' with the linear equation:
 
 $$
 p = \frac{1}{1 + e^{-y}} = \frac{1}{1 + e^{-(\beta_0 + \beta_1 \cdot x_1+ \beta_2 \cdot x_2 + ... + \beta_n \cdot x_n)}}
@@ -63,7 +65,7 @@ iris_prob_plot <- iris_prob |>
 iris_prob_plot
 ```
 
-The probabilities is then transformed to log(odds) with the logit function. In this data set, all values were either 1 or 0, which is why the log(odds) values are either positive or negative infinity as seen below:
+The probabilities are then transformed to log(odds) with the logit function. In this data set, all values were either 1 or 0, which is why the log(odds) values are either positive or negative infinity as seen below:
 ```{r}
 iris_logit_plot <- iris_prob |> 
   mutate(Species_logit = log(Species_prob / (1 - Species_prob))) |> 
@@ -80,7 +82,7 @@ iris_logit_plot <- iris_prob |>
 iris_logit_plot
 ```
 
-As a candidate fit, see the red dashed lined below. The data points are projected onto the line and the log(odds) values are read off the y-axis. The log(odds) values are then converted back into probabilities with the logistic function. The probabilities are then multiplied together for the TRUE and FALSE classes. The product of the two classes is then calculated. The candidate line that maximizes the product is the best fit line.
+As a candidate fit, see the red dashed lined below. The data points are projected onto the line and the log(odds) values are read off the y-axis. The log(odds) values are then converted back into probabilities with the logistic function and the product for the TRUE and FALSE classes are found. The product of the two classes is then calculated. The candidate line that maximizes the product is the best fit line.
 
 ```{r}
 iris_logit_plot +
