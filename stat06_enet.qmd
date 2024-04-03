@@ -2,6 +2,7 @@
 set.seed(1337)
 
 library("tidymodels")
+library("plotly")
 tidymodels::tidymodels_prefer()
 
 mtcars <- mtcars |> 
@@ -10,24 +11,230 @@ mtcars <- mtcars |>
 
 # Elastic Net
 
-Elastic Net is a combination of Ridge and Lasso regression. Generally, Ridge is used to penalize large coefficients and Lasso is used to select variables. Elastic Net is a compromise between the two. These two methods is explained separately in the next two sections and lastly it is explained how they are combined in Elastic Net.
+Elastic Net is an extension of Ordinary Least Squares (OLS). It is a combination of Ridge and Lasso regression. Generally, Ridge is used to penalize large coefficients and Lasso is used to select variables. Elastic Net is a compromise between the two. These two methods is explained separately in the next two sections and lastly it is explained how they are combined in Elastic Net.
 
 ## Ridge Regression
+Recall from the OLS section that the goal is minimize the sum of squared residuals (SSR).
 
-Essentially OLS. Introduce bias to reduce variance. OLS minimizes the sum of squared residuals (SSR), Ridge minimizes the SSR and lambda X slope^2. lambda X slope^2 introduces a penalty varied by lambda. Slope is the coefficient of the variable, so when lambda increases, the penalty increases and the slope decreases, meaning the coefficient of the variable decreases.
+$$
+\beta_{OLS} = \arg\min_{\beta} ||y-X\beta||_{2}^{2}
+$$
+
+Ridge is essentially OLS, except for an added penalty term to the minimization of the SSR:
+
+$$
+\beta_{Ridge} = \arg\min_{\beta} ||y-X\beta||_{2}^{2} + \lambda||\beta||^{2}
+$$
+
+Finding the coefficients for the linear model now becomes a compromise between minimizing the SSR and minimizing the size of the coefficients. $\lambda$ is a hyperparameter that controls the trade-off between the two. When $\lambda = 0$, the Ridge regression is the same as OLS. When $\lambda$ is very large, the coefficients are driven towards zero as the penalty term $\lambda||\beta||^2$ becomes large compared to the residuals. The coefficients can never be set to zero, but they can be driven asymptotically close to zero. The reason is, that when the coefficients are close to zero, the model prefer to fitting to the data instead of further reducing the size of the coefficients.
+
+Introducing the penalty term makes the fit to the data worse, but it can improve the generalization to new data. If the coefficients for Ridge are small compared to OLS, the model is less sensitive to changes in the data. In machine learning terms, this is called introducing bias (inability to fit data perfectly) to reduce variance (the model fits better to new data). The bias-variance trade-off is a fundamental concept in machine learning.
+
+For visualization, remember the `mtcars` data set used previously. The following code chunk shows a 3D scatter plot of the weight of the car (`wt`) vs the horse power (`hp`) vs the miles per gallon (`mpg`). The color of the dots represent the horse power. When orienting the plot correctly, it is possible to see a linear correlation between the variables.
+
+```{r}
+mtcars |> 
+  plot_ly(x = ~wt,
+          y = ~hp,
+          z = ~mpg,
+          color = ~hp,
+          type = "scatter3d",
+          mode = "markers") |> 
+  plotly::layout(
+    scene = list(
+      xaxis = list(title = "Weight"),
+      yaxis = list(title = "Horse Power"),
+      zaxis = list(title = "Miles per Gallon"),
+      camera = list(
+        eye = list(x = 1.5, y = -2, z = 0.5)
+      )),
+    showlegend = FALSE)
+```
+
+Two coefficients are used to try and model the data. The coefficients are the slope of the line for the weight and horse power. High coefficients means steep slopes, which in turn suggests that the outcome (mpg) is sensitive to the variables (wt and hp). When presented to new data which is different from the training data, the model predicts wildly different outcomes due to the sensitivity to changes. The model then generalizes poorly to new data and is said to have high variance. By increasing lambda, the slope is reduced, and the model becomes less sensitive to the variables. This is the bias-variance trade-off in action as seen in the following code chunks.
 
 
-Higher values for variables means more sensitive to small changes in data, it is those high values we want to reduce. As our model is less sensitive to the small changes, we have introduced bias in our model. Find values for lambda by testing many values with CV.
+```{r warning = FALSE}
+# CV folds object
+mtcars_split <- initial_split(mtcars)
+mtcars_train <- training(mtcars_split)
+mtcars_test <- testing(mtcars_split)
+mtcars_folds <- vfold_cv(mtcars_train,
+                         v = 5)
 
-It also gives an extra incentive to reduce especially high variable coefficients. Makes this model more robust to outliers? Outliers could result in large coefficients and Ridge regression would reduce these.
+# Setup model specs
+ridge_spec <- linear_reg(penalty = tune(),
+                         mixture = 0) |> 
+  set_engine(engine = "glmnet") |> 
+  set_mode("regression")
 
-Mention what happens with lambda = 0, and with very high lambda values. Can only shrink slope asymptotically to 0.
+OLS_spec <- linear_reg() |>  # added OLS to have lambda = 0
+  set_engine(engine = "lm") |> 
+  set_mode("regression")
 
-Why can Ridge not set variables to 0?
+# Model recipe, no preprocessing
+recipe <- recipe(mpg ~ wt + hp,
+                 data = mtcars_train)
+
+
+# Combine to worflow
+wflow <- workflow_set(
+  preproc = list(recipe = recipe),
+  models = list(OLS = OLS_spec,
+                Ridge = ridge_spec)
+  )
+
+# Change values of hyperparameters to search across
+ridge_params <- ridge_spec |>
+  extract_parameter_set_dials() |>
+  update(penalty = penalty(c(-1, 1)))
+
+# Add params to workflow
+wflow <-
+  wflow |>
+  option_add(id = "recipe_Ridge",
+             param_info = ridge_params) |>
+  option_add(id = "recipe_Ridge",
+             control = control_grid(extract = function(x) x))
+
+# Grid settings
+grid_ctrl <- control_grid(
+  save_pred = TRUE,
+  parallel_over = "everything",
+  save_workflow = TRUE
+   )
+
+# Run through grid
+grid_results <- wflow |> 
+  workflow_map(
+    seed = 1337,
+    resamples = mtcars_folds,
+    grid = 5,
+    control = grid_ctrl
+  )
+```
+
+The following code chunk shows the results of the grid search. The plot shows the root mean square error (RMSE) for the Ridge regression model against the different lambdas. The RMSE increases as lambda increases suggesting a low lambda is preferred.
+
+```{r}
+autoplot(grid_results,
+         id = "recipe_Ridge",
+         metric = "rmse")
+```
+
+It is also possible to visualize the actual coefficients for the Ridge regression model. In the above, the lambda values were treated as hyperparameters and was optimized. If the goal is to visualize the coefficients for a specific lambda value, each value of lambda needs to be treated as its own model. The following code chunk shows how to do this.
+
+```{r}
+# Define a grid of lambda values
+lambda_grid <- 10^seq(-2, 2, length.out = 10)
+
+# Create each function
+ridge_models <- lambda_grid |>
+  map(function(lambda) {
+    
+    linear_reg(penalty = lambda,
+               mixture = 0) |> 
+      set_engine("glmnet") |> 
+      fit(mpg ~ wt + hp,
+          data = mtcars)
+})
+```
+
+
+The coefficients are then plotted against the lambda values. The coefficients are reduced as lambda increases. The coefficients are not set to zero, but they are driven towards zero (and might visually appear to be zero).
+
+```{r}
+# Unnest coefficients
+coefficients_df <- bind_rows(map_dfr(ridge_models, ~tidy(.x))) %>%
+  mutate(lambda = rep(lambda_grid, each = 3))
+
+# Visualize coefficients
+coefficients_df |>
+  ggplot(aes(x = lambda,
+             y = estimate,
+             color = term)) +
+  geom_line() +
+  scale_x_log10() +
+  labs(title = "Ridge Regression Coefficients vs. Lambda",
+       x = "Lambda",
+       y = "Coefficient Estimate")
+```
+
+We can plot each of the fitted models on top of the scatterplot to see how the coefficients change with lambda. Due to the limitations of 3D-plotting with `plotly`, legends for each lambda value are not shown. The lambda values can instead be found be hovering each of the planes in the plot. It is seen, that the slopes are reduced as lambda increases.
+
+```{r warning = FALSE}
+# Make predictions for each function
+ridge_predictions <- ridge_models |>
+  map2(lambda_grid, function(model, lambda) {
+    model |> 
+      predict(mtcars) |>
+      bind_cols(lambda = lambda)
+  }) |> 
+  bind_rows()
+
+# Bind col predictions to data set
+mtcars_train_w_pred <- mtcars |> 
+  bind_cols(ridge_predictions |>
+              pivot_wider(names_from = "lambda",
+                          values_from = .pred,
+                          names_prefix = "lambda_",
+                          values_fn = list) |>
+              unnest(everything())) |> 
+  pivot_longer(cols = starts_with("lambda_"),
+               names_to = "lambda",
+               values_to = "prediction") |> 
+  mutate(lambda = as.numeric(stringr::str_remove(lambda, "lambda_")),
+         lambda = round(lambda, 3))
+
+# Create visualization
+mtcars_3d_scatter <- mtcars |> 
+  plot_ly(x = ~wt,
+          y = ~hp,
+          z = ~mpg,
+          color = ~hp,
+          type = "scatter3d",
+          mode = "markers")
+
+plot_w_predictions <- mtcars |>
+  plot_ly(
+    x = ~ wt,
+    y = ~ hp,
+    z = ~ mpg,
+    type = "scatter3d",
+    mode = "markers"
+  ) |>
+  plotly::layout(
+    scene = list(
+      xaxis = list(title = "Weight"),
+      yaxis = list(title = "Horse Power"),
+      zaxis = list(title = "Miles per Gallon"),
+      camera = list(
+        eye = list(x = 1.5, y = -2, z = 0.5)
+      )),
+    showlegend = FALSE)
+
+for (lambda in lambda_grid) {
+  mtcars_train_w_pred_filt <- mtcars_train_w_pred |>
+    filter(lambda == !!round(lambda, 3))
+
+  plot_w_predictions <- plot_w_predictions |>
+    add_trace(data = mtcars_train_w_pred_filt,
+              x = ~wt,
+              y = ~hp,
+              z = ~prediction,
+              color = ~lambda,
+              type = "mesh3d",
+              name = stringr::str_c("Lambda: ", lambda))
+} 
+plot_w_predictions
+```
+
 
 ### Logistic Regression
-Can be used for Logistic Regression. Instead optimizes the sum of likelihoods and lambda X slope^2 since logistic regression uses maximum likelihood.
+Can be used for Logistic Regression. Instead optimizes the sum of likelihoods and lambda X slope^2 since logistic regression uses maximum likelihood. You still get slopes for logistic regression, so it it just those that are penalized.
 
+### Ridge Regressopm for categorical variables
+https://youtu.be/Q81RR3yKn30?si=QZor-JxtWQblRs9i&t=621
 
 ## Lasso Regression
 Also introduces bias for lowering variance.
