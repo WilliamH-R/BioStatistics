@@ -39,16 +39,16 @@ In this simple case, the model is fitting the line to the data by changing the s
 
 The model can be generalized to more than one variable, such that the model can predict the outcome based on multiple variables. Usually, the simple linear case is written as $y = ax + b$ where $a$ is the slope and $b$ is the intercept. When using multiple variables, it is generalizes to $y = \beta_0 + \beta_{1}x_1 + \beta_{2}x_2 + ... + \beta_{n}x_n$. In matrix form it can be written as $y = X\beta$ where $X$ is a matrix with $n$ rows (number of samples) and $p$ columns (number of variables). $\beta$ is a vector of length $p$ which includes a parameter for each variable.
 
-As mentioned earlier, the goal is to minimize the sum of the squared residuals. On matrix form, the residual sum of squares (RSS) is written as:
+As mentioned earlier, the goal is to minimize the sum of the squared residuals. On matrix form, the sum of squared residuals (SSR) is written as:
 
 $$
 RSS = ||y-X\beta||_{2}^{2}
 $$
 
-Where the subscript 2 denotes the L2 norm, i.e. Euclidean distance. The term $X\beta$ is the predicted value of the model as we saw from $y = X\beta$ in the above. RSS is also written as:
+Where the subscript 2 denotes the L2 norm, i.e. Euclidean distance. The term $X\beta$ is the predicted value of the model as we saw from $y = X\beta$ in the above. SSR is also written as:
 
 $$
-RSS = \sum_{i=1}^{n} (y_i - X_{i}\beta)^2 =  \sum_{i=1}^{n} (y_i - \hat{y}_i)^2
+SSR = \sum_{i=1}^{n} (y_i - X_{i}\beta)^2 =  \sum_{i=1}^{n} (y_i - \hat{y}_i)^2
 $$
 
 Where $\hat{y}_i$ is the predicted value of the model for the $i$'th sample. Since the goal is to minimize the RSS, the $\beta$s should be chosen such that the RSS is minimized:
