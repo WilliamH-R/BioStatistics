@@ -18,25 +18,11 @@ sample.names <- sapply(strsplit(basename(fnFs), "_"), `[`, 1)
 filtFs <- file.path(here(paste0("data/dada2/", sample.names, "_1_filt.fastq.gz")))
 filtRs <- file.path(here(paste0("data/dada2/", sample.names, "_2_filt.fastq.gz")))
 
-#names(filtFs) <- sample.names
-#names(filtRs) <- sample.names
-
-#fnFs <- fnFs[1:2]
-#fnRs <-  fnRs[1:2]
-#filtFs <- filtFs[1:2]
-#filtRs <- filtRs[1:2]
-
-#print(fnFs)
-#print(fnRs)
-#print(filtFs)
-#print(filtRs)
-
 
 # Create empty files beforehand
 create_empty_files <- function(file_list) {
   for (file in file_list) {
     file.create(file)
-    #cat(sprintf("Empty file created: %s\n", file))
   }
 }
 
@@ -88,8 +74,6 @@ mergers <- mergePairs(dadaFs, filtFs, dadaRs, filtRs, verbose=TRUE)
 print("Merging pair end reads")
 seqtab <- makeSequenceTable(mergers)
 
-### Inspect distribution of sequence lengths
-#table(nchar(getSequences(seqtab)))
 
 ### Remove chimeras
 print("Checking chimeras")
@@ -147,3 +131,7 @@ taxa_names(ps) <- paste0("ASV", seq(ntaxa(ps)))
 
 # Saving phyloseq object
 saveRDS(ps, here("data/dada2/dada2.phyloseq.rds"))
+
+# Extract and save the phylogenetic tree
+tree <- phy_tree(ps)
+write.tree(tree, file = here("dada/count_matrix/phylogenetic_tree.nwk"))
