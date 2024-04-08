@@ -1,0 +1,252 @@
+```{r, include = FALSE}
+set.seed(1337)
+
+library("tidymodels")
+tidymodels::tidymodels_prefer()
+library("vegan")
+
+count_matrix_test <- readRDS(file = "data/count_matrix/count_matrix_test.rds")
+```
+
+# Diversity measures
+
+A series of different measures exist meant to quantify the diversity in or between samples. Examples of these, which will be explained below, are:
+
+-   Alpha Diversity
+
+    -   Species Richness
+
+    -   Shannon Index
+
+    -   Faith's phylogenetic diversity (Faith's PD)
+
+-   Beta Diversity
+
+    -   Bray-Curtis dissimilarity
+
+    -   UniFrac
+
+    -   Jaccard similarity index
+
+As a quick reminder of what the test count matrix contains:
+
+```{r}
+count_matrix_test
+```
+
+## Alpha Diversity
+
+Generally, alpha diversity measures the within-sample diversity. Multiple ways of calculating alpha diversity exists. A crude way is simply to count unique organisms per sample. One could also take the distribution into account or the phylogeny.
+
+The R package `vegan` is widely used to help calculate diversity and is used here.
+
+### Species Richness
+
+As mentioned above, a crude way to measure diversity is to count the number of unique organisms in a given taxon for each sample. That is exactly what the species richness is. Through the `vegan` package, it can be calculated as follows:
+
+```{r}
+richness <- count_matrix_test |>
+  column_to_rownames(var = "Sample") |> 
+  specnumber() |>
+  as_tibble(rownames = "Sample") |>
+  rename(Richness = value)
+
+count_matrix_test |>
+  left_join(richness,
+            by = "Sample")
+```
+
+### Shannon Index
+
+The measure is usually referred to as Shannon Index or Shannon Entropy. It is able to take both the richness (described above) and the evenness into account. The evenness refers to how evenly the abundances are distributed among taxa for a species. The richness is considered when summing over all taxonomic units at a specified taxonomic rank. The index is calculated via the following formula:
+
+$$
+H' = -\sum_{i=1}^{R} p_i \ln(p_i)
+$$
+
+$R$ is the number of observed species within a sample, i.e. the Richness. $p_{i}$ is the proportion of the abundance belonging to the $i$'th species out of the total abundance for a specific sample[@Shannon1948].
+
+To illustrate the meaning of the value of the Shannon Index a few examples are calculated. In the first scenario, three species and three samples exists. For the first sample, the proportion of abundances are spread evenly between the three species. For the second and third sample, the proportions are more skewered towards one species. These examples show how the evenness affect the Shannon Index.
+
+```{r}
+#| echo: FALSE
+tribble(~sample,    ~species_1, ~species_2, ~species_3,
+        "sample_A", 0.3,        0.3,        0.3,
+        "sample_B", 0.6,        0.2,        0.2,
+        "sample_C", 1,          0,          0)
+
+```
+
+For each of the three samples, the calculation would be as follows:
+
+$$
+H'_{sample_{A}} = -(0.3 \cdot ln{(0.3)} + 0.3 \cdot ln{(0.3)} + 0.3 \cdot ln{(0.3)}) = 1.08
+$$
+
+$$
+H'_{sample_{B}} = -(0.6 \cdot ln{(0.6)} + 0.2 \cdot ln{(0.2)} + 0.2 \cdot ln{(0.2)}) = 0.95
+$$
+
+$$
+H'_{sample_{C}} = -(1 \cdot ln{(1)}) = 0
+$$
+
+When the samples are evenly distributed, we observe a higher Shannon Index.
+
+In the following example, the number of species are increased to five. Three different samples with different distributions are still investigated.
+
+```{r}
+#| echo: FALSE
+tribble(~sample,    ~species_1, ~species_2, ~species_3, ~species_4, ~species_5,
+        "sample_D", 0.2,        0.2,        0.2,        0.2,        0.2,
+        "sample_E", 0.6,        0.1,        0.1,        0.1,        0.1,
+        "sample_F", 1,          0,          0,          0,          0)
+```
+
+$$
+H'_{sample_{D}} = 1.61
+$$
+
+$$
+H'_{sample_{E}} = 1.23
+$$
+
+$$
+H'_{sample_{F}} = 0
+$$
+
+As before, the Shannon Index decreases with a more skewered distribution. Both $sample_{A}$ and $sample_{D}$ have even distributions, but the Shannon Index for $sample_{D}$ higher since the richness is higher, i.e. more species with an even distribution.
+
+The diversity in a sample is said to be high when the number of species are high, and the distribution is even. As shown above, that would yield a high Shannon Index. So, to conclude, a high Shannon Index suggests high diversity.
+
+Finally, Shannon Index calculated for the test set. The index does seem to be higher when the genera are more evenly distributed as show in the above.
+
+```{r}
+shannon <- count_matrix_test |>
+  column_to_rownames(var = "Sample") |>
+  diversity(index = "shannon") |> 
+  as_tibble(rownames = "Sample") |> 
+  rename(Shannon = value)
+
+count_matrix_test |>
+  left_join(shannon,
+            by = "Sample")
+```
+
+### Faith's phylogenetic diversity (Faith's PD)
+
+Faith's PD consider phylogenetic distances within a sample. The PD for a sample is calculated as the total sum of branch lengths from a phylogenetic tree, where the tree only contains the organisms found in a given sample [@Faith1992]. Imagine a scenario with four organisms, organism a and b are closely related, and so are organism c and d (@fig-tree_example).
+
+![Phylogenetic tree](images/tree_example.png){#fig-tree_example}
+
+In the case where all four organisms were found in the same sample, the PD would be calculated as:
+
+$$
+PD = 15 + 6 + 4 + 3 + 1 + 2 + 4 = 35
+$$
+
+If an organism a was lost, the PD would be decreased with 4 units to a value of 31. A higher PD is thus indicative of a higher diversity.
+
+## Beta Diversity
+
+Beta diversity describes the between-sample diversity. The diversity is calculated by comparing the diversity in one sample to the diversity in another sample. The diversity can be calculated in different ways, and the choice of method is dependent on the data and the question at hand. The most common methods include Bray-Curtis dissimilarity, UniFrac, and Jaccard similarity index (sometimes called Jaccard similarity coefficient).
+
+A crude way to calculate beta diversity is to simply count the number of organisms which exists in one sample, but not the other. The mathematical expression is:
+
+$$
+\beta =  (\alpha_{sample_{1}} - c) + (\alpha_{sample_{2}} - c)
+$$
+
+Where $\alpha_{sample_{1}}$ and $\alpha_{sample_{2}}$ are the number of unique organisms in sample 1 and 2 (the richness), respectively. $c$ is the number of organisms which exists in both samples.
+
+As an example, consider the following two samples (the top two rows of the test set):
+
+```{r}
+count_matrix_test |>
+  slice_head(n = 2)
+```
+
+Sample 1 (SRR14214860 ) has a richness of 3 and sample 2 (SRR14214861) has a richness of 2. They share 2 genera. The beta diversity would be calculated as:
+
+$$
+\beta = (3 - 2) + (2 - 2) = 1
+$$
+
+### Jaccard similarity index
+
+The Jaccard index is another way to calculate beta diversity where only the presence/absence of an organism is taken into account. It is calculated as the number of shared organisms (intersection) divided by the number of unique organisms (union) in the two samples. The equation is as follows::
+
+$$
+J(A, B) = \frac{|A \cap B|}{|A \cup B|}
+$$
+
+From the equation we see why it is called a similarity index. The union (denominator) is just the number of observed organisms, and the intersection (numerator) is the number of shared organisms. The Jaccard index then represent the fraction of the observed organisms which were observed in both samples, i.e. the similarity of the two samples. The value ranges from 0 to 1, where 0 indicates that the two samples do not share any organisms, and 1 indicates that the two samples are identical.
+
+When comparing the two first samples in the subset, it is apparent that they share 2 genera, and a total of 3 genera is present between the two samples. The calculation by hand gives: $$
+J(SRR14214860, SRR14214861) = \frac{2}{3} \approx 0.67
+$$
+
+The two samples are only somewhat similar, as the Jaccard index is close to 1.
+
+To calculate the Jaccard index by using the `vegan` package, the argument `binary` is set to `TRUE` to indicate that the data is binary, i.e. presence/absence of organisms instead of abundance. It is also important to note, that the `vegan` package actually calculates the dissimilarities, $1 - \frac{|A \cap B|}{|A \cup B|}$ so a higher value indicates a higher dissimilarity. The Jaccard index is calculated for the test data as follows:
+
+```{r}
+count_matrix_test |>
+  slice_head(n = 2) |>
+  column_to_rownames(var = "Sample")|>
+  vegdist(method = "jaccard",
+          binary = TRUE)
+```
+
+The result is in agreement with the manual calculation since the `vegan` package calculates the dissimilarity. When inspecting the two samples, they also appear somewhat similar, as the majority of the organisms are present in both sample (even though talking about a majority is a bit misleading when only four organisms are compared). The abundances of the organisms are quite different, and to take that into account, another method is needed.
+
+### Bray-Curtis dissimilarity
+
+This measure is a widely used method to calculate beta diversity. Bray-Curtis dissimilarity takes the composition and abundance of the two compared samples into account. It is also important to note that it is a dissimilarity measure, so a higher value indicates a higher dissimilarity. The value ranges from 0 to 1. A value of 0 indicates that the two samples are identical, while a value of 1 indicates that the two samples do not share any organisms. The metric is calculated as:
+
+$$
+BC_{jk} = \frac{\sum_{i=1}^{p} |S_{ij} - S_{ik}|}{\sum_{i=1}^{p} (S_{ij} + S_{ik})}
+$$
+
+Where $S_{ij}$ and $S_{ik}$ are the abundances of the $i$'th taxon in sample $j$ and $k$, respectively. $p$ is the number of taxa. With the test data, the Bray-Curtis dissimilarity is calculated as follows:
+
+$$
+BC_{SRR14214860, SRR14214861} = \frac{|0 - 0| + |11 - 12| + |190 - 0| + |486 - 5|}
+                                     {(0 + 0) + (11 + 12) + (190 + 0) + (486 + 5)}
+                                     = 0.955
+$$
+
+By using the `vegan` package the Bray-Curtis dissimilarity can be calculated as follows:
+
+```{r}
+count_matrix_test |>
+  slice_head(n = 2) |>
+  column_to_rownames(var = "Sample")|>
+  vegdist(method = "bray")
+```
+
+The results are in agreement. The value is close to 1, indicating a high dissimilarity between the two samples. Interestingly, this is a different find compared to the Jaccard index, which indicated a higher similarity between the two samples. The abundances of the organisms in the two samples are quite different, and the Bray-Curtis dissimilarity takes that into account.
+
+### UniFrac
+
+The method is based on the phylogenetic tree of the organisms and thereby take the phylogenetic distances into account. UniFrac is shorthand notation for Unique Fraction and is calculated as the sum of unique branch lengths in the phylogenetic tree over the sum of shared branch lengths:
+
+$$
+U = \frac{sum \; of \; unique \; branches' \; length}{sum \; of \; all \; branches'  \; length}
+$$
+
+The possible values range from 0 to 1. In the case where the two compared samples share all organisms, the value of the numerator would sum to 0, and the UniFrac would be 0. If the two samples do not share any organisms, the value of the numerator would sum to the total length of the phylogenetic tree (the denominator), and the UniFrac would be 1.
+
+Imagine a phylogenetic tree made from two samples, red and blue. Four different organisms were found in total (@fig-tree_example_unifrac). A red colour indicate an organism found in the red sample, a blue colour indicate an organism found in the blue sample and a purple colour indicate an organism was found in both samples.
+
+![Phylogenetic tree with cohorts](images/tree_example_unifrac.png){#fig-tree_example_unifrac}
+
+Following the equation above, the UniFrac distance would be calculated as:
+
+$$
+U = \frac{4 + 2 + 4}{15 + 6 + 4 + 3 + 1 + 2 + 4} = 0.286
+$$
+
+The value indicates that the blue and red samples are quite similar.
+
+The method is divided into two different types, unweighted and weighted. It is the unweighted method which is described above. The weighted method takes the abundance of the organisms into account. The weighted method biases towards the most abundant organisms, while the unweighted method biases more towards the rare organisms. A third version exists, called Generalized UniFrac. This metric has another parameter, usually called $\alpha$, which can be used to control the balance between the unweighted and weighted methods.

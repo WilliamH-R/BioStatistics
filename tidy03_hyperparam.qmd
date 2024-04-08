@@ -12,6 +12,7 @@ iris <- iris |>
   filter(Species != "setosa") |> 
   droplevels()
 ```
+
 In this section the CV-folds are used
 ```{r}
 iris_folds <- vfold_cv(iris)
@@ -25,7 +26,7 @@ iris_folds <- vfold_cv(iris)
 A classical and simple example of a hyperparameter is the number of neighbors (k) in a k-nearest neighbors (KNN) algorithm. This is a hyperparameter as it is not estimated during model fitting, but is specified a priori making it impossible to optimize during parameter estimation.
 
 ## Set up tuning
-In the `tidymodels` universe, hyperparameters are marked for tuning in the specifications for a model. To examplify, both the number of nearest neighbors and a range of weight functions are tuned.
+In the `tidymodels` universe, hyperparameters are marked for tuning in the specifications for a model. To exemplify, both the number of nearest neighbors and a range of weight functions are tuned.
 
 ```{r}
 knn_spec <- nearest_neighbor(neighbors = tune(),
@@ -61,7 +62,8 @@ knn_spec |> extract_parameter_set_dials() |>
   extract_parameter_dials("weight_func")
 
 # Change values, save in new object
-knn_params <- knn_spec |> extract_parameter_set_dials() |>
+knn_params <- knn_spec |>
+  extract_parameter_set_dials() |>
   update(weight_func = weight_func(c("cos", "inv", "gaussian")),
          neighbors = neighbors(c(1, 15)))
 
@@ -71,7 +73,9 @@ knn_params |>
 knn_params |>
   extract_parameter_dials("neighbors")
 ```
+
 Different `grid_*` functions exist to combine the hyperparameters, e.g. `grid_random()` and `grid_regular()`. As exemplified below, `grid_regular()` combines the parameters in all possible ways dependent on the number of `levels` chosen.
+
 ```{r}
 grid_regular(knn_params,
              levels = 4)

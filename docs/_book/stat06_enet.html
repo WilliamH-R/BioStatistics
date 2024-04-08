@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.549">
+<meta name="generator" content="quarto-1.4.550">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>BioStatistics - 4&nbsp; Diversity measures</title>
+<title>BioStatistics - 9&nbsp; Elastic Net</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,40 +20,6 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
@@ -65,7 +31,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
 <link href="./references.html" rel="next">
-<link href="./stat00.html" rel="prev">
+<link href="./stat05_log_reg.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -115,7 +81,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./stat00.html">Applied bio-statistical methods</a></li><li class="breadcrumb-item"><a href="./stat01.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Diversity measures</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./stat00_intro.html">Applied bio-statistical methods</a></li><li class="breadcrumb-item"><a href="./stat06_enet.html"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Elastic Net</span></a></li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -148,7 +114,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="./tidy00.html" class="sidebar-item-text sidebar-link">
+            <a href="./tidy00_book_intro.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Tidy Modelling with R</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -157,19 +123,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./tidy01.html" class="sidebar-item-text sidebar-link">
+  <a href="./tidy01_intro_package.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction to Tidy Modelling</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./tidy02.html" class="sidebar-item-text sidebar-link">
+  <a href="./tidy02_mult_models.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Creating multiple models</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./tidy03.html" class="sidebar-item-text sidebar-link">
+  <a href="./tidy03_hyperparam.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Tuning hyperparameters and overfitting</span></span></a>
   </div>
 </li>
@@ -177,7 +143,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="./stat00.html" class="sidebar-item-text sidebar-link">
+            <a href="./stat00_intro.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Applied bio-statistical methods</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -186,8 +152,38 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./stat01.html" class="sidebar-item-text sidebar-link active">
+  <a href="./stat01_diversity.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Diversity measures</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./stat02_wilcoxon.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Wilcoxon test</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./stat03_mult_testing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Multiple testing</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./stat04_OLS.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Ordinary Least Squares Regression</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./stat05_log_reg.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Logistic Regression</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./stat06_enet.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Elastic Net</span></span></a>
   </div>
 </li>
       </ul>
@@ -204,20 +200,27 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
+        <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="4">
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#alpha-diversity" id="toc-alpha-diversity" class="nav-link active" data-scroll-target="#alpha-diversity"><span class="header-section-number">4.1</span> Alpha Diversity</a></li>
+  <li><a href="#ridge-regression" id="toc-ridge-regression" class="nav-link active" data-scroll-target="#ridge-regression"><span class="header-section-number">9.1</span> Ridge Regression</a>
+  <ul>
+  <li><a href="#logistic-regression" id="toc-logistic-regression" class="nav-link" data-scroll-target="#logistic-regression"><span class="header-section-number">9.1.1</span> Logistic Regression</a></li>
+  </ul></li>
+  <li><a href="#lasso-regression" id="toc-lasso-regression" class="nav-link" data-scroll-target="#lasso-regression"><span class="header-section-number">9.2</span> Lasso Regression</a>
+  <ul>
+  <li><a href="#logistic-regression-1" id="toc-logistic-regression-1" class="nav-link" data-scroll-target="#logistic-regression-1"><span class="header-section-number">9.2.1</span> Logistic Regression</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./stat00.html">Applied bio-statistical methods</a></li><li class="breadcrumb-item"><a href="./stat01.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Diversity measures</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./stat00_intro.html">Applied bio-statistical methods</a></li><li class="breadcrumb-item"><a href="./stat06_enet.html"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Elastic Net</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Diversity measures</span></h1>
+<h1 class="title"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Elastic Net</span></h1>
 </div>
 
 
@@ -234,44 +237,30 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1337</span>)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co">#library("tidymodels")</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co">#tidymodels::tidymodels_prefer()</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"magrittr"</span>)</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"phyloseq"</span>)</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"dplyr"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>
-Attaching package: 'dplyr'</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>The following objects are masked from 'package:stats':
-
-    filter, lag</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>The following objects are masked from 'package:base':
-
-    intersect, setdiff, setequal, union</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"tidyr"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>
-Attaching package: 'tidyr'</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>The following object is masked from 'package:magrittr':
-
-    extract</code></pre>
-</div>
-</div>
-<section id="alpha-diversity" class="level2" data-number="4.1">
-<h2 data-number="4.1" class="anchored" data-anchor-id="alpha-diversity"><span class="header-section-number">4.1</span> Alpha Diversity</h2>
+<p>Elastic Net is a combination of Ridge and Lasso regression. Generally, Ridge is used to penalize large coefficients and Lasso is used to select variables. Elastic Net is a compromise between the two. These two methods is explained separately in the next two sections and lastly it is explained how they are combined in Elastic Net.</p>
+<section id="ridge-regression" class="level2" data-number="9.1">
+<h2 data-number="9.1" class="anchored" data-anchor-id="ridge-regression"><span class="header-section-number">9.1</span> Ridge Regression</h2>
+<p>Essentially OLS. Introduce bias to reduce variance. OLS minimizes the sum of squared residuals (SSR), Ridge minimizes the SSR and lambda X slope^2. lambda X slope^2 introduces a penalty varied by lambda. Slope is the coefficient of the variable, so when lambda increases, the penalty increases and the slope decreases, meaning the coefficient of the variable decreases.</p>
+<p>Higher values for variables means more sensitive to small changes in data, it is those high values we want to reduce. As our model is less sensitive to the small changes, we have introduced bias in our model. Find values for lambda by testing many values with CV.</p>
+<p>It also gives an extra incentive to reduce especially high variable coefficients. Makes this model more robust to outliers? Outliers could result in large coefficients and Ridge regression would reduce these.</p>
+<p>Mention what happens with lambda = 0, and with very high lambda values. Can only shrink slope asymptotically to 0.</p>
+<p>Why can Ridge not set variables to 0?</p>
+<section id="logistic-regression" class="level3" data-number="9.1.1">
+<h3 data-number="9.1.1" class="anchored" data-anchor-id="logistic-regression"><span class="header-section-number">9.1.1</span> Logistic Regression</h3>
+<p>Can be used for Logistic Regression. Instead optimizes the sum of likelihoods and lambda X slope^2 since logistic regression uses maximum likelihood.</p>
+</section>
+</section>
+<section id="lasso-regression" class="level2" data-number="9.2">
+<h2 data-number="9.2" class="anchored" data-anchor-id="lasso-regression"><span class="header-section-number">9.2</span> Lasso Regression</h2>
+<p>Also introduces bias for lowering variance.</p>
+<p>Instead of squaring the slope as Ridge, take absolute value.</p>
+<p>Mention what happens with lambda = 0, and with very high lambda values. Can shrink slope to 0.</p>
+<p>Why can Lasso set variables to 0?</p>
+<section id="logistic-regression-1" class="level3" data-number="9.2.1">
+<h3 data-number="9.2.1" class="anchored" data-anchor-id="logistic-regression-1"><span class="header-section-number">9.2.1</span> Logistic Regression</h3>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -664,8 +653,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./stat00.html" class="pagination-link  aria-label=" applied="" bio-statistical="" methods"="">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Applied bio-statistical methods</span>
+      <a href="./stat05_log_reg.html" class="pagination-link" aria-label="Logistic Regression">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Logistic Regression</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
