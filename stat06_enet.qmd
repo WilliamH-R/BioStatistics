@@ -11,24 +11,24 @@ mtcars <- mtcars |>
 
 # Elastic Net
 
-Elastic Net is an extension of Ordinary Least Squares (OLS). It is a combination of Ridge and Lasso regression. Generally, Ridge is used to penalize large coefficients and Lasso is used to select variables. Elastic Net is a compromise between the two. These two methods is explained separately in the next two sections and lastly it is explained how they are combined in Elastic Net.
+Elastic Net is an extension of Ordinary Least Squares (OLS). It is a combination of Ridge and Lasso regression. Generally, Ridge is used to penalize large coefficients and Lasso is used to select coefficients. Elastic Net is a compromise between the two. These two methods are explained separately in the next two sections and lastly it is explained how they are combined in Elastic Net.
 
 ## Ridge Regression
 Recall from the OLS section that the goal is minimize the sum of squared residuals (SSR).
 
 $$
-\beta_{OLS} = \arg\min_{\beta} ||y-X\beta||_{2}^{2}
+\beta_{OLS} = \min_{\beta} ||y-X\beta||_{2}^{2}
 $$
 
 Ridge is essentially OLS, except for an added penalty term to the minimization of the SSR:
 
 $$
-\beta_{Ridge} = \arg\min_{\beta} ||y-X\beta||_{2}^{2} + \lambda||\beta||^{2}
+\beta_{Ridge} = \min_{\beta} ||y-X\beta||_{2}^{2} + \lambda||\beta||_{2}^{2}
 $$
 
-Finding the coefficients for the linear model now becomes a compromise between minimizing the SSR and minimizing the size of the coefficients. $\lambda$ is a hyperparameter that controls the trade-off between the two. When $\lambda = 0$, the Ridge regression is the same as OLS. When $\lambda$ is very large, the coefficients are driven towards zero as the penalty term $\lambda||\beta||^2$ becomes large compared to the residuals. The coefficients can never be set to zero, but they can be driven asymptotically close to zero. The reason is, that when the coefficients are close to zero, the model prefer to fitting to the data instead of further reducing the size of the coefficients.
+Finding the coefficients for the linear model now becomes a compromise between minimizing the SSR and minimizing the size of the coefficients. $\lambda$ is a hyperparameter that controls the trade-off between the two. When $\lambda = 0$, Ridge regression is the same as OLS. When $\lambda$ is very large, the coefficients are driven towards zero as the penalty term $\lambda||\beta||_{2}^{2}$ becomes large compared to the residuals. The coefficients can never be set to zero, but they can be driven asymptotically close to zero. The reason is, when the coefficients are close to zero, the model prefer to fitting to the data instead of further reducing the size of the coefficients.
 
-Introducing the penalty term makes the fit to the data worse, but it can improve the generalization to new data. If the coefficients for Ridge are small compared to OLS, the model is less sensitive to changes in the data. In machine learning terms, this is called introducing bias (inability to fit data perfectly) to reduce variance (the model fits better to new data). The bias-variance trade-off is a fundamental concept in machine learning.
+Introducing the penalty term makes the fit to the data worse, but it can improve the generalization to new data. The coefficients obtained through Ridge tends to be small compared to OLS, so the model tends to be less sensitive to changes in the data. In machine learning terms, this is called introducing bias (inability to fit data perfectly) to reduce variance (the model fits better to new data). The bias-variance trade-off is a fundamental concept in machine learning.
 
 For visualization, remember the `mtcars` data set used previously. The following code chunk shows a 3D scatter plot of the weight of the car (`wt`) vs the horse power (`hp`) vs the miles per gallon (`mpg`). The color of the dots represent the horse power. When orienting the plot correctly, it is possible to see a linear correlation between the variables.
 
@@ -73,13 +73,13 @@ OLS_spec <- linear_reg() |>  # added OLS to have lambda = 0
   set_mode("regression")
 
 # Model recipe, no preprocessing
-recipe <- recipe(mpg ~ wt + hp,
-                 data = mtcars_train)
+ridge_recipe <- recipe(mpg ~ wt + hp,
+                       data = mtcars_train)
 
 
 # Combine to worflow
-wflow <- workflow_set(
-  preproc = list(recipe = recipe),
+ridge_wflow <- workflow_set(
+  preproc = list(recipe = ridge_recipe),
   models = list(OLS = OLS_spec,
                 Ridge = ridge_spec)
   )
@@ -90,8 +90,8 @@ ridge_params <- ridge_spec |>
   update(penalty = penalty(c(-1, 1)))
 
 # Add params to workflow
-wflow <-
-  wflow |>
+ridge_wflow <-
+  ridge_wflow |>
   option_add(id = "recipe_Ridge",
              param_info = ridge_params) |>
   option_add(id = "recipe_Ridge",
@@ -105,7 +105,7 @@ grid_ctrl <- control_grid(
    )
 
 # Run through grid
-grid_results <- wflow |> 
+ridge_grid_results <- ridge_wflow |> 
   workflow_map(
     seed = 1337,
     resamples = mtcars_folds,
@@ -117,7 +117,7 @@ grid_results <- wflow |>
 The following code chunk shows the results of the grid search. The plot shows the root mean square error (RMSE) for the Ridge regression model against the different lambdas. The RMSE increases as lambda increases suggesting a low lambda is preferred.
 
 ```{r}
-autoplot(grid_results,
+autoplot(ridge_grid_results,
          id = "recipe_Ridge",
          metric = "rmse")
 ```
@@ -145,11 +145,11 @@ The coefficients are then plotted against the lambda values. The coefficients ar
 
 ```{r}
 # Unnest coefficients
-coefficients_df <- bind_rows(map_dfr(ridge_models, ~tidy(.x))) %>%
+ridge_coefficients <- bind_rows(map_dfr(ridge_models, ~tidy(.x))) %>%
   mutate(lambda = rep(lambda_grid, each = 3))
 
 # Visualize coefficients
-coefficients_df |>
+ridge_coefficients |>
   ggplot(aes(x = lambda,
              y = estimate,
              color = term)) +
@@ -230,19 +230,157 @@ plot_w_predictions
 ```
 
 
-### Logistic Regression
-Can be used for Logistic Regression. Instead optimizes the sum of likelihoods and lambda X slope^2 since logistic regression uses maximum likelihood. You still get slopes for logistic regression, so it it just those that are penalized.
+### Applying Ridge Regression to Logistic Regression
 
-### Ridge Regressopm for categorical variables
-https://youtu.be/Q81RR3yKn30?si=QZor-JxtWQblRs9i&t=621
+Recall from Chapter 8 on Logistic Regression, that the algorithm seek to maximize the likelihoods:
+
+$$
+\beta_{LR} = \max_{\beta} \; L(\beta,x_i,y_i)
+$$
+
+Where $L(\beta,x_i,y_i)$ is the likelihood function mentioned in the chapter, $\beta$ are the coefficients, 'y' are the classes, and 'x' are individual probabilities. Similarly to OLS, a penalization term is included when applying Ridge Regression. Since Logistic Regression seek to maximize likelihoods, whereas OLS seek to minimize residuals, the included penalization term is subtracted from the expression:
+
+$$
+\beta_{LR, Ridge} = \max_{\beta} \; L(\beta,x_i,y_i) - \lambda||\beta||_{2}^{2}
+$$
+
 
 ## Lasso Regression
-Also introduces bias for lowering variance.
 
-Instead of squaring the slope as Ridge, take absolute value.
+Lasso is similar to Ridge, except the penalty uses the absolute values of the coefficients instead of squaring them. This enables the Lasso Regression to set some coefficients to 0, resulting in a less complex model as it contains fewer variables. Again, the $\lamba$ hyperparameter is used to control the penalization. $\lambda$ ranges from 0 to $+\infty$, where higher values of $\lambda$ gives a more penalized model, i.e. contain fewer variables. The Lasso Regression is given by:
 
-Mention what happens with lambda = 0, and with very high lambda values. Can shrink slope to 0. 
+$$
+\beta_{Lasso} = \min_{\beta} ||y-X\beta||_{2}^{2} + \lambda||\beta||_{1}
+$$
 
-Why can Lasso set variables to 0?
+By removing variables, the algorithm can be used for dimensionality reduction. To exemplify, the below code chunk tries to predict `mpg` given all variables using Lasso Regression. The expectation is, that some variables contain too little information about the outcome, and is excepted at higher values of $\lambda$.
 
-### Logistic Regression
+```{r}
+# Setup model specs
+lasso_spec <- linear_reg(penalty = tune(),
+                         mixture = 1) |> 
+  set_engine(engine = "glmnet") |> 
+  set_mode("regression")
+
+# Model recipe, no preprocessing
+lasso_recipe <- recipe(mpg ~ .,
+                       data = mtcars_train)
+
+# Combine to worflow
+lasso_wflow <- workflow_set(
+  preproc = list(recipe = lasso_recipe),
+  models = list(OLS = OLS_spec,
+                Lasso = lasso_spec)
+  )
+
+# Change values of hyperparameters to search across
+lasso_params <- lasso_spec |>
+  extract_parameter_set_dials() |>
+  update(penalty = penalty(c(-1, 1)))
+
+# Add params to workflow
+lasso_wflow <-
+  lasso_wflow |>
+  option_add(id = "recipe_Lasso",
+             param_info = lasso_params) |>
+  option_add(id = "recipe_Lasso",
+             control = control_grid(extract = function(x) x))
+
+# Grid settings
+grid_ctrl <- control_grid(
+  save_pred = TRUE,
+  parallel_over = "everything",
+  save_workflow = TRUE
+   )
+
+# Run through grid
+lasso_grid_results <- lasso_wflow |> 
+  workflow_map(
+    seed = 1337,
+    resamples = mtcars_folds,
+    grid = 5,
+    control = grid_ctrl
+  )
+```
+
+
+
+### Applying Logistic Regression to Logistic Regression
+As for Ridge, Lasso can be used with logistic regression as well by subtracting the L1 norm of the coefficients.
+
+$$
+\beta_{LR, Lasso} = \max_{\beta} \; L(\beta,x_i,y_i) - \lambda||\beta||_{2}
+$$
+
+
+# Combining Ridge and Lasso to Elastic Net
+Ridge reduces the size of coefficients making the model better at generalizing to new data (reducing variance), whereas Lasso removes irrelevant coefficients (thereby de-correlating coefficients). Their strengths are combined in Elastic Net as both of the regularization terms are used:
+
+$$
+\beta_{ENet} = \min_{\beta} ||y-X\beta||_{2}^{2} + \lambda_{1}||\beta||_{2}^{2} + \lambda_{2}||\beta||_{1}
+$$
+
+Note that the two terms contain different lambdas. If both are equal to 0, it is the OLS model, if $\lambda_{1}>0$ and $\lambda_{2}=0$, it is Ridge and finally if $\lambda_{1}=0$ and $\lambda_{2}>0$ it is Lasso. By using different combinations of $\lambda_{1}>0$ and $\lambda_{2}>0$, it is possible to regulate how much weight each of the two methods have.
+
+The `glmnet` package implements a different application of Elastic Net. It still contain a term for Ridge and a term for Lasso, but it introduces a new parameter $\alpha$ instead of having two $\lambda$s. From the documentation, it is seen that the regularization term is:
+
+$$
+ \lambda(\frac{(1-\alpha)||\beta||_{2}^{2}}{2} + \alpha||\beta||_{1})
+$$
+
+ Where $0 \le \alpha \le 1$. If $\alpha=0$, the regularization applied is Ridge as $\alpha||\beta||_{1}=0 \cdot ||\beta||_{1} = 0$ and thereby the Lasso term is ignored and vice versa for $\alpha=1$. In the `tidymodels` universe, the $\alpha$ parameter is called `mixture`. When looking at the examples of Ridge and Lasso in the above, notice how `mixture` is either equal to 0 or 1, depending on the use case.
+ 
+ `mixture` is also a hyperparameter, and also needs to be estimated with CV:
+ 
+```{r}
+# Setup model specs
+enet_spec <- linear_reg(penalty = tune(),
+                        mixture = tune()) |> 
+  set_engine(engine = "glmnet") |> 
+  set_mode("regression")
+
+# Model recipe, no preprocessing
+enet_recipe <- recipe(mpg ~ .,
+                      data = mtcars_train)
+
+# Combine to worflow
+enet_wflow <- workflow_set(
+  preproc = list(recipe = enet_recipe),
+  models = list(ENet = enet_spec)
+  )
+
+# Change values of hyperparameters to search across
+enet_params <- enet_spec |>
+  extract_parameter_set_dials() |>
+  update(penalty = penalty(c(-1, 1)))
+
+####
+#### ALSO SEE WHAT THE DEFAULTS ARE FOR TUNING MIXTURE
+####
+
+# Add params to workflow
+enet_wflow <-
+  enet_wflow |>
+  option_add(id = "recipe_ENet",
+             param_info = enet_params) |>
+  option_add(id = "recipe_ENet",
+             control = control_grid(extract = function(x) x))
+
+# Grid settings
+grid_ctrl <- control_grid(
+  save_pred = TRUE,
+  parallel_over = "everything",
+  save_workflow = TRUE
+   )
+
+# Run through grid
+enet_grid_results <- enet_wflow |> 
+  workflow_map(
+    seed = 1337,
+    resamples = mtcars_folds,
+    grid = 5,
+    control = grid_ctrl
+  )
+```
+ 
+ 
