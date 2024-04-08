@@ -97,20 +97,12 @@ ridge_wflow <-
   option_add(id = "recipe_Ridge",
              control = control_grid(extract = function(x) x))
 
-# Grid settings
-grid_ctrl <- control_grid(
-  save_pred = TRUE,
-  parallel_over = "everything",
-  save_workflow = TRUE
-   )
-
 # Run through grid
 ridge_grid_results <- ridge_wflow |> 
   workflow_map(
     seed = 1337,
     resamples = mtcars_folds,
-    grid = 5,
-    control = grid_ctrl
+    grid = 5
   )
 ```
 
@@ -244,7 +236,6 @@ $$
 \beta_{LR, Ridge} = \max_{\beta} \; L(\beta,x_i,y_i) - \lambda||\beta||_{2}^{2}
 $$
 
-
 ## Lasso Regression
 
 Lasso is similar to Ridge, except the penalty uses the absolute values of the coefficients instead of squaring them. This enables the Lasso Regression to set some coefficients to 0, resulting in a less complex model as it contains fewer variables. Again, the $\lamba$ hyperparameter is used to control the penalization. $\lambda$ ranges from 0 to $+\infty$, where higher values of $\lambda$ gives a more penalized model, i.e. contain fewer variables. The Lasso Regression is given by:
@@ -253,56 +244,44 @@ $$
 \beta_{Lasso} = \min_{\beta} ||y-X\beta||_{2}^{2} + \lambda||\beta||_{1}
 $$
 
-By removing variables, the algorithm can be used for dimensionality reduction. To exemplify, the below code chunk tries to predict `mpg` given all variables using Lasso Regression. The expectation is, that some variables contain too little information about the outcome, and is excepted at higher values of $\lambda$.
+By removing variables, the algorithm can be used for dimensionality reduction. To exemplify, the below code chunk tries to predict `mpg` given all variables using Lasso Regression. The expectation is, that some variables contain too little information about the outcome, and is excepted to be removed at higher values of $\lambda$. Since we are not comparing different models, a much simpler approach can be applied:
 
 ```{r}
+set.seed(1337)
 # Setup model specs
 lasso_spec <- linear_reg(penalty = tune(),
                          mixture = 1) |> 
   set_engine(engine = "glmnet") |> 
   set_mode("regression")
 
-# Model recipe, no preprocessing
-lasso_recipe <- recipe(mpg ~ .,
-                       data = mtcars_train)
-
-# Combine to worflow
-lasso_wflow <- workflow_set(
-  preproc = list(recipe = lasso_recipe),
-  models = list(OLS = OLS_spec,
-                Lasso = lasso_spec)
-  )
 
 # Change values of hyperparameters to search across
 lasso_params <- lasso_spec |>
   extract_parameter_set_dials() |>
-  update(penalty = penalty(c(-1, 1)))
+  update(penalty = penalty(c(-1, 0.1)))
 
-# Add params to workflow
-lasso_wflow <-
-  lasso_wflow |>
-  option_add(id = "recipe_Lasso",
-             param_info = lasso_params) |>
-  option_add(id = "recipe_Lasso",
-             control = control_grid(extract = function(x) x))
+# Tune the grid and find optimal lambda
+lasso_grid_results <- lasso_spec |>
+  tune_grid(preprocessor = mpg ~ .,
+            resamples = mtcars_folds,
+            param_info = lasso_params,
+            metrics = metric_set(rmse),
+            grid = 100) |>
+  select_best()
 
-# Grid settings
-grid_ctrl <- control_grid(
-  save_pred = TRUE,
-  parallel_over = "everything",
-  save_workflow = TRUE
-   )
 
-# Run through grid
-lasso_grid_results <- lasso_wflow |> 
-  workflow_map(
-    seed = 1337,
-    resamples = mtcars_folds,
-    grid = 5,
-    control = grid_ctrl
-  )
+# Update our model with the tuned parameter
+lasso_tuned <- lasso_spec |>
+  finalize_model(lasso_grid_results)
+
+# Fit model to data and get terms
+lasso_tuned |>
+  fit(mpg ~ .,
+      data = mtcars_train) |> 
+  tidy() |> 
+  filter(estimate != 0)
 ```
-
+As can be seen from the final output, the Lasso Regression has removed some variables from the model. Four variables remains in the model, whereas the last seven are set to zero.
 
 
 ### Applying Logistic Regression to Logistic Regression
@@ -330,57 +309,34 @@ $$
 
  Where $0 \le \alpha \le 1$. If $\alpha=0$, the regularization applied is Ridge as $\alpha||\beta||_{1}=0 \cdot ||\beta||_{1} = 0$ and thereby the Lasso term is ignored and vice versa for $\alpha=1$. In the `tidymodels` universe, the $\alpha$ parameter is called `mixture`. When looking at the examples of Ridge and Lasso in the above, notice how `mixture` is either equal to 0 or 1, depending on the use case.
  
- `mixture` is also a hyperparameter, and also needs to be estimated with CV:
+`mixture` is also a hyperparameter, and also needs to be estimated with CV:
  
 ```{r}
+set.seed(1337)
 # Setup model specs
 enet_spec <- linear_reg(penalty = tune(),
-                        mixture = tune()) |> 
+                         mixture = tune()) |> 
   set_engine(engine = "glmnet") |> 
   set_mode("regression")
 
-# Model recipe, no preprocessing
-enet_recipe <- recipe(mpg ~ .,
-                      data = mtcars_train)
-
-# Combine to worflow
-enet_wflow <- workflow_set(
-  preproc = list(recipe = enet_recipe),
-  models = list(ENet = enet_spec)
-  )
 
 # Change values of hyperparameters to search across
 enet_params <- enet_spec |>
   extract_parameter_set_dials() |>
-  update(penalty = penalty(c(-1, 1)))
+  update(penalty = penalty(c(-1, 0)),
+         mixture = mixture(c(0, 1)))
 
-####
-#### ALSO SEE WHAT THE DEFAULTS ARE FOR TUNING MIXTURE
-####
+# Tune the grid and find optimal lambda and mixture
+enet_grid_results <- enet_spec |>
+  tune_grid(preprocessor = mpg ~ .,
+            resamples = mtcars_folds,
+            param_info = enet_params,
+            metrics = metric_set(rmse),
+            grid = 100
+            )
 
-# Add params to workflow
-enet_wflow <-
-  enet_wflow |>
-  option_add(id = "recipe_ENet",
-             param_info = enet_params) |>
-  option_add(id = "recipe_ENet",
-             control = control_grid(extract = function(x) x))
-
-# Grid settings
-grid_ctrl <- control_grid(
-  save_pred = TRUE,
-  parallel_over = "everything",
-  save_workflow = TRUE
-   )
-
-# Run through grid
-enet_grid_results <- enet_wflow |> 
-  workflow_map(
-    seed = 1337,
-    resamples = mtcars_folds,
-    grid = 5,
-    control = grid_ctrl
-  )
+enet_grid_results |>
+  show_best(n = 10)
 ```
- 
- 
+
+For 100 different combinations of `penalty` and `mixture`, the best combinations have a value for `mixture` close to 1 suggesting the Lasso term is more important than the Ridge term.
