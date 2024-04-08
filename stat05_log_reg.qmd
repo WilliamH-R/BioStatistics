@@ -40,7 +40,7 @@ $$
 Where 'n' is the number of observations, 'y' is the class, and 'x' is individual probabilities. It is the above product that is maximized by trying different lines on the log-odds scale. The line that maximizes the product is the best fit line which can be written as:
 
 $$
-\beta_{LR} = argmax_{\beta} \; L(\beta,x_i,y_i)
+\beta_{LR} = \max_{\beta} \; L(\beta,x_i,y_i)
 $$
 
 The process results in the best set of coefficients for the linear line that maximizes the product of probabilities, i.e. maximum likelihood. It is possible to convert the linearly fit line back to the original scale with the logistic function by replacing 'y' with the linear equation:
