@@ -228,7 +228,7 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./stat03_mult_testing.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Multiple testing</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Multiple testing correction</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -263,13 +263,7 @@ window.Quarto = {
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="4">
-    <h2 id="toc-title">Table of contents</h2>
-   
-  <ul>
-  <li><a href="#old" id="toc-old" class="nav-link active" data-scroll-target="#old"><span class="header-section-number">5.0.0.1</span> OLD</a></li>
-  </ul>
-</nav>
+        
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -324,71 +318,17 @@ U = min(U_1, \; U_2) = min(R_1 - \frac{n_1(n_1+1)} {2}, \; R_2 - \frac{n_2(n_2+1
 <p>Where <span class="math inline">\(R_1\)</span> and <span class="math inline">\(R_2\)</span> is the sum of the ranks for the first and second group, respectively. Likewise, <span class="math inline">\(n_1\)</span> and <span class="math inline">\(n_2\)</span> is the number of samples in the first and second group, respectively. The U statistic is then used to find the p-value, which is used to determine if the difference between the two groups is statistically significant. The p-value is the probability of observing a U statistic as extreme as the one observed, given that the null hypothesis of no difference between the distributions of <span class="math inline">\(U_1\)</span> and <span class="math inline">\(U_2\)</span> is true. Due to the Central Limit Theorem, the distributions of <span class="math inline">\(U_1\)</span> and <span class="math inline">\(U_2\)</span>, and thereby <span class="math inline">\(U\)</span>, can be assumed to follow a normal distribution when the sample size is larger than approximately 20. The Wilcoxon Rank Sum test for the Shannon Index is shown below. As the p-value is much lower than the usual significance level of 0.05, we can conclude that the Shannon Index is significantly different between the two groups. Here, the two groups are the healthy and MS patients.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wilcox.test</span>(Shannon <span class="sc">~</span> Patient_status,</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>            <span class="at">data =</span> shannon) <span class="sc">|&gt;</span> </span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>            <span class="at">data =</span> shannon <span class="sc">|&gt;</span> <span class="fu">filter</span>(Sex <span class="sc">==</span> <span class="st">"male"</span>)) <span class="sc">|&gt;</span> </span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  broom<span class="sc">::</span><span class="fu">tidy</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 4
   statistic p.value method                                           alternative
       &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;                                            &lt;chr&gt;      
-1      7016 0.00440 Wilcoxon rank sum test with continuity correcti… two.sided  </code></pre>
-</div>
-</div>
-<section id="old" class="level4" data-number="5.0.0.1">
-<h4 data-number="5.0.0.1" class="anchored" data-anchor-id="old"><span class="header-section-number">5.0.0.1</span> OLD</h4>
-<p>Try to manually calculate U statistic (successful) and p-value (no success)</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Select 3 healthy samples</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>healthy_samples <span class="ot">&lt;-</span> count_matrix <span class="sc">|&gt;</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">column_to_rownames</span>(<span class="at">var =</span> <span class="st">"Sample"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">diversity</span>(<span class="at">index =</span> <span class="st">"shannon"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>(<span class="at">rownames =</span> <span class="st">"Sample"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">Shannon =</span> value) <span class="sc">|&gt;</span> </span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(meta,</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>            <span class="at">by =</span> <span class="st">"Sample"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Sample, Patient_status, Shannon) <span class="sc">|&gt;</span></span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Patient_status <span class="sc">==</span> <span class="st">"Healthy"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">25</span>)</span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Select 7 sick samples</span></span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>sick_samples <span class="ot">&lt;-</span> count_matrix <span class="sc">|&gt;</span></span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">column_to_rownames</span>(<span class="at">var =</span> <span class="st">"Sample"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">diversity</span>(<span class="at">index =</span> <span class="st">"shannon"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>(<span class="at">rownames =</span> <span class="st">"Sample"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">Shannon =</span> value) <span class="sc">|&gt;</span> </span>
-<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(meta,</span>
-<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>            <span class="at">by =</span> <span class="st">"Sample"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Sample, Patient_status, Shannon) <span class="sc">|&gt;</span></span>
-<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Patient_status <span class="sc">==</span> <span class="st">"MS"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">25</span>)</span>
-<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Combine the selected samples</span></span>
-<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>selected_samples <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(healthy_samples, sick_samples) <span class="sc">|&gt;</span> </span>
-<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(Shannon) <span class="sc">|&gt;</span> </span>
-<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>  tibble<span class="sc">::</span><span class="fu">rowid_to_column</span>(<span class="st">"Rank"</span>) <span class="co"># no ties between values</span></span>
-<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the U statistic</span></span>
-<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>U_statistic <span class="ot">&lt;-</span> selected_samples <span class="sc">|&gt;</span></span>
-<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Patient_status) <span class="sc">|&gt;</span></span>
-<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">R =</span> <span class="fu">sum</span>(Rank),</span>
-<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a>         <span class="at">U =</span> R <span class="sc">-</span> (<span class="fu">n</span>()<span class="sc">*</span>(<span class="fu">n</span>()<span class="sc">+</span><span class="dv">1</span>)<span class="sc">/</span><span class="dv">2</span>)) <span class="sc">|&gt;</span> </span>
-<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(U) <span class="sc">|&gt;</span></span>
-<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">min</span>()</span>
-<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a><span class="fu">wilcox.test</span>(Shannon <span class="sc">~</span> Patient_status,</span>
-<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a>            <span class="at">data =</span> selected_samples, <span class="at">paired=</span> <span class="cn">FALSE</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a>  broom<span class="sc">::</span><span class="fu">tidy</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 1 × 4
-  statistic p.value method                       alternative
-      &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;                        &lt;chr&gt;      
-1       263   0.345 Wilcoxon rank sum exact test two.sided  </code></pre>
+1       442 0.00768 Wilcoxon rank sum test with continuity correcti… two.sided  </code></pre>
 </div>
 </div>
 
 
-</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -785,8 +725,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./stat03_mult_testing.html" class="pagination-link" aria-label="Multiple testing">
-        <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Multiple testing</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./stat03_mult_testing.html" class="pagination-link" aria-label="Multiple testing correction">
+        <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Multiple testing correction</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
