@@ -29,8 +29,132 @@ meta <- read.csv(file = "data/metadata.txt") |>
          EDSS = as.factor(EDSS))
 ```
 
-# Multiple testing
+# Multiple testing correction
+The p-value is the probability of observing a test statistic as extreme as the one observed, given that the null hypothesis is true. Essentially, a value denoting the probability that the observed data was drawn from the population, if the null hypothesis is true. If multiple samples are tested, the probability of observing a significant result by chance increases which is exactly why correcting for multiple testing is important.
 
-CALCULATE WILCOXON FOR SHANNON INDEX WITH DIFFERENT COHORTS AND ADJUST FOR MULTIPLE TESTING
+For a simple example, the odds of getting a six with one die is $1/6$. If multiple dice are thrown, the odds of getting a six increases. This is the same as for multiple testing. If multiple tests are performed, the odds of getting a significant result by chance increases. This is why we need to adjust for multiple testing to avoid false positives.
+
+
+To setup a scenario where multiple testing becomes relevant, the `Age` and `BMI` columns are split into groups. The Wilcoxon Rank Sum test is then performed for each group. The number of data points affect the power of a test, i.e. the chances of finding a statistically significant difference, if one exist. Therefore, the number of data points in each group should be similar. The groups are defined as follows and the distribution is:
+
+```{r warning=FALSE}
+meta <- meta |> 
+  mutate(Age_group = case_when(Age >= 30 & Age < 36.6 ~ "30-36.6",
+                               Age >= 36.6 & Age < 41 ~ "36.6-41",
+                               Age >= 41 & Age < 45 ~ "41-45",
+                               Age >= 45 & Age < 48.6 ~ "45-48.6",
+                               Age >= 48.6 & Age < 51.2 ~ "48.6-51.2",
+                               Age >= 51.2 & Age < 53 ~ "51.2-53",
+                               Age >= 53 & Age < 55.7 ~ "53-55.7",
+                               Age >= 55.7 & Age < 59.3 ~ "55.7-59.3",
+                               Age >= 59.3 & Age < 63.2 ~ "59.3-63.2",
+                               Age >= 63.2 ~ "63.2+"),
+         BMI_group = case_when(BMI >= 17 & BMI < 21.7 ~ "17-21.7",
+                               BMI >= 21.7 & BMI < 23.77 ~ "21.7-23.77",
+                               BMI >= 23.77 & BMI < 25.77 ~ "23.77-25.77",
+                               BMI >= 25.77 & BMI < 28.51 ~ "25.77-28.51",
+                               BMI >= 28.51 & BMI < 33.31 ~ "28.51-33.31",
+                               BMI >= 33.31 ~ "33.31+"))
+meta |> 
+  ggplot(aes(x = Age_group,
+             fill = Patient_status)) +
+  geom_histogram(alpha = 0.7,
+                 stat = "count") +
+  labs(title = "Age distribution",
+       x = "Age group",
+       y = "Count")
+
+meta |> 
+  drop_na(BMI) |> 
+  ggplot(aes(x = BMI_group,
+             fill = Patient_status)) +
+  geom_histogram(alpha = 0.7,
+                 stat = "count") +
+  labs(title = "BMI distribution",
+       x = "BMI group",
+       y = "Count")
+```
+The Shannon Index is then calculated. As mentioned in Chapter 1, it is a within sample metric, so which group a sample belongs to is irrelevant. The Wilcoxon Rank Sum test is then performed for each group and gathered:
+
+```{r}
+shannon <- count_matrix |>
+  column_to_rownames(var = "Sample") |>
+  diversity(index = "shannon") |> 
+  as_tibble(rownames = "Sample") |> 
+  rename(Shannon = value) |> 
+  left_join(meta,
+            by = "Sample")
+
+p_value_per_age_group <- shannon |> 
+  group_by(Age_group) |> 
+  summarise(p_value = wilcox.test(Shannon ~ Patient_status)$p.value) |> 
+  pivot_longer(cols = Age_group,
+               names_to = "Group Name",
+               values_to = "Group Value")
+
+p_value_per_BMI_group <- shannon |>
+  drop_na(BMI) |> 
+  group_by(BMI_group) |> 
+  summarise(p_value = wilcox.test(Shannon ~ Patient_status)$p.value) |> 
+  pivot_longer(cols = BMI_group,
+               names_to = "Group Name",
+               values_to = "Group Value")
+
+p_values_per_group <- bind_rows(p_value_per_age_group,
+                                p_value_per_BMI_group) |> 
+  select(`Group Name`, `Group Value`, p_value)
+p_values_per_group
+```
+
+With a significance level of 0.05, a total of four tests are significant.
+
+```{r}
+alpha <- 0.05
+
+p_values_per_group |> 
+  filter(p_value < alpha)
+```
+
+The probability of not finding a false positive is $1 - \alpha$. When performing multiple tests, the probability increases with $(1 - \alpha)^{m}$ where $m$ is number of tests. Since the probability of finding a false positive and not finding one equals 1, the probability of finding a false positive in $m$ tests is $1 - (1- \alpha)^{m}$. 
+
+With 16 tests performed, and a significance level of 0.05, the probability of finding a false positive is:
+
+$$
+P(false\; positive) = 1 - (1 - \alpha)^{m} = 1 - (1 - 0.05)^{16} = 0.56
+$$
+
+The probability of finding a false positive is also referred to as the family-wise error rate (FWER).
+
+Some way to correct for multiple testing is needed to avoid these high probabilities of false positives.
+There are several methods for correcting for multiple testing. Some common methods are the Bonferroni correction and the False Discovery Rate (FDR) correction.
+
+
+## Bonferroni correction
+The Bonferroni correction is the most conservative method, which means that it is less likely to find significant results. To apply Bonferroni correction, the significance level is divided by the number of tests, which would then also affect the FWER (the probability of finding at least one false positive among the significant results). The Bonferroni adjusted significance level is then:
+
+```{r}
+alpha_bonferroni <- alpha / nrow(p_values_per_group)
+alpha_bonferroni
+```
+
+Using this, we actually find no significant results:
+
+```{r}
+p_values_per_group |> 
+  filter(p_value < alpha_bonferroni)
+```
+
+The FWER becomes:
+
+$$
+FWER = 1 - (1 - \frac{\alpha}{m})^{m} = 1 - (1 - \frac{0.05}{16})^{16} = 0.049
+$$
+
+The FWER is reduced from 56% to 4.9%, close to the original significance level of 5%. It is then expected to find fewer false positives, also called Type I errors. However, the chance of finding false negatives also increases (referred to as Type II errors). In this case, finding false negatives means accepting the null hypothesis when it was actually false, i.e. not finding a significant result when one exists. In some cases, using a very conservative method is preferred, especially when the cost of a false positive is high. However, in other cases, a less conservative method is preferred, which is where the FDR correction comes in.
+
+## FDR correction
+Also called Benjamini-Hochberg correction. This is a less conservative method than the Bonferroni correction. The FDR correction is based on the concept of the false discovery rate, which is the proportion of false positives among the significant results. The FDR correction controls the expected proportion of false positives among the significant results. The FDR correction is less conservative than the Bonferroni correction, which means that it is more likely to find significant results. However, the FDR correction is more likely to find false positives than the Bonferroni correction.
+
+The FDR correction is less conservative, which means that it is more likely to find significant results. However, the FDR correction is also more likely to find false positives than the Bonferroni correction. Each of the these methods is described and exemplified below.
 
 Good video for multiple testing: https://www.youtube.com/watch?v=RUX94txw4Qo
