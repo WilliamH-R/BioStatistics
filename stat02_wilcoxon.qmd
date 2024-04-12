@@ -60,56 +60,6 @@ Where $R_1$ and $R_2$ is the sum of the ranks for the first and second group, re
 
 ```{r}
 wilcox.test(Shannon ~ Patient_status,
-            data = shannon) |> 
+            data = shannon |> filter(Sex == "male")) |> 
   broom::tidy()
 ```
-
-
-
-#### OLD ####
-Try to manually calculate U statistic (successful) and p-value (no success)
-```{r}
-# Select 3 healthy samples
-healthy_samples <- count_matrix |>
-  column_to_rownames(var = "Sample") |>
-  diversity(index = "shannon") |> 
-  as_tibble(rownames = "Sample") |> 
-  rename(Shannon = value) |> 
-  left_join(meta,
-            by = "Sample") |> 
-  select(Sample, Patient_status, Shannon) |>
-  filter(Patient_status == "Healthy") |>
-  slice_head(n = 25)
-
-# Select 7 sick samples
-sick_samples <- count_matrix |>
-  column_to_rownames(var = "Sample") |>
-  diversity(index = "shannon") |> 
-  as_tibble(rownames = "Sample") |> 
-  rename(Shannon = value) |> 
-  left_join(meta,
-            by = "Sample") |> 
-  select(Sample, Patient_status, Shannon) |>
-  filter(Patient_status == "MS") |>
-  slice_head(n = 25)
-
-# Combine the selected samples
-selected_samples <- bind_rows(healthy_samples, sick_samples) |> 
-  arrange(Shannon) |> 
-  tibble::rowid_to_column("Rank") # no ties between values
-
-
-# Calculate the U statistic
-U_statistic <- selected_samples |>
-  group_by(Patient_status) |>
-  mutate(R = sum(Rank),
-         U = R - (n()*(n()+1)/2)) |> 
-  pull(U) |>
-  min()
-
-
-wilcox.test(Shannon ~ Patient_status,
-            data = selected_samples, paired= FALSE) |> 
-  broom::tidy()
-```
-
