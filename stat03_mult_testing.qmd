@@ -181,14 +181,6 @@ $$
 
 All p-values with a rank less than or equal to the largest $k$ are then considered significant. Note that is is irrelevant if a p-value of lower rank than the rank found from the above, is larger than the critical value. It is still considered significant.
 
-```{r}
-p_values_per_group |> 
-  arrange(p_value) |> 
-  mutate(rank = row_number()) |> 
-  mutate(critical_value = (rank / nrow(p_values_per_group)) * alpha) |> 
-  filter(p_value <= critical_value)
-```
-
 As for the Bonferroni correction, no significant results are found:
 ```{r}
 p_values_per_group |> 
@@ -207,20 +199,11 @@ $$
 
 Where $m$ is the number of tests, $k$ is the rank of the considered p-value and $p_{k}$ is the p-value of said rank. The adjusted p-values can then be found.
 
-Starting with the highest rank, the adjusted p-value is simply the intermediary value found from the above. For the second highest rank, the adjusted p-value is the minimum of the intermediary value and the adjusted p-value of the rank above. This is repeated for all ranks. The adjusted p-values are then compared to the significance level $\alpha$, and all p-values less than the significance level are considered significant.
+Starting with the highest rank, the adjusted p-value is simply the intermediary value found from the above. For the second highest rank, the adjusted p-value is the minimum of the intermediary value and the adjusted p-value of the rank above. This is repeated for all ranks. The adjusted p-values are then compared to the significance level $\alpha$, and all p-values less than the significance level are considered significant. Once again, no significant results are found:
 
 ```{r}
 p_values_per_group |> 
-  arrange(p_value) |> 
-  mutate(rank = row_number()) |> 
-  mutate(p_value_adjusted = p_value * (nrow(p_values_per_group) / rank)) #|> 
-  #mutate(p_value_adjusted = pmin(p_value_adjusted,
-  #                               dplyr::lag(p_value_adjusted, default = Inf)))
+  mutate(p_value_adjusted = p.adjust(p = p_value,
+                                     method = "BH"),
+         significant = p_value_adjusted < 0.05)
 ```
-
-```{r}
-p_values_per_group |> 
-  pull(p_value) |> 
-  p.adjust(method = "BH")
-```
-
