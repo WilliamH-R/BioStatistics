@@ -25,6 +25,8 @@ book:
         - stat06_enet.qmd
         
     - part: apply00_intro.qmd
+      chapters:
+        - apply01_model_data.qmd
         
         
     - references.qmd

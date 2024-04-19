@@ -1,0 +1,234 @@
+---
+output: html_document
+editor_options: 
+  chunk_output_type: inline
+---
+Set seed and load packages.
+```{r}
+#| output: FALSE
+#| code-fold: true
+#| code-summary: "Show the code"
+
+set.seed(1337)
+
+library("tidymodels")
+tidymodels::tidymodels_prefer()
+library("vegan")
+```
+
+Load data.
+```{r}
+#| output: FALSE
+#| code-fold: true
+#| code-summary: "Show the code"
+
+count_matrix <- readr::read_rds("https://github.com/WilliamH-R/BioStatistics/raw/main/data/count_matrix/count_matrix.rds") |> 
+  select(-"NA")
+
+meta <- read.csv(file = "data/metadata.txt") |> 
+  as_tibble() |>
+  select(Run, chem_administration, ETHNICITY, geo_loc_name,
+         Host_age, host_body_mass_index, Host_disease, host_phenotype, host_sex) |> 
+  rename(Sample = Run,
+         Treatment = chem_administration,
+         Ethnicity = ETHNICITY,
+         Location = geo_loc_name,
+         Age = Host_age,
+         BMI = host_body_mass_index,
+         Disease_severity = Host_disease,
+         EDSS = host_phenotype,
+         Sex = host_sex) |>
+  mutate(Patient_status = case_when(Disease_severity == "1HealthyControl" ~ "Healthy",
+                                    TRUE ~ "MS"),
+         EDSS = as.factor(EDSS),
+         EDSS = case_when(is.na(EDSS) & Disease_severity == "1HealthyControl" ~ "-1",
+                          is.na(EDSS) & Disease_severity != "1HealthyControl" ~ "Unknown",
+                          TRUE ~ EDSS),
+         EDSS = as.factor(EDSS))
+```
+
+# Modelling
+
+## Data wrangling
+The data is joined with the metadata as the `Patient_status` is used as the outcome variable. Only the columns that are needed for the model are kept. Notice `inner_join()` is used such that only rows for which both the count matrix and metadata are available are kept.
+
+```{r}
+count_matrix <- count_matrix |>
+  inner_join(meta,
+             by = "Sample") |>
+  select(-c(Sample, Treatment, Ethnicity, Location,
+            Age, BMI, Disease_severity, EDSS, Sex)) |>
+  relocate(Patient_status)
+```
+
+
+
+## Cross-Validation
+The data is split into a training and testing set using cross-validation to avoid overfitting. This is especially needed, as some hyperparameters needs to be tuned.
+
+The data is split:
+```{r}
+count_matrix_split <- initial_split(count_matrix, prop = 0.80)
+count_matrix_train <- training(count_matrix_split)
+count_matrix_test <- testing(count_matrix_split)
+```
+
+The CV object is created:
+```{r}
+count_matrix_folds <- vfold_cv(count_matrix_train,
+                               v = 10)
+count_matrix_folds
+```
+
+## Recipes
+The recipes contain two pieces of important information. The first is the formula that describes the relationship between the variables and the outcome. In this case, which genera to use for predicting disease. The second is the pre-processing steps that are applied to the data before the model is built. This could include steps such as scaling, log-transform or imputing missing values. Here, the data is already clr-transformed.
+
+Two recipes are created. One without any pre-processing steps, and one where Principal Component Analysis (PCA) is applied to the data. In both cases, all variables is used to try and predict the outcome `Patient_status`.
+
+```{r}
+stand_recipe <- recipe(Patient_status ~ .,
+                       data = count_matrix_train)
+
+pca_recipe <- stand_recipe |> 
+  step_pca(all_predictors(),
+           threshold = 0.70)
+```
+
+## Model Specifications
+To model the data, a specification is needed. This includes the model to use, the engine to use, the mode of prediction and choosing hyperparameters. Since the outcome is binary, a logistic regression model is used. The model is later tuned using a grid search over the hyperparameters `penalty` and `mixture`. Models with exclusively Ridge and Lasso regularization are built, as well as a model with a mixture of both.
+
+```{r}
+log_spec <- logistic_reg(penalty = tune(),
+                         mixture = tune()) |>
+  set_engine("glmnet") |>
+  set_mode("classification")
+
+log_ridge_spec <- logistic_reg(penalty = tune(),
+                               mixture = 0) |>
+  set_engine("glmnet") |>
+  set_mode("classification")
+
+log_lasso_spec <- logistic_reg(penalty = tune(),
+                               mixture = 1) |>
+  set_engine("glmnet") |>
+  set_mode("classification")
+```
+
+## Change Hyperparameter Values
+The hyperparameters `penalty` and `mixture` are extracted from the model specification. This is done to see the possible values that can be used in the grid search.
+
+For the mixture, values between $0.05$ and $1$ is used which seem to be decent values.
+
+```{r}
+log_spec |> 
+  extract_parameter_set_dials() |> 
+  extract_parameter_dials("mixture")
+```
+
+For the penalty, values between $10^-10$ and $1$ are used. The range is increased to $10^3$. The updated range is saved in a new object, but the information is not added to the models until the workflow is created further down. As seen from the output, the information do not pertain to a specific model, but simply contain ranges for different hyperparameters.
+
+```{r}
+log_param_ranges <- log_spec |> 
+  extract_parameter_set_dials() |>
+  update(penalty = penalty(c(-10, 3)))
+
+log_penalty_param_ranges <- log_lasso_spec |> 
+  extract_parameter_set_dials() |>
+  update(penalty = penalty(c(-10, 3)))
+
+log_param_ranges
+
+log_penalty_param_ranges
+```
+
+
+## Create the Workflow Set
+The recipes are combined with the model specifications to create a workflow set. The workflow set is used to fit the models to the data and evaluate the models. Notice here it is called a workflow set, as it contains multiple workflows. Each row of the workflow set is a workflow of its own which further contain the recipe and model.
+
+A workflow set for all combinations of recipes and models is created:
+
+```{r}
+workflow_set <- workflow_set(
+  preproc = list(stand = stand_recipe,
+                 pca = pca_recipe),
+  models = list(log = log_spec,
+                log_ridge = log_ridge_spec,
+                log_lasso = log_lasso_spec)
+)
+
+workflow
+```
+
+The parameter objects which contain the hyperparameter ranges are added to the workflow:
+
+```{r}
+workflow_set <- workflow_set |>
+  option_add(id = c("stand_log", "pca_log"),
+             param_info = log_param_ranges) |> 
+  option_add(id = c("stand_log_ridge",
+                    "stand_log_lasso",
+                    "pca_log_ridge",
+                    "pca_log_lasso"),
+             param_info = log_penalty_param_ranges)
+workflow_set
+```
+
+## Tune hyperparameters
+
+All workflows in the workflow set contain hyperparameters. These are tuned with a search grid using the function `tune_grid()`. As `workflow_set` contain multiple workflows, the `tune_grid()` function can be mapped over the workflows to tune all hyperparameters using `workflow_map()`, a `purrr`-like map function.
+
+Several settings for tuning the grid exists. This includes e.g. whether or not to parallelize, what output to save and how verbose the output should be, i.e. how much should be printed to std.out. The settings are set to:
+
+```{r}
+grid_settings <-
+   control_grid(
+      save_pred = TRUE,
+      parallel_over = "everything",
+      save_workflow = TRUE,
+      extract = function(x) x
+   )
+```
+
+The grid search is performed for a grid of size 10. This means that 10 different combinations of the hyperparameters are tried for each model.
+
+```{r}
+grid_results <- workflow_set |>
+  workflow_map(
+    fn = "tune_grid",
+    seed = 1337,
+    resamples = count_matrix_folds,
+    grid = 10,
+    control = grid_settings
+  )
+```
+
+`tidymodels` comes with a lot of convenience functions. One of these is `autoplot()` that can, among other things, plot the results of the grid search. The best result of each model is selected based on the accuracy. As seen, they all perform quite similarly with an accuracy of approximately $0.9$.
+
+```{r}
+autoplot(
+  grid_results,
+  rank_metric = "accuracy",
+  metric = "accuracy",
+  select_best = TRUE,
+) +
+  geom_text(aes(y = mean, label = wflow_id),
+            angle = 90,
+            hjust = 2) +
+  lims(y = c(0.7, 1)) +
+  theme(legend.position = "none")
+```
+```{r}
+grid_results |>
+  unnest(result) |> collect_metrics(result)
+
+grid_results |> collect_metrics()
+```
+
+
+```{r}
+autoplot(grid_results, metric = "accuracy", id = "stand_log")
+```
+
+See what is done here : https://workflowsets.tidymodels.org/articles/tuning-and-comparing-models.html#tuning-the-models
+
+Especially the end where they show how to extract the best model and use it to predict the test set.
