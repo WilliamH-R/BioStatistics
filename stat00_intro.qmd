@@ -13,7 +13,8 @@ In this chapter, each of the following parts delve into an area of statistics. T
 
 In the first part of the book, the `iris` data set was used to exemplify the usage of the `tidymodels` package. For the chapters pertaining to diversit measures, a count matrix from a metagenomics study is used instead. The raw data can be obtained from [@Cox2021]. Each row is a sample from a person, each column is a genus and the values represent the abundance of said genus in said sample. Explaining how the count matrix is acquired from raw sequences is out of scope for this book. Scripts used for the pre-processing exists on the [GitHub page](https://github.com/WilliamH-R/BioStatistics) from which this book is created, located in the `src/` sub-folder.
 
-A snippet of the data set can be seen here:
+To A snippet of the data set can be seen below. One might have expected a count matrix to count non-negative integers based on the name 'count matrix'. Microbiome data is inherently compositional, meaning that the sum of all genera in a sample is constant, so the count numbers indicate the proportion of a specific genera. To avoid this compositionality, the count matrix is transformed using the centered log-ratio (clr) transformation. The values seen are the clr transformed values, and describe the log-ratio of the abundance of a genus to the geometric mean of all genera in a sample. The log used is the natural logarithm.
+
 ```{r}
 count_matrix <- readr::read_rds("https://github.com/WilliamH-R/BioStatistics/raw/main/data/count_matrix/count_matrix.rds")
 count_matrix
@@ -27,4 +28,3 @@ count_matrix_test <- count_matrix |>
          Adlercreutzia, Agathobacter, Akkermansia)
 count_matrix_test
 ```
-
