@@ -1,11 +1,13 @@
-```{r, include = FALSE}
+Set seed and load packages.
+```{r}
+#| code-fold: true
+#| code-summary: "Show the code"
+
 set.seed(1337)
 
 library("tidymodels")
 tidymodels::tidymodels_prefer()
 library("vegan")
-
-count_matrix_test <- readRDS(file = "data/count_matrix/count_matrix_test.rds")
 ```
 
 # Diversity measures
@@ -31,6 +33,7 @@ A series of different measures exist meant to quantify the diversity in or betwe
 As a quick reminder of what the test count matrix contains:
 
 ```{r}
+count_matrix_test <- readr::read_rds("https://github.com/WilliamH-R/BioStatistics/raw/main/data/count_matrix/count_matrix_test.rds")
 count_matrix_test
 ```
 
@@ -182,7 +185,9 @@ $$
 
 From the equation we see why it is called a similarity index. The union (denominator) is just the number of observed organisms, and the intersection (numerator) is the number of shared organisms. The Jaccard index then represent the fraction of the observed organisms which were observed in both samples, i.e. the similarity of the two samples. The value ranges from 0 to 1, where 0 indicates that the two samples do not share any organisms, and 1 indicates that the two samples are identical.
 
-When comparing the two first samples in the subset, it is apparent that they share 2 genera, and a total of 3 genera is present between the two samples. The calculation by hand gives: $$
+When comparing the two first samples in the subset, it is apparent that they share 2 genera, and a total of 3 genera is present between the two samples. The calculation by hand gives:
+
+$$
 J(SRR14214860, SRR14214861) = \frac{2}{3} \approx 0.67
 $$
 

@@ -1,12 +1,23 @@
-```{r, include = FALSE}
+Set seed and load packages.
+```{r}
+#| code-fold: true
+#| code-summary: "Show the code"
+
 set.seed(1337)
 
 library("tidymodels")
 tidymodels::tidymodels_prefer()
 library("vegan")
+```
 
-count_matrix <- readRDS(file = "data/count_matrix/count_matrix.rds") |> 
+Load data.
+```{r}
+#| code-fold: true
+#| code-summary: "Show the code"
+
+count_matrix <- readr::read_rds("https://github.com/WilliamH-R/BioStatistics/raw/main/data/count_matrix/count_matrix.rds") |> 
   select(-"NA")
+
 meta <- read.csv(file = "data/metadata.txt") |> 
   as_tibble() |>
   select(Run, chem_administration, ETHNICITY, geo_loc_name,

@@ -1,12 +1,20 @@
-```{r setup, include = FALSE}
+Set seed and load packages.
+```{r}
+#| code-fold: true
+#| code-summary: "Show the code"
+
 set.seed(1337)
 
 library("tidymodels")
 tidymodels::tidymodels_prefer()
-
 library("tidyposterior")
 library("rstanarm")
+```
 
+Load data.
+```{r}
+#| code-fold: true
+#| code-summary: "Show the code"
 
 data("iris")
 iris <- iris |>
@@ -18,6 +26,7 @@ iris_split <- initial_split(iris, prop = 0.90)
 iris_train <- training(iris_split)
 iris_test <- testing(iris_split)
 ```
+
 
 # Creating multiple models
 ## Cross-validation

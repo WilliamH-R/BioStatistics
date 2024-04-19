@@ -1,9 +1,19 @@
-```{r setup, include = FALSE}
+Set seed and load packages.
+```{r}
+#| code-fold: true
+#| code-summary: "Show the code"
+
 set.seed(1337)
 
 library("tidymodels")
-library("MASS")
 tidymodels::tidymodels_prefer()
+library("MASS")
+```
+
+Load data.
+```{r}
+#| code-fold: true
+#| code-summary: "Show the code"
 
 data("iris")
 iris <- iris |>
@@ -11,6 +21,7 @@ iris <- iris |>
   filter(Species != "setosa") |> 
   droplevels()
 ```
+
 
 # Logistic Regression
 Opposite Ordinary Least Squares (OLS), which predicts a continuous value, logistic regression predicts a probability between two classes (usually referred to as a TRUE/FALSE). This is done by fitting a logistic function, also called a sigmoid function, which has the form $p = \frac{1}{1 + e^{-y}}$ and have a characteristic S-shape. When plotting these probabilites, the y-axis ranges from 0 to 1 reflecting the probability of the class measured along the y-axis.

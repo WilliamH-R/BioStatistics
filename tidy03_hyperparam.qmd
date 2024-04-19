@@ -1,23 +1,28 @@
-```{r setup, include = FALSE}
+Set seed and load packages.
+```{r}
+#| code-fold: true
+#| code-summary: "Show the code"
+
 set.seed(1337)
 
 library("tidymodels")
 tidymodels::tidymodels_prefer()
 library("dials")
+```
 
+Load data.
+```{r}
+#| code-fold: true
+#| code-summary: "Show the code"
 
 data("iris")
 iris <- iris |>
   tibble::as_tibble() |> 
   filter(Species != "setosa") |> 
   droplevels()
-```
 
-In this section the CV-folds are used
-```{r}
 iris_folds <- vfold_cv(iris)
 ```
-
 
 # Tuning hyperparameters and overfitting
 

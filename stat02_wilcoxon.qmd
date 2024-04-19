@@ -1,12 +1,23 @@
-```{r, include = FALSE}
+Set seed and load packages.
+```{r}
+#| code-fold: true
+#| code-summary: "Show the code"
+
 set.seed(1337)
 
 library("tidymodels")
 tidymodels::tidymodels_prefer()
 library("vegan")
+```
 
-count_matrix <- readRDS(file = "data/count_matrix/count_matrix.rds") |> 
+Load data.
+```{r}
+#| code-fold: true
+#| code-summary: "Show the code"
+
+count_matrix <- readr::read_rds("https://github.com/WilliamH-R/BioStatistics/raw/main/data/count_matrix/count_matrix.rds") |> 
   select(-"NA")
+
 meta <- read.csv(file = "data/metadata.txt") |> 
   as_tibble() |>
   select(Run, chem_administration, ETHNICITY, geo_loc_name,
@@ -29,8 +40,9 @@ meta <- read.csv(file = "data/metadata.txt") |>
          EDSS = as.factor(EDSS))
 ```
 
+
 # Wilcoxon test
-A plethora of statistical tests exists. The choice of test depends on the type of data. For example, if the data is normally distributed, the t-test can be used to compare the means of two groups. If the data is not normally distributed, the Wilcoxon test can be used instead. Below the Shannon Index for the full data set have been calculated and plotted stratified by the patient status, Healthy vs Multiple Sclerosis (MS). As can be seen from the plots, the Shannon Index does not seem to follow a normal distribution.
+A plethora of statistical tests exists. The choice of test depends on the type of data. For example, if the data is normally distributed, the t-test can be used to compare the means of two groups. If the data is not normally distributed, the Wilcoxon test can be used instead. Below, the Shannon Index for the full data set have been calculated and plotted stratified by the patient status, Healthy vs Multiple Sclerosis (MS). As can be seen from the plots, the Shannon Index does not seem to follow a normal distribution.
 
 ```{r}
 shannon <- count_matrix |>
@@ -42,8 +54,8 @@ shannon <- count_matrix |>
             by = "Sample")
 
 shannon |>
-ggplot(aes(x = Shannon,
-           fill = Patient_status)) +
+  ggplot(aes(x = Shannon,
+             fill = Patient_status)) +
   geom_density(alpha = 0.7) +
   facet_wrap(~ Patient_status)
 ```

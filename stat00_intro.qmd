@@ -1,4 +1,8 @@
-```{r setup, include = FALSE}
+Load packages.
+```{r}
+#| code-fold: true
+#| code-summary: "Show the code"
+
 library("tidymodels")
 tidymodels::tidymodels_prefer()
 ```
@@ -11,11 +15,11 @@ In the first part of the book, the `iris` data set was used to exemplify the usa
 
 A snippet of the data set can be seen here:
 ```{r}
-count_matrix <- readRDS("data/count_matrix/count_matrix.rds")
+count_matrix <- readr::read_rds("https://github.com/WilliamH-R/BioStatistics/raw/main/data/count_matrix/count_matrix.rds")
 count_matrix
 ```
 
-The shown snippet is used as test data when exemplifying.
+To speed up data processing, and to make results less overwhelming, a subset of the count matrix is used at times as test data when exemplifying.
 ```{r}
 count_matrix_test <- count_matrix |> 
   slice_head(n = 10) |> 

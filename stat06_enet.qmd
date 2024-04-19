@@ -1,9 +1,19 @@
-```{r setup, include = FALSE}
+Set seed and load packages.
+```{r}
+#| code-fold: true
+#| code-summary: "Show the code"
+
 set.seed(1337)
 
 library("tidymodels")
-library("plotly")
 tidymodels::tidymodels_prefer()
+library("plotly")
+```
+
+Load data.
+```{r}
+#| code-fold: true
+#| code-summary: "Show the code"
 
 mtcars <- mtcars |> 
   as_tibble()

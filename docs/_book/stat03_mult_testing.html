@@ -267,8 +267,12 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#bonferroni-correction" id="toc-bonferroni-correction" class="nav-link active" data-scroll-target="#bonferroni-correction"><span class="header-section-number">6.1</span> Bonferroni correction</a></li>
-  <li><a href="#fdr-correction" id="toc-fdr-correction" class="nav-link" data-scroll-target="#fdr-correction"><span class="header-section-number">6.2</span> FDR correction</a></li>
+  <li><a href="#fwer-correction-bonferroni" id="toc-fwer-correction-bonferroni" class="nav-link active" data-scroll-target="#fwer-correction-bonferroni"><span class="header-section-number">6.1</span> FWER correction (Bonferroni)</a></li>
+  <li><a href="#false-discovery-rate-correction-benjamini-hochberg" id="toc-false-discovery-rate-correction-benjamini-hochberg" class="nav-link" data-scroll-target="#false-discovery-rate-correction-benjamini-hochberg"><span class="header-section-number">6.2</span> False Discovery Rate correction (Benjamini-Hochberg)</a>
+  <ul>
+  <li><a href="#adjusting-the-significance-level" id="toc-adjusting-the-significance-level" class="nav-link" data-scroll-target="#adjusting-the-significance-level"><span class="header-section-number">6.2.1</span> Adjusting the significance level</a></li>
+  <li><a href="#adjusting-the-p-values" id="toc-adjusting-the-p-values" class="nav-link" data-scroll-target="#adjusting-the-p-values"><span class="header-section-number">6.2.2</span> Adjusting the p-values</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -294,88 +298,175 @@ window.Quarto = {
 </header>
 
 
+<p>Set seed and load packages.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1337</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"tidymodels"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Attaching packages ────────────────────────────────────── tidymodels 1.1.1 ──</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>✔ broom        1.0.5      ✔ recipes      1.0.10
+✔ dials        1.2.1      ✔ rsample      1.2.0 
+✔ dplyr        1.1.4      ✔ tibble       3.2.1 
+✔ ggplot2      3.5.0      ✔ tidyr        1.3.1 
+✔ infer        1.0.6      ✔ tune         1.1.2 
+✔ modeldata    1.3.0      ✔ workflows    1.1.4 
+✔ parsnip      1.2.0      ✔ workflowsets 1.0.1 
+✔ purrr        1.0.2      ✔ yardstick    1.3.0 </code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Conflicts ───────────────────────────────────────── tidymodels_conflicts() ──
+✖ purrr::discard() masks scales::discard()
+✖ dplyr::filter()  masks stats::filter()
+✖ dplyr::lag()     masks stats::lag()
+✖ recipes::step()  masks stats::step()
+• Dig deeper into tidy modeling with R at https://www.tmwr.org</code></pre>
+</div>
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>tidymodels<span class="sc">::</span><span class="fu">tidymodels_prefer</span>()</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"vegan"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: permute</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'permute'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following object is masked from 'package:recipes':
+
+    check</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: lattice</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Registered S3 method overwritten by 'vegan':
+  method          from   
+  print.nullmodel parsnip</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>This is vegan 2.6-4</code></pre>
+</div>
+</div>
+<p>Load data.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>count_matrix <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_rds</span>(<span class="st">"https://github.com/WilliamH-R/BioStatistics/raw/main/data/count_matrix/count_matrix.rds"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span><span class="st">"NA"</span>)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>meta <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="at">file =</span> <span class="st">"data/metadata.txt"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>() <span class="sc">|&gt;</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Run, chem_administration, ETHNICITY, geo_loc_name,</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>         Host_age, host_body_mass_index, Host_disease, host_phenotype, host_sex) <span class="sc">|&gt;</span> </span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">Sample =</span> Run,</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>         <span class="at">Treatment =</span> chem_administration,</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>         <span class="at">Ethnicity =</span> ETHNICITY,</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>         <span class="at">Location =</span> geo_loc_name,</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>         <span class="at">Age =</span> Host_age,</span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>         <span class="at">BMI =</span> host_body_mass_index,</span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>         <span class="at">Disease_severity =</span> Host_disease,</span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>         <span class="at">EDSS =</span> host_phenotype,</span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>         <span class="at">Sex =</span> host_sex) <span class="sc">|&gt;</span></span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Patient_status =</span> <span class="fu">case_when</span>(Disease_severity <span class="sc">==</span> <span class="st">"1HealthyControl"</span> <span class="sc">~</span> <span class="st">"Healthy"</span>,</span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>                                    <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">"MS"</span>),</span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>         <span class="at">EDSS =</span> <span class="fu">as.factor</span>(EDSS),</span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>         <span class="at">EDSS =</span> <span class="fu">case_when</span>(<span class="fu">is.na</span>(EDSS) <span class="sc">&amp;</span> Disease_severity <span class="sc">==</span> <span class="st">"1HealthyControl"</span> <span class="sc">~</span> <span class="st">"-1"</span>,</span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>                          <span class="fu">is.na</span>(EDSS) <span class="sc">&amp;</span> Disease_severity <span class="sc">!=</span> <span class="st">"1HealthyControl"</span> <span class="sc">~</span> <span class="st">"Unknown"</span>,</span>
+<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a>                          <span class="cn">TRUE</span> <span class="sc">~</span> EDSS),</span>
+<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a>         <span class="at">EDSS =</span> <span class="fu">as.factor</span>(EDSS))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
 <p>The p-value is the probability of observing a test statistic as extreme as the one observed, given that the null hypothesis is true. Essentially, a value denoting the probability that the observed data was drawn from the population, if the null hypothesis is true. If multiple samples are tested, the probability of observing a significant result by chance increases which is exactly why correcting for multiple testing is important.</p>
 <p>For a simple example, the odds of getting a six with one die is <span class="math inline">\(1/6\)</span>. If multiple dice are thrown, the odds of getting a six increases. This is the same as for multiple testing. If multiple tests are performed, the odds of getting a significant result by chance increases. This is why we need to adjust for multiple testing to avoid false positives.</p>
 <p>To setup a scenario where multiple testing becomes relevant, the <code>Age</code> and <code>BMI</code> columns are split into groups. The Wilcoxon Rank Sum test is then performed for each group. The number of data points affect the power of a test, i.e.&nbsp;the chances of finding a statistically significant difference, if one exist. Therefore, the number of data points in each group should be similar. The groups are defined as follows and the distribution is:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>meta <span class="ot">&lt;-</span> meta <span class="sc">|&gt;</span> </span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Age_group =</span> <span class="fu">case_when</span>(Age <span class="sc">&gt;=</span> <span class="dv">30</span> <span class="sc">&amp;</span> Age <span class="sc">&lt;</span> <span class="fl">36.6</span> <span class="sc">~</span> <span class="st">"30-36.6"</span>,</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>                               Age <span class="sc">&gt;=</span> <span class="fl">36.6</span> <span class="sc">&amp;</span> Age <span class="sc">&lt;</span> <span class="dv">41</span> <span class="sc">~</span> <span class="st">"36.6-41"</span>,</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>                               Age <span class="sc">&gt;=</span> <span class="dv">41</span> <span class="sc">&amp;</span> Age <span class="sc">&lt;</span> <span class="dv">45</span> <span class="sc">~</span> <span class="st">"41-45"</span>,</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>                               Age <span class="sc">&gt;=</span> <span class="dv">45</span> <span class="sc">&amp;</span> Age <span class="sc">&lt;</span> <span class="fl">48.6</span> <span class="sc">~</span> <span class="st">"45-48.6"</span>,</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>                               Age <span class="sc">&gt;=</span> <span class="fl">48.6</span> <span class="sc">&amp;</span> Age <span class="sc">&lt;</span> <span class="fl">51.2</span> <span class="sc">~</span> <span class="st">"48.6-51.2"</span>,</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>                               Age <span class="sc">&gt;=</span> <span class="fl">51.2</span> <span class="sc">&amp;</span> Age <span class="sc">&lt;</span> <span class="dv">53</span> <span class="sc">~</span> <span class="st">"51.2-53"</span>,</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>                               Age <span class="sc">&gt;=</span> <span class="dv">53</span> <span class="sc">&amp;</span> Age <span class="sc">&lt;</span> <span class="fl">55.7</span> <span class="sc">~</span> <span class="st">"53-55.7"</span>,</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>                               Age <span class="sc">&gt;=</span> <span class="fl">55.7</span> <span class="sc">&amp;</span> Age <span class="sc">&lt;</span> <span class="fl">59.3</span> <span class="sc">~</span> <span class="st">"55.7-59.3"</span>,</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>                               Age <span class="sc">&gt;=</span> <span class="fl">59.3</span> <span class="sc">&amp;</span> Age <span class="sc">&lt;</span> <span class="fl">63.2</span> <span class="sc">~</span> <span class="st">"59.3-63.2"</span>,</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>                               Age <span class="sc">&gt;=</span> <span class="fl">63.2</span> <span class="sc">~</span> <span class="st">"63.2+"</span>),</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>         <span class="at">BMI_group =</span> <span class="fu">case_when</span>(BMI <span class="sc">&gt;=</span> <span class="dv">17</span> <span class="sc">&amp;</span> BMI <span class="sc">&lt;</span> <span class="fl">21.7</span> <span class="sc">~</span> <span class="st">"17-21.7"</span>,</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>                               BMI <span class="sc">&gt;=</span> <span class="fl">21.7</span> <span class="sc">&amp;</span> BMI <span class="sc">&lt;</span> <span class="fl">23.77</span> <span class="sc">~</span> <span class="st">"21.7-23.77"</span>,</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>                               BMI <span class="sc">&gt;=</span> <span class="fl">23.77</span> <span class="sc">&amp;</span> BMI <span class="sc">&lt;</span> <span class="fl">25.77</span> <span class="sc">~</span> <span class="st">"23.77-25.77"</span>,</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>                               BMI <span class="sc">&gt;=</span> <span class="fl">25.77</span> <span class="sc">&amp;</span> BMI <span class="sc">&lt;</span> <span class="fl">28.51</span> <span class="sc">~</span> <span class="st">"25.77-28.51"</span>,</span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>                               BMI <span class="sc">&gt;=</span> <span class="fl">28.51</span> <span class="sc">&amp;</span> BMI <span class="sc">&lt;</span> <span class="fl">33.31</span> <span class="sc">~</span> <span class="st">"28.51-33.31"</span>,</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>                               BMI <span class="sc">&gt;=</span> <span class="fl">33.31</span> <span class="sc">~</span> <span class="st">"33.31+"</span>))</span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>meta <span class="sc">|&gt;</span> </span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Age_group,</span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>             <span class="at">fill =</span> Patient_status)) <span class="sc">+</span></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">alpha =</span> <span class="fl">0.7</span>,</span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>                 <span class="at">stat =</span> <span class="st">"count"</span>) <span class="sc">+</span></span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Age distribution"</span>,</span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Age group"</span>,</span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Count"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>meta <span class="ot">&lt;-</span> meta <span class="sc">|&gt;</span> </span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Age_group =</span> <span class="fu">case_when</span>(Age <span class="sc">&gt;=</span> <span class="dv">30</span> <span class="sc">&amp;</span> Age <span class="sc">&lt;</span> <span class="fl">36.6</span> <span class="sc">~</span> <span class="st">"30-36.6"</span>,</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>                               Age <span class="sc">&gt;=</span> <span class="fl">36.6</span> <span class="sc">&amp;</span> Age <span class="sc">&lt;</span> <span class="dv">41</span> <span class="sc">~</span> <span class="st">"36.6-41"</span>,</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>                               Age <span class="sc">&gt;=</span> <span class="dv">41</span> <span class="sc">&amp;</span> Age <span class="sc">&lt;</span> <span class="dv">45</span> <span class="sc">~</span> <span class="st">"41-45"</span>,</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>                               Age <span class="sc">&gt;=</span> <span class="dv">45</span> <span class="sc">&amp;</span> Age <span class="sc">&lt;</span> <span class="fl">48.6</span> <span class="sc">~</span> <span class="st">"45-48.6"</span>,</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>                               Age <span class="sc">&gt;=</span> <span class="fl">48.6</span> <span class="sc">&amp;</span> Age <span class="sc">&lt;</span> <span class="fl">51.2</span> <span class="sc">~</span> <span class="st">"48.6-51.2"</span>,</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>                               Age <span class="sc">&gt;=</span> <span class="fl">51.2</span> <span class="sc">&amp;</span> Age <span class="sc">&lt;</span> <span class="dv">53</span> <span class="sc">~</span> <span class="st">"51.2-53"</span>,</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>                               Age <span class="sc">&gt;=</span> <span class="dv">53</span> <span class="sc">&amp;</span> Age <span class="sc">&lt;</span> <span class="fl">55.7</span> <span class="sc">~</span> <span class="st">"53-55.7"</span>,</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>                               Age <span class="sc">&gt;=</span> <span class="fl">55.7</span> <span class="sc">&amp;</span> Age <span class="sc">&lt;</span> <span class="fl">59.3</span> <span class="sc">~</span> <span class="st">"55.7-59.3"</span>,</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>                               Age <span class="sc">&gt;=</span> <span class="fl">59.3</span> <span class="sc">&amp;</span> Age <span class="sc">&lt;</span> <span class="fl">63.2</span> <span class="sc">~</span> <span class="st">"59.3-63.2"</span>,</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>                               Age <span class="sc">&gt;=</span> <span class="fl">63.2</span> <span class="sc">~</span> <span class="st">"63.2+"</span>),</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>         <span class="at">BMI_group =</span> <span class="fu">case_when</span>(BMI <span class="sc">&gt;=</span> <span class="dv">17</span> <span class="sc">&amp;</span> BMI <span class="sc">&lt;</span> <span class="fl">21.7</span> <span class="sc">~</span> <span class="st">"17-21.7"</span>,</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>                               BMI <span class="sc">&gt;=</span> <span class="fl">21.7</span> <span class="sc">&amp;</span> BMI <span class="sc">&lt;</span> <span class="fl">23.77</span> <span class="sc">~</span> <span class="st">"21.7-23.77"</span>,</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>                               BMI <span class="sc">&gt;=</span> <span class="fl">23.77</span> <span class="sc">&amp;</span> BMI <span class="sc">&lt;</span> <span class="fl">25.77</span> <span class="sc">~</span> <span class="st">"23.77-25.77"</span>,</span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>                               BMI <span class="sc">&gt;=</span> <span class="fl">25.77</span> <span class="sc">&amp;</span> BMI <span class="sc">&lt;</span> <span class="fl">28.51</span> <span class="sc">~</span> <span class="st">"25.77-28.51"</span>,</span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>                               BMI <span class="sc">&gt;=</span> <span class="fl">28.51</span> <span class="sc">&amp;</span> BMI <span class="sc">&lt;</span> <span class="fl">33.31</span> <span class="sc">~</span> <span class="st">"28.51-33.31"</span>,</span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>                               BMI <span class="sc">&gt;=</span> <span class="fl">33.31</span> <span class="sc">~</span> <span class="st">"33.31+"</span>))</span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>meta <span class="sc">|&gt;</span> </span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Age_group,</span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>             <span class="at">fill =</span> Patient_status)) <span class="sc">+</span></span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">alpha =</span> <span class="fl">0.7</span>,</span>
+<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a>                 <span class="at">stat =</span> <span class="st">"count"</span>) <span class="sc">+</span></span>
+<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Age distribution"</span>,</span>
+<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Age group"</span>,</span>
+<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Count"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="stat03_mult_testing_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="stat03_mult_testing_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>meta <span class="sc">|&gt;</span> </span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(BMI) <span class="sc">|&gt;</span> </span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> BMI_group,</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>             <span class="at">fill =</span> Patient_status)) <span class="sc">+</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">alpha =</span> <span class="fl">0.7</span>,</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>                 <span class="at">stat =</span> <span class="st">"count"</span>) <span class="sc">+</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"BMI distribution"</span>,</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"BMI group"</span>,</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Count"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>meta <span class="sc">|&gt;</span> </span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(BMI) <span class="sc">|&gt;</span> </span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> BMI_group,</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>             <span class="at">fill =</span> Patient_status)) <span class="sc">+</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">alpha =</span> <span class="fl">0.7</span>,</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>                 <span class="at">stat =</span> <span class="st">"count"</span>) <span class="sc">+</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"BMI distribution"</span>,</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"BMI group"</span>,</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Count"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="stat03_mult_testing_files/figure-html/unnamed-chunk-2-2.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="stat03_mult_testing_files/figure-html/unnamed-chunk-3-2.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
-<p>The Shannon Index is then calculated. As mentioned in Chapter 1, it is a within sample metric, so which group a sample belongs to is irrelevant. The Wilcoxon Rank Sum test is then performed for each group and gathered:</p>
+<p>The Shannon Index is then calculated. As mentioned in Chapter 1, it is a within sample metric, so which group a sample belongs to is irrelevant. The Wilcoxon Rank Sum test performed for each group and gathered:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>shannon <span class="ot">&lt;-</span> count_matrix <span class="sc">|&gt;</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">column_to_rownames</span>(<span class="at">var =</span> <span class="st">"Sample"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">diversity</span>(<span class="at">index =</span> <span class="st">"shannon"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>(<span class="at">rownames =</span> <span class="st">"Sample"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">Shannon =</span> value) <span class="sc">|&gt;</span> </span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(meta,</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>            <span class="at">by =</span> <span class="st">"Sample"</span>)</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>p_value_per_age_group <span class="ot">&lt;-</span> shannon <span class="sc">|&gt;</span> </span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Age_group) <span class="sc">|&gt;</span> </span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">p_value =</span> <span class="fu">wilcox.test</span>(Shannon <span class="sc">~</span> Patient_status)<span class="sc">$</span>p.value) <span class="sc">|&gt;</span> </span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> Age_group,</span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">"Group Name"</span>,</span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>               <span class="at">values_to =</span> <span class="st">"Group Value"</span>)</span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>p_value_per_BMI_group <span class="ot">&lt;-</span> shannon <span class="sc">|&gt;</span></span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(BMI) <span class="sc">|&gt;</span> </span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(BMI_group) <span class="sc">|&gt;</span> </span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">p_value =</span> <span class="fu">wilcox.test</span>(Shannon <span class="sc">~</span> Patient_status)<span class="sc">$</span>p.value) <span class="sc">|&gt;</span> </span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> BMI_group,</span>
-<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">"Group Name"</span>,</span>
-<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>               <span class="at">values_to =</span> <span class="st">"Group Value"</span>)</span>
-<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>p_values_per_group <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(p_value_per_age_group,</span>
-<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>                                p_value_per_BMI_group) <span class="sc">|&gt;</span> </span>
-<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="st">`</span><span class="at">Group Name</span><span class="st">`</span>, <span class="st">`</span><span class="at">Group Value</span><span class="st">`</span>, p_value)</span>
-<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>p_values_per_group</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>shannon <span class="ot">&lt;-</span> count_matrix <span class="sc">|&gt;</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">column_to_rownames</span>(<span class="at">var =</span> <span class="st">"Sample"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">diversity</span>(<span class="at">index =</span> <span class="st">"shannon"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>(<span class="at">rownames =</span> <span class="st">"Sample"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">Shannon =</span> value) <span class="sc">|&gt;</span> </span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(meta,</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>            <span class="at">by =</span> <span class="st">"Sample"</span>)</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>p_value_per_age_group <span class="ot">&lt;-</span> shannon <span class="sc">|&gt;</span> </span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Age_group) <span class="sc">|&gt;</span> </span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">p_value =</span> <span class="fu">wilcox.test</span>(Shannon <span class="sc">~</span> Patient_status)<span class="sc">$</span>p.value) <span class="sc">|&gt;</span> </span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> Age_group,</span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">"Group Name"</span>,</span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>               <span class="at">values_to =</span> <span class="st">"Group Value"</span>)</span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>p_value_per_BMI_group <span class="ot">&lt;-</span> shannon <span class="sc">|&gt;</span></span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">drop_na</span>(BMI) <span class="sc">|&gt;</span> </span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(BMI_group) <span class="sc">|&gt;</span> </span>
+<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">p_value =</span> <span class="fu">wilcox.test</span>(Shannon <span class="sc">~</span> Patient_status)<span class="sc">$</span>p.value) <span class="sc">|&gt;</span> </span>
+<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> BMI_group,</span>
+<span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">"Group Name"</span>,</span>
+<span id="cb15-22"><a href="#cb15-22" aria-hidden="true" tabindex="-1"></a>               <span class="at">values_to =</span> <span class="st">"Group Value"</span>)</span>
+<span id="cb15-23"><a href="#cb15-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-24"><a href="#cb15-24" aria-hidden="true" tabindex="-1"></a>p_values_per_group <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(p_value_per_age_group,</span>
+<span id="cb15-25"><a href="#cb15-25" aria-hidden="true" tabindex="-1"></a>                                p_value_per_BMI_group) <span class="sc">|&gt;</span> </span>
+<span id="cb15-26"><a href="#cb15-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="st">`</span><span class="at">Group Name</span><span class="st">`</span>, <span class="st">`</span><span class="at">Group Value</span><span class="st">`</span>, p_value)</span>
+<span id="cb15-27"><a href="#cb15-27" aria-hidden="true" tabindex="-1"></a>p_values_per_group</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 16 × 3
    `Group Name` `Group Value` p_value
@@ -400,10 +491,10 @@ window.Quarto = {
 </div>
 <p>With a significance level of 0.05, a total of four tests are significant.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>alpha <span class="ot">&lt;-</span> <span class="fl">0.05</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>p_values_per_group <span class="sc">|&gt;</span> </span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(p_value <span class="sc">&lt;</span> alpha)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>alpha <span class="ot">&lt;-</span> <span class="fl">0.05</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>p_values_per_group <span class="sc">|&gt;</span> </span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(p_value <span class="sc">&lt;</span> alpha)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 4 × 3
   `Group Name` `Group Value` p_value
@@ -414,27 +505,27 @@ window.Quarto = {
 4 BMI_group    25.77-28.51    0.0249</code></pre>
 </div>
 </div>
-<p>The probability of not finding a false positive is <span class="math inline">\(1 - \alpha\)</span>. When performing multiple tests, the probability increases with <span class="math inline">\((1 - \alpha)^{m}\)</span> where <span class="math inline">\(m\)</span> is number of tests. Since the probability of finding a false positive and not finding one equals 1, the probability of finding a false positive in <span class="math inline">\(m\)</span> tests is <span class="math inline">\(1 - (1- \alpha)^{m}\)</span>.</p>
+<p>The probability of not finding a false positive is <span class="math inline">\(1 - \alpha\)</span>. When performing multiple tests, the probability of not finding a false positive increases with <span class="math inline">\((1 - \alpha)^{m}\)</span>, where <span class="math inline">\(m\)</span> is number of tests. Since the probability of finding a false positive and not finding one equals 1, the probability of finding a false positive in <span class="math inline">\(m\)</span> tests is <span class="math inline">\(1 - (1- \alpha)^{m}\)</span>.</p>
 <p>With 16 tests performed, and a significance level of 0.05, the probability of finding a false positive is:</p>
 <p><span class="math display">\[
 P(false\; positive) = 1 - (1 - \alpha)^{m} = 1 - (1 - 0.05)^{16} = 0.56
 \]</span></p>
-<p>The probability of finding a false positive is also referred to as the family-wise error rate (FWER).</p>
-<p>Some way to correct for multiple testing is needed to avoid these high probabilities of false positives. There are several methods for correcting for multiple testing. Some common methods are the Bonferroni correction and the False Discovery Rate (FDR) correction.</p>
-<section id="bonferroni-correction" class="level2" data-number="6.1">
-<h2 data-number="6.1" class="anchored" data-anchor-id="bonferroni-correction"><span class="header-section-number">6.1</span> Bonferroni correction</h2>
-<p>The Bonferroni correction is the most conservative method, which means that it is less likely to find significant results. To apply Bonferroni correction, the significance level is divided by the number of tests, which would then also affect the FWER (the probability of finding at least one false positive among the significant results). The Bonferroni adjusted significance level is then:</p>
+<p>The probability of finding a false positive is also referred to as the Family-Wise Error Rate (FWER).</p>
+<p>Some way to correct for multiple testing is needed to avoid these high probabilities of false positives. There are several methods for correcting for multiple testing. Some common methods are the Bonferroni correction and the Benjamini-Hochberg Procedure</p>
+<section id="fwer-correction-bonferroni" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="fwer-correction-bonferroni"><span class="header-section-number">6.1</span> FWER correction (Bonferroni)</h2>
+<p>The Bonferroni correction is a conservative method, which means that it is less likely to find significant results. To apply Bonferroni correction, the significance level is divided by the number of tests, which would then also affect the FWER (the probability of finding at least one false positive among the significant results). The Bonferroni adjusted significance level is then:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>alpha_bonferroni <span class="ot">&lt;-</span> alpha <span class="sc">/</span> <span class="fu">nrow</span>(p_values_per_group)</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>alpha_bonferroni</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>alpha_bonferroni <span class="ot">&lt;-</span> alpha <span class="sc">/</span> <span class="fu">nrow</span>(p_values_per_group)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>alpha_bonferroni</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.003125</code></pre>
 </div>
 </div>
 <p>Using this, we actually find no significant results:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>p_values_per_group <span class="sc">|&gt;</span> </span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(p_value <span class="sc">&lt;</span> alpha_bonferroni)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>p_values_per_group <span class="sc">|&gt;</span> </span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(p_value <span class="sc">&lt;</span> alpha_bonferroni)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 0 × 3
 # ℹ 3 variables: Group Name &lt;chr&gt;, Group Value &lt;chr&gt;, p_value &lt;dbl&gt;</code></pre>
@@ -444,15 +535,97 @@ P(false\; positive) = 1 - (1 - \alpha)^{m} = 1 - (1 - 0.05)^{16} = 0.56
 <p><span class="math display">\[
 FWER = 1 - (1 - \frac{\alpha}{m})^{m} = 1 - (1 - \frac{0.05}{16})^{16} = 0.049
 \]</span></p>
-<p>The FWER is reduced from 56% to 4.9%, close to the original significance level of 5%. It is then expected to find fewer false positives, also called Type I errors. However, the chance of finding false negatives also increases (referred to as Type II errors). In this case, finding false negatives means accepting the null hypothesis when it was actually false, i.e.&nbsp;not finding a significant result when one exists. In some cases, using a very conservative method is preferred, especially when the cost of a false positive is high. However, in other cases, a less conservative method is preferred, which is where the FDR correction comes in.</p>
+<p>The FWER is reduced from 56% to 4.9%, close to the original significance level of 5%. It is then expected to find fewer false positives, also called Type I errors. However, the chance of finding false negatives also increases (referred to as Type II errors). In this case, finding false negatives means accepting the null hypothesis when it was actually false, i.e.&nbsp;not finding a significant result when one exists. In some cases, using a very conservative method is preferred, especially when the cost of a false positive is high.</p>
 </section>
-<section id="fdr-correction" class="level2" data-number="6.2">
-<h2 data-number="6.2" class="anchored" data-anchor-id="fdr-correction"><span class="header-section-number">6.2</span> FDR correction</h2>
-<p>Also called Benjamini-Hochberg correction. This is a less conservative method than the Bonferroni correction. The FDR correction is based on the concept of the false discovery rate, which is the proportion of false positives among the significant results. The FDR correction controls the expected proportion of false positives among the significant results. The FDR correction is less conservative than the Bonferroni correction, which means that it is more likely to find significant results. However, the FDR correction is more likely to find false positives than the Bonferroni correction.</p>
-<p>The FDR correction is less conservative, which means that it is more likely to find significant results. However, the FDR correction is also more likely to find false positives than the Bonferroni correction. Each of the these methods is described and exemplified below.</p>
-<p>Good video for multiple testing: https://www.youtube.com/watch?v=RUX94txw4Qo</p>
+<section id="false-discovery-rate-correction-benjamini-hochberg" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="false-discovery-rate-correction-benjamini-hochberg"><span class="header-section-number">6.2</span> False Discovery Rate correction (Benjamini-Hochberg)</h2>
+<p>Another way to control for multiple testing is through the False Discovery Rate (FDR). The FDR is the proportion of false positives among the significant results:</p>
+<p><span class="math display">\[
+FDR = \frac{FP}{FP + TP}
+\]</span></p>
+<p>Where <span class="math inline">\(FP = False Positive\)</span> and <span class="math inline">\(TP = True Positive\)</span>. FDR is then an expression for the proportion of false positives among the significant results.</p>
+<p>In some cases, a less conservative method than the Bonferroni correction is preferred allowing for more significant hits. This comes at a cost of a increase in false positives. The Benjamini-Hochberg Procedure is such a method - a type of False Discovery Rate (FDR) correction.</p>
+<p>Two ways to implement the method exists. Either the significance level is adjusted, or the p-values are adjusted, both giving the same significant hits. The latter is the most common way, but both are introduced.</p>
+<p>In general, each p-value is compared to a moving significance level instead of compared to a static value of <span class="math inline">\(\alpha\)</span>, e.g.&nbsp;<span class="math inline">\(0.05\)</span>. The moving significance level is dependent on the rank of the p-value and the number of tests. The lowest p-value gets rank 1, the second lowest rank 2, and so on. With a higher rank, the significance level increases, allowing for more significant hits.</p>
+<section id="adjusting-the-significance-level" class="level3" data-number="6.2.1">
+<h3 data-number="6.2.1" class="anchored" data-anchor-id="adjusting-the-significance-level"><span class="header-section-number">6.2.1</span> Adjusting the significance level</h3>
+<p>All p-values are sorted in ascending order and ranked as mentioned above. A critical value for each rank is calculated by:</p>
+<p><span class="math display">\[
+\text{Critical Value} = \frac{k}{m} \cdot \alpha
+\]</span></p>
+<p>Where <span class="math inline">\(m\)</span> is the number of tests, <span class="math inline">\(k\)</span> is the rank of the considered p-value and <span class="math inline">\(\alpha\)</span> is the significance level. The largest value of <span class="math inline">\(k\)</span> where the p-value is less than the critical value is found:</p>
+<p><span class="math display">\[
+\max_{k} \left( p_{(k)} \leq Critical \; Value \right) = \max_{k} \left( p_{(k)} \leq \frac{k}{m} \cdot \alpha \right)
+\]</span></p>
+<p>All p-values with a rank less than or equal to the largest <span class="math inline">\(k\)</span> are then considered significant. Note that is is irrelevant if a p-value of lower rank than the rank found from the above, is larger than the critical value. It is still considered significant.</p>
+<p>As for the Bonferroni correction, no significant results are found:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>p_values_per_group <span class="sc">|&gt;</span> </span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(p_value) <span class="sc">|&gt;</span> </span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">rank =</span> <span class="fu">row_number</span>(),</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">critical_value =</span> (rank <span class="sc">/</span> <span class="fu">nrow</span>(p_values_per_group)) <span class="sc">*</span> alpha,</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">significant =</span> p_value <span class="sc">&lt;=</span> critical_value)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 16 × 6
+   `Group Name` `Group Value` p_value  rank critical_value significant
+   &lt;chr&gt;        &lt;chr&gt;           &lt;dbl&gt; &lt;int&gt;          &lt;dbl&gt; &lt;lgl&gt;      
+ 1 Age_group    30-36.6        0.0206     1        0.00312 FALSE      
+ 2 BMI_group    25.77-28.51    0.0249     2        0.00625 FALSE      
+ 3 Age_group    63.2+          0.0444     3        0.00938 FALSE      
+ 4 BMI_group    23.77-25.77    0.0449     4        0.0125  FALSE      
+ 5 Age_group    51.2-53        0.128      5        0.0156  FALSE      
+ 6 Age_group    55.7-59.3      0.133      6        0.0188  FALSE      
+ 7 Age_group    48.6-51.2      0.210      7        0.0219  FALSE      
+ 8 BMI_group    33.31+         0.231      8        0.025   FALSE      
+ 9 Age_group    36.6-41        0.256      9        0.0281  FALSE      
+10 BMI_group    17-21.7        0.261     10        0.0312  FALSE      
+11 Age_group    53-55.7        0.539     11        0.0344  FALSE      
+12 Age_group    41-45          0.659     12        0.0375  FALSE      
+13 Age_group    45-48.6        0.857     13        0.0406  FALSE      
+14 BMI_group    21.7-23.77     0.863     14        0.0438  FALSE      
+15 BMI_group    28.51-33.31    0.973     15        0.0469  FALSE      
+16 Age_group    59.3-63.2      0.978     16        0.05    FALSE      </code></pre>
+</div>
+</div>
+</section>
+<section id="adjusting-the-p-values" class="level3" data-number="6.2.2">
+<h3 data-number="6.2.2" class="anchored" data-anchor-id="adjusting-the-p-values"><span class="header-section-number">6.2.2</span> Adjusting the p-values</h3>
+<p>The p-values are again sorted and ranked exactly as before. Apply the following formula to each p-value as an intermediary step:</p>
+<p><span class="math display">\[
+p\textrm{-}value = p_{k} \cdot \frac{m}{k}
+\]</span></p>
+<p>Where <span class="math inline">\(m\)</span> is the number of tests, <span class="math inline">\(k\)</span> is the rank of the considered p-value and <span class="math inline">\(p_{k}\)</span> is the p-value of said rank. The adjusted p-values can then be found.</p>
+<p>Starting with the highest rank, the adjusted p-value is simply the intermediary value found from the above. For the second highest rank, the adjusted p-value is the minimum of the intermediary value and the adjusted p-value of the rank above. This is repeated for all ranks. The adjusted p-values are then compared to the significance level <span class="math inline">\(\alpha\)</span>, and all p-values less than the significance level are considered significant. Once again, no significant results are found:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>p_values_per_group <span class="sc">|&gt;</span> </span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">p_value_adjusted =</span> <span class="fu">p.adjust</span>(<span class="at">p =</span> p_value,</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>                                     <span class="at">method =</span> <span class="st">"BH"</span>),</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">significant =</span> p_value_adjusted <span class="sc">&lt;</span> <span class="fl">0.05</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 16 × 5
+   `Group Name` `Group Value` p_value p_value_adjusted significant
+   &lt;chr&gt;        &lt;chr&gt;           &lt;dbl&gt;            &lt;dbl&gt; &lt;lgl&gt;      
+ 1 Age_group    30-36.6        0.0206            0.180 FALSE      
+ 2 Age_group    36.6-41        0.256             0.417 FALSE      
+ 3 Age_group    41-45          0.659             0.879 FALSE      
+ 4 Age_group    45-48.6        0.857             0.978 FALSE      
+ 5 Age_group    48.6-51.2      0.210             0.417 FALSE      
+ 6 Age_group    51.2-53        0.128             0.356 FALSE      
+ 7 Age_group    53-55.7        0.539             0.783 FALSE      
+ 8 Age_group    55.7-59.3      0.133             0.356 FALSE      
+ 9 Age_group    59.3-63.2      0.978             0.978 FALSE      
+10 Age_group    63.2+          0.0444            0.180 FALSE      
+11 BMI_group    17-21.7        0.261             0.417 FALSE      
+12 BMI_group    21.7-23.77     0.863             0.978 FALSE      
+13 BMI_group    23.77-25.77    0.0449            0.180 FALSE      
+14 BMI_group    25.77-28.51    0.0249            0.180 FALSE      
+15 BMI_group    28.51-33.31    0.973             0.978 FALSE      
+16 BMI_group    33.31+         0.231             0.417 FALSE      </code></pre>
+</div>
+</div>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->

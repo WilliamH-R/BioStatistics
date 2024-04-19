@@ -1,9 +1,18 @@
-```{r setup, include = FALSE}
+Set seed and load packages.
+```{r}
+#| code-fold: true
+#| code-summary: "Show the code"
+
 set.seed(1337)
 
 library("tidymodels")
 tidymodels::tidymodels_prefer()
+```
 
+Load data.
+```{r}
+#| code-fold: true
+#| code-summary: "Show the code"
 
 data("iris")
 iris <- iris |>
@@ -11,7 +20,6 @@ iris <- iris |>
   filter(Species != "setosa") |> 
   droplevels()
 ```
-
 
 # Introduction to Tidy Modelling
 ## Introdution to dataset
