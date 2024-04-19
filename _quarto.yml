@@ -24,6 +24,8 @@ book:
         - stat05_log_reg.qmd
         - stat06_enet.qmd
         
+    - part: apply00_intro.qmd
+        
         
     - references.qmd
 
