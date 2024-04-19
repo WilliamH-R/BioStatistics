@@ -9,9 +9,9 @@ tidymodels::tidymodels_prefer()
 
 # Applied bio-statistical methods
 
-Each of the following chapters delve into an area of statistics. This ranges from biostatistics such as diversity measures and different statistical models such as Ordinary Linear Regression (OLS).
+In this chapter, each of the following parts delve into an area of statistics. This ranges from biostatistics such as diversity measures and different statistical models such as Ordinary Linear Regression (OLS). The purpose is to introduce the reader to the statistical concepts that are often used in Bioinformatics and Biostatistics. The chapters are structured in a similar way. First, the method is introduced, followed by the math behind it, and lastly, a visual representation using the `tidymodels` package.
 
-In the first part of the book, the `iris` data set was used to exemplify the usage of the `tidymodels` package. For the following chapters, a count matrix from a metagenomics study is used instead. The raw data can be obtained from Cox et al.[@Cox2021]. The structure of the data is quite similar to the `iris` data. In this case, each row is a sample from a person, each column is a genus and the values represent the abundance of said genus in said sample. Explaining how the count matrix is acquired from raw sequences is out of scope for this book. Scripts used for the pre-processing exists on the [GitHub page](https://github.com/WilliamH-R/BioStatistics) from which this book is created, located in the `src/` sub-folder.
+In the first part of the book, the `iris` data set was used to exemplify the usage of the `tidymodels` package. For the chapters pertaining to diversit measures, a count matrix from a metagenomics study is used instead. The raw data can be obtained from [@Cox2021]. Each row is a sample from a person, each column is a genus and the values represent the abundance of said genus in said sample. Explaining how the count matrix is acquired from raw sequences is out of scope for this book. Scripts used for the pre-processing exists on the [GitHub page](https://github.com/WilliamH-R/BioStatistics) from which this book is created, located in the `src/` sub-folder.
 
 A snippet of the data set can be seen here:
 ```{r}

@@ -1,2 +1,3 @@
 # Tidy Modelling with R
-Some introduction to the book.
+
+R is already a great tool for data analysis and visualization. However, when it comes to building and evaluating models, it can be a bit cumbersome. Different packages have different syntax and conventions, which can make it difficult to switch between them. The `tidymodels` package aims to solve this problem by providing a consistent and easy-to-use interface for building and evaluating models. The `tidymodels` package is a collection of packages that work together to make the process of building and evaluating models easier and more consistent. It works excellently as an extension to `tidyverse` by using the same methodology and syntax. In this chapter, the principles of the `tidymodels` package is introduced as well as how to create, evaluate, and tune many models at a time.
