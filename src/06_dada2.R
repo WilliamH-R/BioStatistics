@@ -132,6 +132,3 @@ taxa_names(ps) <- paste0("ASV", seq(ntaxa(ps)))
 # Saving phyloseq object
 saveRDS(ps, here("data/dada2/dada2.phyloseq.rds"))
 
-# Extract and save the phylogenetic tree
-tree <- phy_tree(ps)
-write.tree(tree, file = here("dada/count_matrix/phylogenetic_tree.nwk"))
