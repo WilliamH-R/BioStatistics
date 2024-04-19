@@ -1,5 +1,6 @@
 Set seed and load packages.
 ```{r}
+#| output: FALSE
 #| code-fold: true
 #| code-summary: "Show the code"
 
@@ -11,6 +12,7 @@ tidymodels::tidymodels_prefer()
 
 Load data.
 ```{r}
+#| output: FALSE
 #| code-fold: true
 #| code-summary: "Show the code"
 

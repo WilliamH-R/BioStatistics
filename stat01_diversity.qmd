@@ -2,6 +2,7 @@ Set seed and load packages.
 ```{r}
 #| code-fold: true
 #| code-summary: "Show the code"
+#| output: false
 
 set.seed(1337)
 
@@ -72,7 +73,7 @@ $R$ is the number of observed species within a sample, i.e. the Richness. $p_{i}
 To illustrate the meaning of the value of the Shannon Index a few examples are calculated. In the first scenario, three species and three samples exists. For the first sample, the proportion of abundances are spread evenly between the three species. For the second and third sample, the proportions are more skewered towards one species. These examples show how the evenness affect the Shannon Index.
 
 ```{r}
-#| echo: FALSE
+#| output: FALSE
 tribble(~sample,    ~species_1, ~species_2, ~species_3,
         "sample_A", 0.3,        0.3,        0.3,
         "sample_B", 0.6,        0.2,        0.2,
@@ -99,7 +100,7 @@ When the samples are evenly distributed, we observe a higher Shannon Index.
 In the following example, the number of species are increased to five. Three different samples with different distributions are still investigated.
 
 ```{r}
-#| echo: FALSE
+#| output: FALSE
 tribble(~sample,    ~species_1, ~species_2, ~species_3, ~species_4, ~species_5,
         "sample_D", 0.2,        0.2,        0.2,        0.2,        0.2,
         "sample_E", 0.6,        0.1,        0.1,        0.1,        0.1,

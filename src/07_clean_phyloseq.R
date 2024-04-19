@@ -34,11 +34,11 @@ count_matrix <- physeq_tbl_amal_filt |>
               values_from = Abundance,
               values_fill = 0)
 
-# clr transformation
-count_matrix <- count_matrix |>
-  tibble::column_to_rownames(var = "Sample") |>
-  compositions::clr() |>
-  tibble::as_tibble(rownames = "Sample")
+# # clr transformation
+# count_matrix <- count_matrix |>
+#   tibble::column_to_rownames(var = "Sample") |>
+#   compositions::clr() |>
+#   tibble::as_tibble(rownames = "Sample")
 
 # Create a small subset used for testing
 count_matrix_test <- count_matrix |> 

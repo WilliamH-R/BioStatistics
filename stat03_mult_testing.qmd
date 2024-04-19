@@ -1,5 +1,6 @@
 Set seed and load packages.
 ```{r}
+#| output: FALSE
 #| code-fold: true
 #| code-summary: "Show the code"
 
@@ -12,6 +13,7 @@ library("vegan")
 
 Load data.
 ```{r}
+#| output: FALSE
 #| code-fold: true
 #| code-summary: "Show the code"
 

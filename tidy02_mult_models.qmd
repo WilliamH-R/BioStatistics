@@ -1,5 +1,6 @@
 Set seed and load packages.
 ```{r}
+#| output: FALSE
 #| code-fold: true
 #| code-summary: "Show the code"
 
@@ -13,6 +14,7 @@ library("rstanarm")
 
 Load data.
 ```{r}
+#| output: FALSE
 #| code-fold: true
 #| code-summary: "Show the code"
 
