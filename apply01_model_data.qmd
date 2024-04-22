@@ -2,6 +2,11 @@
 output: html_document
 editor_options: 
   chunk_output_type: inline
+  
+params:
+  percentage_train: 0.80
+  n_folds: 10
+  grid_size: 200
 ---
 Set seed and load packages.
 ```{r}
@@ -62,13 +67,14 @@ count_matrix <- count_matrix |>
 ```
 
 
-
 ## Cross-Validation
 The data is split into a training and testing set using cross-validation to avoid overfitting. This is especially needed, as some hyperparameters needs to be tuned.
 
 The data is split:
 ```{r}
-count_matrix_split <- initial_split(count_matrix, prop = 0.80)
+count_matrix_split <- initial_split(count_matrix,
+                                    prop = params$percentage_train,
+                                    strata = Patient_status)
 count_matrix_train <- training(count_matrix_split)
 count_matrix_test <- testing(count_matrix_split)
 ```
@@ -76,7 +82,7 @@ count_matrix_test <- testing(count_matrix_split)
 The CV object is created:
 ```{r}
 count_matrix_folds <- vfold_cv(count_matrix_train,
-                               v = 10)
+                               v = params$n_folds)
 count_matrix_folds
 ```
 
@@ -156,7 +162,7 @@ workflow_set <- workflow_set(
                 log_lasso = log_lasso_spec)
 )
 
-workflow
+workflow_set
 ```
 
 The parameter objects which contain the hyperparameter ranges are added to the workflow:
@@ -197,38 +203,68 @@ grid_results <- workflow_set |>
     fn = "tune_grid",
     seed = 1337,
     resamples = count_matrix_folds,
-    grid = 10,
+    grid = params$grid_size,
     control = grid_settings
   )
 ```
 
-`tidymodels` comes with a lot of convenience functions. One of these is `autoplot()` that can, among other things, plot the results of the grid search. The best result of each model is selected based on the accuracy. As seen, they all perform quite similarly with an accuracy of approximately $0.9$.
+`tidymodels` comes with a lot of convenience functions. One of these is `autoplot()` that can, among other things, plot the results of the grid search. The best result of each workflow is selected based on the accuracy. As seen, the best workflows all perform quite similarly with an accuracy of approximately $0.9$. 
 
 ```{r}
 autoplot(
   grid_results,
   rank_metric = "accuracy",
-  metric = "accuracy",
-  select_best = TRUE,
+  metric = "accuracy"
 ) +
-  geom_text(aes(y = mean, label = wflow_id),
-            angle = 90,
-            hjust = 2) +
-  lims(y = c(0.7, 1)) +
-  theme(legend.position = "none")
+  geom_point(aes(y = mean,
+                 color = wflow_id)) +
+  lims(y = c(0.75, 1))
 ```
-```{r}
-grid_results |>
-  unnest(result) |> collect_metrics(result)
-
-grid_results |> collect_metrics()
-```
-
+The hyperparameters resulting in the best accuracy is extracted for each workflow. Note that the value of mixture is close to zero for both Elastic Net models, which means that the model emphasizes Ridge over Lasso. Note also that the penalty is much lower for the workflow with PCA pre-processing. This is likely due to the PCA reducing the number of variables, which in turn seems to reduce the need for regularization.
 
 ```{r}
-autoplot(grid_results, metric = "accuracy", id = "stand_log")
+workflow_ids <- grid_results |>
+  pull(wflow_id)
+
+
+tuning_params_result <- purrr::map(workflow_ids, ~{
+  grid_results |>
+    extract_workflow_set_result(.x) |>
+    select_best(metric = "accuracy") |> 
+    mutate(wflow_id = .x)
+}) |>
+  bind_rows() |>
+  mutate(mixture = case_when(stringr::str_detect(string = wflow_id,
+                                                 pattern = "lasso") ~ 1,
+                             stringr::str_detect(string = wflow_id,
+                                                 pattern = "ridge") ~ 0,
+                             TRUE ~ mixture)) |>
+  select(wflow_id, penalty, mixture)
+  
+tuning_params_result
 ```
 
-See what is done here : https://workflowsets.tidymodels.org/articles/tuning-and-comparing-models.html#tuning-the-models
+## Finalize workflow
+As the hyperparameters have been tuned, the final workflow can be created. This is done by adding the hyperparameters to the workflow, fitting the model to the data and predict the outcome on the test set.
 
-Especially the end where they show how to extract the best model and use it to predict the test set.
+```{r}
+workflow_set_final <- purrr::map(workflow_ids, ~{
+  
+  grid_results |>
+    extract_workflow(.x) |> 
+    finalize_workflow(tuning_params_result |> 
+                        filter(wflow_id == .x)) |>
+    last_fit(split = count_matrix_split)
+  
+})
+
+workflow_set_final
+```
+
+```{r}
+workflow_set_final[[4]] |>
+  collect_predictions() |> 
+  conf_mat(truth = Patient_status,
+           estimate = .pred_class)
+```
+

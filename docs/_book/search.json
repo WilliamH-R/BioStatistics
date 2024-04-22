@@ -293,6 +293,94 @@
     ]
   },
   {
+    "objectID": "apply01_model_data.html",
+    "href": "apply01_model_data.html",
+    "title": "10  Modelling",
+    "section": "",
+    "text": "10.1 Data wrangling\nThe data is joined with the metadata as the Patient_status is used as the outcome variable. Only the columns that are needed for the model are kept. Notice inner_join() is used such that only rows for which both the count matrix and metadata are available are kept.\ncount_matrix &lt;- count_matrix |&gt;\n  inner_join(meta,\n             by = \"Sample\") |&gt;\n  select(-c(Sample, Treatment, Ethnicity, Location,\n            Age, BMI, Disease_severity, EDSS, Sex)) |&gt;\n  relocate(Patient_status)",
+    "crumbs": [
+      "Predictive Modeling of Microbiome Data using Tidymodeling",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Modelling</span>"
+    ]
+  },
+  {
+    "objectID": "apply01_model_data.html#cross-validation",
+    "href": "apply01_model_data.html#cross-validation",
+    "title": "10  Modelling",
+    "section": "10.2 Cross-Validation",
+    "text": "10.2 Cross-Validation\nThe data is split into a training and testing set using cross-validation to avoid overfitting. This is especially needed, as some hyperparameters needs to be tuned.\nThe data is split:\n\ncount_matrix_split &lt;- initial_split(count_matrix,\n                                    prop = params$percentage_train,\n                                    strata = Patient_status)\ncount_matrix_train &lt;- training(count_matrix_split)\ncount_matrix_test &lt;- testing(count_matrix_split)\n\nThe CV object is created:\n\ncount_matrix_folds &lt;- vfold_cv(count_matrix_train,\n                               v = params$n_folds)\ncount_matrix_folds\n\n#  10-fold cross-validation \n# A tibble: 10 × 2\n   splits           id    \n   &lt;list&gt;           &lt;chr&gt; \n 1 &lt;split [327/37]&gt; Fold01\n 2 &lt;split [327/37]&gt; Fold02\n 3 &lt;split [327/37]&gt; Fold03\n 4 &lt;split [327/37]&gt; Fold04\n 5 &lt;split [328/36]&gt; Fold05\n 6 &lt;split [328/36]&gt; Fold06\n 7 &lt;split [328/36]&gt; Fold07\n 8 &lt;split [328/36]&gt; Fold08\n 9 &lt;split [328/36]&gt; Fold09\n10 &lt;split [328/36]&gt; Fold10",
+    "crumbs": [
+      "Predictive Modeling of Microbiome Data using Tidymodeling",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Modelling</span>"
+    ]
+  },
+  {
+    "objectID": "apply01_model_data.html#recipes",
+    "href": "apply01_model_data.html#recipes",
+    "title": "10  Modelling",
+    "section": "10.3 Recipes",
+    "text": "10.3 Recipes\nThe recipes contain two pieces of important information. The first is the formula that describes the relationship between the variables and the outcome. In this case, which genera to use for predicting disease. The second is the pre-processing steps that are applied to the data before the model is built. This could include steps such as scaling, log-transform or imputing missing values. Here, the data is already clr-transformed.\nTwo recipes are created. One without any pre-processing steps, and one where Principal Component Analysis (PCA) is applied to the data. In both cases, all variables is used to try and predict the outcome Patient_status.\n\nstand_recipe &lt;- recipe(Patient_status ~ .,\n                       data = count_matrix_train)\n\npca_recipe &lt;- stand_recipe |&gt; \n  step_pca(all_predictors(),\n           threshold = 0.70)",
+    "crumbs": [
+      "Predictive Modeling of Microbiome Data using Tidymodeling",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Modelling</span>"
+    ]
+  },
+  {
+    "objectID": "apply01_model_data.html#model-specifications",
+    "href": "apply01_model_data.html#model-specifications",
+    "title": "10  Modelling",
+    "section": "10.4 Model Specifications",
+    "text": "10.4 Model Specifications\nTo model the data, a specification is needed. This includes the model to use, the engine to use, the mode of prediction and choosing hyperparameters. Since the outcome is binary, a logistic regression model is used. The model is later tuned using a grid search over the hyperparameters penalty and mixture. Models with exclusively Ridge and Lasso regularization are built, as well as a model with a mixture of both.\n\nlog_spec &lt;- logistic_reg(penalty = tune(),\n                         mixture = tune()) |&gt;\n  set_engine(\"glmnet\") |&gt;\n  set_mode(\"classification\")\n\nlog_ridge_spec &lt;- logistic_reg(penalty = tune(),\n                               mixture = 0) |&gt;\n  set_engine(\"glmnet\") |&gt;\n  set_mode(\"classification\")\n\nlog_lasso_spec &lt;- logistic_reg(penalty = tune(),\n                               mixture = 1) |&gt;\n  set_engine(\"glmnet\") |&gt;\n  set_mode(\"classification\")",
+    "crumbs": [
+      "Predictive Modeling of Microbiome Data using Tidymodeling",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Modelling</span>"
+    ]
+  },
+  {
+    "objectID": "apply01_model_data.html#change-hyperparameter-values",
+    "href": "apply01_model_data.html#change-hyperparameter-values",
+    "title": "10  Modelling",
+    "section": "10.5 Change Hyperparameter Values",
+    "text": "10.5 Change Hyperparameter Values\nThe hyperparameters penalty and mixture are extracted from the model specification. This is done to see the possible values that can be used in the grid search.\nFor the mixture, values between \\(0.05\\) and \\(1\\) is used which seem to be decent values.\n\nlog_spec |&gt; \n  extract_parameter_set_dials() |&gt; \n  extract_parameter_dials(\"mixture\")\n\nProportion of Lasso Penalty (quantitative)\nRange: [0.05, 1]\n\n\nFor the penalty, values between \\(10^-10\\) and \\(1\\) are used. The range is increased to \\(10^3\\). The updated range is saved in a new object, but the information is not added to the models until the workflow is created further down. As seen from the output, the information do not pertain to a specific model, but simply contain ranges for different hyperparameters.\n\nlog_param_ranges &lt;- log_spec |&gt; \n  extract_parameter_set_dials() |&gt;\n  update(penalty = penalty(c(-10, 3)))\n\nlog_penalty_param_ranges &lt;- log_lasso_spec |&gt; \n  extract_parameter_set_dials() |&gt;\n  update(penalty = penalty(c(-10, 3)))\n\nlog_param_ranges\n\nCollection of 2 parameters for tuning\n\n identifier    type    object\n    penalty penalty nparam[+]\n    mixture mixture nparam[+]\n\nlog_penalty_param_ranges\n\nCollection of 1 parameters for tuning\n\n identifier    type    object\n    penalty penalty nparam[+]",
+    "crumbs": [
+      "Predictive Modeling of Microbiome Data using Tidymodeling",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Modelling</span>"
+    ]
+  },
+  {
+    "objectID": "apply01_model_data.html#create-the-workflow-set",
+    "href": "apply01_model_data.html#create-the-workflow-set",
+    "title": "10  Modelling",
+    "section": "10.6 Create the Workflow Set",
+    "text": "10.6 Create the Workflow Set\nThe recipes are combined with the model specifications to create a workflow set. The workflow set is used to fit the models to the data and evaluate the models. Notice here it is called a workflow set, as it contains multiple workflows. Each row of the workflow set is a workflow of its own which further contain the recipe and model.\nA workflow set for all combinations of recipes and models is created:\n\nworkflow_set &lt;- workflow_set(\n  preproc = list(stand = stand_recipe,\n                 pca = pca_recipe),\n  models = list(log = log_spec,\n                log_ridge = log_ridge_spec,\n                log_lasso = log_lasso_spec)\n)\n\nworkflow_set\n\n# A workflow set/tibble: 6 × 4\n  wflow_id        info             option    result    \n  &lt;chr&gt;           &lt;list&gt;           &lt;list&gt;    &lt;list&gt;    \n1 stand_log       &lt;tibble [1 × 4]&gt; &lt;opts[0]&gt; &lt;list [0]&gt;\n2 stand_log_ridge &lt;tibble [1 × 4]&gt; &lt;opts[0]&gt; &lt;list [0]&gt;\n3 stand_log_lasso &lt;tibble [1 × 4]&gt; &lt;opts[0]&gt; &lt;list [0]&gt;\n4 pca_log         &lt;tibble [1 × 4]&gt; &lt;opts[0]&gt; &lt;list [0]&gt;\n5 pca_log_ridge   &lt;tibble [1 × 4]&gt; &lt;opts[0]&gt; &lt;list [0]&gt;\n6 pca_log_lasso   &lt;tibble [1 × 4]&gt; &lt;opts[0]&gt; &lt;list [0]&gt;\n\n\nThe parameter objects which contain the hyperparameter ranges are added to the workflow:\n\nworkflow_set &lt;- workflow_set |&gt;\n  option_add(id = c(\"stand_log\", \"pca_log\"),\n             param_info = log_param_ranges) |&gt; \n  option_add(id = c(\"stand_log_ridge\",\n                    \"stand_log_lasso\",\n                    \"pca_log_ridge\",\n                    \"pca_log_lasso\"),\n             param_info = log_penalty_param_ranges)\nworkflow_set\n\n# A workflow set/tibble: 6 × 4\n  wflow_id        info             option    result    \n  &lt;chr&gt;           &lt;list&gt;           &lt;list&gt;    &lt;list&gt;    \n1 stand_log       &lt;tibble [1 × 4]&gt; &lt;opts[1]&gt; &lt;list [0]&gt;\n2 stand_log_ridge &lt;tibble [1 × 4]&gt; &lt;opts[1]&gt; &lt;list [0]&gt;\n3 stand_log_lasso &lt;tibble [1 × 4]&gt; &lt;opts[1]&gt; &lt;list [0]&gt;\n4 pca_log         &lt;tibble [1 × 4]&gt; &lt;opts[1]&gt; &lt;list [0]&gt;\n5 pca_log_ridge   &lt;tibble [1 × 4]&gt; &lt;opts[1]&gt; &lt;list [0]&gt;\n6 pca_log_lasso   &lt;tibble [1 × 4]&gt; &lt;opts[1]&gt; &lt;list [0]&gt;",
+    "crumbs": [
+      "Predictive Modeling of Microbiome Data using Tidymodeling",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Modelling</span>"
+    ]
+  },
+  {
+    "objectID": "apply01_model_data.html#tune-hyperparameters",
+    "href": "apply01_model_data.html#tune-hyperparameters",
+    "title": "10  Modelling",
+    "section": "10.7 Tune hyperparameters",
+    "text": "10.7 Tune hyperparameters\nAll workflows in the workflow set contain hyperparameters. These are tuned with a search grid using the function tune_grid(). As workflow_set contain multiple workflows, the tune_grid() function can be mapped over the workflows to tune all hyperparameters using workflow_map(), a purrr-like map function.\nSeveral settings for tuning the grid exists. This includes e.g. whether or not to parallelize, what output to save and how verbose the output should be, i.e. how much should be printed to std.out. The settings are set to:\n\ngrid_settings &lt;-\n   control_grid(\n      save_pred = TRUE,\n      parallel_over = \"everything\",\n      save_workflow = TRUE,\n      extract = function(x) x\n   )\n\nThe grid search is performed for a grid of size 10. This means that 10 different combinations of the hyperparameters are tried for each model.\n\ngrid_results &lt;- workflow_set |&gt;\n  workflow_map(\n    fn = \"tune_grid\",\n    seed = 1337,\n    resamples = count_matrix_folds,\n    grid = params$grid_size,\n    control = grid_settings\n  )\n\ntidymodels comes with a lot of convenience functions. One of these is autoplot() that can, among other things, plot the results of the grid search. The best result of each workflow is selected based on the accuracy. As seen, the best workflows all perform quite similarly with an accuracy of approximately \\(0.9\\).\n\nautoplot(\n  grid_results,\n  rank_metric = \"accuracy\",\n  metric = \"accuracy\"\n) +\n  geom_point(aes(y = mean,\n                 color = wflow_id)) +\n  lims(y = c(0.75, 1))\n\n\n\n\n\n\n\n\nThe hyperparameters resulting in the best accuracy is extracted for each workflow. Note that the value of mixture is close to zero for both Elastic Net models, which means that the model emphasizes Ridge over Lasso. Note also that the penalty is much lower for the workflow with PCA pre-processing. This is likely due to the PCA reducing the number of variables, which in turn seems to reduce the need for regularization.\n\nworkflow_ids &lt;- grid_results |&gt;\n  pull(wflow_id)\n\n\ntuning_params_result &lt;- purrr::map(workflow_ids, ~{\n  grid_results |&gt;\n    extract_workflow_set_result(.x) |&gt;\n    select_best(metric = \"accuracy\") |&gt; \n    mutate(wflow_id = .x)\n}) |&gt;\n  bind_rows() |&gt;\n  mutate(mixture = case_when(stringr::str_detect(string = wflow_id,\n                                                 pattern = \"lasso\") ~ 1,\n                             stringr::str_detect(string = wflow_id,\n                                                 pattern = \"ridge\") ~ 0,\n                             TRUE ~ mixture)) |&gt;\n  select(wflow_id, penalty, mixture)\n  \ntuning_params_result\n\n# A tibble: 6 × 3\n  wflow_id        penalty mixture\n  &lt;chr&gt;             &lt;dbl&gt;   &lt;dbl&gt;\n1 stand_log       0.0191   0.444 \n2 stand_log_ridge 0.0716   0     \n3 stand_log_lasso 0.0117   1     \n4 pca_log         2.52     0.0560\n5 pca_log_ridge   0.0143   0     \n6 pca_log_lasso   0.00529  1",
+    "crumbs": [
+      "Predictive Modeling of Microbiome Data using Tidymodeling",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Modelling</span>"
+    ]
+  },
+  {
+    "objectID": "apply01_model_data.html#finalize-workflow",
+    "href": "apply01_model_data.html#finalize-workflow",
+    "title": "10  Modelling",
+    "section": "10.8 Finalize workflow",
+    "text": "10.8 Finalize workflow\nAs the hyperparameters have been tuned, the final workflow can be created. This is done by adding the hyperparameters to the workflow, fitting the model to the data and predict the outcome on the test set.\n\nworkflow_set_final &lt;- purrr::map(workflow_ids, ~{\n  \n  grid_results |&gt;\n    extract_workflow(.x) |&gt; \n    finalize_workflow(tuning_params_result |&gt; \n                        filter(wflow_id == .x)) |&gt;\n    last_fit(split = count_matrix_split)\n  \n})\n\nworkflow_set_final\n\n[[1]]\n# Resampling results\n# Manual resampling \n# A tibble: 1 × 6\n  splits           id               .metrics .notes   .predictions .workflow \n  &lt;list&gt;           &lt;chr&gt;            &lt;list&gt;   &lt;list&gt;   &lt;list&gt;       &lt;list&gt;    \n1 &lt;split [364/92]&gt; train/test split &lt;tibble&gt; &lt;tibble&gt; &lt;tibble&gt;     &lt;workflow&gt;\n\n[[2]]\n# Resampling results\n# Manual resampling \n# A tibble: 1 × 6\n  splits           id               .metrics .notes   .predictions .workflow \n  &lt;list&gt;           &lt;chr&gt;            &lt;list&gt;   &lt;list&gt;   &lt;list&gt;       &lt;list&gt;    \n1 &lt;split [364/92]&gt; train/test split &lt;tibble&gt; &lt;tibble&gt; &lt;tibble&gt;     &lt;workflow&gt;\n\n[[3]]\n# Resampling results\n# Manual resampling \n# A tibble: 1 × 6\n  splits           id               .metrics .notes   .predictions .workflow \n  &lt;list&gt;           &lt;chr&gt;            &lt;list&gt;   &lt;list&gt;   &lt;list&gt;       &lt;list&gt;    \n1 &lt;split [364/92]&gt; train/test split &lt;tibble&gt; &lt;tibble&gt; &lt;tibble&gt;     &lt;workflow&gt;\n\n[[4]]\n# Resampling results\n# Manual resampling \n# A tibble: 1 × 6\n  splits           id               .metrics .notes   .predictions .workflow \n  &lt;list&gt;           &lt;chr&gt;            &lt;list&gt;   &lt;list&gt;   &lt;list&gt;       &lt;list&gt;    \n1 &lt;split [364/92]&gt; train/test split &lt;tibble&gt; &lt;tibble&gt; &lt;tibble&gt;     &lt;workflow&gt;\n\n[[5]]\n# Resampling results\n# Manual resampling \n# A tibble: 1 × 6\n  splits           id               .metrics .notes   .predictions .workflow \n  &lt;list&gt;           &lt;chr&gt;            &lt;list&gt;   &lt;list&gt;   &lt;list&gt;       &lt;list&gt;    \n1 &lt;split [364/92]&gt; train/test split &lt;tibble&gt; &lt;tibble&gt; &lt;tibble&gt;     &lt;workflow&gt;\n\n[[6]]\n# Resampling results\n# Manual resampling \n# A tibble: 1 × 6\n  splits           id               .metrics .notes   .predictions .workflow \n  &lt;list&gt;           &lt;chr&gt;            &lt;list&gt;   &lt;list&gt;   &lt;list&gt;       &lt;list&gt;    \n1 &lt;split [364/92]&gt; train/test split &lt;tibble&gt; &lt;tibble&gt; &lt;tibble&gt;     &lt;workflow&gt;\n\n\n\nworkflow_set_final[[4]] |&gt;\n  collect_predictions() |&gt; \n  conf_mat(truth = Patient_status,\n           estimate = .pred_class)\n\n          Truth\nPrediction Healthy MS\n   Healthy       0  0\n   MS           10 82",
+    "crumbs": [
+      "Predictive Modeling of Microbiome Data using Tidymodeling",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>Modelling</span>"
+    ]
+  },
+  {
     "objectID": "references.html",
     "href": "references.html",
     "title": "References",
