@@ -245,7 +245,7 @@ tuning_params_result
 ```
 
 ## Finalize workflow
-As the hyperparameters have been tuned, the final workflow can be created. This is done by adding the hyperparameters to the workflow, fitting the model to the data and predict the outcome on the test set.
+As the hyperparameters have been tuned, the final workflow can be created. This is done by adding the hyperparameters to the workflow
 
 ```{r}
 workflow_set_final <- purrr::map(workflow_ids, ~{
@@ -253,13 +253,47 @@ workflow_set_final <- purrr::map(workflow_ids, ~{
   grid_results |>
     extract_workflow(.x) |> 
     finalize_workflow(tuning_params_result |> 
-                        filter(wflow_id == .x)) |>
+                        filter(wflow_id == .x))
+  
+})
+```
+
+
+```{r}
+grid
+```
+
+
+## Fitting the final workflow
+```{r}
+workflow_set_final <- purrr::map(workflow_ids, ~{
+  
+  grid_results |>
+    extract_workflow(.x) |> 
+    finalize_workflow(tuning_params_result |> 
+                        filter(wflow_id == .x))
+  
+})
+```
+
+
+```{r}
+workflow_set_fit <- purrr::map(workflow_set_final, ~{
+  
+  .x |>
     last_fit(split = count_matrix_split)
   
 })
 
-workflow_set_final
+
+workflow_set_fit
 ```
+
+
+```{r}
+workflow_set_final[[4]]
+```
+
 
 ```{r}
 workflow_set_final[[4]] |>
