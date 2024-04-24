@@ -5,7 +5,7 @@ editor_options:
   
 params:
   percentage_train: 0.80
-  n_folds: 10
+  n_folds: 5
   grid_size: 200
 ---
 Set seed and load packages.
@@ -27,7 +27,7 @@ Load data.
 #| code-fold: true
 #| code-summary: "Show the code"
 
-count_matrix <- readr::read_rds("https://github.com/WilliamH-R/BioStatistics/raw/main/data/count_matrix/count_matrix.rds") |> 
+count_matrix_clr <- readr::read_rds("https://github.com/WilliamH-R/BioStatistics/raw/main/data/count_matrix/count_matrix_clr.rds") |> 
   select(-"NA")
 
 meta <- read.csv(file = "data/metadata.txt") |> 
@@ -58,7 +58,7 @@ meta <- read.csv(file = "data/metadata.txt") |>
 The data is joined with the metadata as the `Patient_status` is used as the outcome variable. Only the columns that are needed for the model are kept. Notice `inner_join()` is used such that only rows for which both the count matrix and metadata are available are kept.
 
 ```{r}
-count_matrix <- count_matrix |>
+count_matrix_clr <- count_matrix_clr |>
   inner_join(meta,
              by = "Sample") |>
   select(-c(Sample, Treatment, Ethnicity, Location,
@@ -72,18 +72,18 @@ The data is split into a training and testing set using cross-validation to avoi
 
 The data is split:
 ```{r}
-count_matrix_split <- initial_split(count_matrix,
-                                    prop = params$percentage_train,
-                                    strata = Patient_status)
-count_matrix_train <- training(count_matrix_split)
-count_matrix_test <- testing(count_matrix_split)
+count_matrix_clr_split <- initial_split(count_matrix_clr,
+                                        prop = params$percentage_train,
+                                        strata = Patient_status)
+count_matrix_clr_train <- training(count_matrix_clr_split)
+count_matrix_clr_test <- testing(count_matrix_clr_split)
 ```
 
 The CV object is created:
 ```{r}
-count_matrix_folds <- vfold_cv(count_matrix_train,
-                               v = params$n_folds)
-count_matrix_folds
+count_matrix_clr_folds <- vfold_cv(count_matrix_clr_train,
+                                   v = params$n_folds)
+count_matrix_clr_folds
 ```
 
 ## Recipes
@@ -93,7 +93,7 @@ Two recipes are created. One without any pre-processing steps, and one where Pri
 
 ```{r}
 stand_recipe <- recipe(Patient_status ~ .,
-                       data = count_matrix_train)
+                       data = count_matrix_clr_train)
 
 pca_recipe <- stand_recipe |> 
   step_pca(all_predictors(),
@@ -169,12 +169,17 @@ The parameter objects which contain the hyperparameter ranges are added to the w
 
 ```{r}
 workflow_set <- workflow_set |>
-  option_add(id = c("stand_log", "pca_log"),
-             param_info = log_param_ranges) |> 
-  option_add(id = c("stand_log_ridge",
-                    "stand_log_lasso",
-                    "pca_log_ridge",
-                    "pca_log_lasso"),
+  option_add(id = "stand_log",
+             param_info = log_param_ranges) |>
+  option_add(id = "pca_log",
+             param_info = log_param_ranges) |>
+  option_add(id = "stand_log_ridge",
+             param_info = log_penalty_param_ranges) |>
+  option_add(id = "stand_log_lasso",
+             param_info = log_penalty_param_ranges) |>
+  option_add(id = "pca_log_ridge",
+             param_info = log_penalty_param_ranges) |>
+  option_add(id = "pca_log_lasso",
              param_info = log_penalty_param_ranges)
 workflow_set
 ```
@@ -202,37 +207,42 @@ grid_results <- workflow_set |>
   workflow_map(
     fn = "tune_grid",
     seed = 1337,
-    resamples = count_matrix_folds,
+    resamples = count_matrix_clr_folds,
     grid = params$grid_size,
     control = grid_settings
   )
 ```
 
-`tidymodels` comes with a lot of convenience functions. One of these is `autoplot()` that can, among other things, plot the results of the grid search. The best result of each workflow is selected based on the accuracy. As seen, the best workflows all perform quite similarly with an accuracy of approximately $0.9$. 
+`tidymodels` comes with a lot of convenience functions. One of these is `autoplot()` that can, among other things, plot the results of the grid search. The best result of each workflow is selected based on the AUC of ROC. 
 
 ```{r}
 autoplot(
   grid_results,
-  rank_metric = "accuracy",
-  metric = "accuracy"
+  rank_metric = "roc_auc",
+  metric = "roc_auc", type = "wflow_id"
 ) +
-  geom_point(aes(y = mean,
-                 color = wflow_id)) +
-  lims(y = c(0.75, 1))
+  geom_point(aes(y = mean)) +
+  lims(y = c(0.4, 1)) +
+  theme(legend.position = "none") +
+  facet_wrap(~ wflow_id)
 ```
-The hyperparameters resulting in the best accuracy is extracted for each workflow. Note that the value of mixture is close to zero for both Elastic Net models, which means that the model emphasizes Ridge over Lasso. Note also that the penalty is much lower for the workflow with PCA pre-processing. This is likely due to the PCA reducing the number of variables, which in turn seems to reduce the need for regularization.
+The hyperparameters resulting in the best AUC is extracted for each workflow. Note that the value of mixture is an order of magnitude different for `stand_log` and `pca_log`. In the PCA space, the model emphasizes Lasso over Ridge. This is likely due to the PCA reducing the number of variables, which in turn seems to reduce the need for setting coefficients to 0 (Lasso regularization).
+
+
+Note that the value of mixture is close to zero for both Elastic Net models, which means that the model emphasizes Ridge over Lasso. Note also that the penalty is much lower for the workflow with PCA pre-processing. This is likely due to the PCA reducing the number of variables, which in turn seems to reduce the need for regularization.
+
 
 ```{r}
 workflow_ids <- grid_results |>
   pull(wflow_id)
 
 
-tuning_params_result <- purrr::map(workflow_ids, ~{
-  grid_results |>
-    extract_workflow_set_result(.x) |>
-    select_best(metric = "accuracy") |> 
-    mutate(wflow_id = .x)
-}) |>
+tuning_params_result <- workflow_ids |>
+  purrr::map(~{grid_results |>
+      extract_workflow_set_result(.x) |>
+      select_best(metric = "roc_auc") |> 
+      mutate(wflow_id = .x)
+    }) |>
   bind_rows() |>
   mutate(mixture = case_when(stringr::str_detect(string = wflow_id,
                                                  pattern = "lasso") ~ 1,
@@ -245,60 +255,77 @@ tuning_params_result
 ```
 
 ## Finalize workflow
-As the hyperparameters have been tuned, the final workflow can be created. This is done by adding the hyperparameters to the workflow
+As the hyperparameters have been tuned, the final workflow can be created. This is done by adding the hyperparameters to the workflow. When the hyperparameters have been added, the workflows can be fitted.
 
 ```{r}
-workflow_set_final <- purrr::map(workflow_ids, ~{
-  
-  grid_results |>
-    extract_workflow(.x) |> 
-    finalize_workflow(tuning_params_result |> 
-                        filter(wflow_id == .x))
-  
-})
+workflow_set_final <- workflow_ids |>
+  purrr::map(~{
+    grid_results |>
+      extract_workflow(.x) |> 
+      finalize_workflow(tuning_params_result |> 
+                          filter(wflow_id == .x))
+    })
+names(workflow_set_final) <- workflow_ids
+```
+
+To exemplify, the `pca_log` workflow is shown from before finalizing and after finalizing. As can be seen, the hyperparameters are added to the workflow such that they have a value instead of `tune()`.
+
+```{r}
+grid_results |>
+  extract_workflow("pca_log")
+
+workflow_set_final$pca_log
 ```
 
 
+## Fit and Predict for the Final Workflow
+With the hyperparameters set, the workflows can be fit to the data, and the models can be evaluated. The `last_fit()` function is used to fit the model to the data. The `split` argument is set to the cross-validation object created earlier. This is done to avoid overfitting.
+
 ```{r}
-grid
+workflow_set_fit <- workflow_ids |>
+  purrr::map(~{
+    workflow_set_final[[.x]] |>
+      last_fit(split = count_matrix_clr_split)
+  })
+names(workflow_set_fit) <- workflow_ids
 ```
 
-
-## Fitting the final workflow
-```{r}
-workflow_set_final <- purrr::map(workflow_ids, ~{
-  
-  grid_results |>
-    extract_workflow(.x) |> 
-    finalize_workflow(tuning_params_result |> 
-                        filter(wflow_id == .x))
-  
-})
-```
-
+## Predict and visualize performance
+For each of the fitted models, the predictions are collected and the performance is evaluated. One option is to look at the confusion matrices, e.g.: 
 
 ```{r}
-workflow_set_fit <- purrr::map(workflow_set_final, ~{
-  
-  .x |>
-    last_fit(split = count_matrix_split)
-  
-})
-
-
-workflow_set_fit
-```
-
-
-```{r}
-workflow_set_final[[4]]
-```
-
-
-```{r}
-workflow_set_final[[4]] |>
-  collect_predictions() |> 
+workflow_set_fit$stand_log |>
+  collect_predictions()|> 
   conf_mat(truth = Patient_status,
            estimate = .pred_class)
 ```
 
+Another more visual approach is to plot the ROC-curve. This is done for all models in the workflow set. First, the specificity and sensitivity is calculated for each model with a convenience function `roc_curve()`
+
+```{r}
+roc_auc_results <- workflow_ids |>
+  map( ~ {
+    workflow_set_fit[[.x]] |>
+      collect_predictions() |>
+      roc_curve(truth = Patient_status,
+                .pred_MS,
+                event_level = "second") |>
+      mutate(wflow_id = .x)
+  }) |> bind_rows()
+
+roc_auc_results
+```
+
+Finally, the ROC-curve is plotted stratified by the workflow ID. The ROC-curve is a plot of the sensitivity against (1 - specificity). Sensitivity is the proportion of true positives out of all positives, i.e. true positive rate. In this case, the proportion of correctly classified MS patients out of all MS patients. Specificity is the proportion of true negatives out of all negatives. In this case, the proportion of correctly classified healthy patients out of all healthy patients. Since the x-axis plots (1 - specificity), it is actually the proportion of false positives out of all negatives, i.e. the false positive rate.
+
+```{r}
+roc_auc_results |>
+  ggplot(aes(x = 1 - specificity,
+             y = sensitivity,
+             col = wflow_id)) + 
+  geom_path(lwd = 1,
+            alpha = 0.6) +
+  geom_abline(lty = 3) + 
+  coord_equal() + 
+  scale_color_viridis_d()
+```
