@@ -219,18 +219,43 @@ grid_results <- workflow_set |>
 autoplot(
   grid_results,
   rank_metric = "roc_auc",
-  metric = "roc_auc", type = "wflow_id"
+  metric = "roc_auc",
+  type = "wflow_id"
 ) +
   geom_point(aes(y = mean)) +
   lims(y = c(0.4, 1)) +
   theme(legend.position = "none") +
-  facet_wrap(~ wflow_id)
+  facet_wrap(~ wflow_id,
+             ncol = 2)
 ```
+
+The issue with wrappers, e.g. the convenience function `autoplot()`, is that they do not always provide the flexibility needed.
+
+```{r}
+grid_results |>
+  collect_metrics() |>
+  filter(.metric == "roc_auc") |> 
+  group_by(wflow_id) |>
+  arrange(desc(mean)) |>
+  mutate(rank = row_number()) |>
+  ungroup() |>
+  ggplot(aes(x = rank,
+             y = mean,
+             col = wflow_id)) +
+  geom_point() +
+  geom_errorbar(aes(ymin = mean - std_err,
+                    ymax = mean + std_err)) +
+  theme(legend.position = "none") +
+  labs(x = "Rank",
+       y = "AUC of ROC") +
+  facet_wrap(~ wflow_id,
+             ncol = 2, scales = "free_y")
+```
+
 The hyperparameters resulting in the best AUC is extracted for each workflow. Note that the value of mixture is an order of magnitude different for `stand_log` and `pca_log`. In the PCA space, the model emphasizes Lasso over Ridge. This is likely due to the PCA reducing the number of variables, which in turn seems to reduce the need for setting coefficients to 0 (Lasso regularization).
 
 
 Note that the value of mixture is close to zero for both Elastic Net models, which means that the model emphasizes Ridge over Lasso. Note also that the penalty is much lower for the workflow with PCA pre-processing. This is likely due to the PCA reducing the number of variables, which in turn seems to reduce the need for regularization.
-
 
 ```{r}
 workflow_ids <- grid_results |>
@@ -329,3 +354,5 @@ roc_auc_results |>
   coord_equal() + 
   scale_color_viridis_d()
 ```
+
+PERHAPS LOOK AT HOW THE PENALTIES AND MIXTURES AFFECT THE PERFORMANCE OF EACH MODEL AND CHOOSE OPTIMAL VALUES MORE MANUALLY. IT MIGHT BE THAT SOME SIMPLER MODEL WITH A SLIGHTLY LOWER ROC AUC IS PREFERABLE DUE TO SIMPLICITY.
