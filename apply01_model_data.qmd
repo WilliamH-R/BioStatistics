@@ -7,6 +7,8 @@ params:
   percentage_train: 0.80
   n_folds: 5
   grid_size: 200
+  penalty_lower: -10
+  penalty_higher: 1
 ---
 Set seed and load packages.
 ```{r}
@@ -131,22 +133,23 @@ log_spec |>
   extract_parameter_dials("mixture")
 ```
 
-For the penalty, values between $10^-10$ and $1$ are used. The range is increased to $10^3$. The updated range is saved in a new object, but the information is not added to the models until the workflow is created further down. As seen from the output, the information do not pertain to a specific model, but simply contain ranges for different hyperparameters.
+For the penalty, values between $10^-10$ and $1$ are used pr default. The range is increased to $5*10^1$. The updated range is saved in a new object, but the information is not added to the models until the workflow is created further down. As seen from the output, the information do not pertain to a specific model, but simply contain ranges for different hyperparameters.
 
 ```{r}
 log_param_ranges <- log_spec |> 
   extract_parameter_set_dials() |>
-  update(penalty = penalty(c(-10, 3)))
+  update(penalty = penalty(c(params$penalty_lower,
+                             params$penalty_higher)))
 
 log_penalty_param_ranges <- log_lasso_spec |> 
   extract_parameter_set_dials() |>
-  update(penalty = penalty(c(-10, 3)))
+  update(penalty = penalty(c(params$penalty_lower,
+                             params$penalty_higher)))
 
 log_param_ranges
 
 log_penalty_param_ranges
 ```
-
 
 ## Create the Workflow Set
 The recipes are combined with the model specifications to create a workflow set. The workflow set is used to fit the models to the data and evaluate the models. Notice here it is called a workflow set, as it contains multiple workflows. Each row of the workflow set is a workflow of its own which further contain the recipe and model.
@@ -355,4 +358,234 @@ roc_auc_results |>
   scale_color_viridis_d()
 ```
 
-PERHAPS LOOK AT HOW THE PENALTIES AND MIXTURES AFFECT THE PERFORMANCE OF EACH MODEL AND CHOOSE OPTIMAL VALUES MORE MANUALLY. IT MIGHT BE THAT SOME SIMPLER MODEL WITH A SLIGHTLY LOWER ROC AUC IS PREFERABLE DUE TO SIMPLICITY.
+## Fine Tuning Hyperparameters
+The hyperparameters are tuned using a grid search. The grid search is performed for a grid of size `r params$grid_size`. The best result of each workflow is selected based on the AUC of ROC and is chosen strictly on the best numerical value. It is very possible, that a model with a slightly lower AUC of ROC is preferable due to simplicity. To investigate this, plots of the hyperparameters plotted against the AUC of ROC is created.
+
+It can be easily illustrated with the `autoplot()` function. The plot is not very informative with multiple hyperparameters, as it is not shown how they affect the AUC of ROC in combination.
+
+```{r}
+autoplot(grid_results,
+         id = "stand_log",
+         metric = "roc_auc")
+```
+
+For the two ENet models, the hyperparameters are extracted manually and plotted against the AUC of ROC. For the Ridge and Lasso models, the hyperparameters performance is plotted using the `autoplot` function.
+
+### Standard Preprocessing, Lasso
+By inspecting the plot, it would seem the optimal `penalty` is indeed at the optimum `roc_auc`.
+
+```{r}
+autoplot(grid_results,
+         id = "stand_log_lasso",
+         metric = "roc_auc")
+```
+
+The manually chosen hyperparameter is collected.
+
+```{r}
+stand_log_lasso_penalty <- grid_results |>
+  extract_workflow_set_result("stand_log_lasso") |>
+  show_best(metric = "roc_auc",
+            n = 1) |>
+  pull(penalty)
+
+stand_log_lasso_mixture <- 1
+```
+
+### Standard Preprocessing, Ridge
+By inspecting the plot, it would seem the optimal `penalty` is indeed at the optimum `roc_auc`.
+
+```{r}
+autoplot(grid_results,
+         id = "stand_log_ridge",
+         metric = "roc_auc")
+```
+
+The manually chosen hyperparameter is collected.
+
+```{r}
+stand_log_ridge_penalty <- grid_results |>
+  extract_workflow_set_result("stand_log_ridge") |>
+  show_best(metric = "roc_auc",
+            n = 1) |>
+  pull(penalty)
+
+stand_log_ridge_mixture <- 0
+```
+
+### Standard Preprocessing, Elastic Net
+
+For the ENet models, two parameters are tuned: `penalty` and `mixture`. Instead of plotting against AUC of ROC, the hyperparameters are plotted against each other, and the color represents the AUC of ROC. The best AUC of ROC are the more purple colors. The plot shows that the best AUC of ROC is achieved with a penalty close to zero.
+
+```{r}
+stand_log_plot <- grid_results |>
+  extract_workflow_set_result("stand_log") |>
+  show_best(metric = "roc_auc",
+            n = params$grid_size) |>
+  ggplot(aes(x = penalty,
+             y = mixture,
+             col = mean)) +
+  geom_point() +
+  scale_color_viridis_c(direction = -1) +
+  labs(title = "Standard Preprocessing, Elastic Net",
+       x = "Penalty",
+       y = "Mixture",
+       col = "AUC of ROC")
+stand_log_plot
+```
+
+To better see the effect of the hyperparameters on the AUC of ROC, the x-axis is limited as the higher values are observed close to $penalty = 0$.
+
+```{r}
+p <- stand_log_plot +
+  lims(x = c(0, 1))
+
+plotly::ggplotly(p)
+```
+
+```{r}
+stand_log_penalty <- 0.06319747
+
+stand_log_mixture <- 0.05603853
+```
+
+### PCA Preprocessing, Lasso
+By inspecting the plot, it would seem the optimal `penalty` is indeed at the optimum `roc_auc`.
+
+```{r}
+autoplot(grid_results,
+         id = "pca_log_lasso",
+         metric = "roc_auc")
+```
+
+The manually chosen hyperparameter is collected.
+
+```{r}
+pca_log_lasso_penalty <- grid_results |>
+  extract_workflow_set_result("pca_log_lasso") |>
+  show_best(metric = "roc_auc",
+            n = 1) |>
+  pull(penalty)
+
+pca_log_lasso_mixture <- 1
+```
+
+### PCA Preprocessing, Ridge
+By inspecting the plot, the ROC values do not vary much with the penalty. The optimal `penalty` is chosen to be the maximum `penalty`.
+
+```{r}
+autoplot(grid_results,
+         id = "pca_log_ridge",
+         metric = "roc_auc")
+```
+
+The manually chosen hyperparameter is collected.
+
+```{r}
+pca_log_ridge_penalty <- grid_results |>
+  extract_workflow_set_result("pca_log_ridge") |>
+  show_best(metric = "roc_auc",
+            n = params$grid_size) |>
+  pull(penalty) |> 
+  max()
+
+pca_log_ridge_mixture <- 0
+```
+
+### PCA Preprocessing, Elastic Net
+
+Again, the hyperparameter values are plotted against each other, and the colour signifies the AUC of ROC. The best AUC of ROC are the more purple colors.
+
+```{r}
+pca_log_plot <- grid_results |>
+  extract_workflow_set_result("pca_log") |>
+  show_best(metric = "roc_auc",
+            n = params$grid_size) |>
+  ggplot(aes(x = penalty,
+             y = mixture,
+             col = mean)) +
+  geom_point() +
+  scale_color_viridis_c(direction = -1) +
+  labs(title = "PCA Preprocessing, Elastic Net",
+       x = "Penalty",
+       y = "Mixture",
+       col = "AUC of ROC")
+pca_log_plot
+```
+
+To better see the effect of the hyperparameters on the AUC of ROC, the x-axis is limited as the higher values are observed close to $penalty = 0$.
+
+```{r}
+p <- pca_log_plot +
+  lims(x = c(0, 1))
+
+plotly::ggplotly(p)
+```
+
+By inspecting the plotly object, the parameters are chosen.
+
+```{r}
+pca_log_penalty <- 0.3379935
+
+pca_log_mixture <- 0.12525226
+```
+
+
+### Gather Manually Chosen Hyperparameters
+
+```{r}
+tuning_params_result_manual <- tribble(~wflow_id, ~penalty, ~mixture,
+                                       "stand_log_lasso", stand_log_lasso_penalty, 1,
+                                       "stand_log_ridge", stand_log_ridge_penalty, 0,
+                                       "stand_log", stand_log_penalty, stand_log_mixture,
+                                       "pca_log_lasso", pca_log_lasso_penalty, 1,
+                                       "pca_log_ridge", pca_log_ridge_penalty, 0,
+                                       "pca_log", pca_log_penalty, pca_log_mixture)
+```
+
+## Finalize, Fit and Predict with Manually Chosen Hyperparameters
+
+The finalization, fitting and predicting is done as before, but with the manually chosen hyperparameters.
+
+```{r}
+# Finalize
+workflow_set_final_manual <- workflow_ids |>
+  purrr::map(~{
+    grid_results |>
+      extract_workflow(.x) |> 
+      finalize_workflow(tuning_params_result_manual |> 
+                          filter(wflow_id == .x))
+    })
+names(workflow_set_final_manual) <- workflow_ids
+
+# Fit
+workflow_set_fit_manual <- workflow_ids |>
+  purrr::map(~{
+    workflow_set_final_manual[[.x]] |>
+      last_fit(split = count_matrix_clr_split)
+  })
+names(workflow_set_fit_manual) <- workflow_ids
+
+# Predict
+roc_auc_results_manual <- workflow_ids |>
+  map( ~ {
+    workflow_set_fit_manual[[.x]] |>
+      collect_predictions() |>
+      roc_curve(truth = Patient_status,
+                .pred_MS,
+                event_level = "second") |>
+      mutate(wflow_id = .x)
+  }) |> bind_rows()
+
+# Visualize performance
+roc_auc_results_manual |>
+  ggplot(aes(x = 1 - specificity,
+             y = sensitivity,
+             col = wflow_id)) + 
+  geom_path(lwd = 1,
+            alpha = 0.6) +
+  geom_abline(lty = 3) + 
+  coord_equal() + 
+  scale_color_viridis_d()
+```
+
