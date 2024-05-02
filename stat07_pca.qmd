@@ -1,0 +1,75 @@
+Set seed and load packages.
+```{r}
+#| output: FALSE
+#| code-fold: true
+#| code-summary: "Show the code"
+
+set.seed(1337)
+
+library("tidymodels")
+tidymodels::tidymodels_prefer()
+library("plotly")
+```
+
+Load data.
+```{r}
+#| output: FALSE
+#| code-fold: true
+#| code-summary: "Show the code"
+
+count_matrix_clr <- readr::read_rds("https://github.com/WilliamH-R/BioStatistics/raw/main/data/count_matrix/count_matrix_clr.rds") |> 
+  select(-"NA")
+
+meta <- read.csv(file = "data/metadata.txt") |> 
+  as_tibble() |>
+  select(Run, chem_administration, ETHNICITY, geo_loc_name,
+         Host_age, host_body_mass_index, Host_disease, host_phenotype, host_sex) |> 
+  rename(Sample = Run,
+         Treatment = chem_administration,
+         Ethnicity = ETHNICITY,
+         Location = geo_loc_name,
+         Age = Host_age,
+         BMI = host_body_mass_index,
+         Disease_severity = Host_disease,
+         EDSS = host_phenotype,
+         Sex = host_sex) |>
+  mutate(Patient_status = case_when(Disease_severity == "1HealthyControl" ~ "Healthy",
+                                    TRUE ~ "MS"),
+         EDSS = as.factor(EDSS),
+         EDSS = case_when(is.na(EDSS) & Disease_severity == "1HealthyControl" ~ "-1",
+                          is.na(EDSS) & Disease_severity != "1HealthyControl" ~ "Unknown",
+                          TRUE ~ EDSS),
+         EDSS = as.factor(EDSS))
+```
+
+# Principal Component Analysis
+
+When having 1, 2 or even 3 variables describing an observation, they can be easily visualized plots. However, when having more than 3 variables, it is not possible to visualize them in a single plot. To overcome this, Principal Component Analysis (PCA) can reduce the dimensionality of the data to lower dimensions (e.g. 2D or 3D) while preserving the variance of the data. Each Principal Component (PC) is a linear combination of the original variables, and can now be considered as a variable on its own replacing the original variables. A data set with many variables, e.g. the `r ncol(count_matrix_clr)` variables in the count matrix, can be visualised with a 2D plot, but it is still possible to see the driving factors behind the data.
+
+
+
+Stuff to do:
+
+- Describe what it does in words. The data is centered, meaning the mean of each variable is subtracted from the data. This makes calculations easier, as we now need to fit an OLS-like model to the data. The line has to go through the origin, as the data is centered. It is not OLS, but it is fitting a straight line. For OLS, the criterion is to minimize the sum of squared residuals. For PCA, the criterion is to maximize the variance of the data, i.e. maximize the sum of squared distances. The distances in this case, is from the origin to the positions on the line where the poins are projected on to. The line which maximizes the sum of squared distances, and thereby also the variance, is PC1.
+
+
+- The line that maximizes the sum of squared distances can be described by a linear combination of the original variables, i.e. how many steps a long each axis we need to take to reach the line.
+
+- A 1 unit long vector that describes the best fit line, PC1, is called the singular vector or eigenvector. The values of the eigenvector are called the loadings. The loadings are the weights of the original variables in the linear combination that describes the line.
+
+- The average of the sum of squared distances is the eigenvalue
+
+- The square root of the sum og squared distances is the singular value
+
+- Finding PC2: The line that is orthogonal to PC1 and goes through the origin. 
+
+- After finding all PCs, rotate such that PC1 is horisontal, i.e. is the x-axis. Project each point on to the new axes. 
+
+- Describe the math.
+
+- Plot a simple 2D plot, e.g. something from mtcars where you can colour by something that makes some easy to spot clusters. Then apply PCA to the data and plot the PC1
+
+- Do PCA for the full count matrix and plot the first two PCs. Colour by the different variables in the metadata.
+
+
+Se videre herfra: https://youtu.be/FgakZw6K1QQ?si=YEhgEX2pNqUBoGjQ&t=905
