@@ -44,9 +44,45 @@ meta <- read.csv(file = "data/metadata.txt") |>
 
 # Principal Component Analysis
 
-When having 1, 2 or even 3 variables describing an observation, they can be easily visualized plots. However, when having more than 3 variables, it is not possible to visualize them in a single plot. To overcome this, Principal Component Analysis (PCA) can reduce the dimensionality of the data to lower dimensions (e.g. 2D or 3D) while preserving the variance of the data. Each Principal Component (PC) is a linear combination of the original variables, and can now be considered as a variable on its own replacing the original variables. A data set with many variables, e.g. the `r ncol(count_matrix_clr)` variables in the count matrix, can be visualised with a 2D plot, but it is still possible to see the driving factors behind the data.
+When having more than 3 variables, it is not possible to visualize them in a single plot. To overcome this, Principal Component Analysis (PCA) can reduce the dimensionality of the data to lower dimensions (e.g. 2 or 3) while preserving the variance of the data. Each Principal Component (PC) is a linear combination of the original variables, and can now be considered as a variable on its own replacing the originals. A data set with many variables, e.g. the `r ncol(count_matrix_clr)` variables in the count matrix, can be visualised with a 2D plot. Loosing that many dimensions is almost bound to loose some information, but a PCA optimizes towards retaining as much as possible.
 
+To exemplify and showcasing the method and the underlying math, we will use the `mtcars` data set as introduced in Chapter 7. For this example, two dimensions `wt` (weight) and `mpg` (miles pr. gallon) are used. The points are coloured by `cyl` (cylinders) to show how the data is grouped in the 2D space. The goal is to retain the information, but reduce the dimensions to a single line that best describes the data. This line is called the first Principal Component (PC1).
 
+```{r}
+mtcars |> 
+  ggplot(aes(x = wt,
+             y = mpg,
+             col = cyl)) +
+  geom_point(size = 3) +
+  labs(title = "Miles pr Gallon vs Weight",
+       x = "Weight (1000 lbs)",
+       y = "Miles pr Gallon",
+       colour = "Cylinders") +
+  scale_colour_viridis_c()
+```
+
+The data is centered, i.e. the mean of each variable is subtracted from each observation within that variable.
+
+$$
+X_{i,j \;centered} = X_{i,j} - \mu_{j}
+$$
+
+Where `X` is the data matrix, `i` is the observation and `j` is the variable. By subtracting the mean, all data observations are centered around the origin. This makes some mathematical operations easier, such as rotating the coordinate system. Centering the data do not affect the correlation between observations. The resulting plot is then:
+
+```{r}
+mtcars |> 
+  ggplot(aes(x = wt - mean(wt),
+             y = mpg - mean(mpg),
+             col = cyl - mean(cyl))) +
+  geom_point(size = 3) +
+  labs(title = "Miles pr Gallon vs Weight",
+       x = "Weight (1000 lbs)",
+       y = "Miles pr Gallon",
+       colour = "Cylinders") +
+  scale_colour_viridis_c()
+```
+
+A line is to be fit to the data. This line should maximize the variance of the data, i.e. maximize the sum of squared distances from the origin to the points projected on to the line.
 
 Stuff to do:
 
@@ -63,13 +99,14 @@ Stuff to do:
 
 - Finding PC2: The line that is orthogonal to PC1 and goes through the origin. 
 
-- After finding all PCs, rotate such that PC1 is horisontal, i.e. is the x-axis. Project each point on to the new axes. 
+- After finding all PCs, rotate such that PC1 is horisontal, i.e. is the x-axis. Project each point on to the new axes.
 
-- Describe the math.
+- The eigenvalues are the variance explained, and the sum of the eigenvalues is the total variance. The proportion of the variance explained by each PC is the eigenvalue divided by the total variance. The plot that shows the proportion of the variance explained by each PC is called a scree plot.
+
+- DESCRIBE THE MATH.
 
 - Plot a simple 2D plot, e.g. something from mtcars where you can colour by something that makes some easy to spot clusters. Then apply PCA to the data and plot the PC1
 
 - Do PCA for the full count matrix and plot the first two PCs. Colour by the different variables in the metadata.
 
-
-Se videre herfra: https://youtu.be/FgakZw6K1QQ?si=YEhgEX2pNqUBoGjQ&t=905
+The simple math: https://www.youtube.com/watch?v=S51bTyIwxFs
