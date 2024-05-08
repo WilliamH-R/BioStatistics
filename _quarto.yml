@@ -23,6 +23,7 @@ book:
         - stat04_OLS.qmd
         - stat05_log_reg.qmd
         - stat06_enet.qmd
+        - stat07_pca.qmd
         
     - part: apply00_intro.qmd
       chapters:
