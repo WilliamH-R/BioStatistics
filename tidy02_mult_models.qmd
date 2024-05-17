@@ -91,7 +91,7 @@ lg_models <- lg_models |>
 lg_models
 ```
 ## Evaluation metrics across models
-Two simple evaluation metrics for logistic regressions are the accuracy and Area Under the Curve (AUC), in this case area under the Receiver Operating Characteristic (ROC) curve. To view these two evaluation metrics:
+Two simple evaluation metrics for logistic regressions are the accuracy and Area Under the Curve (AUC), it is implied that it is area under the Receiver Operating Characteristic (ROC) curve. To view these two evaluation metrics:
 ```{r}
 collect_metrics(lg_models) |> 
   select(-c(.config, preproc, .estimator)) |> 

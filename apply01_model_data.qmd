@@ -5,7 +5,7 @@ editor_options:
   
 params:
   percentage_train: 0.80
-  n_folds: 5
+  n_folds: 10
   grid_size: 200
   penalty_lower: -10
   penalty_higher: 1
@@ -99,7 +99,7 @@ stand_recipe <- recipe(Patient_status ~ .,
 
 pca_recipe <- stand_recipe |> 
   step_pca(all_predictors(),
-           threshold = 0.70)
+           num_comp = 7)
 ```
 
 ## Model Specifications
@@ -216,7 +216,7 @@ grid_results <- workflow_set |>
   )
 ```
 
-`tidymodels` comes with a lot of convenience functions. One of these is `autoplot()` that can, among other things, plot the results of the grid search. The best result of each workflow is selected based on the AUC of ROC. 
+`tidymodels` comes with a lot of convenience functions. One of these is `autoplot()` that can, among other things, plot the results of the grid search. The best result of each workflow is selected based on the AUC. 
 
 ```{r}
 autoplot(
@@ -250,7 +250,7 @@ grid_results |>
                     ymax = mean + std_err)) +
   theme(legend.position = "none") +
   labs(x = "Rank",
-       y = "AUC of ROC") +
+       y = "AUC") +
   facet_wrap(~ wflow_id,
              ncol = 2, scales = "free_y")
 ```
@@ -359,9 +359,9 @@ roc_auc_results |>
 ```
 
 ## Fine Tuning Hyperparameters
-The hyperparameters are tuned using a grid search. The grid search is performed for a grid of size `r params$grid_size`. The best result of each workflow is selected based on the AUC of ROC and is chosen strictly on the best numerical value. It is very possible, that a model with a slightly lower AUC of ROC is preferable due to simplicity. To investigate this, plots of the hyperparameters plotted against the AUC of ROC is created.
+The hyperparameters are tuned using a grid search. The grid search is performed for a grid of size `r params$grid_size`. The best result of each workflow is selected based on the AUC and is chosen strictly on the best numerical value. It is very possible, that a model with a slightly lower AUC is preferable due to simplicity. To investigate this, plots of the hyperparameters plotted against the AUC is created.
 
-It can be easily illustrated with the `autoplot()` function. The plot is not very informative with multiple hyperparameters, as it is not shown how they affect the AUC of ROC in combination.
+It can be easily illustrated with the `autoplot()` function. The plot is not very informative with multiple hyperparameters, as it is not shown how they affect the AUC in combination.
 
 ```{r}
 autoplot(grid_results,
@@ -369,7 +369,7 @@ autoplot(grid_results,
          metric = "roc_auc")
 ```
 
-For the two ENet models, the hyperparameters are extracted manually and plotted against the AUC of ROC. For the Ridge and Lasso models, the hyperparameters performance is plotted using the `autoplot` function.
+For the two ENet models, the hyperparameters are extracted manually and plotted against the AUC. For the Ridge and Lasso models, the hyperparameters performance is plotted using the `autoplot` function.
 
 ### Standard Preprocessing, Lasso
 By inspecting the plot, it would seem the optimal `penalty` is indeed at the optimum `roc_auc`.
@@ -415,7 +415,7 @@ stand_log_ridge_mixture <- 0
 
 ### Standard Preprocessing, Elastic Net
 
-For the ENet models, two parameters are tuned: `penalty` and `mixture`. Instead of plotting against AUC of ROC, the hyperparameters are plotted against each other, and the color represents the AUC of ROC. The best AUC of ROC are the more purple colors. The plot shows that the best AUC of ROC is achieved with a penalty close to zero.
+For the ENet models, two parameters are tuned: `penalty` and `mixture`. Instead of plotting against AUC, the hyperparameters are plotted against each other, and the color represents the AUC. The best AUC are the more purple colors. The plot shows that the best AUC is achieved with a penalty close to zero.
 
 ```{r}
 stand_log_plot <- grid_results |>
@@ -430,11 +430,11 @@ stand_log_plot <- grid_results |>
   labs(title = "Standard Preprocessing, Elastic Net",
        x = "Penalty",
        y = "Mixture",
-       col = "AUC of ROC")
+       col = "AUC")
 stand_log_plot
 ```
 
-To better see the effect of the hyperparameters on the AUC of ROC, the x-axis is limited as the higher values are observed close to $penalty = 0$.
+To better see the effect of the hyperparameters on the AUC, the x-axis is limited as the higher values are observed close to $penalty = 0$.
 
 ```{r}
 p <- stand_log_plot +
@@ -494,7 +494,7 @@ pca_log_ridge_mixture <- 0
 
 ### PCA Preprocessing, Elastic Net
 
-Again, the hyperparameter values are plotted against each other, and the colour signifies the AUC of ROC. The best AUC of ROC are the more purple colors.
+Again, the hyperparameter values are plotted against each other, and the colour signifies the AUC. The best AUC are the more purple colors.
 
 ```{r}
 pca_log_plot <- grid_results |>
@@ -509,11 +509,11 @@ pca_log_plot <- grid_results |>
   labs(title = "PCA Preprocessing, Elastic Net",
        x = "Penalty",
        y = "Mixture",
-       col = "AUC of ROC")
+       col = "AUC")
 pca_log_plot
 ```
 
-To better see the effect of the hyperparameters on the AUC of ROC, the x-axis is limited as the higher values are observed close to $penalty = 0$.
+To better see the effect of the hyperparameters on the AUC, the x-axis is limited as the higher values are observed close to $penalty = 0$.
 
 ```{r}
 p <- pca_log_plot +
