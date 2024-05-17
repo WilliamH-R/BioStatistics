@@ -514,7 +514,7 @@ pca_count_matrix |>
         axis.ticks.x = element_blank())
 ```
 
-A cummulative plot over the PCs can be used to determine how many PCs are needed to explain the data. The green dashed line is set at 70% of the variance explained, and the red dashed line is set at the 49h PC. The plot then shows that 49 PCs are needed to explain 70% of the variance.
+A cummulative plot over the PCs can be used to determine how many PCs are needed to explain the data. The green dashed line is set at 70% of the variance explained, and the red dashed line is set at the 49th PC. The plot then shows that 49 PCs are needed to explain 70% of the variance.
 
 ```{r}
 pca_count_matrix |>

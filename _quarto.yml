@@ -23,7 +23,11 @@ book:
         - stat04_OLS.qmd
         - stat05_log_reg.qmd
         - stat06_enet.qmd
-        - stat07_pca.qmd
+        - stat07_bias_var.qmd
+        
+    - part: pre00_intro.qmd
+        - pre01_pca.qmd
+        - pre02_umap.qmd
         
     - part: apply00_intro.qmd
       chapters:
