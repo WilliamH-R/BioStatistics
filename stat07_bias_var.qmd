@@ -23,10 +23,6 @@ X <- seq(0, 10, length.out = 100)
 y_poly <- sin(X) + rnorm(100, 0, 0.3)
 df_poly <- tibble(X = X,
                   y = y_poly)
-
-y_lin <- 2*X + rnorm(100, 0, 1)
-df_lin <- tibble(X = X,
-                 y = y_lin)
 ```
 
 Helper functions.
@@ -34,66 +30,6 @@ Helper functions.
 #| output: FALSE
 #| code-fold: true
 #| code-summary: "Show the code"
-
-# Function for creating linear fits with different regularizations
-create_lin_pred <- function(data,
-                            penalty) {
-  # Resample the data to simulate different training sets
-  df_sample <- data |>
-    sample_frac(1,
-                replace = TRUE)
-  print(df_sample)
-  
-  ridge_spec <- linear_reg(mixture = 0,
-                           penalty = penalty) |>
-    set_engine("glmnet") |>
-    set_mode("regression")
-  
-  ridge_recipe <- recipe(y ~ X,
-                         data = data)
-  
-  ridge_workflow <- workflow() |>
-    add_model(ridge_spec) |>
-    add_recipe(ridge_recipe)
-  
-  ridge_fit <- ridge_workflow |>
-    fit(data = df_sample)
-  
-  ridge_pred <- data |>
-    mutate(y_pred = predict(ridge_fit, new_data = data)$.pred)
-}
-
-# Function to plot the model with multiple lin fits
-plot_multiple_lin_models <- function(data,
-                                     penalty,
-                                     n_models) {
-  p <- ggplot(data,
-              aes(x = X,
-                  y = y)) +
-    geom_point(color = "steelblue") +
-    geom_abline(slope = 2,
-                intercept = 0,
-                color = "black") +
-    labs(title = stringr::str_c("Linear Fit with Penalty ", penalty),
-         x = "X",
-         y = "y")
-  
-  for (i in 1:n_models) {
-    
-    df_pred_lin <- data |>
-      create_lin_pred(penalty = penalty)
-    
-    p <- p +
-      geom_line(data = df_pred_lin,
-                aes(x = X,
-                    y = y_pred),
-                alpha = 0.3,
-                color = "red")
-  }
-  
-  return(p)
-}
-
 
 # Function for creating polynomial fits of different degrees
 create_poly_pred <- function(data,
@@ -164,6 +100,60 @@ The bias of a model is measured by how close the predictions for different train
 The variance of a model is measured by how much the predictions vary for different training sets, i.e. how much the model simply just memorizes the training data and fits too closely to the data points. A model with low variance makes similar predictions for different training sets, whereas a model with high variance makes different predictions for different training sets. High variance usually occurs when a model is too complex and fits the noise of the data. A polynomial model of high degree is an example of a model with high variance, as it models tightly to the data points. A low variance model generalizes well to new data, as it makes similar predictions for different training sets, but it tends to make incorrect predictions, i.e. have high bias.
 
 Models with low bias (precise on average) tends to have high variance (inconsistent across training sets) and vice versa. An optimal model has a both low bias and variance, but since it is difficult to obtain, a good balance between bias and variance is usually sought. This is called the Bias-Variance Tradeoff.
+
+Ridge Regression is a good example of the Bias-Variance Tradeoff. When the penalty is set to 0, the Ridge model is the OLS solution. Assuming that there is a linear relationship between the variables and the outcome, the OLS model has low bias as it on average makes predictions close to the true values. However, the OLS model has high variance as it is sensitive to the noise in the data. By applying Ridge penalty, the coefficients of the model is reduced, and is thereby less sensitive to the noise in the data - a lower chance of overfitting and lower variance. Meanwhile, it also forces the model to fit the data less closely, which increases the bias of the model.
+
+A detail which proves difficult to understand, is that an obtained data set, e.g. the `iris` data set is in itself a sample from some total population. It is not feasible to measure all `iris` flowers, and as such the true relationship between the features and the target is unknown. Therefore, the bias and variance of a model is not directly measurable, as it is not possible to compare the predictions of the model to the true values. Instead, it is assumed that the obtained data set is a good representation of the total population, i.e. they have similar distributions. Bias and variance is estimated by fitting a model multiple times to different training sets, but only one data set is available. Cross-validation is a method to estimate the bias and variance of a model, as it simulates different training sets by splitting the data set into multiple training and validation sets, again assuming each fold is a good representation of the total population. Another method is the Bootstrap method which is applied in the below examples. A Bootstrap sample is a sample drawn with replacement from the original data set. Usually, the sample drawn is of the same size as the total data set. With replacement means that the same observation can be drawn multiple times, which is how the Bootstrap method simulates different training sets. 
+
+To exemplify what is meant by the Bootstrap method, a sample of 10 numbers is drawn from the numbers 1 to 10. The sample is drawn with replacement, meaning that the same number can be drawn multiple times:
+
+```{r}
+sample_10 <- tibble(1:10)
+sample_frac(sample_10,
+            1,
+            replace = TRUE)
+```
+
+To visualize the Bootstrap method, 10000 samples are drawn from a normal distribution with mean 0 and standard deviation 0, and plotted. The histogram is expected to follow the known bell shape of the normal distribution:
+
+```{r}
+samples_10k <- rnorm(10000) |> 
+  as_tibble()
+
+samples_10k |>
+  ggplot(aes(x = value)) +
+  geom_histogram(bins = 50,
+                 fill = "steelblue") +
+  labs(title = "Bootstrap Sample",
+       x = "Value",
+       y = "Frequency")
+```
+
+Bootstrapping the samples should result in a similar distribution, but contains different values, i,e. different data sets but drawn from the same distribution:
+
+```{r}
+# Bootstrap sample
+bootstrap_10k <- samples_10k |> 
+  sample_frac(1,
+              replace = TRUE)
+
+
+bootstrap_10k |>
+  ggplot(aes(x = value)) +
+  geom_histogram(bins = 50,
+                 fill = "steelblue") +
+  labs(title = "Bootstrap Sample",
+       x = "Value",
+       y = "Frequency")
+```
+
+
+
+
+To visualize the terms, a data set has been randomly generated with a sine function and some noise. Polynomials of different degrees are then fitted to the data. For properly visualizing the terms, multiple models have to bit fit on data from the same distribution. Therefore, the data set is resampled multiple times to simulate different training sets.
+
+
+The data set is then fitted with polynomial models of different degrees. The models are then plotted to show the relationship between bias and variance.
 
 
 Plot random data.
