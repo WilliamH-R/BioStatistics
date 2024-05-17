@@ -1,0 +1,194 @@
+Set seed and load packages.
+```{r}
+#| output: FALSE
+#| code-fold: true
+#| code-summary: "Show the code"
+
+set.seed(1337)
+
+library("tidymodels")
+tidymodels::tidymodels_prefer()
+library("patchwork")
+```
+
+Load data.
+```{r}
+#| output: FALSE
+#| code-fold: true
+#| code-summary: "Show the code"
+
+# Generate random data
+X <- seq(0, 10, length.out = 100)
+
+y_poly <- sin(X) + rnorm(100, 0, 0.3)
+df_poly <- tibble(X = X,
+                  y = y_poly)
+
+y_lin <- 2*X + rnorm(100, 0, 1)
+df_lin <- tibble(X = X,
+                 y = y_lin)
+```
+
+Helper functions.
+```{r}
+#| output: FALSE
+#| code-fold: true
+#| code-summary: "Show the code"
+
+# Function for creating linear fits with different regularizations
+create_lin_pred <- function(data,
+                            penalty) {
+  # Resample the data to simulate different training sets
+  df_sample <- data |>
+    sample_frac(1,
+                replace = TRUE)
+  print(df_sample)
+  
+  ridge_spec <- linear_reg(mixture = 0,
+                           penalty = penalty) |>
+    set_engine("glmnet") |>
+    set_mode("regression")
+  
+  ridge_recipe <- recipe(y ~ X,
+                         data = data)
+  
+  ridge_workflow <- workflow() |>
+    add_model(ridge_spec) |>
+    add_recipe(ridge_recipe)
+  
+  ridge_fit <- ridge_workflow |>
+    fit(data = df_sample)
+  
+  ridge_pred <- data |>
+    mutate(y_pred = predict(ridge_fit, new_data = data)$.pred)
+}
+
+# Function to plot the model with multiple lin fits
+plot_multiple_lin_models <- function(data,
+                                     penalty,
+                                     n_models) {
+  p <- ggplot(data,
+              aes(x = X,
+                  y = y)) +
+    geom_point(color = "steelblue") +
+    geom_abline(slope = 2,
+                intercept = 0,
+                color = "black") +
+    labs(title = stringr::str_c("Linear Fit with Penalty ", penalty),
+         x = "X",
+         y = "y")
+  
+  for (i in 1:n_models) {
+    
+    df_pred_lin <- data |>
+      create_lin_pred(penalty = penalty)
+    
+    p <- p +
+      geom_line(data = df_pred_lin,
+                aes(x = X,
+                    y = y_pred),
+                alpha = 0.3,
+                color = "red")
+  }
+  
+  return(p)
+}
+
+
+# Function for creating polynomial fits of different degrees
+create_poly_pred <- function(data,
+                             degree) {
+  # Resample the data to simulate different training sets
+  df_sample <- data |>
+    sample_frac(1,
+                replace = TRUE)
+    
+  poly_spec <- linear_reg() |>
+    set_engine("lm") |>
+    set_mode("regression")
+  
+  poly_recipe <- recipe(y ~ X,
+                        data = data) |>
+    step_poly(X,
+              degree = degree)
+  
+  poly_workflow <- workflow() |>
+    add_model(poly_spec) |>
+    add_recipe(poly_recipe)
+  
+  poly_fit <- poly_workflow |>
+    fit(data = df_sample)
+  
+  poly_pred <- data |>
+    mutate(y_pred = predict(poly_fit, new_data = data)$.pred)
+  
+  return(poly_pred)
+}
+
+# Function to plot the model with multiple poly fits
+plot_multiple_poly_models <- function(data,
+                                      degree,
+                                      n_models) {
+  p <- ggplot(data,
+              aes(x = X,
+                  y = y)) +
+    geom_point(color = "steelblue") +
+    stat_function(fun = sin,
+                  color = "black") +
+    labs(title = stringr::str_c("Polynomial Degree ", degree, " with Multiple Fit Models"),
+         x = "X",
+         y = "y") +
+    lims(y = c(-2, 2))
+  
+  for (i in 1:n_models) {
+    
+    df_pred_poly <- data |>
+      create_poly_pred(degree = degree)
+    
+    p <- p + geom_line(data = df_pred_poly,
+                       aes(y = y_pred),
+                       alpha = 0.3,
+                       color = "red")
+  }
+  
+  return(p)
+}
+```
+
+# Bias and Variance
+
+In supervised machine learning, the ultimate goal is usually to create models which can predict outcome of unseen data. This is the ability of a model to generalize well to new data and is measured by the Generalization Error. The ability to generalize can be decomposed into the balance between bias and variance of a model. Therefore, understanding bias and variance is crucial in machine learning because it helps in developing models that generalize well to new data.
+
+The bias of a model is measured by how close the predictions for different training sets are to the true values. A model with low bias make predictions close to the true values, whereas a model with high bias make predictions that are far from the true values. High bias usually occurs when a model is too simple, and cannot capture the underlying complex structure of the data. For example, a linear model will have high bias when the true relationship between the features and the target is non-linear. Opposite, low bias occurs when a model is complex enough to capture the underlying structure of the data, but can also occur when the model is too complex and overfits the data. To measure whether the model has overfit, the variance is introduced.
+
+The variance of a model is measured by how much the predictions vary for different training sets, i.e. how much the model simply just memorizes the training data and fits too closely to the data points. A model with low variance makes similar predictions for different training sets, whereas a model with high variance makes different predictions for different training sets. High variance usually occurs when a model is too complex and fits the noise of the data. A polynomial model of high degree is an example of a model with high variance, as it models tightly to the data points. A low variance model generalizes well to new data, as it makes similar predictions for different training sets, but it tends to make incorrect predictions, i.e. have high bias.
+
+Models with low bias (precise on average) tends to have high variance (inconsistent across training sets) and vice versa. An optimal model has a both low bias and variance, but since it is difficult to obtain, a good balance between bias and variance is usually sought. This is called the Bias-Variance Tradeoff.
+
+
+Plot random data.
+
+```{r}
+ggplot(df_poly, aes(x = X, y = y)) +
+  geom_point(color = "steelblue") +
+  labs(title = "Generated Data",
+       x = "X",
+       y = "y")
+```
+
+```{r}
+#| warning: false
+df_poly |> 
+  plot_multiple_poly_models(degree = 20,
+                            n_models = 10)
+```
+
+
+```{r}
+#| warning: false
+df_poly |> 
+  plot_multiple_poly_models(degree = 4,
+                            n_models = 10)
+```
+
+
