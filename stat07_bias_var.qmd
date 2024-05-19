@@ -17,7 +17,6 @@ Load data.
 #| code-fold: true
 #| code-summary: "Show the code"
 
-# Generate random data
 X <- seq(0, 10, length.out = 100)
 
 y_poly <- sin(X) + rnorm(100, 0, 0.4)
@@ -31,10 +30,9 @@ Helper functions.
 #| code-fold: true
 #| code-summary: "Show the code"
 
-# Function for creating polynomial fits of different degrees
 create_poly_pred <- function(data,
                              degree) {
-  # Resample the data to simulate different training sets
+
   df_sample <- data |>
     sample_frac(1,
                 replace = TRUE)
@@ -61,7 +59,6 @@ create_poly_pred <- function(data,
   return(poly_pred)
 }
 
-# Function to plot the model with multiple poly fits
 plot_multiple_poly_models <- function(data,
                                       degree,
                                       n_models) {
