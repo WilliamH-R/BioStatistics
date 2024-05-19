@@ -20,7 +20,7 @@ Load data.
 # Generate random data
 X <- seq(0, 10, length.out = 100)
 
-y_poly <- sin(X) + rnorm(100, 0, 0.3)
+y_poly <- sin(X) + rnorm(100, 0, 0.4)
 df_poly <- tibble(X = X,
                   y = y_poly)
 ```
@@ -68,12 +68,13 @@ plot_multiple_poly_models <- function(data,
   p <- ggplot(data,
               aes(x = X,
                   y = y)) +
-    geom_point(color = "steelblue") +
+    geom_point(aes(color = "Data points")) +
     stat_function(fun = sin,
-                  color = "black") +
-    labs(title = stringr::str_c("Polynomial Degree ", degree, " with Multiple Fit Models"),
+                  aes(color = "True sine function")) +
+    labs(title = stringr::str_c("Polynomial Degree ", degree, " with Multiple Fits"),
          x = "X",
-         y = "y") +
+         y = "y",
+         color = "Legend") +
     lims(y = c(-2, 2))
   
   for (i in 1:n_models) {
@@ -82,10 +83,14 @@ plot_multiple_poly_models <- function(data,
       create_poly_pred(degree = degree)
     
     p <- p + geom_line(data = df_pred_poly,
-                       aes(y = y_pred),
-                       alpha = 0.3,
-                       color = "red")
+                       aes(y = y_pred,
+                           color = "Polynomial"),
+                       alpha = 0.3)
   }
+  
+  p <- p + scale_color_manual(values = c("Data points" = "steelblue",
+                                         "True sine function" = "black",
+                                         "Polynomial" = "red"))
   
   return(p)
 }
@@ -103,7 +108,7 @@ Models with low bias (precise on average) tends to have high variance (inconsist
 
 Ridge Regression is a good example of the Bias-Variance Tradeoff. When the penalty is set to 0, the Ridge model is the OLS solution. Assuming that there is a linear relationship between the variables and the outcome, the OLS model has low bias as it on average makes predictions close to the true values. However, the OLS model has high variance as it is sensitive to the noise in the data. By applying Ridge penalty, the coefficients of the model is reduced, and is thereby less sensitive to the noise in the data - a lower chance of overfitting and lower variance. Meanwhile, it also forces the model to fit the data less closely, which increases the bias of the model.
 
-A detail which proves difficult to understand, is that an obtained data set, e.g. the `iris` data set is in itself a sample from some total population. It is not feasible to measure all `iris` flowers, and as such the true relationship between the features and the target is unknown. Therefore, the bias and variance of a model is not directly measurable, as it is not possible to compare the predictions of the model to the true values. Instead, it is assumed that the obtained data set is a good representation of the total population, i.e. they have similar distributions. Bias and variance is estimated by fitting a model multiple times to different training sets, but only one data set is available. Cross-validation is a method to estimate the bias and variance of a model, as it simulates different training sets by splitting the data set into multiple training and validation sets, again assuming each fold is a good representation of the total population. Another method is the Bootstrap method which is applied in the below examples. A Bootstrap sample is a sample drawn with replacement from the original data set. Usually, the sample drawn is of the same size as the total data set. With replacement means that the same observation can be drawn multiple times, which is how the Bootstrap method simulates different training sets. 
+A detail which proves difficult to understand, is that an obtained data set, e.g. the `iris` data set is in itself a sample from some total population. It is not feasible to measure all `iris` flowers, and as such the true relationship between the features and the target is unknown. Therefore, the bias and variance of a model is not directly measurable, as it is not possible to compare the predictions of the model to the true values. Instead, it is assumed that the obtained data set is a good representation of the total population, i.e. they have similar distributions. Bias and variance is estimated by fitting a model multiple times to different training sets, but only one data set is available. Cross-validation is a method to estimate the bias and variance of a model, as it simulates different training sets by splitting the data set into multiple training and validation sets, again assuming each fold is a good representation of the total population. Another method is the Bootstrap method which is applied in the below examples. A Bootstrap sample is a sample drawn with replacement from the original data set. Usually, the sample drawn is of the same size as the total data set. With replacement means that the same observation can be drawn multiple times, which is how the Bootstrap samples differs from the original data set. 
 
 To exemplify what is meant by the Bootstrap method, a sample of 10 numbers is drawn from the numbers 1 to 10. The sample is drawn with replacement, meaning that the same number can be drawn multiple times:
 
@@ -114,7 +119,7 @@ sample_frac(sample_10,
             replace = TRUE)
 ```
 
-To visualize the Bootstrap method, 10000 samples are drawn from a normal distribution with mean 0 and standard deviation 0, and plotted. The histogram is expected to follow the known bell shape of the normal distribution:
+To visualize the Bootstrap method, 10000 samples are drawn from a normal distribution with mean 0 and standard deviation 1, and plotted. The histogram is expected to follow the known bell shape of the normal distribution:
 
 ```{r}
 samples_10k <- rnorm(10000) |> 
@@ -124,9 +129,9 @@ samples_10k |>
   ggplot(aes(x = value)) +
   geom_histogram(bins = 50,
                  fill = "steelblue") +
-  labs(title = "Bootstrap Sample",
+  labs(title = "Normal Distribution",
        x = "Value",
-       y = "Frequency")
+       y = "Count")
 ```
 
 Bootstrapping the samples should result in a similar distribution, but contains different values, i,e. different data sets but drawn from the same distribution:
@@ -144,35 +149,48 @@ bootstrap_10k |>
                  fill = "steelblue") +
   labs(title = "Bootstrap Sample",
        x = "Value",
-       y = "Frequency")
+       y = "Count")
 ```
 
+To visualize the meaning of bias and variance, a data set has been randomly generated with a sine function and some noise (random jitter). Polynomials of different degrees are then fitted to the data. For properly visualizing the terms, multiple models have to bit fit on data from the same distribution. Therefore, the data set is resampled with the Bootstrap method to simulate different training sets.
+
+The expectation is, that a polynomial of low degree makes a bad prediction, but is consistent across different training sets, i.e. high bias and low variance. A polynomial of high degree makes a good prediction, but is inconsistent across different training sets, i.e. low bias and high variance. The optimal model is a polynomial of moderate degree, which makes good predictions and is consistent across different training sets.
 
 
-
-To visualize the terms, a data set has been randomly generated with a sine function and some noise. Polynomials of different degrees are then fitted to the data. For properly visualizing the terms, multiple models have to bit fit on data from the same distribution. Therefore, the data set is resampled multiple times to simulate different training sets.
-
-
-The data set is then fitted with polynomial models of different degrees. The models are then plotted to show the relationship between bias and variance.
-
-
-Plot random data.
+The data generated show clear signs of following a sine function, but with some noise. The black line is the true sine function, and the blue points are the generated data.
 
 ```{r}
 ggplot(df_poly, aes(x = X, y = y)) +
-  geom_point(color = "steelblue") +
+  geom_point(aes(color = "Data points")) +
+  stat_function(aes(color = "True sine function"),
+                fun = sin) +
   labs(title = "Generated Data",
        x = "X",
-       y = "y")
+       y = "y",
+       color = "Legend") +
+  scale_color_manual(values = c("Data points" = "steelblue",
+                                "True sine function" = "black"))
 ```
+
+A polynomial of degree 1 (a linear prediction), obviously do not capture the complexity of the data, but is consistent across different training sets, i.e. high bias and low variance.
+
+```{r}
+#| warning: false
+df_poly |> 
+  plot_multiple_poly_models(degree = 1,
+                            n_models = 30)
+```
+
+A polynomial of degree 20 captures the complexity of the data, but also models the noise which was added, but the average of the models are close to the true sine function. The model is overfitting the data, thereby creating variance between different Bootstrap samples, i.e. low bias and high variance.
 
 ```{r}
 #| warning: false
 df_poly |> 
   plot_multiple_poly_models(degree = 20,
-                            n_models = 10)
+                            n_models = 30)
 ```
 
+A polynomial of degree 4 captures the complexity of the data without fitting too tightly to the noise. The average of the models are close to the true sine function, and the models are consistent across different training sets, i.e. low bias and low variance. Hence, it is the optimal model out of degree 1, 20 and 4.
 
 ```{r}
 #| warning: false

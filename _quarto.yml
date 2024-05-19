@@ -26,6 +26,7 @@ book:
         - stat07_bias_var.qmd
         
     - part: pre00_intro.qmd
+      chapters:
         - pre01_pca.qmd
         - pre02_umap.qmd
         

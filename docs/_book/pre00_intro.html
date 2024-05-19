@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>BioStatistics - Tidy Modelling with R</title>
+<title>BioStatistics - Preprocessing of Data</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -30,8 +30,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./tidy01_intro_package.html" rel="next">
-<link href="./index.html" rel="prev">
+<link href="./pre01_pca.html" rel="next">
+<link href="./stat07_bias_var.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -81,7 +81,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./tidy00_book_intro.html">Tidy Modelling with R</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./pre00_intro.html">Preprocessing of Data</a></li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -114,7 +114,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="./tidy00_book_intro.html" class="sidebar-item-text sidebar-link active">
+            <a href="./tidy00_book_intro.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Tidy Modelling with R</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -196,7 +196,7 @@ ul.task-list li input[type="checkbox"] {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="./pre00_intro.html" class="sidebar-item-text sidebar-link">
+            <a href="./pre00_intro.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Preprocessing of Data</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -253,7 +253,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Tidy Modelling with R</h1>
+<h1 class="title">Preprocessing of Data</h1>
 </div>
 
 
@@ -270,7 +270,16 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>R is already a great tool for data analysis and visualization. However, when it comes to building and evaluating models, it can be a bit cumbersome. Different packages have different syntax and conventions, which can make it difficult to switch between them. The <code>tidymodels</code> package aims to solve this problem by providing a consistent and easy-to-use interface for building and evaluating models. The <code>tidymodels</code> package is a collection of packages that work together to make the process of building and evaluating models easier and more consistent. It works excellently as an extension to <code>tidyverse</code> by using the same methodology and syntax. In this chapter, the principles of the <code>tidymodels</code> package is introduced as well as how to create, evaluate, and tune many models at a time.</p>
+<p>It is rarely seen that data is ready for analysis as soon as it is collected. Data preprocessing is a crucial step in the modeling process. It involves cleaning, transforming, and encoding data to optimize it for further analysis. There is no one-step process to data preprocessing. It is an iterative process that involves multiple steps, and is highly dependent on the model you are building, the data you are working with and the objective you are trying to achieve.</p>
+<p>Some issues that often needs to be addressed during data preprocessing are missing values, outliers, scaling and encoding categorical data, whereas some other issues are more specific to the model you are building, such as dimensionality reduction and data augmentation.</p>
+<p><strong>Missing data:</strong> The absence of a value in a variable is a common issue, and could arise from various reasons such as malfunction in measurement equipment or respondents not answering a question. Many models cannot handle missing data, and it is important to address this issue before proceeding with the analysis. One way would be to remove rows or columns with missing values, but this could lead to loss of valuable information. Otherwise, the missing values could be imputed with e.g.&nbsp;the mean.</p>
+<p><strong>Outliers:</strong> Outliers are values that are somehow different from the rest of the data. It can be discussed if some value is an outlier or just an extreme value. Outliers are usually values that should not be able to occur, and would therefore have a negative impact on the model. It is important to identify and remove outliers before proceeding with the analysis.</p>
+<p><strong>Data Transformation:</strong> For some data sets, the data could be skewed, which means that the data is not normally distributed, but some models assume that the data is normally distributed. A solution could be to take the logarithm or square root of the data. In the field of metagenomics, data is usually compositional, which means that the data is in the form of proportions, and the sum of the data is constant. To move the data from the simplex to the Euclidean space, the data could be transformed with the centered log-ratio transformation.</p>
+<p><strong>Scaling:</strong> Many machine learning models are sensitive to the scale of the data. For example, Principal Component Analysis finds variance along axis, and if the values along the x-axis are much larger than the values along the y-axis, the variance will be dominated by the x-axis which is showcased in the chapter on the topic. This could lead to misleading results. It is therefore important to scale the data before applying such models. A common way to scale is by standardizing, which means that the data is transformed to have a mean of 0 and a standard deviation of 1. This is achieved by subtracting the mean and dividing by the standard deviation.</p>
+<p><strong>Encode categorical data:</strong> Categorical data could easily be string values, and many models cannot handle this. The issue is solved by encoding the data, e.g.&nbsp;with one-hot encoding. A categorical value with <code>k</code> categories is transformed into <code>k</code> binary variables, where one of them is 1 and the others are 0.</p>
+<p><strong>Dimensionality reduction:</strong> Data of high dimensionality, usually with more variables than observations can impose challenges for the analysis. Some models simply do not work with high-dimensional data such as OLS, whereas others could be computationally expensive or lead to overfitting. The more features, the more observations are needed to fill out the feature space. Dimensionality reduction is a way to reduce the number of features in the data, while still preserving the most important information. Principal Component Analysis and Uniform Manifold Approximation and Projection are common methods for dimensionality reduction. A simple feature selection also results in dimensionality reduction. All solution would also improve the computational costs.</p>
+<p><strong>Data Augmentation:</strong> When working with small data sets, the model could be overfitting. Data augmentation is used to increase the size of the data set by creating new data points from the existing data. When working with image data, the data set could be increased by rotating, flipping, or zooming the images. This is done to increase the size of the data set, which could lead to a more robust model.</p>
+<p>In the final chapter of this book, the disease status of individuals is predicted based on their gut microbiota. Such data is usually high-dimensional, and some of the data preprocessing steps mentioned above are crucial to obtain a good model. There is usually no missing values, as all data is generated from a computational pipeline, but the data is compositional and needs to be transformed. The data is also high-dimensional, and dimensionality reduction techniques are used to extract the important information from the data. Hence, the next chapters is on different dimensionality reduction techniques which are also available in the <code>tidymodels</code> package.</p>
 
 
 
@@ -664,13 +673,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./index.html" class="pagination-link" aria-label="Preface">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Preface</span>
+      <a href="./stat07_bias_var.html" class="pagination-link" aria-label="Generate random data">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Generate random data</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./tidy01_intro_package.html" class="pagination-link" aria-label="Introduction to Tidy Modelling">
-        <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction to Tidy Modelling</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./pre01_pca.html" class="pagination-link" aria-label="Principal Component Analysis">
+        <span class="nav-page-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Principal Component Analysis</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
