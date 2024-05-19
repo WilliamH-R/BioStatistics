@@ -77,3 +77,9 @@ wilcox.test(Shannon ~ Patient_status,
             data = shannon |> filter(Sex == "male")) |> 
   broom::tidy()
 ```
+
+# Session Info
+
+```{r}
+sessioninfo::session_info()
+```

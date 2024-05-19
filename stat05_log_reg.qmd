@@ -110,3 +110,9 @@ iris_prob_plot +
               method.args = list(family = "binomial"),
               se = FALSE)
 ```
+
+# Session Info
+
+```{r}
+sessioninfo::session_info()
+```

@@ -589,3 +589,8 @@ roc_auc_results_manual |>
   scale_color_viridis_d()
 ```
 
+# Session Info
+
+```{r}
+sessioninfo::session_info()
+```

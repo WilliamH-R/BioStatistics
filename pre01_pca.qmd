@@ -559,3 +559,8 @@ pca_count_matrix |>
        colour = "Patient Status")
 ```
 
+# Session Info
+
+```{r}
+sessioninfo::session_info()
+```

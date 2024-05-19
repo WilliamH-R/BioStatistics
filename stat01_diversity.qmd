@@ -256,3 +256,9 @@ $$
 The value indicates that the blue and red samples are quite similar.
 
 The method is divided into two different types, unweighted and weighted. It is the unweighted method which is described above. The weighted method takes the abundance of the organisms into account. The weighted method biases towards the most abundant organisms, while the unweighted method biases more towards the rare organisms. A third version exists, called Generalized UniFrac. This metric has another parameter, usually called $\alpha$, which can be used to control the balance between the unweighted and weighted methods.
+
+# Session Info
+
+```{r}
+sessioninfo::session_info()
+```

@@ -36,3 +36,9 @@ Microbiome data is inherently compositional, meaning that the sum of all genera 
 count_matrix_clr <- readr::read_rds("https://github.com/WilliamH-R/BioStatistics/raw/main/data/count_matrix/count_matrix_clr.rds")
 count_matrix_clr
 ```
+
+# Session Info
+
+```{r}
+sessioninfo::session_info()
+```

@@ -75,3 +75,9 @@ As mentioned in the above, the $\beta$s can be found by taking the derivative of
 $$
 \nabla_\beta||y-X\beta||_{2}^{2} = 0
 $$
+
+# Session Info
+
+```{r}
+sessioninfo::session_info()
+```

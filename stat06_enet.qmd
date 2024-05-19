@@ -352,3 +352,9 @@ enet_grid_results |>
 ```
 
 For 100 different combinations of `penalty` and `mixture`, the best combinations have a value for `mixture` close to 1 suggesting the Lasso term is more important than the Ridge term.
+
+# Session Info
+
+```{r}
+sessioninfo::session_info()
+```

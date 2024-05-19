@@ -150,3 +150,9 @@ lg_models |>
             linewidth = 1.25) + 
   theme(legend.position = "none")
 ```
+
+# Session Info
+
+```{r}
+sessioninfo::session_info()
+```

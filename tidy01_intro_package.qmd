@@ -101,12 +101,8 @@ iris_test |>
                     new_data = iris_test))
 ```
 
+# Session Info
 
-
-
-
-
-
-
-
-
+```{r}
+sessioninfo::session_info()
+```

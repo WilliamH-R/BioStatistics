@@ -136,3 +136,9 @@ final_knn_fit <- final_knn_wflow |>
   fit(iris)
 final_knn_fit
 ```
+
+# Session Info
+
+```{r}
+sessioninfo::session_info()
+```
