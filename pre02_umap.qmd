@@ -8,6 +8,7 @@ set.seed(1337)
 
 library("tidymodels")
 tidymodels::tidymodels_prefer()
+library("umap")
 ```
 
 Load data.
@@ -43,6 +44,65 @@ meta <- read.csv(file = "data/metadata.txt") |>
 
 # Uniform Manifold Approximation and Projection
 
+```{r}
+iris.data <- iris[, grep("Sepal|Petal", colnames(iris))]
+iris.labels <- iris[, "Species"] |> 
+  as_tibble()
+
+iris.umap <- umap(iris.data)
+
+
+iris.umap.plot <- iris.umap$layout |>
+  as_tibble() |>
+  bind_cols(iris.labels)
+
+iris.umap.plot |> 
+  ggplot(aes(x = V1,
+             y = V2,
+             col = value)) +
+  geom_point()
+```
+
+```{r}
+count_matrix_umap <- count_matrix_clr |>
+  tibble::column_to_rownames(var = "Sample") |>
+  umap()
+
+count_matrix_umap$layout |> 
+  as_tibble(rownames = "Sample") |> 
+  left_join(meta |> select(Sample, Patient_status),
+            by = "Sample") |>
+  ggplot(aes(x = V1,
+             y = V2,
+             col = Patient_status)) +
+  geom_point()
+```
+
+
+```{r}
+count_matrix_pca_umap <- count_matrix_clr |> 
+  column_to_rownames(var = "Sample") |>
+  prcomp(center = TRUE,
+         scale = TRUE) |>
+  tidy(matrix = "x") |> 
+  pivot_wider(names_from = "PC",
+              names_prefix = "PC",
+              values_from = "value") |> 
+  rename(Sample = row) |>
+  tibble::column_to_rownames(var = "Sample") |>
+  select(1:7) |>
+  umap()
+
+count_matrix_pca_umap$layout |> 
+  as_tibble(rownames = "Sample") |> 
+  left_join(meta |> select(Sample, Patient_status),
+            by = "Sample") |>
+  ggplot(aes(x = V1,
+             y = V2,
+             col = Patient_status)) +
+  geom_point()
+
+```
 
 
 
