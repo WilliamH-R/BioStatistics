@@ -8,7 +8,6 @@ set.seed(1337)
 
 library("tidymodels")
 tidymodels::tidymodels_prefer()
-library("patchwork")
 ```
 
 Load data.
