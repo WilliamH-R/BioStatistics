@@ -23,7 +23,8 @@ book:
         - stat04_OLS.qmd
         - stat05_log_reg.qmd
         - stat06_enet.qmd
-        - stat07_bias_var.qmd
+        - stat07_svm.qmd
+        - stat08_bias_var.qmd
         
     - part: pre00_intro.qmd
       chapters:

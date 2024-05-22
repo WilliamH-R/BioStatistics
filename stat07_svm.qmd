@@ -1,0 +1,114 @@
+Set seed and load packages.
+```{r}
+#| output: FALSE
+#| code-fold: true
+#| code-summary: "Show the code"
+
+set.seed(1337)
+
+library("tidymodels")
+tidymodels::tidymodels_prefer()
+```
+
+Load data.
+```{r}
+#| output: FALSE
+#| code-fold: true
+#| code-summary: "Show the code"
+
+data("iris")
+iris <- iris |>
+  tibble::as_tibble()
+```
+
+# Support Vector Machines
+
+The previously introduced Logistic Regression works through probabilities whereas Support Vector Machines (SVMs) have a different approach. If two classes are linearly separable, a linear boundary can be placed between them. The boundary is placed in the middle between the classes and the distance between the boundary and the classes is maximized, called the margin. SVMs are different from an ordinary separating hyperplane in that it allows for some misclassification, which is called a soft margin.
+
+The models previously introduced are all linear models, i.e. they find a linear boundary between classes to make classifiers. Cases where data is not linearly separable then becomes a problem, as the models performs suboptimally. In its own right, SVMs are linear models, but by applying data transformations, the model can find a non-linear boundary between classes which is achieved through the Kernel Trick introduced later.
+
+For exemplifying, the `iris` data is once again used where the two below classes are perfectly linearly separable. SVM finds a line in the exact middle of the two classes such that the margin is maximized. The margin is the distance between the boundary and the nearest observation in each class. The observations on the margin and within (introduced later) the margin are called support vectors. Below, the blue line is the optimal separating hyperplane (OSH), the green lines are parallel to the OSH but placed on top of the support vectors. The distance between the green lines, indicated by the red line, is the margin. By maximizing that margin, SVM finds the optimal boundary between the classes.
+
+```{r}
+#| warning: false
+iris |>
+  filter(Species != "versicolor") |> 
+  ggplot(aes(x = Sepal.Width,
+             y = Petal.Width,
+             color = Species)) +
+  geom_point() +
+  geom_abline(intercept = 0.1,
+              slope = 0.5,
+              color = "green") +
+  geom_abline(intercept = -0.35,
+              slope = 0.5,
+              color = "blue") +
+  geom_abline(intercept = -0.83,
+              slope = 0.5,
+              color = "green") +
+  geom_segment(aes(x = 3.5,
+                   y = 1.85,
+                   xend = 3.75,
+                   yend = 1.04),
+               color = "red")
+```
+A linear function is often described as $y = ax + b$ where $a$ is the slope and $b$ is the intercept. A more versatile form of the linear function is:
+
+$$
+y = -\frac{A}{B}x - \frac{C}{B} \rightarrow Ax + By + C = 0
+$$
+
+As can be seen, $a = -\frac{A}{B}$ and $b = -\frac{C}{B}$. $A$ is the slope, $C$ is the intercept and $B$ is a scaling factor. The equation $Ax + By + C = 0$ is the equation for a hyperplane, here in two dimensions. This form can be rewritten into a matrix form which is more used in the field:
+
+$$
+Ax + By + C = 0 \rightarrow \begin{bmatrix} A & B \end{bmatrix} \begin{bmatrix} x \\ y \end{bmatrix} + C = 0 \\
+\rightarrow w^Tx + b = 0
+$$
+
+The distance between two parallel lines is calculated as:
+
+$$
+d = \frac{|C_2 - C_1|}{\sqrt{A^2 + B^2}}
+$$
+
+Two tricks are then applied to the equation. First, the two parallel lines making up the margin (green in the plot above), are expressed by $w^Tx + b = 1$ and $w^Tx + b = -1$, respectively. 1 and -1 is used as the classes are either 1 or -1. Also, the absolute difference between the two lines is then 2, which is why the margin can be calculated as $d = \frac{2}{\sqrt{A^2 + B^2}}$. Second, $w$ is a vector of the coefficients $A$ and $B$, and $\sqrt{A^2 + B^2}$ is the length of a vector spanned by $A$ and $B$, i.e. the length of $w$. The margin is then calculated as $d = \frac{2}{||w||}$. The distance can now be expressed without the use of the coefficiencts $A$, $B$ and $C$.
+
+I HAVE REACHED THIS POINT IN MY EXPLANATION. THE NEXT STEP IS TO SET UP THE CONSTRAINTS MATHEMATICALLY (FORM WIKI PAGE ON SVM), wx-b>=1 if y = 1 and wx-b<=-1 if y = -1. MORE SMART TO MULTIPLY WITH y, THEN CONSTRAINTS BECOME y(wx-b)>=1. BUT SEE WIKI FOR MORE. THEN PROCEED TO INTRODUCE THE SOFT-MARGIN.
+
+Distance between point and a line is calculated as:
+
+$$
+d = \frac{|Ax + By + C|}{\sqrt{A^2 + B^2}}
+$$
+Where A, B and C are coefficients from the equation of the line and x and y are the coordinates of the point.
+
+
+
+It is easy to tell whether a is above or below the line by plugging in the coordinates of the point into the equation of the line. If the result is positive, the point is above the line, if negative, the point is below the line.
+
+
+
+
+Transformation can make it non linear
+
+Find the linear boundary in the middle between the two classes.
+The distance between a class and the boundary is the margin.
+Such a model is a Maximum Margin Classifier or Optimal Separating Hyperplane (the term hyperplane is usually used above 3 dimensions, but can also be used for a line in 2 dimensional space).
+Also means data needs to be linearly separable. Sensitive to outliers
+Model has low bias and high variance.
+
+Better to allow for some misclassification, so we can find a boundary that is not so sensitive to the data.
+Introduce bias to lower variance.
+Now it is called a soft margin. Use CV to find number of allowed misclassifications.
+The Soft Margin Classifier is a Support Vector Classifier.
+Obsevations on the margin and within the margin are called support vectors.
+
+To move away from the linear boundary, we can use a kernel function to transform the data to a higher dimension.
+We now have Support Vector Machines!
+Give example with the polynomial kernel.
+Cool thing: Kernels do not actually transform, only compute the distances as if they were transformed. This is called the Kernel Trick.
+
+More on the polynomial kernel: Calculated as $(a \cdot b + \frac{1}{2})^2 = ab+a^2b^2+\frac{1}{4}$ which is the same as the dot product $(a,a^2,\frac{1}{2})\cdot(b,b^2,\frac{1}{2})$. Which means the 
+
+
+Radial Basis Function (RBF) kernel is the most common kernel. Act similar to nearest neighbor, observations near a new observation have higher influence on the prediction.
