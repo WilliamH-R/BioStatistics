@@ -34,7 +34,9 @@ book:
         
     - part: apply00_intro.qmd
       chapters:
-        - apply01_model_data.qmd
+        - apply01_model_diversity.qmd
+        - apply02_model_lin.qmd
+        - apply03_model_non_lin.qmd
         
         
     - references.qmd

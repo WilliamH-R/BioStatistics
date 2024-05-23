@@ -1,0 +1,79 @@
+Set seed and load packages.
+```{r}
+#| output: FALSE
+#| code-fold: true
+#| code-summary: "Show the code"
+
+set.seed(1337)
+
+library("tidymodels")
+tidymodels::tidymodels_prefer()
+library("vegan")
+```
+
+Load data.
+```{r}
+#| output: FALSE
+#| code-fold: true
+#| code-summary: "Show the code"
+
+count_matrix <- readr::read_rds("https://github.com/WilliamH-R/BioStatistics/raw/main/data/count_matrix/count_matrix.rds") |> 
+  select(-"NA")
+
+meta <- read.csv(file = "data/metadata.txt") |> 
+  as_tibble() |>
+  select(Run, chem_administration, ETHNICITY, geo_loc_name,
+         Host_age, host_body_mass_index, Host_disease, host_phenotype, host_sex) |> 
+  rename(Sample = Run,
+         Treatment = chem_administration,
+         Ethnicity = ETHNICITY,
+         Location = geo_loc_name,
+         Age = Host_age,
+         BMI = host_body_mass_index,
+         Disease_severity = Host_disease,
+         EDSS = host_phenotype,
+         Sex = host_sex) |>
+  mutate(Patient_status = case_when(Disease_severity == "1HealthyControl" ~ "Healthy",
+                                    TRUE ~ "MS"),
+         EDSS = as.factor(EDSS),
+         EDSS = case_when(is.na(EDSS) & Disease_severity == "1HealthyControl" ~ "-1",
+                          is.na(EDSS) & Disease_severity != "1HealthyControl" ~ "Unknown",
+                          TRUE ~ EDSS),
+         EDSS = as.factor(EDSS),
+         Disease_severity = case_when(Disease_severity == "3SecondaryProgressiveMS" ~ "3ProgressiveMS",
+                                      Disease_severity == "4PrimaryProgressiveMS" ~ "3ProgressiveMS",
+                                      TRUE ~ Disease_severity))
+```
+
+```{r}
+richness <- count_matrix |>
+  column_to_rownames(var = "Sample") |> 
+  specnumber() |>
+  as_tibble(rownames = "Sample") |>
+  rename(Richness = value) |> 
+  left_join(meta,
+            by = "Sample")
+
+richness |>
+  ggplot(aes(x = Disease_severity,
+             y = Richness,
+             fill = Disease_severity)) +
+  geom_violin()
+```
+
+```{r}
+shannon <- count_matrix |>
+  column_to_rownames(var = "Sample") |>
+  diversity(index = "shannon") |> 
+  as_tibble(rownames = "Sample") |> 
+  rename(Shannon = value) |> 
+  left_join(meta,
+            by = "Sample")
+
+shannon |>
+  ggplot(aes(x = Disease_severity,
+             y = Shannon,
+             fill = Disease_severity)) +
+  geom_violin()
+```
+
