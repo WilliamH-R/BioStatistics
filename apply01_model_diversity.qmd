@@ -45,6 +45,63 @@ meta <- read.csv(file = "data/metadata.txt") |>
                                       TRUE ~ Disease_severity))
 ```
 
+Helper function.
+```{r}
+#| output: FALSE
+#| code-fold: true
+#| code-summary: "Show the code"
+
+pairwise_wilcox_test <- function (data,
+                                  combinations,
+                                  metric_col_name,
+                                  sig_level = 0.05,
+                                  bonferroni = TRUE) {
+  
+  p_value_tibble <- combinations |>
+    purrr::map(function(combination) {
+      
+      formula <- stringr::str_c(metric_col_name, " ~ Disease_severity")
+      
+      
+      richness_filtered <- data |>
+        filter(Disease_severity %in% combination)
+
+      p_value <- wilcox.test(as.formula(formula),
+                             data = richness_filtered) |>
+        broom::tidy() |>
+        pull(p.value)
+
+      tibble::tibble(Combination = stringr::str_c(combination,
+                                                  collapse = " vs "),
+                     p_value = p_value) |>
+        mutate(Significant = case_when(p_value < sig_level ~ "Yes",
+                                       TRUE ~ "No"))
+      }) |> bind_rows()
+  
+  if (bonferroni) {
+    
+    n_tests <- p_value_tibble |>
+      nrow()
+    
+    p_value_tibble <- p_value_tibble |>
+      mutate(Significant = case_when(p_value < sig_level/n_tests ~ "Yes",
+                                       TRUE ~ "No"))
+  }
+  
+  return(p_value_tibble)
+  }
+```
+
+# Diversity Measures
+
+A common first step in microbiome studies is to consider the diversity between groups. Here, Richness, Pielou's Evenness and Shannon's Diversity Index are calculated stratified by disease severity. Instead of the simply calculating the diversity measures for healthy versus MS patients, the diversity measures are calculated for each combination of healthy, relapsing-remitting MS and progressive MS. This is done to see if the diversity measures can differentiate between the different disease severities.
+
+## Species Richness
+
+As mentioned previously, Richness is the number of unique species in a sample. Here, the number of unique species in each sample is calculated and stratified by disease severity. The violin plot shows the distribution of the richness values for each disease severity.
+
+By visual inspection, it would seem that patients with MS, either relapsing-remitting or progressive, have a higher richness compared to healthy controls. Interestingly, a sample seem to have a richness of 0. This could indicate that either something went wrong in the sequencing process or in the subsequent data processing moving from raw sequence reads to a count matrix.
+
 ```{r}
 richness <- count_matrix |>
   column_to_rownames(var = "Sample") |> 
@@ -52,14 +109,52 @@ richness <- count_matrix |>
   as_tibble(rownames = "Sample") |>
   rename(Richness = value) |> 
   left_join(meta,
-            by = "Sample")
+            by = "Sample") |>
+  group_by(Disease_severity) |>
+  mutate(count = n()) |>
+  mutate(Disease_severity_n = stringr::str_c(Disease_severity, "\n", "n=", count)) |>
+  ungroup()
 
 richness |>
-  ggplot(aes(x = Disease_severity,
+  ggplot(aes(x = Disease_severity_n,
              y = Richness,
              fill = Disease_severity)) +
-  geom_violin()
+  geom_violin() +
+  geom_boxplot(width = 0.1) +
+  labs(title = "Richness by Disease Severity",
+       x = "Disease Severity",
+       y = "Richness") +
+  theme(legend.position = "none")
 ```
+
+To test if the difference in richness between the groups is statistically significant, a Wilcoxon rank sum test is performed. The test is performed for each combination of the three groups. The p-values are adjusted for multiple testing using Bonferroni correction.
+
+To calculate the p-values, the combinations of the disease severities are found:
+
+```{r}
+combinations <- combn(x = richness |>
+                            distinct(Disease_severity) |>
+                            pull(Disease_severity),
+                      m = 2,
+                      simplify = FALSE)
+combinations
+```
+
+The p-values are calculated via the function `pairwise_wilcox_test()` which can be found in the helper function section in the beginning of the document. For each of the combinations, the input data is subsetted to only include the samples in the combination. Then, a Wilcoxon rank sum test is performed. The significance level is per default 0.05, and the significance level can be adjusted with Bonferroni. As can be seen from the results, there is a significant difference in the richness between the healthy controls and each of the MS groups.
+
+```{r}
+richness |>
+  pairwise_wilcox_test(combinations = combinations,
+                       metric_col_name = "Richness",
+                       sig_level = 0.05,
+                       bonferroni = TRUE)
+```
+
+## Shannon Index
+
+Both the richness and the evenness of a sample is considered when calculating the Shannon Index. If a group has a generally high Shannon Index, it means that the group has a high number of unique species and that the species are evenly distributed. The violin plot shows the distribution of the Shannon Index values for each disease severity.
+
+Similarly to the richness, it would seem that patients with MS, either relapsing-remitting or progressive, have a higher Shannon Index compared to healthy controls, i.e. more unique taxa and more evenly distributed taxa.
 
 ```{r}
 shannon <- count_matrix |>
@@ -68,12 +163,63 @@ shannon <- count_matrix |>
   as_tibble(rownames = "Sample") |> 
   rename(Shannon = value) |> 
   left_join(meta,
-            by = "Sample")
+            by = "Sample") |>
+  group_by(Disease_severity) |>
+  mutate(count = n()) |>
+  mutate(Disease_severity_n = stringr::str_c(Disease_severity, "\n", "n=", count)) |>
+  ungroup()
 
 shannon |>
-  ggplot(aes(x = Disease_severity,
+  ggplot(aes(x = Disease_severity_n,
              y = Shannon,
              fill = Disease_severity)) +
-  geom_violin()
+  geom_violin() +
+  geom_boxplot(width = 0.1) +
+  labs(title = "Shannon Index by Disease Severity",
+       x = "Disease Severity",
+       y = "Shannon Index") +
+  theme(legend.position = "none")
 ```
 
+Again, p-values are calculated via the function `pairwise_wilcox_test()` which can be found in the helper function section in the beginning of the document. As can be seen from the results, there is a significant difference in the Shannon Index between the healthy controls and each of the MS groups.
+
+```{r}
+shannon |>
+  pairwise_wilcox_test(combinations = combinations,
+                       metric_col_name = "Shannon",
+                       sig_level = 0.05,
+                       bonferroni = TRUE)
+```
+
+## Pielou's Evenness
+
+Even though richness is needed to calculated the Shannon Index which in turn is needed to calculate Pielou's Evenness, the richness is not of importance. The independence comes from the division in the formula as Pielou's Evenness compares the Shannon Index of the sample to Shannon Index of a perfectly even sample of the same size. Then, Pielou's Evenness is a measure of how evenly the species are distributed in a sample.
+
+Opposite to the richness and the Shannon Index, the Pielou's Evenness seems to be lowest for the relapsing-remitting MS group whereas the healthy controls and progressive MS have similar values. This could indicate that the species in the relapsing-remitting MS group are not as evenly distributed as in the other groups. Further, this also indicate that the higher Shannon Index in the relapsing-remitting group is due to a higher number of unique species and not due to a more even distribution of the species.
+
+```{r}
+pielou <- shannon |>
+  mutate(Pielou = Shannon / log(count))
+
+pielou |>
+  ggplot(aes(x = Disease_severity_n,
+             y = Pielou,
+             fill = Disease_severity)) +
+  geom_violin() +
+  geom_boxplot(width = 0.1) +
+  labs(title = "Pielou's Evenness by Disease Severity",
+       x = "Disease Severity",
+       y = "Pielou's Evenness") +
+  theme(legend.position = "none") +
+  lims(y = c(0, 1))
+```
+
+Again, p-values are calculated via the function `pairwise_wilcox_test()` which can be found in the helper function section in the beginning of the document. As can be seen from the results, there is a significant difference in Pielou's Evenness Index between the relapsing-remitting group vs both of the other groups.
+
+```{r}
+pielou |>
+  pairwise_wilcox_test(combinations = combinations,
+                       metric_col_name = "Pielou",
+                       sig_level = 0.05,
+                       bonferroni = TRUE)
+```
