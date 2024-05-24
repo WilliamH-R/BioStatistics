@@ -29,8 +29,7 @@ book:
     - part: pre00_intro.qmd
       chapters:
         - pre01_pca.qmd
-        - pre02_pls.qmd
-        - pre03_umap.qmd
+        - pre02_umap.qmd
         
     - part: apply00_intro.qmd
       chapters:
