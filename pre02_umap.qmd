@@ -8,7 +8,7 @@ set.seed(1337)
 
 library("tidymodels")
 tidymodels::tidymodels_prefer()
-library("umap")
+library("uwot")
 ```
 
 Load data.
@@ -49,62 +49,49 @@ iris.data <- iris[, grep("Sepal|Petal", colnames(iris))]
 iris.labels <- iris[, "Species"] |> 
   as_tibble()
 
-iris.umap <- umap(iris.data)
-
-
-iris.umap.plot <- iris.umap$layout |>
+iris.umap <- iris.data |>
+  uwot::umap(n_neighbors = 20,
+             min_dist = 0.2,
+             metric = "euclidean") |>
+  as.data.frame() |>
   as_tibble() |>
-  bind_cols(iris.labels)
+  bind_cols(iris.labels) |>
+  rename(Species = value)
 
-iris.umap.plot |> 
+iris.umap |> 
   ggplot(aes(x = V1,
              y = V2,
-             col = value)) +
+             col = Species)) +
   geom_point()
 ```
 
 ```{r}
 count_matrix_umap <- count_matrix_clr |>
-  tibble::column_to_rownames(var = "Sample") |>
-  umap()
-
-count_matrix_umap$layout |> 
-  as_tibble(rownames = "Sample") |> 
-  left_join(meta |> select(Sample, Patient_status),
-            by = "Sample") |>
-  ggplot(aes(x = V1,
-             y = V2,
-             col = Patient_status)) +
-  geom_point()
-```
-
-
-```{r}
-count_matrix_pca_umap <- count_matrix_clr |> 
   column_to_rownames(var = "Sample") |>
-  prcomp(center = TRUE,
-         scale = TRUE) |>
-  tidy(matrix = "x") |> 
-  pivot_wider(names_from = "PC",
-              names_prefix = "PC",
-              values_from = "value") |> 
-  rename(Sample = row) |>
-  tibble::column_to_rownames(var = "Sample") |>
-  select(1:7) |>
-  umap()
+  uwot::umap(n_neighbors = 20,
+             min_dist = 0.2,
+             n_components = 3,
+             metric = "euclidean") |>
+  as.data.frame() |>
+  rownames_to_column(var = "Sample") |>
+  left_join(meta,
+            by = "Sample")
 
-count_matrix_pca_umap$layout |> 
-  as_tibble(rownames = "Sample") |> 
-  left_join(meta |> select(Sample, Patient_status),
-            by = "Sample") |>
+count_matrix_umap |> 
   ggplot(aes(x = V1,
              y = V2,
              col = Patient_status)) +
   geom_point()
 
+# Seems to be better split when using 3D
+count_matrix_umap |>
+  plotly::plot_ly(x = ~V1,
+          y = ~V2,
+          z = ~V3,
+          color = ~Patient_status,
+          type = "scatter3d",
+          mode = "markers")
 ```
-
-
 
 # Session Info
 
