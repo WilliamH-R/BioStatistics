@@ -266,10 +266,11 @@ workflow_ids <- grid_results |>
 
 
 tuning_params_result <- workflow_ids |>
-  purrr::map(~{grid_results |>
-      extract_workflow_set_result(.x) |>
+  purrr::map(function(id) {
+    grid_results |>
+      extract_workflow_set_result(id) |>
       select_best(metric = "roc_auc") |> 
-      mutate(wflow_id = .x)
+      mutate(wflow_id = id)
     }) |>
   bind_rows() |>
   mutate(mixture = case_when(stringr::str_detect(string = wflow_id,
@@ -287,11 +288,11 @@ As the hyperparameters have been tuned, the final workflow can be created. This 
 
 ```{r}
 workflow_set_final <- workflow_ids |>
-  purrr::map(~{
+  purrr::map(function(id) {
     grid_results |>
-      extract_workflow(.x) |> 
+      extract_workflow(id) |> 
       finalize_workflow(tuning_params_result |> 
-                          filter(wflow_id == .x))
+                          filter(wflow_id == id))
     })
 names(workflow_set_final) <- workflow_ids
 ```
@@ -311,8 +312,8 @@ With the hyperparameters set, the workflows can be fit to the data, and the mode
 
 ```{r}
 workflow_set_fit <- workflow_ids |>
-  purrr::map(~{
-    workflow_set_final[[.x]] |>
+  purrr::map(function(id) {
+    workflow_set_final[[id]] |>
       last_fit(split = count_matrix_clr_split)
   })
 names(workflow_set_fit) <- workflow_ids
@@ -332,13 +333,13 @@ Another more visual approach is to plot the ROC-curve. This is done for all mode
 
 ```{r}
 roc_auc_results <- workflow_ids |>
-  map( ~ {
-    workflow_set_fit[[.x]] |>
+  map(function(id) {
+    workflow_set_fit[[id]] |>
       collect_predictions() |>
       roc_curve(truth = Patient_status,
                 .pred_MS,
                 event_level = "second") |>
-      mutate(wflow_id = .x)
+      mutate(wflow_id = id)
   }) |> bind_rows()
 
 roc_auc_results
@@ -550,31 +551,31 @@ The finalization, fitting and predicting is done as before, but with the manuall
 ```{r}
 # Finalize
 workflow_set_final_manual <- workflow_ids |>
-  purrr::map(~{
+  purrr::map(function(id) {
     grid_results |>
-      extract_workflow(.x) |> 
+      extract_workflow(id) |> 
       finalize_workflow(tuning_params_result_manual |> 
-                          filter(wflow_id == .x))
+                          filter(wflow_id == id))
     })
 names(workflow_set_final_manual) <- workflow_ids
 
 # Fit
 workflow_set_fit_manual <- workflow_ids |>
-  purrr::map(~{
-    workflow_set_final_manual[[.x]] |>
+  purrr::map(function(id) {
+    workflow_set_final_manual[[id]] |>
       last_fit(split = count_matrix_clr_split)
   })
 names(workflow_set_fit_manual) <- workflow_ids
 
 # Predict
 roc_auc_results_manual <- workflow_ids |>
-  map( ~ {
-    workflow_set_fit_manual[[.x]] |>
+  map(function(id) {
+    workflow_set_fit_manual[[id]] |>
       collect_predictions() |>
       roc_curve(truth = Patient_status,
                 .pred_MS,
                 event_level = "second") |>
-      mutate(wflow_id = .x)
+      mutate(wflow_id = id)
   }) |> bind_rows()
 
 # Visualize performance
