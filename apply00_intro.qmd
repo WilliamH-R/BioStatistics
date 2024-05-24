@@ -1,3 +1,2 @@
-# Predictive Modeling of Microbiome Data using Tidymodeling
-
+# Modeling of Microbiome Data
 In the first chapter, the concepts of `tidymodeling` were introduced. In the second chapter, the statistical concepts that are often used in Bioinformatics and Biostatistics were introduced. The third chapter touched upon different preprocessing techniques to apply. This chapter combines the first three chapters to build and evaluate models for a real-world dataset. As mentioned in the preface, the dataset used is 16S rRNA amplicon reads used to describe multiple sclerosis (MS) [@Cox2021]. Here, the data is used to predict the disease status of the person.
