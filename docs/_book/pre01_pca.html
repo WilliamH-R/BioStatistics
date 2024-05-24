@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>BioStatistics - 11&nbsp; Principal Component Analysis</title>
+<title>BioStatistics - 12&nbsp; Principal Component Analysis</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -144,7 +144,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./pre00_intro.html">Preprocessing of Data</a></li><li class="breadcrumb-item"><a href="./pre01_pca.html"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Principal Component Analysis</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./pre00_intro.html">Preprocessing of Data</a></li><li class="breadcrumb-item"><a href="./pre01_pca.html"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Principal Component Analysis</span></a></li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -251,8 +251,14 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./stat07_bias_var.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Bias and Variance</span></span></a>
+  <a href="./stat07_svm.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Support Vector Machines</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./stat08_bias_var.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Bias and Variance</span></span></a>
   </div>
 </li>
       </ul>
@@ -269,13 +275,13 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./pre01_pca.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Principal Component Analysis</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Principal Component Analysis</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./pre02_umap.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Session Info</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Uniform Manifold Approximation and Projection</span></span></a>
   </div>
 </li>
       </ul>
@@ -283,7 +289,7 @@ window.Quarto = {
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a href="./apply00_intro.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Predictive Modeling of Microbiome Data using Tidymodeling</span></a>
+ <span class="menu-text">Modeling of Microbiome Data</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -291,8 +297,20 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./apply01_model_data.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Modelling</span></span></a>
+  <a href="./apply01_model_diversity.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Diversity Measures</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./apply02_model_lin.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Modelling</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./apply03_model_non_lin.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Modelling</span></span></a>
   </div>
 </li>
       </ul>
@@ -313,26 +331,26 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#explanation-and-example" id="toc-explanation-and-example" class="nav-link active" data-scroll-target="#explanation-and-example"><span class="header-section-number">11.1</span> Explanation and Example</a></li>
-  <li><a href="#mathematical-explanation" id="toc-mathematical-explanation" class="nav-link" data-scroll-target="#mathematical-explanation"><span class="header-section-number">11.2</span> Mathematical Explanation</a>
+  <li><a href="#explanation-and-example" id="toc-explanation-and-example" class="nav-link active" data-scroll-target="#explanation-and-example"><span class="header-section-number">12.1</span> Explanation and Example</a></li>
+  <li><a href="#mathematical-explanation" id="toc-mathematical-explanation" class="nav-link" data-scroll-target="#mathematical-explanation"><span class="header-section-number">12.2</span> Mathematical Explanation</a>
   <ul>
-  <li><a href="#covariance-matrix" id="toc-covariance-matrix" class="nav-link" data-scroll-target="#covariance-matrix"><span class="header-section-number">11.2.1</span> Covariance Matrix</a></li>
-  <li><a href="#eigenvectors-and-eigenvalues" id="toc-eigenvectors-and-eigenvalues" class="nav-link" data-scroll-target="#eigenvectors-and-eigenvalues"><span class="header-section-number">11.2.2</span> Eigenvectors and Eigenvalues</a></li>
-  <li><a href="#importance-of-scaling" id="toc-importance-of-scaling" class="nav-link" data-scroll-target="#importance-of-scaling"><span class="header-section-number">11.2.3</span> Importance of Scaling</a></li>
-  <li><a href="#explained-variance" id="toc-explained-variance" class="nav-link" data-scroll-target="#explained-variance"><span class="header-section-number">11.2.4</span> Explained Variance</a></li>
-  <li><a href="#projection-of-data-onto-pcs" id="toc-projection-of-data-onto-pcs" class="nav-link" data-scroll-target="#projection-of-data-onto-pcs"><span class="header-section-number">11.2.5</span> Projection of Data onto PCs</a></li>
+  <li><a href="#covariance-matrix" id="toc-covariance-matrix" class="nav-link" data-scroll-target="#covariance-matrix"><span class="header-section-number">12.2.1</span> Covariance Matrix</a></li>
+  <li><a href="#eigenvectors-and-eigenvalues" id="toc-eigenvectors-and-eigenvalues" class="nav-link" data-scroll-target="#eigenvectors-and-eigenvalues"><span class="header-section-number">12.2.2</span> Eigenvectors and Eigenvalues</a></li>
+  <li><a href="#importance-of-scaling" id="toc-importance-of-scaling" class="nav-link" data-scroll-target="#importance-of-scaling"><span class="header-section-number">12.2.3</span> Importance of Scaling</a></li>
+  <li><a href="#explained-variance" id="toc-explained-variance" class="nav-link" data-scroll-target="#explained-variance"><span class="header-section-number">12.2.4</span> Explained Variance</a></li>
+  <li><a href="#projection-of-data-onto-pcs" id="toc-projection-of-data-onto-pcs" class="nav-link" data-scroll-target="#projection-of-data-onto-pcs"><span class="header-section-number">12.2.5</span> Projection of Data onto PCs</a></li>
   </ul></li>
-  <li><a href="#count-matrix" id="toc-count-matrix" class="nav-link" data-scroll-target="#count-matrix"><span class="header-section-number">11.3</span> Count Matrix</a></li>
-  <li><a href="#session-info" id="toc-session-info" class="nav-link" data-scroll-target="#session-info"><span class="header-section-number">12</span> Session Info</a></li>
+  <li><a href="#count-matrix" id="toc-count-matrix" class="nav-link" data-scroll-target="#count-matrix"><span class="header-section-number">12.3</span> Count Matrix</a></li>
+  <li><a href="#session-info" id="toc-session-info" class="nav-link" data-scroll-target="#session-info"><span class="header-section-number">13</span> Session Info</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./pre00_intro.html">Preprocessing of Data</a></li><li class="breadcrumb-item"><a href="./pre01_pca.html"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Principal Component Analysis</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./pre00_intro.html">Preprocessing of Data</a></li><li class="breadcrumb-item"><a href="./pre01_pca.html"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Principal Component Analysis</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Principal Component Analysis</span></h1>
+<h1 class="title"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Principal Component Analysis</span></h1>
 </div>
 
 
@@ -389,8 +407,8 @@ window.Quarto = {
 <span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>         <span class="at">EDSS =</span> <span class="fu">as.factor</span>(EDSS))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<section id="explanation-and-example" class="level2" data-number="11.1">
-<h2 data-number="11.1" class="anchored" data-anchor-id="explanation-and-example"><span class="header-section-number">11.1</span> Explanation and Example</h2>
+<section id="explanation-and-example" class="level2" data-number="12.1">
+<h2 data-number="12.1" class="anchored" data-anchor-id="explanation-and-example"><span class="header-section-number">12.1</span> Explanation and Example</h2>
 <p>Multiple reasons for applying Principal Component Analysis (PCA) exists. One of the most common reasons is to visualize high-dimensional data in lower dimensions. Another reason could be to decorrelate variables or to reduce the noise in the data by only maintaining the variables that contain most of the variance.</p>
 <p>When having more than 3 variables, it is not possible to visualize them in a single plot. To overcome this, PCA can reduce the dimensionality of the data to lower dimensions (e.g.&nbsp;2 or 3) while preserving the variance of the data. Each Principal Component (PC) is a linear combination of the original variables, and can now be considered as a variable on its own replacing the originals. A data set with many variables, e.g.&nbsp;the 123 variables in the count matrix, can be visualised with a 2D plot. Loosing that many dimensions is almost bound to loose some information, but a PCA optimizes towards retaining as much as possible.</p>
 <p>To exemplify and showcasing the method and the underlying math, the <code>mtcars</code> data set is used. For this example, two dimensions <code>wt</code> (weight) and <code>mpg</code> (miles pr. gallon) are used. The points are coloured by <code>cyl</code> (cylinders) to show how the data is grouped in the 2D space. The goal is to retain the information, but reduce the dimensions to a single line that best describes the data. This line is called the first Principal Component (PC1).</p>
@@ -502,10 +520,10 @@ X_{i,j \;centered} = X_{i,j} - \mu_{j}
 </div>
 <p>As can be observed from plotting PC1, the groupings of the data is conserved, but the dimensions are reduced to a single line. The same method can be applied to high dimensional data, such as the count matrix.</p>
 </section>
-<section id="mathematical-explanation" class="level2" data-number="11.2">
-<h2 data-number="11.2" class="anchored" data-anchor-id="mathematical-explanation"><span class="header-section-number">11.2</span> Mathematical Explanation</h2>
-<section id="covariance-matrix" class="level3" data-number="11.2.1">
-<h3 data-number="11.2.1" class="anchored" data-anchor-id="covariance-matrix"><span class="header-section-number">11.2.1</span> Covariance Matrix</h3>
+<section id="mathematical-explanation" class="level2" data-number="12.2">
+<h2 data-number="12.2" class="anchored" data-anchor-id="mathematical-explanation"><span class="header-section-number">12.2</span> Mathematical Explanation</h2>
+<section id="covariance-matrix" class="level3" data-number="12.2.1">
+<h3 data-number="12.2.1" class="anchored" data-anchor-id="covariance-matrix"><span class="header-section-number">12.2.1</span> Covariance Matrix</h3>
 <p>To mathematically describe the method the covariance matrix, often denoted <span class="math inline">\(\Sigma\)</span>, of the data is calculated. The covariance matrix is a square matrix where the diagonal contains the variance of each variable, and the off-diagonal contains the covariance between each variable:</p>
 <p><span class="math display">\[
 \Sigma =  \begin{bmatrix}
@@ -540,8 +558,8 @@ mpg -5.116685 36.324103</code></pre>
 </div>
 </div>
 </section>
-<section id="eigenvectors-and-eigenvalues" class="level3" data-number="11.2.2">
-<h3 data-number="11.2.2" class="anchored" data-anchor-id="eigenvectors-and-eigenvalues"><span class="header-section-number">11.2.2</span> Eigenvectors and Eigenvalues</h3>
+<section id="eigenvectors-and-eigenvalues" class="level3" data-number="12.2.2">
+<h3 data-number="12.2.2" class="anchored" data-anchor-id="eigenvectors-and-eigenvalues"><span class="header-section-number">12.2.2</span> Eigenvectors and Eigenvalues</h3>
 <p>As the covariance matrix show how the variables varies within themselves and between each other, the eigenvectors of such a matrix spans the directions in the feature space where the data have the most variance. By convention, eigenvectors have unit length (length 1), and as such it is their associated eigenvalues that quantify the length of the eigenvector, and thereby the variance explained by each eigenvector.</p>
 <p>To find the eigenvectors, the eigenvalues are found first by solving the equation:</p>
 <p><span class="math display">\[
@@ -693,8 +711,8 @@ v_1 = \begin{bmatrix}
 </div>
 </div>
 </section>
-<section id="importance-of-scaling" class="level3" data-number="11.2.3">
-<h3 data-number="11.2.3" class="anchored" data-anchor-id="importance-of-scaling"><span class="header-section-number">11.2.3</span> Importance of Scaling</h3>
+<section id="importance-of-scaling" class="level3" data-number="12.2.3">
+<h3 data-number="12.2.3" class="anchored" data-anchor-id="importance-of-scaling"><span class="header-section-number">12.2.3</span> Importance of Scaling</h3>
 <p>The issue of scaling goes to show how important it is, that values are on the same scale before applying PCA. If the values are not on the same scale, the PCA will be biased towards the variables with the largest values. This can be seen in the example, where the <code>wt</code> variable has a larger range than the <code>mpg</code> variable. The eigenvectors are then biased towards the <code>wt</code> variable. The data can be scaled by both centering and dividing by the standard deviation, which is called standardization. The data is then on the same scale, and the PCA is not biased towards any variable:</p>
 <p><span class="math display">\[
 X_{i,j \;standardized} = \frac{X_{i,j} - \mu_{j}}{sd_j}
@@ -739,8 +757,8 @@ v_2 =
 </div>
 </div>
 </section>
-<section id="explained-variance" class="level3" data-number="11.2.4">
-<h3 data-number="11.2.4" class="anchored" data-anchor-id="explained-variance"><span class="header-section-number">11.2.4</span> Explained Variance</h3>
+<section id="explained-variance" class="level3" data-number="12.2.4">
+<h3 data-number="12.2.4" class="anchored" data-anchor-id="explained-variance"><span class="header-section-number">12.2.4</span> Explained Variance</h3>
 <p>Using all PCs, it is possible to fully reconstruct the data since the data is projected onto the PCs, it can be converted back to the original space. The total variance of the data is the sum of the eigenvalues, and the variance explained by each PC is the eigenvalue of that PC. Therefore, it is also possible to calculate the proportion of variance explained by each PC. For the case of the scaled data, the two eigenvalues were <span class="math inline">\(\lambda_1 = 1.87\)</span> and <span class="math inline">\(\lambda_2 = 0.13\)</span>. The proportion of variance explained by each PC is then:</p>
 <p><span class="math display">\[
 \frac{\lambda_1}{\lambda_1 + \lambda_2} = 0.94, \; \; \frac{\lambda_2}{\lambda_1 + \lambda_2} = 0.06
@@ -769,8 +787,8 @@ v_2 =
 </div>
 </div>
 </section>
-<section id="projection-of-data-onto-pcs" class="level3" data-number="11.2.5">
-<h3 data-number="11.2.5" class="anchored" data-anchor-id="projection-of-data-onto-pcs"><span class="header-section-number">11.2.5</span> Projection of Data onto PCs</h3>
+<section id="projection-of-data-onto-pcs" class="level3" data-number="12.2.5">
+<h3 data-number="12.2.5" class="anchored" data-anchor-id="projection-of-data-onto-pcs"><span class="header-section-number">12.2.5</span> Projection of Data onto PCs</h3>
 <p>The original data can be projected onto the PCA space by multiplying the data matrix with the eigenvectors. The projection ensures a change of basis, such that PC1 is the new x-axis, PC2 is the new y-axis, and so forth. The projection happens by:</p>
 <p><span class="math display">\[
 S = XU
@@ -838,8 +856,8 @@ S =
 </div>
 </section>
 </section>
-<section id="count-matrix" class="level2" data-number="11.3">
-<h2 data-number="11.3" class="anchored" data-anchor-id="count-matrix"><span class="header-section-number">11.3</span> Count Matrix</h2>
+<section id="count-matrix" class="level2" data-number="12.3">
+<h2 data-number="12.3" class="anchored" data-anchor-id="count-matrix"><span class="header-section-number">12.3</span> Count Matrix</h2>
 <p>To apply PCA to an example of higher dimensions, the count matrix is used. The built in function <code>prcomp</code> is used to calculate the PCs along with the loadings and eigenvalues (explained variance).</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>pca_count_matrix <span class="ot">&lt;-</span> count_matrix_clr <span class="sc">|&gt;</span> </span>
@@ -924,8 +942,8 @@ S =
 </div>
 </div>
 </section>
-<section id="session-info" class="level1" data-number="12">
-<h1 data-number="12"><span class="header-section-number">12</span> Session Info</h1>
+<section id="session-info" class="level1" data-number="13">
+<h1 data-number="13"><span class="header-section-number">13</span> Session Info</h1>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>sessioninfo<span class="sc">::</span><span class="fu">session_info</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -939,7 +957,7 @@ S =
  collate  English_United Kingdom.utf8
  ctype    English_United Kingdom.utf8
  tz       Europe/Copenhagen
- date     2024-05-19
+ date     2024-05-24
  pandoc   3.1.11 @ C:/Program Files/RStudio/resources/app/bin/quarto/bin/tools/ (via rmarkdown)
 
 ─ Packages ───────────────────────────────────────────────────────────────────
@@ -1441,8 +1459,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./pre02_umap.html" class="pagination-link" aria-label="Session Info">
-        <span class="nav-page-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Session Info</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./pre02_umap.html" class="pagination-link" aria-label="Uniform Manifold Approximation and Projection">
+        <span class="nav-page-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Uniform Manifold Approximation and Projection</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

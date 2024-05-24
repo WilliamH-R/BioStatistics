@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>BioStatistics - Predictive Modeling of Microbiome Data using Tidymodeling</title>
+<title>BioStatistics - Modeling of Microbiome Data</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -50,7 +50,7 @@ div.csl-indent {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./apply01_model_data.html" rel="next">
+<link href="./apply01_model_diversity.html" rel="next">
 <link href="./pre02_umap.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -101,7 +101,7 @@ div.csl-indent {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./apply00_intro.html">Predictive Modeling of Microbiome Data using Tidymodeling</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./apply00_intro.html">Modeling of Microbiome Data</a></li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -208,8 +208,14 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./stat07_bias_var.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Bias and Variance</span></span></a>
+  <a href="./stat07_svm.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Support Vector Machines</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./stat08_bias_var.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Bias and Variance</span></span></a>
   </div>
 </li>
       </ul>
@@ -226,13 +232,13 @@ div.csl-indent {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./pre01_pca.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Principal Component Analysis</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Principal Component Analysis</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./pre02_umap.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Session Info</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Uniform Manifold Approximation and Projection</span></span></a>
   </div>
 </li>
       </ul>
@@ -240,7 +246,7 @@ div.csl-indent {
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a href="./apply00_intro.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Predictive Modeling of Microbiome Data using Tidymodeling</span></a>
+ <span class="menu-text">Modeling of Microbiome Data</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -248,8 +254,20 @@ div.csl-indent {
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./apply01_model_data.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Modelling</span></span></a>
+  <a href="./apply01_model_diversity.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Diversity Measures</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./apply02_model_lin.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Modelling</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./apply03_model_non_lin.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Modelling</span></span></a>
   </div>
 </li>
       </ul>
@@ -273,7 +291,7 @@ div.csl-indent {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Predictive Modeling of Microbiome Data using Tidymodeling</h1>
+<h1 class="title">Modeling of Microbiome Data</h1>
 </div>
 
 
@@ -290,10 +308,10 @@ div.csl-indent {
 </header>
 
 
-<p>In the first chapter, the concepts of <code>tidymodeling</code> were introduced. In the second chapter, the statistical concepts that are often used in Bioinformatics and Biostatistics were introduced. The third chapter touched upon different preprocessing techniques to apply. This chapter combines the first three chapters to build and evaluate models for a real-world dataset. As mentioned in the preface, the dataset used is 16S rRNA amplicon reads used to describe multiple sclerosis (MS) <span class="citation" data-cites="Cox2021">(<a href="references.html#ref-Cox2021" role="doc-biblioref">Cox et al. 2021</a>)</span>. Here, the data is used to predict the disease status of the person.</p>
+<p>In the first chapter, the concepts of <code>tidymodeling</code> were introduced. In the second chapter, the statistical concepts that are often used in Bioinformatics and Biostatistics were introduced. The third chapter touched upon different preprocessing techniques to apply. This chapter combines the first three chapters to build and evaluate models for a real-world dataset. As mentioned in the preface, the dataset used is 16S rRNA amplicon reads used to describe multiple sclerosis (MS) <span class="citation" data-cites="Cox2021">(<a href="#ref-Cox2021" role="doc-biblioref">Cox et al. 2021</a>)</span>. Here, the data is used to predict the disease status of the person.</p>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
 <div id="ref-Cox2021" class="csl-entry" role="listitem">
 Cox, Laura M., Amir Hadi Maghzi, Shirong Liu, Stephanie K. Tankou, Fyonn H. Dhang, Valerie Willocq, Anya Song, et al. 2021. <span>“Gut Microbiome in Progressive Multiple Sclerosis.”</span> <em>Annals of Neurology</em> 89 (June): 1195–1211. <a href="https://doi.org/10.1002/ANA.26084">https://doi.org/10.1002/ANA.26084</a>.
 </div>
@@ -689,13 +707,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./pre02_umap.html" class="pagination-link" aria-label="Session Info">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Session Info</span></span>
+      <a href="./pre02_umap.html" class="pagination-link" aria-label="Uniform Manifold Approximation and Projection">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Uniform Manifold Approximation and Projection</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./apply01_model_data.html" class="pagination-link" aria-label="Modelling">
-        <span class="nav-page-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Modelling</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./apply01_model_diversity.html" class="pagination-link" aria-label="Diversity Measures">
+        <span class="nav-page-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Diversity Measures</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

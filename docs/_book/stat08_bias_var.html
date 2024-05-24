@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>BioStatistics - 10&nbsp; Bias and Variance</title>
+<title>BioStatistics - 11&nbsp; Bias and Variance</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -65,7 +65,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
 <link href="./pre00_intro.html" rel="next">
-<link href="./stat06_enet.html" rel="prev">
+<link href="./stat07_svm.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -115,7 +115,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./stat00_intro.html">Applied bio-statistical methods</a></li><li class="breadcrumb-item"><a href="./stat07_bias_var.html"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Bias and Variance</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./stat00_intro.html">Applied bio-statistical methods</a></li><li class="breadcrumb-item"><a href="./stat08_bias_var.html"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Bias and Variance</span></a></li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -222,8 +222,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./stat07_bias_var.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Bias and Variance</span></span></a>
+  <a href="./stat07_svm.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Support Vector Machines</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./stat08_bias_var.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Bias and Variance</span></span></a>
   </div>
 </li>
       </ul>
@@ -240,13 +246,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./pre01_pca.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Principal Component Analysis</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Principal Component Analysis</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./pre02_umap.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Session Info</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Uniform Manifold Approximation and Projection</span></span></a>
   </div>
 </li>
       </ul>
@@ -254,7 +260,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a href="./apply00_intro.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Predictive Modeling of Microbiome Data using Tidymodeling</span></a>
+ <span class="menu-text">Modeling of Microbiome Data</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -262,8 +268,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./apply01_model_data.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Modelling</span></span></a>
+  <a href="./apply01_model_diversity.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Diversity Measures</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./apply02_model_lin.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Modelling</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./apply03_model_non_lin.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Modelling</span></span></a>
   </div>
 </li>
       </ul>
@@ -284,22 +302,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#introduction-to-the-bias-variance-tradeoff" id="toc-introduction-to-the-bias-variance-tradeoff" class="nav-link active" data-scroll-target="#introduction-to-the-bias-variance-tradeoff"><span class="header-section-number">11</span> Introduction to the Bias-Variance Tradeoff</a>
+  <li><a href="#introduction-to-the-bias-variance-tradeoff" id="toc-introduction-to-the-bias-variance-tradeoff" class="nav-link active" data-scroll-target="#introduction-to-the-bias-variance-tradeoff"><span class="header-section-number">12</span> Introduction to the Bias-Variance Tradeoff</a>
   <ul>
-  <li><a href="#ridge-regression-example" id="toc-ridge-regression-example" class="nav-link" data-scroll-target="#ridge-regression-example"><span class="header-section-number">11.1</span> Ridge Regression Example</a></li>
-  <li><a href="#the-bootstrap-method" id="toc-the-bootstrap-method" class="nav-link" data-scroll-target="#the-bootstrap-method"><span class="header-section-number">11.2</span> The Bootstrap Method</a></li>
-  <li><a href="#bias-and-variance-example" id="toc-bias-and-variance-example" class="nav-link" data-scroll-target="#bias-and-variance-example"><span class="header-section-number">11.3</span> Bias and Variance Example</a></li>
+  <li><a href="#ridge-regression-example" id="toc-ridge-regression-example" class="nav-link" data-scroll-target="#ridge-regression-example"><span class="header-section-number">12.1</span> Ridge Regression Example</a></li>
+  <li><a href="#the-bootstrap-method" id="toc-the-bootstrap-method" class="nav-link" data-scroll-target="#the-bootstrap-method"><span class="header-section-number">12.2</span> The Bootstrap Method</a></li>
+  <li><a href="#bias-and-variance-example" id="toc-bias-and-variance-example" class="nav-link" data-scroll-target="#bias-and-variance-example"><span class="header-section-number">12.3</span> Bias and Variance Example</a></li>
   </ul></li>
-  <li><a href="#session-info" id="toc-session-info" class="nav-link" data-scroll-target="#session-info"><span class="header-section-number">12</span> Session Info</a></li>
+  <li><a href="#session-info" id="toc-session-info" class="nav-link" data-scroll-target="#session-info"><span class="header-section-number">13</span> Session Info</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./stat00_intro.html">Applied bio-statistical methods</a></li><li class="breadcrumb-item"><a href="./stat07_bias_var.html"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Bias and Variance</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./stat00_intro.html">Applied bio-statistical methods</a></li><li class="breadcrumb-item"><a href="./stat08_bias_var.html"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Bias and Variance</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Bias and Variance</span></h1>
+<h1 class="title"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Bias and Variance</span></h1>
 </div>
 
 
@@ -323,8 +341,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1337</span>)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"tidymodels"</span>)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>tidymodels<span class="sc">::</span><span class="fu">tidymodels_prefer</span>()</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"patchwork"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>tidymodels<span class="sc">::</span><span class="fu">tidymodels_prefer</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <p>Load data.</p>
@@ -405,18 +422,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-61"><a href="#cb3-61" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<section id="introduction-to-the-bias-variance-tradeoff" class="level1" data-number="11">
-<h1 data-number="11"><span class="header-section-number">11</span> Introduction to the Bias-Variance Tradeoff</h1>
+<section id="introduction-to-the-bias-variance-tradeoff" class="level1" data-number="12">
+<h1 data-number="12"><span class="header-section-number">12</span> Introduction to the Bias-Variance Tradeoff</h1>
 <p>In supervised machine learning, the ultimate goal is usually to create models which can predict outcome of unseen data. This is the ability of a model to generalize well to new data and is measured by the Generalization Error. The ability to generalize can be decomposed into the balance between bias and variance of a model. Therefore, understanding bias and variance is crucial in machine learning because it helps in developing models that generalize well to new data.</p>
 <p>The bias of a model is measured by how close the predictions for different training sets are to the true values. A model with low bias make predictions close to the true values, whereas a model with high bias make predictions that are far from the true values. High bias usually occurs when a model is too simple, and cannot capture the underlying complex structure of the data. For example, a linear model will have high bias when the true relationship between the features and the target is non-linear. Opposite, low bias occurs when a model is complex enough to capture the underlying structure of the data, but can also occur when the model is too complex and overfits the data. To measure whether the model has overfit, the variance is introduced.</p>
 <p>The variance of a model is measured by how much the predictions vary for different training sets, i.e.&nbsp;how much the model simply just memorizes the training data and fits too closely to the data points. A model with low variance makes similar predictions for different training sets, whereas a model with high variance makes different predictions for different training sets. High variance usually occurs when a model is too complex and fits the noise of the data. A polynomial model of high degree is an example of a model with high variance, as it models tightly to the data points. A low variance model generalizes well to new data, as it makes similar predictions for different training sets, but it tends to make incorrect predictions, i.e.&nbsp;have high bias.</p>
 <p>Models with low bias (precise on average) tends to have high variance (inconsistent across training sets) and vice versa. An optimal model has a both low bias and variance, but since it is difficult to obtain, a good balance between bias and variance is usually sought. This is called the Bias-Variance Tradeoff.</p>
-<section id="ridge-regression-example" class="level2" data-number="11.1">
-<h2 data-number="11.1" class="anchored" data-anchor-id="ridge-regression-example"><span class="header-section-number">11.1</span> Ridge Regression Example</h2>
+<section id="ridge-regression-example" class="level2" data-number="12.1">
+<h2 data-number="12.1" class="anchored" data-anchor-id="ridge-regression-example"><span class="header-section-number">12.1</span> Ridge Regression Example</h2>
 <p>Ridge Regression is a good example of the Bias-Variance Tradeoff. When the penalty is set to 0, the Ridge model is the OLS solution. Assuming that there is a linear relationship between the variables and the outcome, the OLS model has low bias as it on average makes predictions close to the true values. However, the OLS model has high variance as it is sensitive to the noise in the data. By applying Ridge penalty, the coefficients of the model is reduced, and is thereby less sensitive to the noise in the data - a lower chance of overfitting and lower variance. Meanwhile, it also forces the model to fit the data less closely, which increases the bias of the model.</p>
 </section>
-<section id="the-bootstrap-method" class="level2" data-number="11.2">
-<h2 data-number="11.2" class="anchored" data-anchor-id="the-bootstrap-method"><span class="header-section-number">11.2</span> The Bootstrap Method</h2>
+<section id="the-bootstrap-method" class="level2" data-number="12.2">
+<h2 data-number="12.2" class="anchored" data-anchor-id="the-bootstrap-method"><span class="header-section-number">12.2</span> The Bootstrap Method</h2>
 <p>A detail which proves difficult to understand, is that an obtained data set, e.g.&nbsp;the <code>iris</code> data set is in itself a sample from some total population. It is not feasible to measure all <code>iris</code> flowers, and as such the true relationship between the features and the target is unknown. Therefore, the bias and variance of a model is not directly measurable, as it is not possible to compare the predictions of the model to the true values. Instead, it is assumed that the obtained data set is a good representation of the total population, i.e.&nbsp;they have similar distributions. Bias and variance is estimated by fitting a model multiple times to different training sets, but only one data set is available. Cross-validation is a method to estimate the bias and variance of a model, as it simulates different training sets by splitting the data set into multiple training and validation sets, again assuming each fold is a good representation of the total population. Another method is the Bootstrap method which is applied in the below examples. A Bootstrap sample is a sample drawn with replacement from the original data set. Usually, the sample drawn is of the same size as the total data set. With replacement means that the same observation can be drawn multiple times, which is how the Bootstrap samples differs from the original data set.</p>
 <p>To exemplify what is meant by the Bootstrap method, a sample of 10 numbers is drawn from the numbers 1 to 10. The sample is drawn with replacement, meaning that the same number can be drawn multiple times:</p>
 <div class="cell">
@@ -455,7 +472,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="stat07_bias_var_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="stat08_bias_var_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -478,14 +495,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="stat07_bias_var_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="stat08_bias_var_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
 </section>
-<section id="bias-and-variance-example" class="level2" data-number="11.3">
-<h2 data-number="11.3" class="anchored" data-anchor-id="bias-and-variance-example"><span class="header-section-number">11.3</span> Bias and Variance Example</h2>
+<section id="bias-and-variance-example" class="level2" data-number="12.3">
+<h2 data-number="12.3" class="anchored" data-anchor-id="bias-and-variance-example"><span class="header-section-number">12.3</span> Bias and Variance Example</h2>
 <p>To visualize the meaning of bias and variance, a data set has been randomly generated with a sine function and some noise (random jitter). Polynomials of different degrees are then fitted to the data. For properly visualizing the terms, multiple models have to bit fit on data from the same distribution. Therefore, the data set is resampled with the Bootstrap method to simulate different training sets.</p>
 <p>The expectation is, that a polynomial of low degree makes a bad prediction, but is consistent across different training sets, i.e.&nbsp;high bias and low variance. A polynomial of high degree makes a good prediction, but is inconsistent across different training sets, i.e.&nbsp;low bias and high variance. The optimal model is a polynomial of moderate degree, which makes good predictions and is consistent across different training sets.</p>
 <p>The data generated show clear signs of following a sine function, but with some noise. The black line is the true sine function, and the blue points are the generated data.</p>
@@ -503,7 +520,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="stat07_bias_var_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="stat08_bias_var_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -516,7 +533,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="stat07_bias_var_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="stat08_bias_var_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -529,7 +546,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="stat07_bias_var_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="stat08_bias_var_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -542,15 +559,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="stat07_bias_var_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="stat08_bias_var_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
 </section>
 </section>
-<section id="session-info" class="level1" data-number="12">
-<h1 data-number="12"><span class="header-section-number">12</span> Session Info</h1>
+<section id="session-info" class="level1" data-number="13">
+<h1 data-number="13"><span class="header-section-number">13</span> Session Info</h1>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>sessioninfo<span class="sc">::</span><span class="fu">session_info</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -564,7 +581,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  collate  English_United Kingdom.utf8
  ctype    English_United Kingdom.utf8
  tz       Europe/Copenhagen
- date     2024-05-19
+ date     2024-05-24
  pandoc   3.1.11 @ C:/Program Files/RStudio/resources/app/bin/quarto/bin/tools/ (via rmarkdown)
 
 ─ Packages ───────────────────────────────────────────────────────────────────
@@ -622,7 +639,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  nnet           7.3-19     2023-05-03 [2] CRAN (R 4.3.3)
  parallelly     1.37.1     2024-02-29 [1] CRAN (R 4.3.3)
  parsnip      * 1.2.1      2024-03-22 [1] CRAN (R 4.3.3)
- patchwork    * 1.2.0      2024-01-08 [1] CRAN (R 4.3.3)
  pillar         1.9.0      2023-03-22 [1] CRAN (R 4.3.3)
  pkgconfig      2.0.3      2019-09-22 [1] CRAN (R 4.3.3)
  prodlim        2023.08.28 2023-08-28 [1] CRAN (R 4.3.3)
@@ -1056,8 +1072,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./stat06_enet.html" class="pagination-link" aria-label="Elastic Net">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Elastic Net</span></span>
+      <a href="./stat07_svm.html" class="pagination-link" aria-label="Support Vector Machines">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Support Vector Machines</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">

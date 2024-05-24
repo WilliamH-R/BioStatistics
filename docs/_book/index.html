@@ -209,8 +209,14 @@ div.csl-indent {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./stat07_bias_var.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Bias and Variance</span></span></a>
+  <a href="./stat07_svm.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Support Vector Machines</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./stat08_bias_var.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Bias and Variance</span></span></a>
   </div>
 </li>
       </ul>
@@ -227,13 +233,13 @@ div.csl-indent {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./pre01_pca.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Principal Component Analysis</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Principal Component Analysis</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./pre02_umap.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Session Info</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Uniform Manifold Approximation and Projection</span></span></a>
   </div>
 </li>
       </ul>
@@ -241,7 +247,7 @@ div.csl-indent {
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a href="./apply00_intro.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Predictive Modeling of Microbiome Data using Tidymodeling</span></a>
+ <span class="menu-text">Modeling of Microbiome Data</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -249,8 +255,20 @@ div.csl-indent {
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./apply01_model_data.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Modelling</span></span></a>
+  <a href="./apply01_model_diversity.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Diversity Measures</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./apply02_model_lin.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Modelling</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./apply03_model_non_lin.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Modelling</span></span></a>
   </div>
 </li>
       </ul>
@@ -313,10 +331,10 @@ div.csl-indent {
 <h1 class="unnumbered">Preface</h1>
 <p>This book introduces the concept of Tidy Modelling through the package <code>tidymodels</code>, and is designed to be a practical guide to the tools and techniques that are used in the Tidy Modelling framework. It is aimed at people who are familiar with the basics of R and <code>tidyverse</code> and are interested in learning how to use the <code>tidymodels</code> package to build and evaluate models. Further, a series of statistical concepts often used in Bioinformatics and Biostatistics are introduced in the context of Tidy Modelling.</p>
 <p>To cover all the topics, the book is divided into three main parts. The first part introduces the <code>tidymodels</code> package and its core principles such as such as data splitting, pre-processing, model building, and evaluation. The second part introduces some statistical concepts that are often used in Bioinformatics and Biostatistics, such as hypothesis testing, linear regression, logistic regression, and diversity measures. The concepts are, where applicable, introduced with a description of the method followed by the math behind it and lastly, visual representation using the <code>tidymodels</code> package.</p>
-<p>The final part combines the concepts introduced in the first two parts to build and evaluate models for a real-world dataset. A study pertaining to microbiome and disease prediction is used. The raw data are 16S rRNA amplicon reads used to describe multiple sclerosis (MS) <span class="citation" data-cites="Cox2021">(<a href="references.html#ref-Cox2021" role="doc-biblioref">Cox et al. 2021</a>)</span>. The samples were pre-processed using the pipeline described in the <a href="https://github.com/WilliamH-R/BioStatistics">GitHub repository</a> from which this book is created. After pre-processing, a count matrix was obtained with 456 samples, and the abundance of 124 genera. For each sample, the sex and age of the person is known among other information. All of these variables are used to build several models trying to predict the disease status of the person.</p>
+<p>The final part combines the concepts introduced in the first two parts to build and evaluate models for a real-world dataset. A study pertaining to microbiome and disease prediction is used. The raw data are 16S rRNA amplicon reads used to describe multiple sclerosis (MS) <span class="citation" data-cites="Cox2021">(<a href="#ref-Cox2021" role="doc-biblioref">Cox et al. 2021</a>)</span>. The samples were pre-processed using the pipeline described in the <a href="https://github.com/WilliamH-R/BioStatistics">GitHub repository</a> from which this book is created. After pre-processing, a count matrix was obtained with 456 samples, and the abundance of 124 genera. For each sample, the sex and age of the person is known among other information. All of these variables are used to build several models trying to predict the disease status of the person.</p>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
 <div id="ref-Cox2021" class="csl-entry" role="listitem">
 Cox, Laura M., Amir Hadi Maghzi, Shirong Liu, Stephanie K. Tankou, Fyonn H. Dhang, Valerie Willocq, Anya Song, et al. 2021. <span>“Gut Microbiome in Progressive Multiple Sclerosis.”</span> <em>Annals of Neurology</em> 89 (June): 1195–1211. <a href="https://doi.org/10.1002/ANA.26084">https://doi.org/10.1002/ANA.26084</a>.
 </div>

@@ -271,8 +271,14 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./stat07_bias_var.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Bias and Variance</span></span></a>
+  <a href="./stat07_svm.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Support Vector Machines</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./stat08_bias_var.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Bias and Variance</span></span></a>
   </div>
 </li>
       </ul>
@@ -289,13 +295,13 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./pre01_pca.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Principal Component Analysis</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Principal Component Analysis</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./pre02_umap.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Session Info</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Uniform Manifold Approximation and Projection</span></span></a>
   </div>
 </li>
       </ul>
@@ -303,7 +309,7 @@ window.Quarto = {
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a href="./apply00_intro.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Predictive Modeling of Microbiome Data using Tidymodeling</span></a>
+ <span class="menu-text">Modeling of Microbiome Data</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -311,8 +317,20 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./apply01_model_data.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Modelling</span></span></a>
+  <a href="./apply01_model_diversity.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Diversity Measures</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./apply02_model_lin.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Modelling</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./apply03_model_non_lin.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Modelling</span></span></a>
   </div>
 </li>
       </ul>
@@ -337,7 +355,8 @@ window.Quarto = {
   <ul>
   <li><a href="#species-richness" id="toc-species-richness" class="nav-link" data-scroll-target="#species-richness"><span class="header-section-number">4.1.1</span> Species Richness</a></li>
   <li><a href="#shannon-index" id="toc-shannon-index" class="nav-link" data-scroll-target="#shannon-index"><span class="header-section-number">4.1.2</span> Shannon Index</a></li>
-  <li><a href="#faiths-phylogenetic-diversity-faiths-pd" id="toc-faiths-phylogenetic-diversity-faiths-pd" class="nav-link" data-scroll-target="#faiths-phylogenetic-diversity-faiths-pd"><span class="header-section-number">4.1.3</span> Faith’s phylogenetic diversity (Faith’s PD)</a></li>
+  <li><a href="#species-evenness" id="toc-species-evenness" class="nav-link" data-scroll-target="#species-evenness"><span class="header-section-number">4.1.3</span> Species Evenness</a></li>
+  <li><a href="#faiths-phylogenetic-diversity-faiths-pd" id="toc-faiths-phylogenetic-diversity-faiths-pd" class="nav-link" data-scroll-target="#faiths-phylogenetic-diversity-faiths-pd"><span class="header-section-number">4.1.4</span> Faith’s phylogenetic diversity (Faith’s PD)</a></li>
   </ul></li>
   <li><a href="#beta-diversity" id="toc-beta-diversity" class="nav-link" data-scroll-target="#beta-diversity"><span class="header-section-number">4.2</span> Beta Diversity</a>
   <ul>
@@ -419,7 +438,7 @@ window.Quarto = {
 </div>
 <section id="alpha-diversity" class="level2" data-number="4.1">
 <h2 data-number="4.1" class="anchored" data-anchor-id="alpha-diversity"><span class="header-section-number">4.1</span> Alpha Diversity</h2>
-<p>Generally, alpha diversity measures the within-sample diversity. Multiple ways of calculating alpha diversity exists. A crude way is simply to count unique organisms per sample. One could also take the distribution into account or the phylogeny.</p>
+<p>Generally, alpha diversity measures the within-sample diversity. Multiple metrics for alpha diversity exists. A crude way is simply to count unique organisms per sample. One could also take the distribution into account or the phylogeny.</p>
 <p>The R package <code>vegan</code> is widely used to help calculate diversity and is used here.</p>
 <section id="species-richness" class="level3" data-number="4.1.1">
 <h3 data-number="4.1.1" class="anchored" data-anchor-id="species-richness"><span class="header-section-number">4.1.1</span> Species Richness</h3>
@@ -453,11 +472,11 @@ window.Quarto = {
 </section>
 <section id="shannon-index" class="level3" data-number="4.1.2">
 <h3 data-number="4.1.2" class="anchored" data-anchor-id="shannon-index"><span class="header-section-number">4.1.2</span> Shannon Index</h3>
-<p>The measure is usually referred to as Shannon Index or Shannon Entropy. It is able to take both the richness (described above) and the evenness into account. The evenness refers to how evenly the abundances are distributed among taxa for a species. The richness is considered when summing over all taxonomic units at a specified taxonomic rank. The index is calculated via the following formula:</p>
+<p>The measure is usually referred to as Shannon Index or Shannon Entropy. It is able to take both the richness (described above) and the evenness into account. The evenness refers to how evenly the abundances are distributed among taxa for a sample. The richness is considered when summing over all taxonomic units at a specified taxonomic rank. The index is calculated via the following formula:</p>
 <p><span class="math display">\[
 H' = -\sum_{i=1}^{R} p_i \ln(p_i)
 \]</span></p>
-<p><span class="math inline">\(R\)</span> is the number of observed species within a sample, i.e.&nbsp;the Richness. <span class="math inline">\(p_{i}\)</span> is the proportion of the abundance belonging to the <span class="math inline">\(i\)</span>’th species out of the total abundance for a specific sample<span class="citation" data-cites="Shannon1948">(<a href="references.html#ref-Shannon1948" role="doc-biblioref">Shannon 1948</a>)</span>.</p>
+<p><span class="math inline">\(R\)</span> is the number of observed species within a sample, i.e.&nbsp;the Richness. <span class="math inline">\(p_{i}\)</span> is the proportion of the abundance belonging to the <span class="math inline">\(i\)</span>’th species out of the total abundance for a specific sample<span class="citation" data-cites="Shannon1948">(<a href="#ref-Shannon1948" role="doc-biblioref">Shannon 1948</a>)</span>.</p>
 <p>To illustrate the meaning of the value of the Shannon Index a few examples are calculated. In the first scenario, three species and three samples exists. For the first sample, the proportion of abundances are spread evenly between the three species. For the second and third sample, the proportions are more skewered towards one species. These examples show how the evenness affect the Shannon Index.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tribble</span>(<span class="sc">~</span>sample,    <span class="sc">~</span>species_1, <span class="sc">~</span>species_2, <span class="sc">~</span>species_3,</span>
@@ -522,9 +541,36 @@ H'_{sample_{F}} = 0
 </div>
 </div>
 </section>
-<section id="faiths-phylogenetic-diversity-faiths-pd" class="level3" data-number="4.1.3">
-<h3 data-number="4.1.3" class="anchored" data-anchor-id="faiths-phylogenetic-diversity-faiths-pd"><span class="header-section-number">4.1.3</span> Faith’s phylogenetic diversity (Faith’s PD)</h3>
-<p>Faith’s PD consider phylogenetic distances within a sample. The PD for a sample is calculated as the total sum of branch lengths from a phylogenetic tree, where the tree only contains the organisms found in a given sample <span class="citation" data-cites="Faith1992">(<a href="references.html#ref-Faith1992" role="doc-biblioref">Faith 1992</a>)</span>. Imagine a scenario with four organisms, organism a and b are closely related, and so are organism c and d (<a href="#fig-tree_example" class="quarto-xref">Figure&nbsp;<span>4.1</span></a>).</p>
+<section id="species-evenness" class="level3" data-number="4.1.3">
+<h3 data-number="4.1.3" class="anchored" data-anchor-id="species-evenness"><span class="header-section-number">4.1.3</span> Species Evenness</h3>
+<p>Evenness is an overall measure of how evenly the abundances are distributed among taxa for a sample. Different metrics exists, here the Pielou’s evenness index is used. The value ranges from 0 to 1, where 1 indicates that the abundances are exactly evenly distributed among all species and 0 indicates that the abundance is dominated by one species. Pielou’s evenness is calculated by dividing the Shannon Index of the sample by the theoretical maximum Shannon Index for the sample given its size. Thereby, Pielou’s Index is not dependent on Richness due to the division. The theoretical maximum Shannon Index turns out to be more simply calculated as the natural logarithm of the number of species in the sample. The formula is as follows:</p>
+<p><span class="math display">\[
+J = \frac{H'}{\ln(R)}
+\]</span> <span class="math inline">\(R\)</span> is the number of observed species within a sample, and <span class="math inline">\(H'\)</span> is the Shannon Index within the sample.</p>
+<p>The evenness is calculated for the test set as follows:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>shannon <span class="sc">|&gt;</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Pielou =</span> Shannon <span class="sc">/</span> <span class="fu">log</span>(<span class="fu">n</span>()))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 10 × 3
+   Sample      Shannon Pielou
+   &lt;chr&gt;         &lt;dbl&gt;  &lt;dbl&gt;
+ 1 SRR14214860   0.667  0.289
+ 2 SRR14214861   0.606  0.263
+ 3 SRR14214862   0      0    
+ 4 SRR14214863   0.472  0.205
+ 5 SRR14214864   0.243  0.105
+ 6 SRR14214865   0.762  0.331
+ 7 SRR14214866   0.618  0.268
+ 8 SRR14214867   0.789  0.343
+ 9 SRR14214868   0      0    
+10 SRR14214869   0.683  0.296</code></pre>
+</div>
+</div>
+</section>
+<section id="faiths-phylogenetic-diversity-faiths-pd" class="level3" data-number="4.1.4">
+<h3 data-number="4.1.4" class="anchored" data-anchor-id="faiths-phylogenetic-diversity-faiths-pd"><span class="header-section-number">4.1.4</span> Faith’s phylogenetic diversity (Faith’s PD)</h3>
+<p>Faith’s PD consider phylogenetic distances within a sample. The PD for a sample is calculated as the total sum of branch lengths from a phylogenetic tree, where the tree only contains the organisms found in a given sample <span class="citation" data-cites="Faith1992">(<a href="#ref-Faith1992" role="doc-biblioref">Faith 1992</a>)</span>. Imagine a scenario with four organisms, organism a and b are closely related, and so are organism c and d (<a href="#fig-tree_example" class="quarto-xref">Figure&nbsp;<span class="quarto-unresolved-ref">fig-tree_example</span></a>).</p>
 <div id="fig-tree_example" class="quarto-figure quarto-figure-center quarto-float anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-tree_example-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -552,8 +598,8 @@ PD = 15 + 6 + 4 + 3 + 1 + 2 + 4 = 35
 <p>Where <span class="math inline">\(\alpha_{sample_{1}}\)</span> and <span class="math inline">\(\alpha_{sample_{2}}\)</span> are the number of unique organisms in sample 1 and 2 (the richness), respectively. <span class="math inline">\(c\)</span> is the number of organisms which exists in both samples.</p>
 <p>As an example, consider the following two samples (the top two rows of the test set):</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>count_matrix_test <span class="sc">|&gt;</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>count_matrix_test <span class="sc">|&gt;</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 5
   Sample      Actinomyces Adlercreutzia Agathobacter Akkermansia
@@ -580,11 +626,11 @@ J(SRR14214860, SRR14214861) = \frac{2}{3} \approx 0.67
 <p>The two samples are only somewhat similar, as the Jaccard index is close to 1.</p>
 <p>To calculate the Jaccard index by using the <code>vegan</code> package, the argument <code>binary</code> is set to <code>TRUE</code> to indicate that the data is binary, i.e.&nbsp;presence/absence of organisms instead of abundance. It is also important to note, that the <code>vegan</code> package actually calculates the dissimilarities, <span class="math inline">\(1 - \frac{|A \cap B|}{|A \cup B|}\)</span> so a higher value indicates a higher dissimilarity. The Jaccard index is calculated for the test data as follows:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>count_matrix_test <span class="sc">|&gt;</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">2</span>) <span class="sc">|&gt;</span></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">column_to_rownames</span>(<span class="at">var =</span> <span class="st">"Sample"</span>)<span class="sc">|&gt;</span></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">vegdist</span>(<span class="at">method =</span> <span class="st">"jaccard"</span>,</span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>          <span class="at">binary =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>count_matrix_test <span class="sc">|&gt;</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">2</span>) <span class="sc">|&gt;</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">column_to_rownames</span>(<span class="at">var =</span> <span class="st">"Sample"</span>)<span class="sc">|&gt;</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">vegdist</span>(<span class="at">method =</span> <span class="st">"jaccard"</span>,</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>          <span class="at">binary =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>            SRR14214860
 SRR14214861   0.3333333</code></pre>
@@ -606,10 +652,10 @@ BC_{SRR14214860, SRR14214861} = \frac{|0 - 0| + |11 - 12| + |190 - 0| + |486 - 5
 \]</span></p>
 <p>By using the <code>vegan</code> package the Bray-Curtis dissimilarity can be calculated as follows:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>count_matrix_test <span class="sc">|&gt;</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">2</span>) <span class="sc">|&gt;</span></span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">column_to_rownames</span>(<span class="at">var =</span> <span class="st">"Sample"</span>)<span class="sc">|&gt;</span></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">vegdist</span>(<span class="at">method =</span> <span class="st">"bray"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>count_matrix_test <span class="sc">|&gt;</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">2</span>) <span class="sc">|&gt;</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">column_to_rownames</span>(<span class="at">var =</span> <span class="st">"Sample"</span>)<span class="sc">|&gt;</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">vegdist</span>(<span class="at">method =</span> <span class="st">"bray"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>            SRR14214860
 SRR14214861   0.9545455</code></pre>
@@ -624,7 +670,7 @@ SRR14214861   0.9545455</code></pre>
 U = \frac{sum \; of \; unique \; branches' \; length}{sum \; of \; all \; branches'  \; length}
 \]</span></p>
 <p>The possible values range from 0 to 1. In the case where the two compared samples share all organisms, the value of the numerator would sum to 0, and the UniFrac would be 0. If the two samples do not share any organisms, the value of the numerator would sum to the total length of the phylogenetic tree (the denominator), and the UniFrac would be 1.</p>
-<p>Imagine a phylogenetic tree made from two samples, red and blue. Four different organisms were found in total (<a href="#fig-tree_example_unifrac" class="quarto-xref">Figure&nbsp;<span>4.2</span></a>). A red colour indicate an organism found in the red sample, a blue colour indicate an organism found in the blue sample and a purple colour indicate an organism was found in both samples.</p>
+<p>Imagine a phylogenetic tree made from two samples, red and blue. Four different organisms were found in total (<a href="#fig-tree_example_unifrac" class="quarto-xref">Figure&nbsp;<span class="quarto-unresolved-ref">fig-tree_example_unifrac</span></a>). A red colour indicate an organism found in the red sample, a blue colour indicate an organism found in the blue sample and a purple colour indicate an organism was found in both samples.</p>
 <div id="fig-tree_example_unifrac" class="quarto-figure quarto-figure-center quarto-float anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-tree_example_unifrac-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -646,7 +692,7 @@ U = \frac{4 + 2 + 4}{15 + 6 + 4 + 3 + 1 + 2 + 4} = 0.286
 <section id="session-info" class="level1" data-number="5">
 <h1 data-number="5"><span class="header-section-number">5</span> Session Info</h1>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>sessioninfo<span class="sc">::</span><span class="fu">session_info</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>sessioninfo<span class="sc">::</span><span class="fu">session_info</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>─ Session info ───────────────────────────────────────────────────────────────
  setting  value
@@ -658,7 +704,7 @@ U = \frac{4 + 2 + 4}{15 + 6 + 4 + 3 + 1 + 2 + 4} = 0.286
  collate  English_United Kingdom.utf8
  ctype    English_United Kingdom.utf8
  tz       Europe/Copenhagen
- date     2024-05-19
+ date     2024-05-24
  pandoc   3.1.11 @ C:/Program Files/RStudio/resources/app/bin/quarto/bin/tools/ (via rmarkdown)
 
 ─ Packages ───────────────────────────────────────────────────────────────────
@@ -760,7 +806,7 @@ U = \frac{4 + 2 + 4}{15 + 6 + 4 + 3 + 1 + 2 + 4} = 0.286
 </div>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
 <div id="ref-Faith1992" class="csl-entry" role="listitem">
 Faith, Daniel P. 1992. <span>“Conservation Evaluation and Phylogenetic Diversity.”</span> <em>Biological Conservation</em> 61 (January): 1–10. <a href="https://doi.org/10.1016/0006-3207(92)91201-3">https://doi.org/10.1016/0006-3207(92)91201-3</a>.
 </div>
