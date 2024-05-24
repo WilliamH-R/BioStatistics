@@ -40,7 +40,7 @@ count_matrix_test
 
 ## Alpha Diversity
 
-Generally, alpha diversity measures the within-sample diversity. Multiple ways of calculating alpha diversity exists. A crude way is simply to count unique organisms per sample. One could also take the distribution into account or the phylogeny.
+Generally, alpha diversity measures the within-sample diversity. Multiple metrics for alpha diversity exists. A crude way is simply to count unique organisms per sample. One could also take the distribution into account or the phylogeny.
 
 The R package `vegan` is widely used to help calculate diversity and is used here.
 
@@ -62,7 +62,7 @@ count_matrix_test |>
 
 ### Shannon Index
 
-The measure is usually referred to as Shannon Index or Shannon Entropy. It is able to take both the richness (described above) and the evenness into account. The evenness refers to how evenly the abundances are distributed among taxa for a species. The richness is considered when summing over all taxonomic units at a specified taxonomic rank. The index is calculated via the following formula:
+The measure is usually referred to as Shannon Index or Shannon Entropy. It is able to take both the richness (described above) and the evenness into account. The evenness refers to how evenly the abundances are distributed among taxa for a sample. The richness is considered when summing over all taxonomic units at a specified taxonomic rank. The index is calculated via the following formula:
 
 $$
 H' = -\sum_{i=1}^{R} p_i \ln(p_i)
@@ -135,6 +135,21 @@ shannon <- count_matrix_test |>
 count_matrix_test |>
   left_join(shannon,
             by = "Sample")
+```
+
+### Species Evenness
+
+Evenness is an overall measure of how evenly the abundances are distributed among taxa for a sample. Different metrics exists, here the Pielou's evenness index is used. The value ranges from 0 to 1, where 1 indicates that the abundances are exactly evenly distributed among all species and 0 indicates that the abundance is dominated by one species. Pielou's evenness is calculated by dividing the Shannon Index of the sample by the theoretical maximum Shannon Index for the sample given its size. Thereby, Pielou's Index is not dependent on Richness due to the division. The theoretical maximum Shannon Index turns out to be more simply calculated as the natural logarithm of the number of species in the sample. The formula is as follows:
+
+$$
+J = \frac{H'}{\ln(R)}
+$$
+$R$ is the number of observed species within a sample, and $H'$ is the Shannon Index within the sample.
+
+The evenness is calculated for the test set as follows:
+```{r}
+shannon |>
+  mutate(Pielou = Shannon / log(n()))
 ```
 
 ### Faith's phylogenetic diversity (Faith's PD)
