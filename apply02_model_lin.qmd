@@ -54,7 +54,7 @@ meta <- read.csv(file = "data/metadata.txt") |>
          EDSS = as.factor(EDSS))
 ```
 
-# Modelling
+# Linear Modelling
 
 ## Data wrangling
 The data is joined with the metadata as the `Patient_status` is used as the outcome variable. Only the columns that are needed for the model are kept. Notice `inner_join()` is used such that only rows for which both the count matrix and metadata are available are kept.
