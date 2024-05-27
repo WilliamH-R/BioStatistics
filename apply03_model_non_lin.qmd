@@ -5,8 +5,10 @@ editor_options:
 
 params:
   percentage_train: 0.80
-  n_folds: 10
+  n_folds: 5
   grid_size: 100
+  rbf_sigma_lower: -10
+  rbf_sigma_higher: -4
 ---
 Set seed and load packages.
 ```{r}
@@ -14,10 +16,11 @@ Set seed and load packages.
 #| code-fold: true
 #| code-summary: "Show the code"
 
-set.seed(1337)
+set.seed(1338)
 
 library("tidymodels")
 tidymodels::tidymodels_prefer()
+library("embed")
 ```
 
 Load data.
@@ -51,13 +54,15 @@ meta <- read.csv(file = "data/metadata.txt") |>
          EDSS = as.factor(EDSS))
 ```
 
+Chosen parameters.
+
+```{r}
+params
+```
+
 # Non-Linear Modelling
 
-Support Vector Machines are an example of non-linear modelling, as they can model non-linear relationships between the predictors and the outcome depending on the chosen kernel. Utilizing the strengths of kernels, SVMs can model complex relationships between the variables and the outcome.
-
-The risk of overfitting is much higher for non-linear models emphasizing the need for cross-validation and hyperparameter optimization.
-
-This section include less explanation of the code as it has the same structure as the previous section.
+Due to the data transformations which the kernels allow, SVMs can model non-linear relationships between the variables and the outcome allowing for the method to capture complex structures. The risk of overfitting is higher for non-linear models as they are more flexible making the model more prone to capture noise in the data. It emphasizes the need for cross-validation and hyperparameter optimization. The code is structured in the same way as for the linear models, so to avoid repetition explanations are kept to a minimum.
 
 ## Workflow Set Preparation
 
@@ -73,7 +78,7 @@ count_matrix_clr <- count_matrix_clr |>
 ```
 
 
-The cross-validation objects are created.
+The objects needed for cross-validation are created.
 
 ```{r}
 count_matrix_clr_split <- initial_split(count_matrix_clr,
@@ -93,10 +98,10 @@ stand_recipe <- recipe(Patient_status ~ .,
                        data = count_matrix_clr_train)
 
 umap_recipe <- stand_recipe |>
-  step_umap(all_predictors(),
-            num_comp = 7,
-            neighbors = 4,
-            min_dist = 0.01)
+  embed::step_umap(all_predictors(),
+                   num_comp = 7,
+                   neighbors = 4,
+                   min_dist = 0.01)
 ```
 
 The model specification is created. The SVM model is used with a radial basis function kernel. The hyperparameters `cost` and `rbf_sigma` are tuned. `cost` is the $\xi$ from the chapter on SVM, i.e. how much observations are allowed to cross the margin and `rbf_sigma` controls how smooth the decision boundary is.
@@ -108,30 +113,19 @@ svm_spec <- svm_rbf(cost = tune(),
   set_mode("classification")
 ```
 
-The ranges of the hyperparameters are changed. Note that it does not change the model specification, but the information is saved in a new object and can be used to update the model specification in the next chunk.
+The ranges of the hyperparameters are updated.
 
 ```{r}
-# svm_spec |> 
-#   extract_parameter_set_dials() |> 
-#   extract_parameter_dials("mixture")
+svm_param_ranges <- svm_spec |> 
+  extract_parameter_set_dials() |>
+  update(rbf_sigma = rbf_sigma(c(params$rbf_sigma_lower,
+                                 params$rbf_sigma_higher)))
 
-svm_param_ranges <- svm_spec
-# log_param_ranges <- log_spec |> 
-#   extract_parameter_set_dials() |>
-#   update(penalty = penalty(c(params$penalty_lower,
-#                              params$penalty_higher)))
-# 
-# log_penalty_param_ranges <- log_lasso_spec |> 
-#   extract_parameter_set_dials() |>
-#   update(penalty = penalty(c(params$penalty_lower,
-#                              params$penalty_higher)))
-# 
-# log_param_ranges
-# 
-# log_penalty_param_ranges
+svm_param_ranges |>
+  extract_parameter_dials("rbf_sigma")
 ```
 
-The workflow set is created by combinding the recipes and specifications.
+The workflow set is created by combining the recipes and specifications.
 
 ```{r}
 # Create workflow set
@@ -142,13 +136,11 @@ workflow_set <- workflow_set(
 )
 
 # Update workflow set with hyperparameter ranges
-# workflow_set <- workflow_set |>
-#   option_add(id = "stand_svm",
-#              param_info = svm_param_ranges) |>
-#   option_add(id = "pca_svm",
-#              param_info = svm_param_ranges)
-# workflow_set
-
+workflow_set <- workflow_set |>
+  option_add(id = "stand_svm",
+             param_info = svm_param_ranges) |>
+  option_add(id = "umap_svm",
+             param_info = svm_param_ranges)
 workflow_set
 ```
 
@@ -177,7 +169,7 @@ grid_results <- workflow_set |>
   )
 ```
 
-Performance across the grid search is visualized.
+Performance across the grid search is visualized. From the search, it would seem the grid ranges should be adjusted as the performance is not plateauing.
 
 ```{r}
 grid_results |>
@@ -200,7 +192,7 @@ grid_results |>
              ncol = 2, scales = "free_y")
 ```
 
-The best hyperparameters are extracted, saved and added to the workflow to finalize.
+The best hyperparameters are extracted and added to the workflow for fitting and predicting.
 
 ```{r}
 # Extract best hyperparameters
@@ -208,319 +200,54 @@ workflow_ids <- grid_results |>
   pull(wflow_id)
 
 tuning_params_result <- workflow_ids |>
-  purrr::map(~{grid_results |>
-      extract_workflow_set_result(.x) |>
+  purrr::map(function(id) {
+    grid_results |>
+      extract_workflow_set_result(id) |>
       select_best(metric = "roc_auc") |> 
-      mutate(wflow_id = .x)
+      mutate(wflow_id = id)
   }) |>
   bind_rows() |>
-  select(wflow_id, cost, rbf_sigma, margin)
+  select(wflow_id, cost, rbf_sigma)
 
 
 # Finalize
 workflow_set_final <- workflow_ids |>
-  purrr::map(~{
+  purrr::map(function(id) {
     grid_results |>
-      extract_workflow(.x) |> 
+      extract_workflow(id) |> 
       finalize_workflow(tuning_params_result |> 
-                          filter(wflow_id == .x))
+                          filter(wflow_id == id))
   })
 names(workflow_set_final) <- workflow_ids
-```
 
-
-Fit, predict, visualize
-
-```{r}
+# Fit
 workflow_set_fit <- workflow_ids |>
-  purrr::map(~{
-    workflow_set_final[[.x]] |>
+  purrr::map(function(id) {
+    workflow_set_final[[id]] |>
       last_fit(split = count_matrix_clr_split)
   })
 names(workflow_set_fit) <- workflow_ids
 
-workflow_set_fit$stand_svm |>
-  collect_predictions()|> 
-  conf_mat(truth = Patient_status,
-           estimate = .pred_class)
-
+# Predict
 roc_auc_results <- workflow_ids |>
-  map( ~ {
-    workflow_set_fit[[.x]] |>
+  map(function(id) {
+    workflow_set_fit[[id]] |>
       collect_predictions() |>
       roc_curve(truth = Patient_status,
                 .pred_MS,
                 event_level = "second") |>
-      mutate(wflow_id = .x)
+      mutate(wflow_id = id)
   }) |> bind_rows()
 ```
 
-
-## Data wrangling
-The data is joined with the metadata as the `Patient_status` is used as the outcome variable. Only the columns that are needed for the model are kept. Notice `inner_join()` is used such that only rows for which both the count matrix and metadata are available are kept.
-
-```{r}
-count_matrix_clr <- count_matrix_clr |>
-  inner_join(meta,
-             by = "Sample") |>
-  select(-c(Sample, Treatment, Ethnicity, Location,
-            Age, BMI, Disease_severity, EDSS, Sex)) |>
-  relocate(Patient_status)
-```
-
-
-## Cross-Validation
-The data is split into a training and testing set using cross-validation to avoid overfitting. This is especially needed, as some hyperparameters needs to be tuned.
-
-The data is split:
-```{r}
-count_matrix_clr_split <- initial_split(count_matrix_clr,
-                                        prop = params$percentage_train,
-                                        strata = Patient_status)
-count_matrix_clr_train <- training(count_matrix_clr_split)
-count_matrix_clr_test <- testing(count_matrix_clr_split)
-```
-
-The CV object is created:
-```{r}
-count_matrix_clr_folds <- vfold_cv(count_matrix_clr_train,
-                                   v = params$n_folds)
-count_matrix_clr_folds
-```
-
-## Recipes
-The recipes contain two pieces of important information. The first is the formula that describes the relationship between the variables and the outcome. In this case, which genera to use for predicting disease. The second is the pre-processing steps that are applied to the data before the model is built. This could include steps such as scaling, log-transform or imputing missing values. Here, the data is already clr-transformed.
-
-Two recipes are created. One without any pre-processing steps, and one where Principal Component Analysis (PCA) is applied to the data. In both cases, all variables is used to try and predict the outcome `Patient_status`.
-
-```{r}
-stand_recipe <- recipe(Patient_status ~ .,
-                       data = count_matrix_clr_train)
-
-pca_recipe <- stand_recipe |> 
-  step_pca(all_predictors(),
-           num_comp = 7)
-
-pls_recipe <- stand_recipe |>
-  step_pls(all_predictors(),
-           outcome = "Patient_status",
-           num_comp = 7)
-```
-
-## Model Specifications
-To model the data, a specification is needed. This includes the model to use, the engine to use, the mode of prediction and choosing hyperparameters. Since the outcome is binary, a logistic regression model is used. The model is later tuned using a grid search over the hyperparameters `penalty` and `mixture`. Models with exclusively Ridge and Lasso regularization are built, as well as a model with a mixture of both.
-
-```{r}
-svm_spec <- svm_rbf(cost = tune(),
-                    rbf_sigma = tune(),
-                    margin = tune()) |>
-  set_engine("kernlab") |>
-  set_mode("classification")
-```
-
-## Change Hyperparameter Values
-The hyperparameters `penalty` and `mixture` are extracted from the model specification. This is done to see the possible values that can be used in the grid search.
-
-For the mixture, values between $0.05$ and $1$ is used which seem to be decent values.
-
-```{r}
-# log_spec |> 
-#   extract_parameter_set_dials() |> 
-#   extract_parameter_dials("mixture")
-```
-
-For the penalty, values between $10^-10$ and $1$ are used pr default. The range is increased to $5*10^1$. The updated range is saved in a new object, but the information is not added to the models until the workflow is created further down. As seen from the output, the information do not pertain to a specific model, but simply contain ranges for different hyperparameters.
-
-```{r}
-# log_spec |> 
-#   extract_parameter_set_dials() |> 
-#   extract_parameter_dials("mixture")
-
-svm_param_ranges <- svm_spec
-# log_param_ranges <- log_spec |> 
-#   extract_parameter_set_dials() |>
-#   update(penalty = penalty(c(params$penalty_lower,
-#                              params$penalty_higher)))
-# 
-# log_penalty_param_ranges <- log_lasso_spec |> 
-#   extract_parameter_set_dials() |>
-#   update(penalty = penalty(c(params$penalty_lower,
-#                              params$penalty_higher)))
-# 
-# log_param_ranges
-# 
-# log_penalty_param_ranges
-```
-
-## Create the Workflow Set
-The recipes are combined with the model specifications to create a workflow set. The workflow set is used to fit the models to the data and evaluate the models. Notice here it is called a workflow set, as it contains multiple workflows. Each row of the workflow set is a workflow of its own which further contain the recipe and model.
-
-A workflow set for all combinations of recipes and models is created:
-  
-```{r}
-workflow_set <- workflow_set(
-  preproc = list(stand = stand_recipe,
-                 pca = pca_recipe,
-                 pls = pls_recipe),
-  models = list(svm = svm_spec)
-)
-
-workflow_set
-```
-
-The parameter objects which contain the hyperparameter ranges are added to the workflow:
-  
-```{r}
-# workflow_set <- workflow_set |>
-#   option_add(id = "stand_svm",
-#              param_info = svm_param_ranges) |>
-#   option_add(id = "pca_svm",
-#              param_info = svm_param_ranges)
-# workflow_set
-```
-
-## Tune hyperparameters
-
-All workflows in the workflow set contain hyperparameters. These are tuned with a search grid using the function `tune_grid()`. As `workflow_set` contain multiple workflows, the `tune_grid()` function can be mapped over the workflows to tune all hyperparameters using `workflow_map()`, a `purrr`-like map function.
-
-Several settings for tuning the grid exists. This includes e.g. whether or not to parallelize, what output to save and how verbose the output should be, i.e. how much should be printed to std.out. The settings are set to:
-  
-```{r}
-grid_settings <-
-  control_grid(
-    save_pred = TRUE,
-    parallel_over = "everything",
-    save_workflow = TRUE,
-    extract = function(x) x
-  )
-```
-
-The grid search is performed for a grid of size 10. This means that 10 different combinations of the hyperparameters are tried for each model.
-
-```{r}
-grid_results <- workflow_set |>
-  workflow_map(
-    fn = "tune_grid",
-    seed = 1337,
-    resamples = count_matrix_clr_folds,
-    grid = params$grid_size,
-    control = grid_settings
-  )
-```
-
-`tidymodels` comes with a lot of convenience functions. One of these is `autoplot()` that can, among other things, plot the results of the grid search. The best result of each workflow is selected based on the AUC.
-
-```{r}
-autoplot(grid_results,
-         id = "pls_svm",
-         metric = "roc_auc")
-```
-
-The issue with wrappers, e.g. the convenience function `autoplot()`, is that they do not always provide the flexibility needed.
-
-```{r}
-grid_results |>
-  collect_metrics() |>
-  filter(.metric == "roc_auc") |> 
-  group_by(wflow_id) |>
-  arrange(desc(mean)) |>
-  mutate(rank = row_number()) |>
-  ungroup() |>
-  ggplot(aes(x = rank,
-             y = mean,
-             col = wflow_id)) +
-  geom_point() +
-  geom_errorbar(aes(ymin = mean - std_err,
-                    ymax = mean + std_err)) +
-  theme(legend.position = "none") +
-  labs(x = "Rank",
-       y = "AUC") +
-  facet_wrap(~ wflow_id,
-             ncol = 2, scales = "free_y")
-```
-
-The hyperparameters resulting in the best AUC is extracted for each workflow. Note that the value of mixture is an order of magnitude different for `stand_log` and `pca_log`. In the PCA space, the model emphasizes Lasso over Ridge. This is likely due to the PCA reducing the number of variables, which in turn seems to reduce the need for setting coefficients to 0 (Lasso regularization).
-
-
-Note that the value of mixture is close to zero for both Elastic Net models, which means that the model emphasizes Ridge over Lasso. Note also that the penalty is much lower for the workflow with PCA pre-processing. This is likely due to the PCA reducing the number of variables, which in turn seems to reduce the need for regularization.
-
-```{r}
-workflow_ids <- grid_results |>
-  pull(wflow_id)
-
-
-tuning_params_result <- workflow_ids |>
-  purrr::map(~{grid_results |>
-      extract_workflow_set_result(.x) |>
-      select_best(metric = "roc_auc") |> 
-      mutate(wflow_id = .x)
-  }) |>
-  bind_rows() |>
-  select(wflow_id, cost, rbf_sigma, margin)
-
-tuning_params_result
-```
-
-## Finalize workflow
-As the hyperparameters have been tuned, the final workflow can be created. This is done by adding the hyperparameters to the workflow. When the hyperparameters have been added, the workflows can be fitted.
-
-```{r}
-workflow_set_final <- workflow_ids |>
-  purrr::map(~{
-    grid_results |>
-      extract_workflow(.x) |> 
-      finalize_workflow(tuning_params_result |> 
-                          filter(wflow_id == .x))
-  })
-names(workflow_set_final) <- workflow_ids
-```
-
-## Fit and Predict for the Final Workflow
-With the hyperparameters set, the workflows can be fit to the data, and the models can be evaluated. The `last_fit()` function is used to fit the model to the data. The `split` argument is set to the cross-validation object created earlier. This is done to avoid overfitting.
-
-```{r}
-workflow_set_fit <- workflow_ids |>
-  purrr::map(~{
-    workflow_set_final[[.x]] |>
-      last_fit(split = count_matrix_clr_split)
-  })
-names(workflow_set_fit) <- workflow_ids
-```
-
-## Predict and visualize performance
-For each of the fitted models, the predictions are collected and the performance is evaluated. One option is to look at the confusion matrices, e.g.: 
-  
-```{r}
-workflow_set_fit$stand_svm |>
-  collect_predictions()|> 
-  conf_mat(truth = Patient_status,
-           estimate = .pred_class)
-```
-
-Another more visual approach is to plot the ROC-curve. This is done for all models in the workflow set. First, the specificity and sensitivity is calculated for each model with a convenience function `roc_curve()`
-
-```{r}
-roc_auc_results <- workflow_ids |>
-  map( ~ {
-    workflow_set_fit[[.x]] |>
-      collect_predictions() |>
-      roc_curve(truth = Patient_status,
-                .pred_MS,
-                event_level = "second") |>
-      mutate(wflow_id = .x)
-  }) |> bind_rows()
-```
-
-Finally, the ROC-curve is plotted stratified by the workflow ID. The ROC-curve is a plot of the sensitivity against (1 - specificity). Sensitivity is the proportion of true positives out of all positives, i.e. true positive rate. In this case, the proportion of correctly classified MS patients out of all MS patients. Specificity is the proportion of true negatives out of all negatives. In this case, the proportion of correctly classified healthy patients out of all healthy patients. Since the x-axis plots (1 - specificity), it is actually the proportion of false positives out of all negatives, i.e. the false positive rate.
+The ROC curves are visualized for the different models suggesting `stand_svm` is the better model.
 
 ```{r}
 roc_auc_results |>
   ggplot(aes(x = 1 - specificity,
              y = sensitivity,
              col = wflow_id)) + 
-  geom_path(lwd = 1,
-            alpha = 0.6) +
+  geom_path(lwd = 1) +
   geom_abline(lty = 3) + 
-  coord_equal() + 
-  scale_color_viridis_d()
+  coord_equal()
 ```
