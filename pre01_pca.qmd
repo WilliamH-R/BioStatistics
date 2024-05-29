@@ -520,7 +520,7 @@ A cummulative plot over the PCs can be used to determine how many PCs are needed
 pca_count_matrix |>
   tidy(matrix = "eigenvalues") |>
   ggplot(aes(x = reorder(PC, -percent),
-             y = cumulative)) +s
+             y = cumulative)) +
   geom_col(fill = "steelblue") +
   geom_hline(yintercept = 0.7,
              linetype = "dashed",
