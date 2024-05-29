@@ -46,9 +46,9 @@ meta <- read.csv(file = "data/metadata.txt") |>
 
 ## Explanation and Example
 
-Multiple reasons for applying Principal Component Analysis (PCA) exists. One of the most common reasons is to visualize high-dimensional data in lower dimensions. Another reason could be to decorrelate variables or to reduce the noise in the data by only maintaining the variables that contain most of the variance.
+Multiple reasons for applying Principal Component Analysis (PCA) exists. One of the most common reasons is to visualize high-dimensional data in lower dimensions. Another reason could be to decorrelate features or to reduce the noise in the data by only retaining the features that contain most of the variance.
 
-When having more than 3 variables, it is not possible to visualize them in a single plot. To overcome this, PCA can reduce the dimensionality of the data to lower dimensions (e.g. 2 or 3) while preserving the variance of the data. Each Principal Component (PC) is a linear combination of the original variables, and can now be considered as a variable on its own replacing the originals. A data set with many variables, e.g. the `r ncol(count_matrix_clr)` variables in the count matrix, can be visualised with a 2D plot. Loosing that many dimensions is almost bound to loose some information, but a PCA optimizes towards retaining as much as possible.
+When having more than 3 features, it is not possible to visualize them in a single plot. To overcome this, PCA can reduce the dimensionality of the data to lower dimensions (e.g. 2 or 3) while preserving the variance of the data. Each Principal Component (PC) is a linear combination of the original features, and can now be considered as a feature on its own replacing the originals. A data set with many features, e.g. the `r ncol(count_matrix_clr)` features in the count matrix, can be visualised with a 2D plot. Loosing that many dimensions is almost bound to loose some information, but a PCA optimizes towards retaining as much as possible.
 
 To exemplify and showcasing the method and the underlying math, the `mtcars` data set is used. For this example, two dimensions `wt` (weight) and `mpg` (miles pr. gallon) are used. The points are coloured by `cyl` (cylinders) to show how the data is grouped in the 2D space. The goal is to retain the information, but reduce the dimensions to a single line that best describes the data. This line is called the first Principal Component (PC1).
 
@@ -65,13 +65,13 @@ mtcars |>
   scale_colour_viridis_c()
 ```
 
-The data is centered, i.e. the mean of each variable is subtracted from each observation within that variable.
+The data is centered, i.e. the mean of each feature is subtracted from each observation within that feature.
 
 $$
 X_{i,j \;centered} = X_{i,j} - \mu_{j}
 $$
 
-Where `X` is the data matrix, `i` is the observation and `j` is the variable and $\mu$ the mean. By subtracting the mean, all data observations are centered around the origin. This makes some mathematical operations easier, such as rotating the coordinate system. Centering the data do not affect the correlation between observations. The resulting plot is then:
+Where `X` is the data matrix, `i` is the observation and `j` is the feature and $\mu$ the mean. By subtracting the mean, all data observations are centered around the origin. This makes some mathematical operations easier, such as rotating the coordinate system. Centering the data do not affect the correlation between observations. The resulting plot is then:
 
 ```{r}
 mtcars |> 
@@ -145,7 +145,7 @@ As can be observed from plotting PC1, the groupings of the data is conserved, bu
 ## Mathematical Explanation
 ### Covariance Matrix
 
-To mathematically describe the method the covariance matrix, often denoted $\Sigma$, of the data is calculated. The covariance matrix is a square matrix where the diagonal contains the variance of each variable, and the off-diagonal contains the covariance between each variable:
+To mathematically describe the method the covariance matrix, often denoted $\Sigma$, of the data is calculated. The covariance matrix is a square matrix where the diagonal contains the variance of each feature, and the off-diagonal contains the covariance between each feature:
 
 $$
 \Sigma =  \begin{bmatrix}
@@ -154,7 +154,7 @@ Cov(x_1, x_2) & Var(x_2)
 \end{bmatrix}
 $$
 
-Where $x_1$ and $x_2$ are columns in a data set $X$. The variance in a variable is the spread of the data along the axis, and the covariance is the spread of the data between the axes. The covariance matrix is symmetric, meaning the covariance between $x_1$ and $x_2$ is the same as the covariance between $x_2$ and $x_1$. The variance of each variable is calculated as:
+Where $x_1$ and $x_2$ are columns in a data set $X$. The variance in a feature is the spread of the data along the axis, and the covariance is the spread of the data between the axes. The covariance matrix is symmetric, meaning the covariance between $x_1$ and $x_2$ is the same as the covariance between $x_2$ and $x_1$. The variance of each feature is calculated as:
 
 $$
 Var(x) = \frac{1}{n-1} \sum_{i=1}^{n} (x_i - \mu_x)^2
@@ -165,7 +165,7 @@ Remember that the data was centered by subtracting the mean, $\mu_x$. As a conse
 $$
 Var(x) = \frac{1}{n-1} \sum_{i=1}^{n} (x_i)^2
 $$
-The covariance between two variables is calculated as:
+The covariance between two features is calculated as:
 
 $$
 Cov(x_1, x_2) = \frac{1}{n-1} \sum_{i=1}^{n} (x_{1i} - \mu_{x_1})(x_{2i} - \mu_{x_2})
@@ -186,7 +186,7 @@ mtcars |>
 ```
 
 ### Eigenvectors and Eigenvalues
-As the covariance matrix show how the variables varies within themselves and between each other, the eigenvectors of such a matrix spans the directions in the feature space where the data have the most variance. By convention, eigenvectors have unit length (length 1), and as such it is their associated eigenvalues that quantify the length of the eigenvector, and thereby the variance explained by each eigenvector.
+As the covariance matrix show how the features varies within themselves and between each other, the eigenvectors of such a matrix spans the directions in the feature space where the data have the most variance. By convention, eigenvectors have unit length (length 1), and as such it is their associated eigenvalues that quantify the length of the eigenvector, and thereby the variance explained by each eigenvector.
 
 To find the eigenvectors, the eigenvalues are found first by solving the equation:
 
@@ -350,13 +350,13 @@ mtcars |>
 ```
 
 ### Importance of Scaling
-The issue of scaling goes to show how important it is, that values are on the same scale before applying PCA. If the values are not on the same scale, the PCA will be biased towards the variables with the largest values. This can be seen in the example, where the `wt` variable has a larger range than the `mpg` variable. The eigenvectors are then biased towards the `wt` variable. The data can be scaled by both centering and dividing by the standard deviation, which is called standardization. The data is then on the same scale, and the PCA is not biased towards any variable:
+The issue of scaling goes to show how important it is, that values are on the same scale before applying PCA. If the values are not on the same scale, the PCA will be biased towards the features with the largest values. This can be seen in the example, where the `wt` feature has a larger range than the `mpg` feature. The eigenvectors are then biased towards the `wt` feature. The data can be scaled by both centering and dividing by the standard deviation, which is called standardization. The data is then on the same scale, and the PCA is not biased towards any feature:
 
 $$
 X_{i,j \;standardized} = \frac{X_{i,j} - \mu_{j}}{sd_j}
 $$
 
-Where `X` is the data matrix, `i` is the observation and `j` is the variable, $\mu$ is the mean and $sd$ is the standard deviation. Using standardized data, the eigenvectors and their eigenvalues are:
+Where `X` is the data matrix, `i` is the observation and `j` is the feature, $\mu$ is the mean and $sd$ is the standard deviation. Using standardized data, the eigenvectors and their eigenvalues are:
 
 $$
 v_1 = \begin{bmatrix}
@@ -448,7 +448,7 @@ The data point $(-0.6, 0.91)$ is then rotated such that the coordinates are $(0.
 
 Each data point in the original space are on the form $(x, y) = (wt, mpg)$, so the first coordinate denotes `wt` and the second denotes `mpg`. Similarly, each PC consists of two coordinates. The first is multiplied by the first coordinate of the data point (here `wt`), and the second is multiplied by the second coordinate of the data point (here `mpg`) as per the definition of a matrix product. This implies, that the values of the eigenvectors are the weights of the data points in the PCA space. The first eigenvector has the values $(-0.14, 0.99)$, which means that the first coordinate of the data point is multiplied by $-0.14$ and the second coordinate is multiplied by $0.99$, i.e. the second coordinate is weighted more than the first. This can be related back to the fact, that `mpg` has a larger range than `wt`, and as such the first PC is primarily explains `mpg`. As mentioned, the data is not scaled, and so this is a biased conclusion.
 
-The important implication of this is, that a row in the rotation matrix contains values describing how each PC weights the original variables. A common method is to plot the loadings, i.e. the rows of the rotation matrix, in the PCA space. The loadings are equal to the eigenvector matrix $U$, but is at times scaled by the square root of the eigenvalues. It is done to encapsulate the difference in variance each PC explains. The loadings are then used to interpret the data in the PCA space, as they show which variables that drive the variance within in PC. By using the R function `prcomp` the loadings is found as `rotation`. As can be observed, the loading for `mpg` points in the direction of PC1 where the biggest variance (spread) is observed. Once again, this is a biased observation, as the data is not scaled.
+The important implication of this is, that a row in the rotation matrix contains values describing how each PC weights the original features. A common method is to plot the loadings, i.e. the rows of the rotation matrix, in the PCA space. The loadings are equal to the eigenvector matrix $U$, but is at times scaled by the square root of the eigenvalues. It is done to encapsulate the difference in variance each PC explains. The loadings are then used to interpret the data in the PCA space, as they show which features that drive the variance within in PC. By using the R function `prcomp` the loadings is found as `rotation`. As can be observed, the loading for `mpg` points in the direction of PC1 where the biggest variance (spread) is observed. Once again, this is a biased observation, as the data is not scaled.
 
 ```{r}
 loadings <- mtcars |> 
@@ -520,7 +520,7 @@ A cummulative plot over the PCs can be used to determine how many PCs are needed
 pca_count_matrix |>
   tidy(matrix = "eigenvalues") |>
   ggplot(aes(x = reorder(PC, -percent),
-             y = cumulative)) +
+             y = cumulative)) +s
   geom_col(fill = "steelblue") +
   geom_hline(yintercept = 0.7,
              linetype = "dashed",
@@ -538,7 +538,7 @@ pca_count_matrix |>
         axis.ticks.x = element_blank())
 ```
 
-It is for quite obvious reasons not possible to plot the first 49 PCs in a single plot. Instead, the first two PCs are plotted to show the data in a 2D space. The data is colored by the `Patient_status` variable, which shows that the data is not easily separable in the 2D space. Since the first two PCs only explain approximately 1% of the variance, it is expected that the data is not separable. It is then also an assumption, that the data is even separable in the high dimensional space which is unknown. If the data is separable, it is expected that the separation is more pronounced in the higher dimensions as more variance is explained.
+It is for quite obvious reasons not possible to plot the first 49 PCs in a single plot. Instead, the first two PCs are plotted to show the data in a 2D space. The data is colored by the `Patient_status` response, which shows that the data is not easily separable in the 2D space. Since the first two PCs only explain approximately 1% of the variance, it is expected that the data is not separable. It is then also an assumption, that the data is even separable in the high dimensional space which is unknown. If the data is separable, it is expected that the separation is more pronounced in the higher dimensions as more variance is explained.
 
 ```{r}
 pca_count_matrix |>

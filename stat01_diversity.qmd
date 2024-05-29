@@ -139,7 +139,7 @@ count_matrix_test |>
 
 ### Species Evenness
 
-Evenness is an overall measure of how evenly the abundances are distributed among taxa for a sample. Different metrics exists, here the Pielou's evenness index is used. The value ranges from 0 to 1, where 1 indicates that the abundances are exactly evenly distributed among all species and 0 indicates that the abundance is dominated by one species. Pielou's evenness is calculated by dividing the Shannon Index of the sample by the theoretical maximum Shannon Index for the sample given its size. Thereby, Pielou's Index is not dependent on Richness due to the division. The theoretical maximum Shannon Index turns out to be more simply calculated as the natural logarithm of the number of species in the sample. The formula is as follows:
+Evenness is an overall measure of how evenly the abundances are distributed among taxa for a sample. Different metrics exists, here the Pielou's evenness index is used. The value ranges from 0 to 1, where 1 indicates that the abundances are exactly evenly distributed among all species and 0 indicates that the abundance is dominated by one species. Pielou's evenness is calculated by dividing the Shannon Index of the sample by the theoretical maximum Shannon Index for the sample given its size. Thereby, Pielou's Index is not dependent on Richness due to the division[@Pielou1966]. The theoretical maximum Shannon Index turns out to be more simply calculated as the natural logarithm of the number of species in the sample. The formula is as follows:
 
 $$
 J = \frac{H'}{\ln(R)}

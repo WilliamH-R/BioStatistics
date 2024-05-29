@@ -96,7 +96,7 @@ plot_multiple_poly_models <- function(data,
 
 # Introduction to the Bias-Variance Tradeoff
 
-In supervised machine learning, the ultimate goal is usually to create models which can predict outcome of unseen data. This is the ability of a model to generalize well to new data and is measured by the Generalization Error. The ability to generalize can be decomposed into the balance between bias and variance of a model. Therefore, understanding bias and variance is crucial in machine learning because it helps in developing models that generalize well to new data.
+In supervised machine learning, the ultimate goal is usually to create models which can predict the response of unseen data. This is the ability of a model to generalize well to new data and is measured by the Generalization Error. The ability to generalize can be decomposed into the balance between bias and variance of a model. Therefore, understanding bias and variance is crucial in machine learning because it helps in developing models that generalize well to new data.
 
 The bias of a model is measured by how close the predictions for different training sets are to the true values. A model with low bias make predictions close to the true values, whereas a model with high bias make predictions that are far from the true values. High bias usually occurs when a model is too simple, and cannot capture the underlying complex structure of the data. For example, a linear model will have high bias when the true relationship between the features and the target is non-linear. Opposite, low bias occurs when a model is complex enough to capture the underlying structure of the data, but can also occur when the model is too complex and overfits the data. To measure whether the model has overfit, the variance is introduced.
 
@@ -106,7 +106,7 @@ Models with low bias (precise on average) tends to have high variance (inconsist
 
 ## Ridge Regression Example
 
-Ridge Regression is a good example of the Bias-Variance Tradeoff. When the penalty is set to 0, the Ridge model is the OLS solution. Assuming that there is a linear relationship between the variables and the outcome, the OLS model has low bias as it on average makes predictions close to the true values. However, the OLS model has high variance as it is sensitive to the noise in the data. By applying Ridge penalty, the coefficients of the model is reduced, and is thereby less sensitive to the noise in the data - a lower chance of overfitting and lower variance. Meanwhile, it also forces the model to fit the data less closely, which increases the bias of the model.
+Ridge Regression is a good example of the Bias-Variance Tradeoff. When the penalty is set to 0, the Ridge model is the OLS solution. Assuming that there is a linear relationship between the features and the response, the OLS model has low bias as it on average makes predictions close to the true values. However, the OLS model has high variance as it is sensitive to the noise in the data. By applying Ridge penalty, the coefficients of the model is reduced, and is thereby less sensitive to the noise in the data - a lower chance of overfitting and lower variance. Meanwhile, it also forces the model to fit the data less closely, which increases the bias of the model.
 
 ## The Bootstrap Method
 

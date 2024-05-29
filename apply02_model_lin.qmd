@@ -64,14 +64,14 @@ params
 
 # Linear Modelling
 
-Logistic Regression is a linear model since the decision boundary is linear. Linear models tend to be faster due to the less complex math, and are thereby also better for scalability (large data sets). Further, linear models are easier to interpret, as the coefficients can be directly interpreted as the effect of the variable on the outcome. Linear models also contain some built in regularization as they cannot memorize the data set, which can help avoid overfitting.
+Logistic Regression is a linear model since the decision boundary is linear. Linear models tend to be faster due to the less complex math, and are thereby also better for scalability (large data sets). Further, linear models are easier to interpret, as the coefficients can be directly interpreted as the effect of the feature on the response. Linear models also contain some built in regularization as they cannot memorize the data set, which can help avoid overfitting.
 
 The issues with linear models occur when the data do not contain linear relationships, in which case the model will not be able to capture the underlying structure.
 
 In this chapter, different logistic regression models are built to predict the disease status of the patients. The models are built using different pre-processing steps and different hyperparameter combinations.
 
 ## Data wrangling
-The data is joined with the metadata as the `Patient_status` is used as the outcome variable. Only the columns that are needed for the model are kept. Notice `inner_join()` is used such that only rows for which both the count matrix and metadata are available are kept.
+The data is joined with the metadata as the `Patient_status` is used as the response. Only the columns that are needed for the model are kept. Notice `inner_join()` is used such that only rows for which both the count matrix and metadata are available are kept.
 
 ```{r}
 count_matrix_clr <- count_matrix_clr |>
@@ -103,9 +103,9 @@ count_matrix_clr_folds
 ```
 
 ## Recipes
-The recipes contains two pieces of important information. The first is the formula that describes the relationship between the variables and the outcome. In this case, which genera to use for predicting disease. The second is the pre-processing steps that are applied to the data before the model is built. This could include steps such as scaling, log-transform or imputing missing values. Here, the data is already clr-transformed.
+The recipes contains two pieces of important information. The first is the formula that describes the relationship between the features and the response. In this case, which genera to use for predicting disease. The second is the pre-processing steps that are applied to the data before the model is built. This could include steps such as scaling, log-transform or imputing missing values. Here, the data is already clr-transformed.
 
-Three recipes are created. One without any pre-processing steps, one where Principal Component Analysis (PCA) is applied to the data and one where UMAP is applied. In all cases, all variables are used to try and predict the outcome `Patient_status`.
+Three recipes are created. One without any pre-processing steps, one where Principal Component Analysis (PCA) is applied to the data and one where UMAP is applied. In all cases, all features are used to try and predict the response `Patient_status`.
 
 ```{r}
 stand_recipe <- recipe(Patient_status ~ .,
@@ -123,7 +123,7 @@ pca_recipe <- stand_recipe |>
 ```
 
 ## Model Specifications
-To model the data, a specification is needed. This includes the model to use, the engine to use, mode of prediction and choosing hyperparameters. Since the outcome is binary, a logistic regression model is used. The model is later tuned using a grid search over the hyperparameters `penalty` and `mixture`. Models with exclusively Ridge and Lasso regularization are built, as well as a model with a mixture of both.
+To model the data, a specification is needed. This includes the model to use, the engine to use, mode of prediction and choosing hyperparameters. Since the response is binary, a logistic regression model is used. The model is later tuned using a grid search over the hyperparameters `penalty` and `mixture`. Models with exclusively Ridge and Lasso regularization are built, as well as a model with a mixture of both.
 
 ```{r}
 log_spec <- logistic_reg(penalty = tune(),
@@ -284,9 +284,9 @@ grid_results |>
              scales = "free_y")
 ```
 
-A couple of interesting insights can be gained from looking at the optimal hyperparameters. When comparing the two ENet models (`stand_log` vs `pca_log`), the mixture is higher for `pca_log`, i.e. preferring Lasso over Ridge. This is opposite expectations as PCA should reduce the number of variables, which in turn should reduce the need for Lasso regularization. However, `penalty` is several orders of magnitude lower for `pca_log` meaning the Lasso regularization is less strict.
+A couple of interesting insights can be gained from looking at the optimal hyperparameters. When comparing the two ENet models (`stand_log` vs `pca_log`), the mixture is higher for `pca_log`, i.e. preferring Lasso over Ridge. This is opposite expectations as PCA should reduce the number of features, which in turn should reduce the need for Lasso regularization. However, `penalty` is several orders of magnitude lower for `pca_log` meaning the Lasso regularization is less strict.
 
-When comparing the full Ridge and Lasso models between the two preprocessing steps, the `penalty` is lower when PCA preprocessing is performed. This is expected as PCA reduces the number of variables reducing the need for regularization.
+When comparing the full Ridge and Lasso models between the two preprocessing steps, the `penalty` is lower when PCA preprocessing is performed. This is expected as PCA reduces the number of features reducing the need for regularization.
 
 ```{r}
 workflow_ids <- grid_results |>

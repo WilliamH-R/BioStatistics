@@ -52,7 +52,7 @@ While Uniform Manifold Approximation and Projection (UMAP) can resolve some of t
 
 Similarity scores are calculated between all points, and based on these are clustered in a k-nearest neighbor fashion. A low dimensional representation - usually 2 dimensional such that it can be visualized - is initialized and points are moved around taking the similarity scores into account. The process is repeated until the low dimensional representation is stable.
 
-UMAP is especially popular for visualizing high-dimensional data. As an example, the iris data set is visualized below using UMAP. The input data contain all four variables of the iris data set, and the output is a two-dimensional representation of the data. The points are colored by the species of the iris, and as can be observed, the method found a decent clustering of the species.
+UMAP is especially popular for visualizing high-dimensional data. As an example, the iris data set is visualized below using UMAP. The input data contain all four features of the iris data set, and the output is a two-dimensional representation of the data. The points are colored by the species of the iris, and as can be observed, the method found a decent clustering of the species.
 
 ```{r}
 iris_umap <- iris |>

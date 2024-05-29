@@ -50,7 +50,7 @@ mtcars |>
 
 In this simple case, the model is fitting the line to the data by changing the slope and intercept of the line. The combination which minimizes the sum of the squared residuals (SSR) is chosen. This results in a three dimensional space, where the slope and intercept are plotted along the x and y axis, and the sum of the squared residuals are plotted along the z-axis. Some combination of slope and intercept results in a minimum in the 3D plane. This combination can be found by taking the derivative of the sum of the squared residuals with respect to the slope and intercept, and set it equal to zero.
 
-The model can be generalized to more than one variable, such that the model can predict the outcome based on multiple variables. Usually, the simple linear case is written as $y = ax + b$ where $a$ is the slope and $b$ is the intercept. When using multiple variables, it is generalized to $y = \beta_0 + \beta_{1}x_1 + \beta_{2}x_2 + ... + \beta_{n}x_n$. In matrix form it can be written as $y = X\beta$ where $X$ is a matrix with $n$ rows (number of samples) and $p$ columns (number of variables). $\beta$ is a vector of length $p$ which includes a parameter for each variable.
+The model can be generalized to more than one feature, such that the model can predict the response based on multiple features. Usually, the simple linear case is written as $y = ax + b$ where $a$ is the slope and $b$ is the intercept. When using multiple features, it is generalized to $y = \beta_0 + \beta_{1}x_1 + \beta_{2}x_2 + ... + \beta_{n}x_n$. In matrix form it can be written as $y = X\beta$ where $X$ is a matrix with $n$ rows (number of samples) and $p$ columns (number of features). $\beta$ is a vector of length $p$ which includes a parameter for each feature.
 
 As mentioned earlier, the goal is to minimize the sum of the squared residuals. On matrix form, SSR is written as:
 
@@ -70,7 +70,7 @@ $$
 \beta_{OLS} = \min_{\beta} SSR = \min_{\beta} ||y-X\beta||_{2}^{2}
 $$
 
-As mentioned in the above, the $\beta$s can be found by taking the derivative of the SSR with respect to $\beta$ and set it equal to zero. Since this is generalized to multiple variables, the gradient is taken with respect to the vector $\beta$ instead. The equation is then:
+As mentioned in the above, the $\beta$s can be found by taking the derivative of the SSR with respect to $\beta$ and set it equal to zero. Since this is generalized to multiple features, the gradient is taken with respect to the vector $\beta$ instead. The equation is then:
 
 $$
 \nabla_\beta||y-X\beta||_{2}^{2} = 0

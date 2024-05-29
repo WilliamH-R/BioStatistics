@@ -42,7 +42,7 @@ Finding the coefficients for the linear model now becomes a compromise between m
 
 Introducing the penalty term makes the fit to the data worse, but it can improve the generalization to new data. The coefficients obtained through Ridge tends to be small compared to OLS, so the model tends to be less sensitive to changes in the data. In machine learning terms, this is called introducing bias (inability to fit data perfectly) to reduce variance (the model fits better to new data). The bias-variance trade-off is a fundamental concept in machine learning.
 
-For visualization, remember the `mtcars` data set used previously. The following code chunk shows a 3D scatter plot of the weight of the car (`wt`) vs the horse power (`hp`) vs the miles per gallon (`mpg`). The color of the dots represent the horse power. When orienting the plot correctly, it is possible to see a linear correlation between the variables.
+For visualization, remember the `mtcars` data set used previously. The following code chunk shows a 3D scatter plot of the weight of the car (`wt`) vs the horse power (`hp`) vs the miles per gallon (`mpg`). The color of the dots represent the horse power. When orienting the plot correctly, it is possible to see a linear correlation between the features.
 
 ```{r}
 mtcars |> 
@@ -63,7 +63,7 @@ mtcars |>
     showlegend = FALSE)
 ```
 
-Two coefficients are used to try and model the data. The coefficients are the slope of the line for the weight and horse power. High coefficients means steep slopes, which in turn suggests that the outcome (mpg) is sensitive to the variables (wt and hp). When presented to new data which is different from the training data, the model predicts wildly different outcomes due to the sensitivity to changes. The model then generalizes poorly to new data and is said to have high variance. By increasing lambda, the slope is reduced, and the model becomes less sensitive to the variables. This is the bias-variance trade-off in action as seen in the following code chunks.
+Two coefficients are used to try and model the data. The coefficients are the slope of the line for the weight and horse power. High coefficients means steep slopes, which in turn suggests that the response (mpg) is sensitive to the features (wt and hp). When presented to new data which is different from the training data, the model predicts wildly different responses due to the sensitivity to changes. The model then generalizes poorly to new data and is said to have high variance. By increasing lambda, the slope is reduced, and the model becomes less sensitive to the features. This is the bias-variance trade-off in action as seen in the following code chunks.
 
 
 ```{r warning = FALSE}
@@ -250,13 +250,13 @@ $$
 
 ## Lasso Regression
 
-Lasso is similar to Ridge, except the penalty uses the absolute values of the coefficients instead of squaring them. This enables the Lasso Regression to set some coefficients to 0, resulting in a less complex model as it contains fewer variables. Again, the $\lamba$ hyperparameter is used to control the penalization. $\lambda$ ranges from 0 to $+\infty$, where higher values of $\lambda$ gives a more penalized model, i.e. contain fewer variables. The Lasso Regression is given by:
+Lasso is similar to Ridge, except the penalty uses the absolute values of the coefficients instead of squaring them. This enables the Lasso Regression to set some coefficients to 0, resulting in a less complex model as it contains fewer features. Again, the $\lamba$ hyperparameter is used to control the penalization. $\lambda$ ranges from 0 to $+\infty$, where higher values of $\lambda$ gives a more penalized model, i.e. contain fewer features. The Lasso Regression is given by:
 
 $$
 \beta_{Lasso} = \min_{\beta} ||y-X\beta||_{2}^{2} + \lambda||\beta||_{1}
 $$
 
-By removing variables, the algorithm can be used for dimensionality reduction. To exemplify, the below code chunk tries to predict `mpg` given all variables using Lasso Regression. The expectation is, that some variables contain too little information about the outcome, and is excepted to be removed at higher values of $\lambda$. Since we are not comparing different models, a much simpler approach can be applied:
+By removing features, the algorithm can be used for dimensionality reduction. To exemplify, the below code chunk tries to predict `mpg` given all features using Lasso Regression. The expectation is, that some features contain too little information about the response, and is excepted to be removed at higher values of $\lambda$. Since we are not comparing different models, a much simpler approach can be applied:
 
 ```{r}
 set.seed(1337)
@@ -293,7 +293,7 @@ lasso_tuned |>
   tidy() |> 
   filter(estimate != 0)
 ```
-As can be seen from the final output, the Lasso Regression has removed some variables from the model. Four variables remains in the model, whereas the last seven are set to zero.
+As can be seen from the final output, the Lasso Regression has removed some features from the model. Four features remains in the model, whereas the last seven are set to zero.
 
 
 ### Applying Logistic Regression to Logistic Regression
