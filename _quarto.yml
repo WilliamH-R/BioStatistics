@@ -9,7 +9,7 @@ book:
   chapters:
     - index.qmd
     
-    - part: tidy00_book_intro.qmd
+    - part: tidy00_intro.qmd
       chapters: 
         - tidy01_intro_package.qmd
         - tidy02_mult_models.qmd
