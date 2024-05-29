@@ -94,7 +94,7 @@ pairwise_wilcox_test <- function (data,
 
 # Diversity Measures
 
-A common first step in microbiome studies is to consider the diversity between groups. Here, Richness, Pielou's Evenness and Shannon's Diversity Index are calculated stratified by disease severity. Instead of the simply calculating the diversity measures for healthy versus MS patients, the diversity measures are calculated for each combination of healthy, relapsing-remitting MS and progressive MS. This is done to see if the diversity measures can differentiate between the different disease severities.
+A common first step in microbiome studies is to consider the diversity between groups. Here, Richness, Pielou Index and Shannon's Diversity Index are calculated stratified by disease severity. Instead of the simply calculating the diversity measures for healthy versus MS patients, the diversity measures are calculated for each combination of healthy, relapsing-remitting MS and progressive MS. This is done to see if the diversity measures can differentiate between the different disease severities.
 
 ## Species Richness
 
@@ -191,11 +191,11 @@ shannon |>
                        bonferroni = TRUE)
 ```
 
-## Pielou's Evenness
+## Pielou Index (Evenness)
 
-Even though richness is needed to calculated the Shannon Index which in turn is needed to calculate Pielou's Evenness, the richness is not of importance. The independence comes from the division in the formula as Pielou's Evenness compares the Shannon Index of the sample to Shannon Index of a perfectly even sample of the same size. Then, Pielou's Evenness is a measure of how evenly the species are distributed in a sample.
+Even though richness is needed to calculated the Shannon Index which in turn is needed to calculate the Pielou Index, the richness is not of importance. The independence comes from the division in the formula as the Pielou Index compares the Shannon Index of the sample to Shannon Index of a perfectly even sample of the same size. Then, the Pielou Index is a measure of how evenly the species are distributed in a sample.
 
-Opposite to the richness and the Shannon Index, the Pielou's Evenness seems to be lowest for the relapsing-remitting MS group whereas the healthy controls and progressive MS have similar values. This could indicate that the species in the relapsing-remitting MS group are not as evenly distributed as in the other groups. Further, this also indicate that the higher Shannon Index in the relapsing-remitting group is due to a higher number of unique species and not due to a more even distribution of the species.
+Opposite to the richness and the Shannon Index, the Pielou Index seems to be lowest for the relapsing-remitting MS group whereas the healthy controls and progressive MS have similar values. This could indicate that the species in the relapsing-remitting MS group are not as evenly distributed as in the other groups. Further, this also indicate that the higher Shannon Index in the relapsing-remitting group is due to a higher number of unique species and not due to a more even distribution of the species.
 
 ```{r}
 pielou <- shannon |>
@@ -207,14 +207,14 @@ pielou |>
              fill = Disease_severity)) +
   geom_violin() +
   geom_boxplot(width = 0.1) +
-  labs(title = "Pielou's Evenness by Disease Severity",
+  labs(title = "Pielou Index by Disease Severity",
        x = "Disease Severity",
-       y = "Pielou's Evenness") +
+       y = "Pielou Index") +
   theme(legend.position = "none") +
   lims(y = c(0, 1))
 ```
 
-Again, p-values are calculated via the function `pairwise_wilcox_test()` which can be found in the helper function section in the beginning of the document. As can be seen from the results, there is a significant difference in Pielou's Evenness Index between the relapsing-remitting group vs both of the other groups.
+Again, p-values are calculated via the function `pairwise_wilcox_test()` which can be found in the helper function section in the beginning of the document. As can be seen from the results, there is a significant difference in the Pielou Index between the relapsing-remitting group vs both of the other groups.
 
 ```{r}
 pielou |>

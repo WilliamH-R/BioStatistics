@@ -42,11 +42,13 @@ meta <- read.csv(file = "data/metadata.txt") |>
          EDSS = as.factor(EDSS))
 ```
 
-# Principal Component Analysis
+# Principal Component Analysis {#sec-pca}
 
 ## Explanation and Example
 
-Multiple reasons for applying Principal Component Analysis (PCA) exists. One of the most common reasons is to visualize high-dimensional data in lower dimensions. Another reason could be to decorrelate features or to reduce the noise in the data by only retaining the features that contain most of the variance.
+Working with high dimensional data carries its own challenges such as the curse of dimensionality, overfitting, and computational complexity. Data sets of high dimensions are hard to visualize, and the data is often noisy. They are usually encountered in fields such as metagenomics, other omics fields and image processing. In the worse cases, the number of features far exceed the number of observations which can severely affect the performance of machine learning models. Ways of dealing with high dimensional data includes feature selection and dimensionality reduction. On such solution is Principal Component Analysis (PCA).
+
+Multiple reasons for applying PCA exists. One of the most common reasons is to visualize high-dimensional data in lower dimensions. Another reason could be to decorrelate features or to reduce the noise in the data by only combining and retaining the features that contain most of the variance.
 
 When having more than 3 features, it is not possible to visualize them in a single plot. To overcome this, PCA can reduce the dimensionality of the data to lower dimensions (e.g. 2 or 3) while preserving the variance of the data. Each Principal Component (PC) is a linear combination of the original features, and can now be considered as a feature on its own replacing the originals. A data set with many features, e.g. the `r ncol(count_matrix_clr)` features in the count matrix, can be visualised with a 2D plot. Loosing that many dimensions is almost bound to loose some information, but a PCA optimizes towards retaining as much as possible.
 
@@ -86,10 +88,13 @@ mtcars |>
   scale_colour_viridis_c()
 ```
 
-A line is to be fit to the data. This line should maximize the variance of the data, i.e. maximize the sum of squared distances from the origin to the points projected on to the line. A rough sketch of the scenario can be seen below. A proposed best fit line, that maximizes the variance of the data, is drawn in red. The dashed green line is a point projected onto the proposed best fit line. The dashed blue line is the distance from the point on the line to the origin. It is the length of the blue line that is maximized across all data points.
+A line is to be fit to the data. This line should maximize the variance of the data, i.e. maximize the sum of squared distances from the origin to the points projected on to the line. A rough sketch of the scenario can be seen below. A proposed best fit line that maximizes the variance of the data is drawn in red. The dashed green line is a point projected onto the proposed best fit line. The dashed blue line is the distance from the point on the line to the origin. It is the length of the blue line that is maximized across all data points.
 
 ```{r}
 #| warning: false
+#| code-fold: true
+#| code-summary: "Show the code"
+
 mtcars |> 
   ggplot(aes(x = wt - mean(wt),
              y = mpg - mean(mpg),
@@ -111,9 +116,12 @@ mtcars |>
   scale_colour_viridis_c()
 ```
 
-The line that maximizes the sum of squared distances is called the first Principal Component (PC1). All future Principal Components are orthogonal to the previous, and run through the origin, which means no optimization. To visualize PC1, all data points are projected onto the line, and the line is rotated to be horizontal and act as a new x-axis. The resulting plot is:
+The line that maximizes the sum of squared distances is PC1. All future Principal Components are orthogonal to the previous and run through the origin, which means no optimization for subsequent PCs. To visualize PC1, all data points are projected onto the line, and the line is rotated to be horizontal and act as a new x-axis. The resulting plot is:
 
 ```{r}
+#| code-fold: true
+#| code-summary: "Show the code"
+
 pca <- mtcars |> 
   select(wt, mpg) |>
   prcomp(center = TRUE) |> 
@@ -286,6 +294,7 @@ v_1 = \begin{bmatrix}
 \end{bmatrix}
 $$
 ### Plotting of Eigenvectors
+
 Two eigenvectors can be plotted on top of the data to show the direction of the variance in the data. The green line is the first eigenvector, i.e. has the largest eigenvalue, and the blue line is the second eigenvector. An immediate observation is, that these two lines are not orthogonal, which is a requirement for eigenvectors. This is due to the scaling of the plot.
 
 ```{r}
@@ -394,7 +403,7 @@ mtcars |>
 
 ### Explained Variance
 
-Using all PCs, it is possible to fully reconstruct the data since the data is projected onto the PCs, it can be converted back to the original space. The total variance of the data is the sum of the eigenvalues, and the variance explained by each PC is the eigenvalue of that PC. Therefore, it is also possible to calculate the proportion of variance explained by each PC. For the case of the scaled data, the two eigenvalues were $\lambda_1 = 1.87$ and $\lambda_2 = 0.13$. The proportion of variance explained by each PC is then:
+Using all PCs, one for each feature, it is possible to fully reconstruct the data since the combined variance of all PCs is equal to the total variance of the data. Therefore, it is also possible to calculate the proportion of variance explained by each PC. For the case of the scaled data, the two eigenvalues were $\lambda_1 = 1.87$ and $\lambda_2 = 0.13$. The proportion of variance explained by each PC is then:
 
 $$
 \frac{\lambda_1}{\lambda_1 + \lambda_2} = 0.94, \; \; \frac{\lambda_2}{\lambda_1 + \lambda_2} = 0.06
@@ -428,7 +437,7 @@ $$
 
 Where $S$ is the projected data, $X$ is the original data matrix, and $U$ is the matrix of eigenvectors. The matrix $U$ then essentially works as a rotation matrix, rotating the data into the PCA space. When projecting unto fewer dimensions, the data is reduced to the number of eigenvectors (PCs) used in $U$.
 
-As an example, the first observation in the scaled `mtcars` data set is projected onto the PCA space. The projection happens by:
+As an example, the first observation in the unscaled `mtcars` data set is projected onto the PCA space. The projection happens by:
 
 $$
 S = 
@@ -446,11 +455,14 @@ $$
 
 The data point $(-0.6, 0.91)$ is then rotated such that the coordinates are $(0.98, 0.46)$ in the PCA space. What is important to note is how the values of the rotation matrix are used to rotate the data point.
 
-Each data point in the original space are on the form $(x, y) = (wt, mpg)$, so the first coordinate denotes `wt` and the second denotes `mpg`. Similarly, each PC consists of two coordinates. The first is multiplied by the first coordinate of the data point (here `wt`), and the second is multiplied by the second coordinate of the data point (here `mpg`) as per the definition of a matrix product. This implies, that the values of the eigenvectors are the weights of the data points in the PCA space. The first eigenvector has the values $(-0.14, 0.99)$, which means that the first coordinate of the data point is multiplied by $-0.14$ and the second coordinate is multiplied by $0.99$, i.e. the second coordinate is weighted more than the first. This can be related back to the fact, that `mpg` has a larger range than `wt`, and as such the first PC is primarily explains `mpg`. As mentioned, the data is not scaled, and so this is a biased conclusion.
+Each data point in the original space are on the form $(x, y) = (wt, mpg)$, so the first coordinate denotes `wt` and the second denotes `mpg`. Similarly, each PC consists of two coordinates. The first is multiplied by the first coordinate of the data point (here `wt`), and the second is multiplied by the second coordinate of the data point (here `mpg`) as per the definition of a matrix product. This implies, that the values of the eigenvectors are the weights of the data points in the PCA space. The first eigenvector has the values $(-0.14, 0.99)$, which means that the first coordinate of the data point is multiplied by $-0.14$ and the second coordinate is multiplied by $0.99$, i.e. the second coordinate is weighted more than the first. This can be related back to the fact, that `mpg` has a larger range than `wt`, and as such the first PC primarily explains `mpg`. As mentioned, the data is not scaled, and so this is a biased conclusion.
 
-The important implication of this is, that a row in the rotation matrix contains values describing how each PC weights the original features. A common method is to plot the loadings, i.e. the rows of the rotation matrix, in the PCA space. The loadings are equal to the eigenvector matrix $U$, but is at times scaled by the square root of the eigenvalues. It is done to encapsulate the difference in variance each PC explains. The loadings are then used to interpret the data in the PCA space, as they show which features that drive the variance within in PC. By using the R function `prcomp` the loadings is found as `rotation`. As can be observed, the loading for `mpg` points in the direction of PC1 where the biggest variance (spread) is observed. Once again, this is a biased observation, as the data is not scaled.
+The important implication of this is, that a row in the rotation matrix contains values describing how each PC weights the original features. A common method is to plot the loadings, i.e. the rows of the rotation matrix, in the PCA space. The loadings are equal to the eigenvector matrix $U$, but is at times scaled by the square root of the eigenvalues. It is done to encapsulate the difference in variance each PC explains. The loadings are then used to interpret the data in the PCA space, as they show which features that drive the variance within each PC. By using the R function `prcomp` the loadings is found as `rotation`. As can be observed, the loading for `mpg` points in the direction of PC1 where the biggest variance (spread) is observed. Once again, this is a biased observation, as the data is not scaled.
 
 ```{r}
+#| code-fold: true
+#| code-summary: "Show the code"
+
 loadings <- mtcars |> 
   select(wt, mpg) |>
   prcomp(center = TRUE) |> 
@@ -498,7 +510,7 @@ pca_count_matrix <- count_matrix_clr |>
          scale = TRUE)
 ```
 
-The proportion of variance explained by each PC is calculated and plotted. Here, the first PC explains less than 1% of the variance.
+The proportion of variance explained by each PC is calculated and plotted. Here, the first PC explains approximately 6% of the variance.
 
 ```{r}
 pca_count_matrix |>

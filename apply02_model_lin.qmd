@@ -62,7 +62,7 @@ params
 ```
 
 
-# Linear Modelling
+# Linear Modelling {#sec-lin}
 
 Logistic Regression is a linear model since the decision boundary is linear. Linear models tend to be faster due to the less complex math, and are thereby also better for scalability (large data sets). Further, linear models are easier to interpret, as the coefficients can be directly interpreted as the effect of the feature on the response. Linear models also contain some built in regularization as they cannot memorize the data set, which can help avoid overfitting.
 

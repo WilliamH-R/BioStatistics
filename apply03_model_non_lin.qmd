@@ -60,7 +60,7 @@ Chosen parameters.
 params
 ```
 
-# Non-Linear Modelling
+# Non-Linear Modelling {#sec-non_lin}
 
 Due to the data transformations which the kernels allow, SVMs can model non-linear relationships between the features and the response allowing for the method to capture complex structures. The risk of overfitting is higher for non-linear models as they are more flexible making the model more prone to capture noise in the data. It emphasizes the need for cross-validation and hyperparameter optimization. The code is structured in the same way as for the linear models, so to avoid repetition explanations are kept to a minimum.
 

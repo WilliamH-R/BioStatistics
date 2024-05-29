@@ -23,14 +23,17 @@ iris <- iris |>
 
 # Support Vector Machines
 
-The previously introduced Logistic Regression works through probabilities whereas Support Vector Machines (SVMs) have a different approach. If two classes are linearly separable, a linear boundary can be placed between them. The boundary is placed in the middle between the classes and the distance between the boundary and the classes is maximized, called the margin. SVMs are different from an ordinary separating hyperplane in that it allows for some misclassification, which is called a soft margin.
+The models previously introduced are all linear models, i.e. they find a linear boundary between classes to make predictions. Cases where data is not linearly separable then becomes a problem, as the models performs suboptimally. In its own right, Support Vector Machines (SVMs) are linear models, but by applying data transformations, the model can find a non-linear boundary between classes which is achieved through the Kernel Trick introduced later.
 
-The models previously introduced are all linear models, i.e. they find a linear boundary between classes to make classifiers. Cases where data is not linearly separable then becomes a problem, as the models performs suboptimally. In its own right, SVMs are linear models, but by applying data transformations, the model can find a non-linear boundary between classes which is achieved through the Kernel Trick introduced later.
+SVMs have both classification and regression capabilities, but here the focus is on classification. The previously introduced Logistic Regression (@sec-logistic_regression) works through probabilities whereas SVMs have a different approach. If two classes are linearly separable, a linear boundary can be placed between them. The boundary is placed in the middle between the classes and the distance between the boundary and the classes is maximized, called the margin. SVMs are different from an ordinary separating hyperplane in that it allows for some misclassification, called a soft margin.
 
 For exemplifying, the `iris` data is once again used where the two below classes are perfectly linearly separable. SVM finds a line in the exact middle of the two classes such that the margin is maximized. The margin is the distance between the boundary and the nearest observation in each class. The observations on the margin and within (introduced later) the margin are called support vectors. Below, the blue line is the optimal separating hyperplane (OSH), the green lines are parallel to the OSH but placed on top of the support vectors. The distance between the green lines, indicated by the red line, is the margin. By maximizing that margin, SVM finds the optimal boundary between the classes.
 
 ```{r}
 #| warning: false
+#| code-fold: true
+#| code-summary: "Show the code"
+
 iris |>
   filter(Species != "versicolor") |> 
   ggplot(aes(x = Sepal.Width,
@@ -65,18 +68,20 @@ Ax + By + C = 0 \rightarrow \begin{bmatrix} A & B \end{bmatrix} \begin{bmatrix} 
 \rightarrow w^Tx + b = 0
 $$
 
-The distance between two parallel lines is calculated as:
+As the distance between two parallel lines is maximized, an equation for calculating it is needed:
 
 $$
 d = \frac{|C_2 - C_1|}{\sqrt{A^2 + B^2}}
 $$
 
-Two tricks are then applied to the equation. First, the two parallel lines making up the margin (green in the plot above), are expressed by $w^Tx + b = 1$ and $w^Tx + b = -1$, respectively. 1 and -1 is used as the classes are either 1 or -1. Also, the absolute difference between the two lines is then 2, which is why the margin can be calculated as $d = \frac{2}{\sqrt{A^2 + B^2}}$. Second, $w$ is a vector of the coefficients $A$ and $B$, and $\sqrt{A^2 + B^2}$ is the length of a vector spanned by $A$ and $B$, i.e. the length of $w$. The margin is then calculated as $d = \frac{2}{||w||}$. The distance can now be expressed without the use of the coefficients $A$, $B$ and $C$.
+Two tricks are then applied to the equation. First, the two parallel lines making up the margin (green in the plot above), are expressed by $w^Tx + b = 1$ and $w^Tx + b = -1$, respectively. `1` and `-1` are used as the classes are either `1` or `-1`. Also, the difference between the intercept of the two lines is then `2`, which is why the margin can be calculated as $d = \frac{2}{\sqrt{A^2 + B^2}}$. Second, $w$ is a vector of the coefficients $A$ and $B$, and $\sqrt{A^2 + B^2}$ is the length of a vector spanned by $A$ and $B$, i.e. the length of $w$. The margin is then calculated as $d = \frac{2}{||w||}$. The distance can now be expressed without the use of the coefficients $A$, $B$ and $C$.
 
-Given the above, constrains are put on the model to ensure observations are correctly classified. The constrains are as follows:
+As the equation for the supporting lines were defined as being equal to `1` and `-1` respectively, constrains for classifying correctly can be set up as follows:
 
 $$
-w^Tx_i - b \geq 1, \text{ if } y_i = 1 \\
+w^Tx_i - b \geq 1, \text{ if } y_i = 1
+$$
+$$
 w^Tx_i - b \leq -1, \text{ if } y_i = -1
 $$
 
@@ -166,4 +171,4 @@ $$
 \phi(y) = (1 + \sqrt{2}y_1 + \sqrt{2}y_2 + \sqrt{2}y_1y_2 + y_1^2 + y_2^2)
 $$
 
-Ultimately, the Kernel Trick allows for calculating the dot product in the input $(x^Ty)$ space without transforming the data into a higher dimension, here six dimensions and then calculating the dot product.
+Ultimately, the Kernel Trick allows for calculating the dot product in the input $(x^Ty)$ space without transforming the data into a higher dimension, here six dimensions, and then calculating the dot product.

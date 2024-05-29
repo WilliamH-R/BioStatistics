@@ -43,12 +43,12 @@ meta <- read.csv(file = "data/metadata.txt") |>
 ```
 
 # Multiple testing correction
+
 The p-value is the probability of observing a test statistic as extreme as the one observed, given that the null hypothesis is true. Essentially, a value denoting the probability that the observed data was drawn from the population, if the null hypothesis is true. If multiple samples are tested, the probability of observing a significant result by chance increases which is exactly why correcting for multiple testing is important.
 
-For a simple example, the odds of getting a six with one die is $1/6$. If multiple dice are thrown, the odds of getting a six increases. This is the same as for multiple testing. If multiple tests are performed, the odds of getting a significant result by chance increases. This is why we need to adjust for multiple testing to avoid false positives.
+For a simple example, the odds of getting a six with one die is $1/6$. If multiple dice are thrown, the odds of getting a six increases If multiple tests are performed, the odds of getting a significant result by chance increases. This is why adjusting for multiple testing to avoid false positives is needed.
 
-
-To setup a scenario where multiple testing becomes relevant, the `Age` and `BMI` columns are split into groups. The Wilcoxon Rank Sum test is then performed for each group. The number of data points affect the power of a test, i.e. the chances of finding a statistically significant difference, if one exist. Therefore, the number of data points in each group should be similar. The groups are defined as follows and the distribution is:
+To setup a scenario where multiple testing becomes relevant, the `Age` and `BMI` columns are split into groups. The Wilcoxon Rank Sum test is then performed for each subset comparing healthy vs MS patients. The number of data points affect the power of a test, i.e. the chances of finding a statistically significant difference, if one exist, as it reduces randomness in the data. Therefore, the number of data points in each group should be similar. The groups are defined as follows and the distribution is:
 
 ```{r}
 #| warning: false
@@ -89,7 +89,7 @@ meta |>
        x = "BMI group",
        y = "Count")
 ```
-The Shannon Index is then calculated. As mentioned in Chapter 1, it is a within sample metric, so which group a sample belongs to is irrelevant. The Wilcoxon Rank Sum test performed for each group and gathered:
+The Shannon Index is then calculated. As mentioned in @sec-shannon_index, it is a within sample metric, so which subset a sample belongs to is irrelevant for the calculation. Afterwards, the Wilcoxon Rank Sum test is performed for each subset and gathered:
 
 ```{r}
 shannon <- count_matrix |>
@@ -132,15 +132,15 @@ p_values_per_group |>
 
 The probability of not finding a false positive is $1 - \alpha$. When performing multiple tests, the probability of not finding a false positive increases with $(1 - \alpha)^{m}$, where $m$ is number of tests. Since the probability of finding a false positive and not finding one equals 1, the probability of finding a false positive in $m$ tests is $1 - (1- \alpha)^{m}$. 
 
-With 16 tests performed, and a significance level of 0.05, the probability of finding a false positive is:
+With 16 tests performed, and a significance level of 0.05, the probability of finding at least on false positive is:
 
 $$
 P(false\; positive) = 1 - (1 - \alpha)^{m} = 1 - (1 - 0.05)^{16} = 0.56
 $$
 
-The probability of finding a false positive is also referred to as the Family-Wise Error Rate (FWER).
+The probability of finding at least on false positive is also referred to as the Family-Wise Error Rate (FWER).
 
-Some way to correct for multiple testing is needed to avoid these high probabilities of false positives. There are several methods for correcting for multiple testing. Some common methods are the Bonferroni correction and the Benjamini-Hochberg Procedure
+A way to correct for multiple testing is needed to avoid these high probabilities of false positives. There are several methods for correcting for multiple testing including common methods such as Bonferroni correction and the Benjamini-Hochberg Procedure
 
 
 ## FWER correction (Bonferroni)
@@ -167,7 +167,7 @@ $$
 The FWER is reduced from 56% to 4.9%, close to the original significance level of 5%. It is then expected to find fewer false positives, also called Type I errors. However, the chance of finding false negatives also increases (referred to as Type II errors). In this case, finding false negatives means accepting the null hypothesis when it was actually false, i.e. not finding a significant result when one exists. In some cases, using a very conservative method is preferred, especially when the cost of a false positive is high.
 
 ## False Discovery Rate correction (Benjamini-Hochberg)
-Another way to control for multiple testing is through the False Discovery Rate (FDR). The FDR is the proportion of false positives among the significant results:
+Another way to control for multiple testing is through the False Discovery Rate (FDR). FDR is the proportion of false positives among the significant results:
 
 $$
 FDR = \frac{FP}{FP + TP}
@@ -175,7 +175,7 @@ $$
 
 Where $FP = False Positive$ and $TP = True Positive$. FDR is then an expression for the proportion of false positives among the significant results.
 
-In some cases, a less conservative method than the Bonferroni correction is preferred allowing for more significant hits. This comes at a cost of a increase in false positives. The Benjamini-Hochberg Procedure is such a method - a type of False Discovery Rate (FDR) correction.
+In some cases, a less conservative method than the Bonferroni correction is preferred allowing for more significant hits. This comes at a cost of an increase in false positives. The Benjamini-Hochberg Procedure is such a method - a type of False Discovery Rate (FDR) correction.
 
 Two ways to implement the method exists. Either the significance level is adjusted, or the p-values are adjusted, both giving the same significant hits. The latter is the most common way, but both are introduced.
 
@@ -188,7 +188,7 @@ $$
 \text{Critical Value} = \frac{k}{m} \cdot \alpha
 $$
 
-Where $m$ is the number of tests, $k$ is the rank of the considered p-value and $\alpha$ is the significance level. The largest value of $k$ where the p-value is less than the critical value is found:
+Where $k$ is the rank of the considered p-value, $m$ is the number of tests and $\alpha$ is the significance level. The largest value of $k$ where the p-value is less than the critical value is found:
 
 $$
 \max_{k} \left( p_{(k)} \leq Critical \; Value \right) = \max_{k} \left( p_{(k)} \leq \frac{k}{m} \cdot \alpha \right)
@@ -209,12 +209,12 @@ p_values_per_group |>
 The p-values are again sorted and ranked exactly as before. Apply the following formula to each p-value as an intermediary step:
 
 $$
-p\textrm{-}value = p_{k} \cdot \frac{m}{k}
+p_{k,adj} = p_{k} \cdot \frac{m}{k}
 $$
 
 Where $m$ is the number of tests, $k$ is the rank of the considered p-value and $p_{k}$ is the p-value of said rank. The adjusted p-values can then be found.
 
-Starting with the highest rank, the adjusted p-value is simply the intermediary value found from the above. For the second highest rank, the adjusted p-value is the minimum of the intermediary value and the adjusted p-value of the rank above. This is repeated for all ranks. The adjusted p-values are then compared to the significance level $\alpha$, and all p-values less than the significance level are considered significant. Once again, no significant results are found:
+Starting with the highest numbered rank, i.e. largest p-value, the adjusted p-value is simply the intermediary value found from the above. For the second highest rank, the adjusted p-value is the minimum of the intermediary value and the adjusted p-value of previously calculated rank. This is repeated for all ranks. The adjusted p-values are then compared to the significance level $\alpha$, and all p-values less than the significance level are considered significant. Once again, no significant results are found:
 
 ```{r}
 p_values_per_group |> 

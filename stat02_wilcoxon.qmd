@@ -44,7 +44,10 @@ meta <- read.csv(file = "data/metadata.txt") |>
 
 
 # Wilcoxon test
-A plethora of statistical tests exists. The choice of test depends on the type of data. For example, if the data is normally distributed, the t-test can be used to compare the means of two groups. If the data is not normally distributed, the Wilcoxon test can be used instead. Below, the Shannon Index for the full data set have been calculated and plotted stratified by the patient status, Healthy vs Multiple Sclerosis (MS). As can be seen from the plots, the Shannon Index does not seem to follow a normal distribution.
+
+After calculating some metric for two groups, e.g. the Shannon Index as a measure of diversity introduced in #sec-shannon_index, one is left with two groups of values. Simply stating the numerical difference between the groups is not enough to determine if the difference is statistically significant. To do this, hypothesis testing is used. The null hypothesis is that there is no difference between the groups, and the alternative hypothesis is that there is a difference.
+
+A plethora of statistical tests exists. The choice of test depends on the type of data. For example, if the data is normally distributed, the t-test can be used to compare the means of two groups. If the data is not normally distributed, the Wilcoxon test is an option. Below, the Shannon Index for the full data set have been calculated and plotted stratified by the patient status (Healthy vs Multiple Sclerosis (MS)). As can be seen from the plots, the Shannon Index does not seem to follow a normal distribution for both groups.
 
 ```{r}
 shannon <- count_matrix |>
@@ -63,15 +66,15 @@ shannon |>
   facet_wrap(~ Patient_status)
 ```
 
-The Wilcoxon test is a non-parametric test, which means it do not assume that the samples have been taken from a specific distribution, e.g. the normal distribution. Two different Wilcoxon tests exists, one for comparing dependent samples and one for comparing independent samples. Samples would be dependent if they were taken from the same patient at different times. Since the samples compared here originates from different patients, the samples are independent. Hence, the optimal test to use is the Wilcoxon Rank Sum test, also called the Mann-Whitney U test.
+The Wilcoxon test is a non-parametric test, which means it do not assume that the samples have been taken from a specific distribution, e.g. the normal distribution. Two different Wilcoxon tests exists, one for comparing dependent samples and one for comparing independent samples. Samples would be dependent if they were e.g. taken from the same patient at different times. Since the samples compared here originates from different patients, the samples are independent. Hence, the optimal test to use is the Wilcoxon Rank Sum test, also called the Mann-Whitney U test.
 
-The test is rank-based which means that all the data is ranked and are then used to calculate the test statistic, in this case the U statistic. After ranking the data, the sum of the ranks for the two groups are calculated. U is then calculated as:
+The test is rank-based which means all the data is first ranked and then used to calculate the test statistic. After ranking the data, the sum of the ranks for the two groups are calculated. U is then calculated as:
 
 $$
 U = min(U_1, \; U_2) = min(R_1 - \frac{n_1(n_1+1)} {2}, \; R_2 - \frac{n_2(n_2+1)} {2})
 $$
 
-Where $R_1$ and $R_2$ is the sum of the ranks for the first and second group, respectively. Likewise, $n_1$ and $n_2$ is the number of samples in the first and second group, respectively. The U statistic is then used to find the p-value, which is used to determine if the difference between the two groups is statistically significant. The p-value is the probability of observing a U statistic as extreme as the one observed, given that the null hypothesis of no difference between the distributions of $U_1$ and $U_2$ is true. Due to the Central Limit Theorem, the distributions of $U_1$ and $U_2$, and thereby $U$, can be assumed to follow a normal distribution when the sample size is larger than approximately 20. The Wilcoxon Rank Sum test for the Shannon Index is shown below. As the p-value is much lower than the usual significance level of 0.05, we can conclude that the Shannon Index is significantly different between the two groups. Here, the two groups are the healthy and MS patients.
+Where $R_1$ and $R_2$ is the sum of the ranks for the first and second group, respectively. Likewise, $n_1$ and $n_2$ is the number of samples in the first and second group, respectively. The U statistic is then used to find the p-value, which is used to determine if the difference between the two groups is statistically significant. The p-value is the probability of observing a U statistic as extreme as the one observed, given that the null hypothesis of no difference between $U_1$ and $U_2$ is true. The Wilcoxon Rank Sum test for the Shannon Index is shown below. As the p-value is much lower than the usual significance level of 0.05, we can conclude that the Shannon Index is significantly different between the two groups. Here, the two groups are the healthy and MS patients.
 
 ```{r}
 wilcox.test(Shannon ~ Patient_status,

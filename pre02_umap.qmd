@@ -48,11 +48,11 @@ meta <- read.csv(file = "data/metadata.txt") |>
 
 # Uniform Manifold Approximation and Projection
 
-While Uniform Manifold Approximation and Projection (UMAP) can resolve some of the same issues as a PCA, e.g. dimensionality reduction, UMAP does so in a non-linear fashion unlike PCA. The model finds cluster in a high-dimensional space and project them onto a low dimension manifold trying to maintain the clustering.
+While Uniform Manifold Approximation and Projection (UMAP) can resolve some of the same issues as a PCA (@sec-pca), e.g. dimensionality reduction, UMAP does so in a non-linear fashion unlike PCA. The model finds cluster in a high-dimensional space and project them onto a low dimension manifold trying to maintain the clustering.
 
 Similarity scores are calculated between all points, and based on these are clustered in a k-nearest neighbor fashion. A low dimensional representation - usually 2 dimensional such that it can be visualized - is initialized and points are moved around taking the similarity scores into account. The process is repeated until the low dimensional representation is stable.
 
-UMAP is especially popular for visualizing high-dimensional data. As an example, the iris data set is visualized below using UMAP. The input data contain all four features of the iris data set, and the output is a two-dimensional representation of the data. The points are colored by the species of the iris, and as can be observed, the method found a decent clustering of the species.
+UMAP is especially popular for visualizing high-dimensional data. As an example, the iris data set is visualized below using UMAP. The input data contain all four features of the iris data set, and the result is a two-dimensional representation of the data. The points are colored by the species of the iris, and as can be observed, the method found a decent clustering of the species.
 
 ```{r}
 iris_umap <- iris |>
@@ -72,17 +72,17 @@ iris_umap |>
 
 The following section includes more details on how UMAP works. As mentioned, the first step is to find the distance between all observations in the high-dimensional space (first step in @fig-UMAP). The default distance metric is often Euclidean, but other metrics can be used.
 
-For each observation, place it in the origin of a two-dimensional space and plot the remaining observations along the x-axis based on their distance to the observation in the origin. An exponential decay function is fitted such that the sum of y-values of the K nearest observations is equal to log2(K), and the y-value of all other observations is approximately zero (second step in @fig-UMAP). K is a hyperparameter which control the resolution of the clustering. A low value of K results in clusters capturing the details of the data as only the nearest few observations are considered. Opposite, a high value of K results in larger clusters that might lose some details, but better captures the overall structure of the data. The exponential function is on the form:
+![Visualisation of the UMAP algorithm](images/UMAP.png){#fig-UMAP}
+
+For each observation, place it in the origin of a two-dimensional space and plot the remaining observations along the x-axis based on their distance to the observation in the origin. An exponential decay function is fitted such that the sum of y-values of the K nearest observations is equal to $log2(K)$, and the y-value of all other observations is approximately zero (second step in @fig-UMAP). K is a hyperparameter which control the resolution of the clustering. A low value of K results in clusters capturing the details of the data as only the nearest few observations are considered. Opposite, a high value of K results in larger clusters that might lose some details, but better captures the overall structure of the data. The exponential function is on the form:
 
 $$
 S = \exp(-\frac{d_{A,B}-d_{NN}}{\sigma})
 $$
 
-![Visualisation of the UMAP algorithm](images/UMAP.png){#fig-UMAP}
+Where $d_{A,B}$ is the distance between observation A and B (the observation in the origin and the considered observation), $d_{NN}$ is the distance to the nearest neighbor to the origin, and $\sigma$ is a parameter that is adjusted such that the sum of the y-values ($S$) of the K nearest observations are equal to $\log_2(K)$. The value of $\sigma$ is then likely to change for each repetition of placing a new observation in the origin. The score $S$, which is also the y-value mentioned above, is then the similarity score between the two observations.
 
-Where $d_{A,B}$ is the distance between observation A and B (the observation in the origin and the considered observation), $d_{NN}$ is the distance to the nearest neighbor to the origin, and $\sigma$ is a hyperparameter that is adjusted such that the sum of the y-values ($S$) of the K nearest observations are equal to $\log_2(K)$. The value of $\sigma$ is then likely to change for each repetition of placing a new observation in the origin. The score $S$, which is also the y-value mentioned above, is then the similarity score between the two observations.
-
-A similarity score then exists for each pair of observations. However, the similarity score from observation A to B is not necessarily the same as from B to A. This ambiguity occurs occurs if e.g. a observation C is actually closer to B, but on the opposite side of A on the x-axis. Then, from the perspective of A, B is the nearest observation, but from the perspective of B, C is the nearest observation. To make the similarity scores symmetric, the following formula is used:
+A similarity score then exists for each pair of observations. However, the similarity score from observation A to B is not necessarily the same as from B to A. This ambiguity occurs if e.g. observation C is actually closer to B, but on the opposite side of A on the x-axis. Then, from the perspective of A, B is the nearest observation, but from the perspective of B, C is the nearest observation. To make the similarity scores symmetric, the following formula is used:
 
 $$
 S_{sym} = (S_{A,B} + S_{B,A}) - S_{A,B}S_{B,A}
@@ -90,7 +90,7 @@ $$
 
 As mentioned, placing a point in the origin and calculating the similarity score by fitting the exponential is done for all observations. Afterwards, a symmetric similarity score exists for each pair of points in the data set.
 
-A low dimensional representation of the data is initialized (third step in @fig-UMAP). Using the clusters from the K nearest neighbors, two observations are chosen at random in a random cluster. Two observations with high similarity scores are prioritized in the otherwise random selection. One of the two observations, also chosen at random, is to be moved towards the other. Before moving, an additional observation is chosen at random from a different cluster. The observation to be moved is to move closer to the other observation in the same cluster and further away from the additional observation, e.g. moving observation C towards observation B and away from observation E in @fig-UMAP. The distance to move the observation is determined by calculating a similarity score in the low dimensional manifold (represented by the red and greed curve in @fig-UMAP). The formula is:
+A low dimensional representation of the data is initialized (third step in @fig-UMAP). Using the clusters from the K nearest neighbors, two observations are chosen at random in a random cluster. Two observations with high similarity scores are prioritized in the otherwise random selection. One of the two observations, also chosen at random, is to be moved towards the other. Before moving, an additional observation is chosen at random from a different cluster. The observation to be moved is moved closer to the other observation in the same cluster and further away from the additional observation, e.g. moving observation C towards observation B and away from observation E in @fig-UMAP. The distance to move the observation is determined by calculating a similarity score in the low dimensional manifold by fitting two curves (represented by the red and greed curve in @fig-UMAP). The formula for the curve is:
 
 $$
 S_{low} = \frac{1}{1 + \alpha d_{low}^{2\beta}}
@@ -102,7 +102,7 @@ $$
 C(S_{pair}, S_{add}) = \log\left(\frac{1}{S_{pair}}\right) + \log\left(\frac{1}{1 - S_{add}}\right) 
 $$
 
-Where $S_{pair}$ is the similarity score for the pair of observations, and $S_{add}$ is the similarity score for the observation to be moved and the additional observation. If moving the point in the wrong direction, or too far in the correct direction, the value of the cost function starts to increase again. The observation is moved in the direction of the negative derivative of the cost function one step at a time, a process called stochastic gradient descent. This process is repeated until the low dimensional representation is stable, and the final representation is the output of the UMAP algorithm (fourth step in @fig-UMAP).
+Where $S_{pair}$ is the similarity score for the pair of observations, and $S_{add}$ is the similarity score for the observation to be moved and the additional observation. When moving the point in the wrong direction, or too far in the correct direction, the value of the cost function starts to increase again. The observation is moved in the direction of the negative derivative of the cost function one step at a time, a process called stochastic gradient descent. This process is repeated until the low dimensional representation is stable, and the final representation is the output of the UMAP algorithm (fourth step in @fig-UMAP).
 
 The UMAP algorithm is applied to the count matrix with clr transformed values. The data is visualized in a two-dimensional space and colored by the patient status. No apparent clustering is observed.
 

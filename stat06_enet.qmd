@@ -23,10 +23,12 @@ mtcars <- mtcars |>
 
 # Elastic Net
 
-Elastic Net is an extension of Ordinary Least Squares (OLS). It is a combination of Ridge and Lasso regression. Generally, Ridge is used to penalize large coefficients and Lasso is used to select coefficients. Elastic Net is a compromise between the two. These two methods are explained separately in the next two sections and lastly it is explained how they are combined in Elastic Net.
+If not tuned properly, models can be overfitted to the training data causing the individual model to simply memorize the training data, but then perform poorly on new data. Regularizing the model is a way to prevent this by penalizing fitting too closely to the training data. The concept is also known as the Bias-Variance trade off further introduced in @sec-bias_var.
+
+Elastic Net is an extension of Ordinary Least Squares (OLS) which introduces regularizing by a combination of Ridge and Lasso regression. Generally, Ridge is used to penalize large coefficients and Lasso is used to select coefficients. Elastic Net is a compromise between the two. These two methods are explained separately in the next two sections and lastly it is explained how they are combined in Elastic Net.
 
 ## Ridge Regression
-Recall from the OLS section that the goal is minimize the sum of squared residuals (SSR).
+Recall from the OLS section (@sec-ols) that the goal is to minimize the sum of squared residuals (SSR).
 
 $$
 \beta_{OLS} = \min_{\beta} ||y-X\beta||_{2}^{2}
@@ -38,7 +40,7 @@ $$
 \beta_{Ridge} = \min_{\beta} ||y-X\beta||_{2}^{2} + \lambda||\beta||_{2}^{2}
 $$
 
-Finding the coefficients for the linear model now becomes a compromise between minimizing the SSR and minimizing the size of the coefficients. $\lambda$ is a hyperparameter that controls the trade-off between the two. When $\lambda = 0$, Ridge regression is the same as OLS. When $\lambda$ is very large, the coefficients are driven towards zero as the penalty term $\lambda||\beta||_{2}^{2}$ becomes large compared to the residuals. The coefficients can never be set to zero, but they can be driven asymptotically close to zero. The reason is, when the coefficients are close to zero, the model prefer to fitting to the data instead of further reducing the size of the coefficients.
+Finding the coefficients for the linear model now becomes a compromise between minimizing the SSR and minimizing the value of the coefficients. $\lambda$ is a hyperparameter that controls the trade-off between the two. When $\lambda = 0$, Ridge regression is the same as OLS. When $\lambda$ is very large, the coefficients are driven towards zero as the penalty term $\lambda||\beta||_{2}^{2}$ becomes large compared to the residuals. The coefficients can never be set to zero, but they can be driven asymptotically close to zero. The reason is, when the coefficients are close to zero, the model prefers fitting to the data instead of further reducing the size of the coefficients. See a more detailed explanation in @sec-ols.
 
 Introducing the penalty term makes the fit to the data worse, but it can improve the generalization to new data. The coefficients obtained through Ridge tends to be small compared to OLS, so the model tends to be less sensitive to changes in the data. In machine learning terms, this is called introducing bias (inability to fit data perfectly) to reduce variance (the model fits better to new data). The bias-variance trade-off is a fundamental concept in machine learning.
 
@@ -63,7 +65,7 @@ mtcars |>
     showlegend = FALSE)
 ```
 
-Two coefficients are used to try and model the data. The coefficients are the slope of the line for the weight and horse power. High coefficients means steep slopes, which in turn suggests that the response (mpg) is sensitive to the features (wt and hp). When presented to new data which is different from the training data, the model predicts wildly different responses due to the sensitivity to changes. The model then generalizes poorly to new data and is said to have high variance. By increasing lambda, the slope is reduced, and the model becomes less sensitive to the features. This is the bias-variance trade-off in action as seen in the following code chunks.
+Two coefficients are used to try and model the data. The coefficients are the slope of the line for the weight and horse power. Large absolute values for the coefficients resukts in steep slopes, which in turn suggests that the response (mpg) is sensitive to the features (wt and hp). When presented to new data which is different from the training data, the model predicts wildly different responses due to the sensitivity to changes. The model then generalizes poorly to new data and is said to have high variance. By increasing lambda, the slope is reduced, and the model becomes less sensitive to the features. This is the bias-variance trade-off in action as seen in the following code chunks.
 
 
 ```{r}
@@ -166,10 +168,12 @@ ridge_coefficients |>
        y = "Coefficient Estimate")
 ```
 
-We can plot each of the fitted models on top of the scatterplot to see how the coefficients change with lambda. Due to the limitations of 3D-plotting with `plotly`, legends for each lambda value are not shown. The lambda values can instead be found be hovering each of the planes in the plot. It is seen, that the slopes are reduced as lambda increases.
+It is possible plot each of the fitted models on top of the 3D scatterplot to see how the coefficients change with lambda. Due to the limitations of 3D-plotting with `plotly`, legends for each lambda value are not shown. The lambda values can instead be found be hovering each of the planes in the plot. It is seen that the slopes are reduced as lambda increases.
 
 ```{r}
 #| warning: false
+#| code-fold: true
+#| code-summary: "Show the code"
 
 # Make predictions for each function
 ridge_predictions <- ridge_models |>
@@ -240,7 +244,7 @@ plot_w_predictions
 
 ### Applying Ridge Regression to Logistic Regression
 
-Recall from Chapter 8 on Logistic Regression, that the algorithm seek to maximize the likelihoods:
+Recall from @sec-logistic_regression, that the algorithm seek to maximize the likelihoods:
 
 $$
 \beta_{LR} = \max_{\beta} \; L(\beta,x_i,y_i)
@@ -254,13 +258,13 @@ $$
 
 ## Lasso Regression
 
-Lasso is similar to Ridge, except the penalty uses the absolute values of the coefficients instead of squaring them. This enables the Lasso Regression to set some coefficients to 0, resulting in a less complex model as it contains fewer features. Again, the $\lamba$ hyperparameter is used to control the penalization. $\lambda$ ranges from 0 to $+\infty$, where higher values of $\lambda$ gives a more penalized model, i.e. contain fewer features. The Lasso Regression is given by:
+Lasso is similar to Ridge, except the penalty uses the absolute values of the coefficients instead of squaring them. This enables the Lasso Regression to set some coefficients to 0, resulting in a less complex model as it contains fewer features. Again, the $\lambda$ hyperparameter is used to control the penalization. $\lambda$ ranges from 0 to $+\infty$, where higher values of $\lambda$ gives a more penalized model, i.e. contain fewer features. The Lasso applied to OLS is given by:
 
 $$
 \beta_{Lasso} = \min_{\beta} ||y-X\beta||_{2}^{2} + \lambda||\beta||_{1}
 $$
 
-By removing features, the algorithm can be used for dimensionality reduction. To exemplify, the below code chunk tries to predict `mpg` given all features using Lasso Regression. The expectation is, that some features contain too little information about the response, and is excepted to be removed at higher values of $\lambda$. Since we are not comparing different models, a much simpler approach can be applied:
+By removing features, the algorithm can be used for dimensionality reduction. To exemplify, the below code chunk tries to predict `mpg` given all features using Lasso Regression. The expectation is, that some features contain too little information about the response, and is removed at higher values of $\lambda$. Since we are not comparing different models, a much simpler approach can be applied:
 
 ```{r}
 set.seed(1337)
@@ -283,7 +287,7 @@ lasso_grid_results <- lasso_spec |>
             param_info = lasso_params,
             metrics = metric_set(rmse),
             grid = 100) |>
-  select_best()
+  select_best(metric = "rmse")
 
 
 # Update our model with the tuned parameter
@@ -297,14 +301,14 @@ lasso_tuned |>
   tidy() |> 
   filter(estimate != 0)
 ```
-As can be seen from the final output, the Lasso Regression has removed some features from the model. Four features remains in the model, whereas the last seven are set to zero.
+As can be seen from the final output, the Lasso Regression has removed some features from the model. Six features remains in the model (and the intercept), whereas the last five are set to zero.
 
 
-### Applying Logistic Regression to Logistic Regression
+### Applying Lasso Regression to Logistic Regression
 As for Ridge, Lasso can be used with logistic regression as well by subtracting the L1 norm of the coefficients.
 
 $$
-\beta_{LR, Lasso} = \max_{\beta} \; L(\beta,x_i,y_i) - \lambda||\beta||_{2}
+\beta_{LR, Lasso} = \max_{\beta} \; L(\beta,x_i,y_i) - \lambda||\beta||_{1}
 $$
 
 
@@ -320,7 +324,7 @@ Note that the two terms contain different lambdas. If both are equal to 0, it is
 The `glmnet` package implements a different application of Elastic Net. It still contain a term for Ridge and a term for Lasso, but it introduces a new parameter $\alpha$ instead of having two $\lambda$s. From the documentation, it is seen that the regularization term is:
 
 $$
- \lambda(\frac{(1-\alpha)||\beta||_{2}^{2}}{2} + \alpha||\beta||_{1})
+ \lambda\left(\frac{(1-\alpha)||\beta||_{2}^{2}}{2} + \alpha||\beta||_{1}\right)
 $$
 
  Where $0 \le \alpha \le 1$. If $\alpha=0$, the regularization applied is Ridge as $\alpha||\beta||_{1}=0 \cdot ||\beta||_{1} = 0$ and thereby the Lasso term is ignored and vice versa for $\alpha=1$. In the `tidymodels` universe, the $\alpha$ parameter is called `mixture`. When looking at the examples of Ridge and Lasso in the above, notice how `mixture` is either equal to 0 or 1, depending on the use case.
@@ -352,7 +356,8 @@ enet_grid_results <- enet_spec |>
             )
 
 enet_grid_results |>
-  show_best(n = 10)
+  show_best(metric = "rmse",
+            n = 10)
 ```
 
 For 100 different combinations of `penalty` and `mixture`, the best combinations have a value for `mixture` close to 1 suggesting the Lasso term is more important than the Ridge term.
@@ -360,5 +365,7 @@ For 100 different combinations of `penalty` and `mixture`, the best combinations
 # Session Info
 
 ```{r}
+#| fold-output: true
+
 sessioninfo::session_info()
 ```

@@ -30,7 +30,7 @@ iris_folds <- vfold_cv(iris)
 
 ## What is a hyperparameter?
 
-A classical and simple example of a hyperparameter is the number of neighbors (k) in a k-nearest neighbors (KNN) algorithm. This is a hyperparameter as it is not estimated during model fitting, but is specified a priori making it impossible to optimize during parameter estimation.
+A classical and simple example of a hyperparameter is the number of neighbors, usually denoted `k`, in a k-nearest neighbors (KNN) algorithm. This is a hyperparameter as it is not estimated during model fitting, but is specified a priori making it impossible to optimize during parameter estimation.
 
 ## Set up tuning
 In the `tidymodels` universe, hyperparameters are marked for tuning in the specifications for a model. To exemplify, both the number of nearest neighbors and a range of weight functions are tuned.
