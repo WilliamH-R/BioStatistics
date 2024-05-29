@@ -404,7 +404,7 @@ window.Quarto = {
 </div>
 </div>
 <p>In this simple case, the model is fitting the line to the data by changing the slope and intercept of the line. The combination which minimizes the sum of the squared residuals (SSR) is chosen. This results in a three dimensional space, where the slope and intercept are plotted along the x and y axis, and the sum of the squared residuals are plotted along the z-axis. Some combination of slope and intercept results in a minimum in the 3D plane. This combination can be found by taking the derivative of the sum of the squared residuals with respect to the slope and intercept, and set it equal to zero.</p>
-<p>The model can be generalized to more than one variable, such that the model can predict the outcome based on multiple variables. Usually, the simple linear case is written as <span class="math inline">\(y = ax + b\)</span> where <span class="math inline">\(a\)</span> is the slope and <span class="math inline">\(b\)</span> is the intercept. When using multiple variables, it is generalized to <span class="math inline">\(y = \beta_0 + \beta_{1}x_1 + \beta_{2}x_2 + ... + \beta_{n}x_n\)</span>. In matrix form it can be written as <span class="math inline">\(y = X\beta\)</span> where <span class="math inline">\(X\)</span> is a matrix with <span class="math inline">\(n\)</span> rows (number of samples) and <span class="math inline">\(p\)</span> columns (number of variables). <span class="math inline">\(\beta\)</span> is a vector of length <span class="math inline">\(p\)</span> which includes a parameter for each variable.</p>
+<p>The model can be generalized to more than one feature, such that the model can predict the response based on multiple features. Usually, the simple linear case is written as <span class="math inline">\(y = ax + b\)</span> where <span class="math inline">\(a\)</span> is the slope and <span class="math inline">\(b\)</span> is the intercept. When using multiple features, it is generalized to <span class="math inline">\(y = \beta_0 + \beta_{1}x_1 + \beta_{2}x_2 + ... + \beta_{n}x_n\)</span>. In matrix form it can be written as <span class="math inline">\(y = X\beta\)</span> where <span class="math inline">\(X\)</span> is a matrix with <span class="math inline">\(n\)</span> rows (number of samples) and <span class="math inline">\(p\)</span> columns (number of features). <span class="math inline">\(\beta\)</span> is a vector of length <span class="math inline">\(p\)</span> which includes a parameter for each feature.</p>
 <p>As mentioned earlier, the goal is to minimize the sum of the squared residuals. On matrix form, SSR is written as:</p>
 <p><span class="math display">\[
 SSR = ||y-X\beta||_{2}^{2}
@@ -417,7 +417,7 @@ SSR = \sum_{i=1}^{n} (y_i - X_{i}\beta)^2 =  \sum_{i=1}^{n} (y_i - \hat{y}_i)^2
 <p><span class="math display">\[
 \beta_{OLS} = \min_{\beta} SSR = \min_{\beta} ||y-X\beta||_{2}^{2}
 \]</span></p>
-<p>As mentioned in the above, the <span class="math inline">\(\beta\)</span>s can be found by taking the derivative of the SSR with respect to <span class="math inline">\(\beta\)</span> and set it equal to zero. Since this is generalized to multiple variables, the gradient is taken with respect to the vector <span class="math inline">\(\beta\)</span> instead. The equation is then:</p>
+<p>As mentioned in the above, the <span class="math inline">\(\beta\)</span>s can be found by taking the derivative of the SSR with respect to <span class="math inline">\(\beta\)</span> and set it equal to zero. Since this is generalized to multiple features, the gradient is taken with respect to the vector <span class="math inline">\(\beta\)</span> instead. The equation is then:</p>
 <p><span class="math display">\[
 \nabla_\beta||y-X\beta||_{2}^{2} = 0
 \]</span></p>
@@ -436,7 +436,7 @@ SSR = \sum_{i=1}^{n} (y_i - X_{i}\beta)^2 =  \sum_{i=1}^{n} (y_i - \hat{y}_i)^2
  collate  English_United Kingdom.utf8
  ctype    English_United Kingdom.utf8
  tz       Europe/Copenhagen
- date     2024-05-25
+ date     2024-05-29
  pandoc   3.1.11 @ C:/Program Files/RStudio/resources/app/bin/quarto/bin/tools/ (via rmarkdown)
 
 ─ Packages ───────────────────────────────────────────────────────────────────

@@ -402,7 +402,7 @@ L(\beta,x_i,y_i) = \prod_{i \; in \; y = 1}^{n} x_i \cdot \prod_{i \; in \; y = 
 <p><span class="math display">\[
 p = \frac{1}{1 + e^{-y}} = \frac{1}{1 + e^{-(\beta_0 + \beta_1 \cdot x_1+ \beta_2 \cdot x_2 + ... + \beta_n \cdot x_n)}}
 \]</span></p>
-<p>For illustrating logistic regression, we will use the iris dataset and predict the probability of a flower being a virginica based on the petal length. As previously, the setosa class have been removed from the data set to only contain two classes. The species is transformed into a binary variable, where versicolor is 0 and virginica is 1. Below the data is visualized where the petal length is seen on the x-axis and the probability of being a virginica is seen on the y-axis.</p>
+<p>For illustrating logistic regression, we will use the iris dataset and predict the probability of a flower being a virginica based on the petal length. As previously, the setosa class have been removed from the data set to only contain two classes. The species is transformed into a binary response, where versicolor is 0 and virginica is 1. Below the data is visualized where the petal length is seen on the x-axis and the probability of being a virginica is seen on the y-axis.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>iris_prob <span class="ot">&lt;-</span> iris <span class="sc">|&gt;</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Species_prob =</span> <span class="fu">case_when</span>(Species <span class="sc">==</span> <span class="st">"versicolor"</span> <span class="sc">~</span> <span class="dv">0</span>,</span>
@@ -490,7 +490,7 @@ p = \frac{1}{1 + e^{-y}} = \frac{1}{1 + e^{-(\beta_0 + \beta_1 \cdot x_1+ \beta_
  collate  English_United Kingdom.utf8
  ctype    English_United Kingdom.utf8
  tz       Europe/Copenhagen
- date     2024-05-25
+ date     2024-05-29
  pandoc   3.1.11 @ C:/Program Files/RStudio/resources/app/bin/quarto/bin/tools/ (via rmarkdown)
 
 ─ Packages ───────────────────────────────────────────────────────────────────

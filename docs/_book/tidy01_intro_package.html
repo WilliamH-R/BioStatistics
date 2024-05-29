@@ -355,7 +355,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <section id="introdution-to-dataset" class="level2" data-number="1.1">
 <h2 data-number="1.1" class="anchored" data-anchor-id="introdution-to-dataset"><span class="header-section-number">1.1</span> Introdution to dataset</h2>
-<p>For simplicity, the <code>iris</code> dataset is used since the structure is simple, and readers should be familiar with it. As a quick reminder, the dataset consists of five variables (columns) and 150 observations (rows). The first four variables are doubles describing the size of the flower, used as predictors. The last variable is a factor indicating the species of flower, used as the outcome. To make this a binary logistic classification problem, and not nominal, the versicolor species have been excluded.</p>
+<p>For simplicity, the <code>iris</code> dataset is used since the structure is simple, and readers should be familiar with it. As a quick reminder, the dataset consists of five variables (columns) and 150 observations (rows). The first four features are doubles describing the size of the flower, used as predictors. The last variable, the response, is a factor indicating the species of flower, used as the response. To make this a binary logistic classification problem, and not nominal, the versicolor species have been excluded.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(iris)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -376,7 +376,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="training--and-test-set" class="level2" data-number="1.2">
 <h2 data-number="1.2" class="anchored" data-anchor-id="training--and-test-set"><span class="header-section-number">1.2</span> Training- and test set</h2>
-<p>As is customary when modeling, the dataset is split into a training- and testing set. We need to check for class imbalance in case some outcomes (here species) are more likely in the dataset. As seen from <a href="#fig-iris-species-count" class="quarto-xref">Figure&nbsp;<span class="quarto-unresolved-ref">fig-iris-species-count</span></a>, it is not the case.</p>
+<p>As is customary when modeling, the dataset is split into a training- and testing set. We need to check for class imbalance in case some responses (here species) are more likely in the dataset. As seen from <a href="#fig-iris-species-count" class="quarto-xref">Figure&nbsp;<span class="quarto-unresolved-ref">fig-iris-species-count</span></a>, it is not the case.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>iris <span class="sc">|&gt;</span> </span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Species,</span>
@@ -435,7 +435,7 @@ Figure&nbsp;1.1: Count of each species in the iris dataset
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>lg_model <span class="ot">&lt;-</span> lg_model <span class="sc">|&gt;</span> </span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_engine</span>(<span class="st">"glm"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>As the goal is to predict flower species, it is necessary to specify how the model should be fit, e.g.&nbsp;what are the predictors and what is the outcome. This can be done via the <code>formula</code> syntax. From the p-values we see that some predictors are not statistically meaningful. This is ignored for now, but note that this metric is important.</p>
+<p>As the goal is to predict flower species, it is necessary to specify how the model should be fit, e.g.&nbsp;what are the predictors and what is the response. This can be done via the <code>formula</code> syntax. From the p-values we see that some predictors are not statistically meaningful. This is ignored for now, but note that this metric is important.</p>
 <div id="tbl-all-predictors" class="cell quarto-float anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl quarto-uncaptioned" id="tbl-all-predictors-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -501,7 +501,7 @@ Table&nbsp;1.1
  collate  English_United Kingdom.utf8
  ctype    English_United Kingdom.utf8
  tz       Europe/Copenhagen
- date     2024-05-25
+ date     2024-05-29
  pandoc   3.1.11 @ C:/Program Files/RStudio/resources/app/bin/quarto/bin/tools/ (via rmarkdown)
 
 ─ Packages ───────────────────────────────────────────────────────────────────
