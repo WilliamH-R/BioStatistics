@@ -1,4 +1,4 @@
-# Preprocessing of Data {#sec-preprocessing}
+## Preprocessing of Data {#sec-preprocessing}
 
 It is rarely seen that data is ready for analysis as soon as it is collected. Data preprocessing is a crucial step in the modeling process. It involves cleaning, transforming, and encoding data to optimize it for further analysis. There is no one-step process to data preprocessing. It is an iterative process that involves multiple steps, and is highly dependent on the model you are building, the data you are working with and the objective you are trying to achieve.
 
