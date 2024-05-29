@@ -168,7 +168,7 @@ div.csl-indent {
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="./tidy00_book_intro.html" class="sidebar-item-text sidebar-link">
+            <a href="./tidy00_intro.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Tidy Modelling with R</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -356,8 +356,8 @@ div.csl-indent {
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>tidymodels<span class="sc">::</span><span class="fu">tidymodels_prefer</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<p>In this chapter, each of the following parts delve into an area of statistics. This ranges from biostatistics such as diversity measures and different statistical models such as Ordinary Linear Regression (OLS). The purpose is to introduce the reader to the statistical concepts that are often used in Bioinformatics and Biostatistics. The chapters are structured in a similar way. First, the method is introduced, followed by the math behind it, and lastly, a visual representation using the <code>tidymodels</code> package.</p>
-<p>In the first part of the book, the <code>iris</code> data set was used to exemplify the usage of the <code>tidymodels</code> package. For the chapters pertaining to diversit measures, a count matrix from a metagenomics study is used instead. The raw data can be obtained from <span class="citation" data-cites="Cox2021">(<a href="#ref-Cox2021" role="doc-biblioref">Cox et al. 2021</a>)</span>. Each row is a sample from a person, each column is a genus and the values represent the abundance of said genus in said sample. Explaining how the count matrix is acquired from raw sequences is out of scope for this book. Scripts used for the pre-processing exists on the <a href="https://github.com/WilliamH-R/BioStatistics">GitHub page</a> from which this book is created, located in the <code>src/</code> sub-folder.</p>
+<p>In this part, each of the following parts delve into an area of biostatistics. This includes a chapter on diversity measures, hypothesis testing and several chapters on models such as Ordinary Linear Regression. Each chapter is structured in a similar way. First, a commonly occurring problem is introduced, followed by an explanation of the method and how it solves the problem. Then, the math behind the method is then explained, and lastly, a visual representation. Deviations from this structure may occur when e.g.&nbsp;a text based introduction is insufficient.</p>
+<p>In the first part of the book, the <code>iris</code> data set was used to exemplify the usage of the <code>tidymodels</code> package. Some of the following chapters reuses the <code>iris</code> data ses wheras some uses the also common <code>mtcars</code> data set. For the chapters pertaining to diversity measures, a count matrix from a metagenomics study is used instead. The raw data can be obtained from <span class="citation" data-cites="Cox2021">(<a href="references.html#ref-Cox2021" role="doc-biblioref">Cox et al. 2021</a>)</span>. Each row is a sample from a person, each column is a genus and the values represent the abundance of said genus in said sample. Explaining how the count matrix is acquired from raw sequences is out of scope for this book. Scripts used for the preprocessing exists in the <a href="https://github.com/WilliamH-R/BioStatistics">GitHub repository</a> from which this book is created, located in the <code>src/</code> sub-folder.</p>
 <p>A snippet of the data set can be seen below:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>count_matrix <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_rds</span>(<span class="st">"https://github.com/WilliamH-R/BioStatistics/raw/main/data/count_matrix/count_matrix.rds"</span>)</span>
@@ -547,7 +547,7 @@ div.csl-indent {
 </div>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
 <div id="ref-Cox2021" class="csl-entry" role="listitem">
 Cox, Laura M., Amir Hadi Maghzi, Shirong Liu, Stephanie K. Tankou, Fyonn H. Dhang, Valerie Willocq, Anya Song, et al. 2021. <span>“Gut Microbiome in Progressive Multiple Sclerosis.”</span> <em>Annals of Neurology</em> 89 (June): 1195–1211. <a href="https://doi.org/10.1002/ANA.26084">https://doi.org/10.1002/ANA.26084</a>.
 </div>

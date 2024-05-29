@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>BioStatistics - 5&nbsp; Wilcoxon test</title>
+<title>BioStatistics - 13&nbsp; Uniform Manifold Approximation and Projection</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -64,8 +64,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./stat03_mult_testing.html" rel="next">
-<link href="./stat01_diversity.html" rel="prev">
+<link href="./apply00_intro.html" rel="next">
+<link href="./pre01_pca.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -144,7 +144,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./stat00_intro.html">Applied bio-statistical methods</a></li><li class="breadcrumb-item"><a href="./stat02_wilcoxon.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Wilcoxon test</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./pre00_intro.html">Preprocessing of Data</a></li><li class="breadcrumb-item"><a href="./pre02_umap.html"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Uniform Manifold Approximation and Projection</span></a></li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -221,7 +221,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./stat02_wilcoxon.html" class="sidebar-item-text sidebar-link active">
+  <a href="./stat02_wilcoxon.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Wilcoxon test</span></span></a>
   </div>
 </li>
@@ -280,7 +280,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./pre02_umap.html" class="sidebar-item-text sidebar-link">
+  <a href="./pre02_umap.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Uniform Manifold Approximation and Projection</span></span></a>
   </div>
 </li>
@@ -331,16 +331,16 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#session-info" id="toc-session-info" class="nav-link active" data-scroll-target="#session-info"><span class="header-section-number">6</span> Session Info</a></li>
+  <li><a href="#session-info" id="toc-session-info" class="nav-link active" data-scroll-target="#session-info"><span class="header-section-number">14</span> Session Info</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./stat00_intro.html">Applied bio-statistical methods</a></li><li class="breadcrumb-item"><a href="./stat02_wilcoxon.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Wilcoxon test</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./pre00_intro.html">Preprocessing of Data</a></li><li class="breadcrumb-item"><a href="./pre02_umap.html"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Uniform Manifold Approximation and Projection</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Wilcoxon test</span></h1>
+<h1 class="title"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Uniform Manifold Approximation and Projection</span></h1>
 </div>
 
 
@@ -365,84 +365,127 @@ window.Quarto = {
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"tidymodels"</span>)</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>tidymodels<span class="sc">::</span><span class="fu">tidymodels_prefer</span>()</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"vegan"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"uwot"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <p>Load data.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>count_matrix <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_rds</span>(<span class="st">"https://github.com/WilliamH-R/BioStatistics/raw/main/data/count_matrix/count_matrix.rds"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span><span class="st">"NA"</span>)</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>meta <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="at">file =</span> <span class="st">"data/metadata.txt"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>() <span class="sc">|&gt;</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Run, chem_administration, ETHNICITY, geo_loc_name,</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>         Host_age, host_body_mass_index, Host_disease, host_phenotype, host_sex) <span class="sc">|&gt;</span> </span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">Sample =</span> Run,</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>         <span class="at">Treatment =</span> chem_administration,</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>         <span class="at">Ethnicity =</span> ETHNICITY,</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>         <span class="at">Location =</span> geo_loc_name,</span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>         <span class="at">Age =</span> Host_age,</span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>         <span class="at">BMI =</span> host_body_mass_index,</span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>         <span class="at">Disease_severity =</span> Host_disease,</span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>         <span class="at">EDSS =</span> host_phenotype,</span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>         <span class="at">Sex =</span> host_sex) <span class="sc">|&gt;</span></span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Patient_status =</span> <span class="fu">case_when</span>(Disease_severity <span class="sc">==</span> <span class="st">"1HealthyControl"</span> <span class="sc">~</span> <span class="st">"Healthy"</span>,</span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>                                    <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">"MS"</span>),</span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>         <span class="at">EDSS =</span> <span class="fu">as.factor</span>(EDSS),</span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>         <span class="at">EDSS =</span> <span class="fu">case_when</span>(<span class="fu">is.na</span>(EDSS) <span class="sc">&amp;</span> Disease_severity <span class="sc">==</span> <span class="st">"1HealthyControl"</span> <span class="sc">~</span> <span class="st">"-1"</span>,</span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>                          <span class="fu">is.na</span>(EDSS) <span class="sc">&amp;</span> Disease_severity <span class="sc">!=</span> <span class="st">"1HealthyControl"</span> <span class="sc">~</span> <span class="st">"Unknown"</span>,</span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>                          <span class="cn">TRUE</span> <span class="sc">~</span> EDSS),</span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>         <span class="at">EDSS =</span> <span class="fu">as.factor</span>(EDSS))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"iris"</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>iris <span class="ot">&lt;-</span> iris <span class="sc">|&gt;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  tibble<span class="sc">::</span><span class="fu">as_tibble</span>()</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>count_matrix_clr <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_rds</span>(<span class="st">"https://github.com/WilliamH-R/BioStatistics/raw/main/data/count_matrix/count_matrix_clr.rds"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span><span class="st">"NA"</span>)</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>meta <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="at">file =</span> <span class="st">"data/metadata.txt"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>() <span class="sc">|&gt;</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Run, chem_administration, ETHNICITY, geo_loc_name,</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>         Host_age, host_body_mass_index, Host_disease, host_phenotype, host_sex) <span class="sc">|&gt;</span> </span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">Sample =</span> Run,</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>         <span class="at">Treatment =</span> chem_administration,</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>         <span class="at">Ethnicity =</span> ETHNICITY,</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>         <span class="at">Location =</span> geo_loc_name,</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>         <span class="at">Age =</span> Host_age,</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>         <span class="at">BMI =</span> host_body_mass_index,</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>         <span class="at">Disease_severity =</span> Host_disease,</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>         <span class="at">EDSS =</span> host_phenotype,</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>         <span class="at">Sex =</span> host_sex) <span class="sc">|&gt;</span></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Patient_status =</span> <span class="fu">case_when</span>(Disease_severity <span class="sc">==</span> <span class="st">"1HealthyControl"</span> <span class="sc">~</span> <span class="st">"Healthy"</span>,</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>                                    <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">"MS"</span>),</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>         <span class="at">EDSS =</span> <span class="fu">as.factor</span>(EDSS),</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>         <span class="at">EDSS =</span> <span class="fu">case_when</span>(<span class="fu">is.na</span>(EDSS) <span class="sc">&amp;</span> Disease_severity <span class="sc">==</span> <span class="st">"1HealthyControl"</span> <span class="sc">~</span> <span class="st">"-1"</span>,</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>                          <span class="fu">is.na</span>(EDSS) <span class="sc">&amp;</span> Disease_severity <span class="sc">!=</span> <span class="st">"1HealthyControl"</span> <span class="sc">~</span> <span class="st">"Unknown"</span>,</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>                          <span class="cn">TRUE</span> <span class="sc">~</span> EDSS),</span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>         <span class="at">EDSS =</span> <span class="fu">as.factor</span>(EDSS))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<p>After calculating some metric for two groups, e.g.&nbsp;the Shannon Index as a measure of diversity introduced in #sec-shannon_index, one is left with two groups of values. Simply stating the numerical difference between the groups is not enough to determine if the difference is statistically significant. To do this, hypothesis testing is used. The null hypothesis is that there is no difference between the groups, and the alternative hypothesis is that there is a difference.</p>
-<p>A plethora of statistical tests exists. The choice of test depends on the type of data. For example, if the data is normally distributed, the t-test can be used to compare the means of two groups. If the data is not normally distributed, the Wilcoxon test is an option. Below, the Shannon Index for the full data set have been calculated and plotted stratified by the patient status (Healthy vs Multiple Sclerosis (MS)). As can be seen from the plots, the Shannon Index does not seem to follow a normal distribution for both groups.</p>
+<p>While Uniform Manifold Approximation and Projection (UMAP) can resolve some of the same issues as a PCA (<a href="pre01_pca.html" class="quarto-xref"><span>Chapter 12</span></a>), e.g.&nbsp;dimensionality reduction, UMAP does so in a non-linear fashion unlike PCA. The model finds cluster in a high-dimensional space and project them onto a low dimension manifold trying to maintain the clustering.</p>
+<p>Similarity scores are calculated between all points, and based on these are clustered in a k-nearest neighbor fashion. A low dimensional representation - usually 2 dimensional such that it can be visualized - is initialized and points are moved around taking the similarity scores into account. The process is repeated until the low dimensional representation is stable.</p>
+<p>UMAP is especially popular for visualizing high-dimensional data. As an example, the iris data set is visualized below using UMAP. The input data contain all four features of the iris data set, and the result is a two-dimensional representation of the data. The points are colored by the species of the iris, and as can be observed, the method found a decent clustering of the species.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>shannon <span class="ot">&lt;-</span> count_matrix <span class="sc">|&gt;</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">column_to_rownames</span>(<span class="at">var =</span> <span class="st">"Sample"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">diversity</span>(<span class="at">index =</span> <span class="st">"shannon"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>(<span class="at">rownames =</span> <span class="st">"Sample"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">Shannon =</span> value) <span class="sc">|&gt;</span> </span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(meta,</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>            <span class="at">by =</span> <span class="st">"Sample"</span>)</span>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>iris_umap <span class="ot">&lt;-</span> iris <span class="sc">|&gt;</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  uwot<span class="sc">::</span><span class="fu">umap</span>(<span class="at">n_neighbors =</span> <span class="dv">20</span>,</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>             <span class="at">min_dist =</span> <span class="fl">0.2</span>,</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>             <span class="at">metric =</span> <span class="st">"euclidean"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.data.frame</span>() <span class="sc">|&gt;</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>() <span class="sc">|&gt;</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_cols</span>(iris <span class="sc">|&gt;</span> <span class="fu">select</span>(Species))</span>
 <span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>shannon <span class="sc">|&gt;</span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Shannon,</span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>             <span class="at">fill =</span> Patient_status)) <span class="sc">+</span></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"bin"</span>,</span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>           <span class="at">binwidth =</span> <span class="fl">0.1</span>) <span class="sc">+</span></span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> Patient_status)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>iris_umap <span class="sc">|&gt;</span> </span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> V1,</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>             <span class="at">y =</span> V2,</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>             <span class="at">col =</span> Species)) <span class="sc">+</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="stat02_wilcoxon_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="pre02_umap_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
-<p>The Wilcoxon test is a non-parametric test, which means it do not assume that the samples have been taken from a specific distribution, e.g.&nbsp;the normal distribution. Two different Wilcoxon tests exists, one for comparing dependent samples and one for comparing independent samples. Samples would be dependent if they were e.g.&nbsp;taken from the same patient at different times. Since the samples compared here originates from different patients, the samples are independent. Hence, the optimal test to use is the Wilcoxon Rank Sum test, also called the Mann-Whitney U test.</p>
-<p>The test is rank-based which means all the data is first ranked and then used to calculate the test statistic. After ranking the data, the sum of the ranks for the two groups are calculated. U is then calculated as:</p>
+<p>The following section includes more details on how UMAP works. As mentioned, the first step is to find the distance between all observations in the high-dimensional space (first step in <a href="#fig-UMAP" class="quarto-xref">Figure&nbsp;<span>13.1</span></a>). The default distance metric is often Euclidean, but other metrics can be used.</p>
+<div id="fig-UMAP" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-UMAP-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/UMAP.png" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-UMAP-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;13.1: Visualisation of the UMAP algorithm
+</figcaption>
+</figure>
+</div>
+<p>For each observation, place it in the origin of a two-dimensional space and plot the remaining observations along the x-axis based on their distance to the observation in the origin. An exponential decay function is fitted such that the sum of y-values of the K nearest observations is equal to <span class="math inline">\(log2(K)\)</span>, and the y-value of all other observations is approximately zero (second step in <a href="#fig-UMAP" class="quarto-xref">Figure&nbsp;<span>13.1</span></a>). K is a hyperparameter which control the resolution of the clustering. A low value of K results in clusters capturing the details of the data as only the nearest few observations are considered. Opposite, a high value of K results in larger clusters that might lose some details, but better captures the overall structure of the data. The exponential function is on the form:</p>
 <p><span class="math display">\[
-U = min(U_1, \; U_2) = min(R_1 - \frac{n_1(n_1+1)} {2}, \; R_2 - \frac{n_2(n_2+1)} {2})
+S = \exp(-\frac{d_{A,B}-d_{NN}}{\sigma})
 \]</span></p>
-<p>Where <span class="math inline">\(R_1\)</span> and <span class="math inline">\(R_2\)</span> is the sum of the ranks for the first and second group, respectively. Likewise, <span class="math inline">\(n_1\)</span> and <span class="math inline">\(n_2\)</span> is the number of samples in the first and second group, respectively. The U statistic is then used to find the p-value, which is used to determine if the difference between the two groups is statistically significant. The p-value is the probability of observing a U statistic as extreme as the one observed, given that the null hypothesis of no difference between <span class="math inline">\(U_1\)</span> and <span class="math inline">\(U_2\)</span> is true. The Wilcoxon Rank Sum test for the Shannon Index is shown below. As the p-value is much lower than the usual significance level of 0.05, we can conclude that the Shannon Index is significantly different between the two groups. Here, the two groups are the healthy and MS patients.</p>
+<p>Where <span class="math inline">\(d_{A,B}\)</span> is the distance between observation A and B (the observation in the origin and the considered observation), <span class="math inline">\(d_{NN}\)</span> is the distance to the nearest neighbor to the origin, and <span class="math inline">\(\sigma\)</span> is a parameter that is adjusted such that the sum of the y-values (<span class="math inline">\(S\)</span>) of the K nearest observations are equal to <span class="math inline">\(\log_2(K)\)</span>. The value of <span class="math inline">\(\sigma\)</span> is then likely to change for each repetition of placing a new observation in the origin. The score <span class="math inline">\(S\)</span>, which is also the y-value mentioned above, is then the similarity score between the two observations.</p>
+<p>A similarity score then exists for each pair of observations. However, the similarity score from observation A to B is not necessarily the same as from B to A. This ambiguity occurs if e.g.&nbsp;observation C is actually closer to B, but on the opposite side of A on the x-axis. Then, from the perspective of A, B is the nearest observation, but from the perspective of B, C is the nearest observation. To make the similarity scores symmetric, the following formula is used:</p>
+<p><span class="math display">\[
+S_{sym} = (S_{A,B} + S_{B,A}) - S_{A,B}S_{B,A}
+\]</span></p>
+<p>As mentioned, placing a point in the origin and calculating the similarity score by fitting the exponential is done for all observations. Afterwards, a symmetric similarity score exists for each pair of points in the data set.</p>
+<p>A low dimensional representation of the data is initialized (third step in <a href="#fig-UMAP" class="quarto-xref">Figure&nbsp;<span>13.1</span></a>). Using the clusters from the K nearest neighbors, two observations are chosen at random in a random cluster. Two observations with high similarity scores are prioritized in the otherwise random selection. One of the two observations, also chosen at random, is to be moved towards the other. Before moving, an additional observation is chosen at random from a different cluster. The observation to be moved is moved closer to the other observation in the same cluster and further away from the additional observation, e.g.&nbsp;moving observation C towards observation B and away from observation E in <a href="#fig-UMAP" class="quarto-xref">Figure&nbsp;<span>13.1</span></a>. The distance to move the observation is determined by calculating a similarity score in the low dimensional manifold by fitting two curves (represented by the red and greed curve in <a href="#fig-UMAP" class="quarto-xref">Figure&nbsp;<span>13.1</span></a>). The formula for the curve is:</p>
+<p><span class="math display">\[
+S_{low} = \frac{1}{1 + \alpha d_{low}^{2\beta}}
+\]</span></p>
+<p>Where <span class="math inline">\(d_{low}\)</span> is the distance between the two observations in the low dimensional space, and <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span> are hyperparameters that control the shape of the distribution. If the two observations are on top of each other, the distance is zero and the similarity score is one. The similarity score is calculated twice, once for the pair of observations in the same cluster, and once for the observation to be moved and the additional observation. This becomes an optimization problem where the observation is moved towards the maximum of the distribution for the other observation in the pair, and away from the maximum of the distribution for the additional observation. The cost function to be minimized is:</p>
+<p><span class="math display">\[
+C(S_{pair}, S_{add}) = \log\left(\frac{1}{S_{pair}}\right) + \log\left(\frac{1}{1 - S_{add}}\right)
+\]</span></p>
+<p>Where <span class="math inline">\(S_{pair}\)</span> is the similarity score for the pair of observations, and <span class="math inline">\(S_{add}\)</span> is the similarity score for the observation to be moved and the additional observation. When moving the point in the wrong direction, or too far in the correct direction, the value of the cost function starts to increase again. The observation is moved in the direction of the negative derivative of the cost function one step at a time, a process called stochastic gradient descent. This process is repeated until the low dimensional representation is stable, and the final representation is the output of the UMAP algorithm (fourth step in <a href="#fig-UMAP" class="quarto-xref">Figure&nbsp;<span>13.1</span></a>).</p>
+<p>The UMAP algorithm is applied to the count matrix with clr transformed values. The data is visualized in a two-dimensional space and colored by the patient status. No apparent clustering is observed.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wilcox.test</span>(Shannon <span class="sc">~</span> Patient_status,</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>            <span class="at">data =</span> shannon <span class="sc">|&gt;</span> <span class="fu">filter</span>(Sex <span class="sc">==</span> <span class="st">"male"</span>)) <span class="sc">|&gt;</span> </span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  broom<span class="sc">::</span><span class="fu">tidy</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 1 × 4
-  statistic p.value method                                           alternative
-      &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;                                            &lt;chr&gt;      
-1       450 0.00928 Wilcoxon rank sum test with continuity correcti… two.sided  </code></pre>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>count_matrix_umap <span class="ot">&lt;-</span> count_matrix_clr <span class="sc">|&gt;</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">column_to_rownames</span>(<span class="at">var =</span> <span class="st">"Sample"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  uwot<span class="sc">::</span><span class="fu">umap</span>(<span class="at">n_neighbors =</span> <span class="dv">4</span>,</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>             <span class="at">min_dist =</span> <span class="fl">0.01</span>,</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>             <span class="at">n_components =</span> <span class="dv">2</span>,</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>             <span class="at">metric =</span> <span class="st">"euclidean"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.data.frame</span>() <span class="sc">|&gt;</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rownames_to_column</span>(<span class="at">var =</span> <span class="st">"Sample"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(meta,</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>            <span class="at">by =</span> <span class="st">"Sample"</span>)</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>count_matrix_umap <span class="sc">|&gt;</span> </span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> V1,</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>             <span class="at">y =</span> V2,</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>             <span class="at">col =</span> Patient_status)) <span class="sc">+</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="pre02_umap_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
 </div>
 </div>
-<section id="session-info" class="level1" data-number="6">
-<h1 data-number="6"><span class="header-section-number">6</span> Session Info</h1>
+</div>
+<section id="session-info" class="level1" data-number="14">
+<h1 data-number="14"><span class="header-section-number">14</span> Session Info</h1>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>sessioninfo<span class="sc">::</span><span class="fu">session_info</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>sessioninfo<span class="sc">::</span><span class="fu">session_info</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>─ Session info ───────────────────────────────────────────────────────────────
  setting  value
@@ -464,7 +507,6 @@ U = min(U_1, \; U_2) = min(R_1 - \frac{n_1(n_1+1)} {2}, \; R_2 - \frac{n_2(n_2+1
  cachem         1.0.8      2023-05-01 [1] CRAN (R 4.3.3)
  class          7.3-22     2023-05-03 [2] CRAN (R 4.3.3)
  cli            3.6.2      2023-12-11 [1] CRAN (R 4.3.3)
- cluster        2.1.6      2023-12-01 [2] CRAN (R 4.3.3)
  codetools      0.2-19     2023-02-01 [2] CRAN (R 4.3.3)
  colorspace     2.1-0      2023-01-23 [1] CRAN (R 4.3.3)
  conflicted     1.2.0      2023-02-01 [1] CRAN (R 4.3.3)
@@ -477,6 +519,7 @@ U = min(U_1, \; U_2) = min(R_1 - \frac{n_1(n_1+1)} {2}, \; R_2 - \frac{n_2(n_2+1
  fansi          1.0.6      2023-12-08 [1] CRAN (R 4.3.3)
  farver         2.1.1      2022-07-06 [1] CRAN (R 4.3.3)
  fastmap        1.1.1      2023-02-24 [1] CRAN (R 4.3.3)
+ FNN            1.1.4      2024-01-12 [1] CRAN (R 4.3.3)
  foreach        1.5.2      2022-02-02 [1] CRAN (R 4.3.3)
  furrr          0.3.1      2022-08-15 [1] CRAN (R 4.3.3)
  future         1.33.2     2024-03-26 [1] CRAN (R 4.3.3)
@@ -494,11 +537,12 @@ U = min(U_1, \; U_2) = min(R_1 - \frac{n_1(n_1+1)} {2}, \; R_2 - \frac{n_2(n_2+1
  htmlwidgets    1.6.4      2023-12-06 [1] CRAN (R 4.3.3)
  infer        * 1.0.7      2024-03-25 [1] CRAN (R 4.3.3)
  ipred          0.9-14     2023-03-09 [1] CRAN (R 4.3.3)
+ irlba          2.3.5.1    2022-10-03 [1] CRAN (R 4.3.3)
  iterators      1.0.14     2022-02-05 [1] CRAN (R 4.3.3)
  jsonlite       1.8.8      2023-12-04 [1] CRAN (R 4.3.3)
  knitr          1.46       2024-04-06 [1] CRAN (R 4.3.3)
  labeling       0.4.3      2023-08-29 [1] CRAN (R 4.3.1)
- lattice      * 0.22-5     2023-10-24 [2] CRAN (R 4.3.3)
+ lattice        0.22-5     2023-10-24 [2] CRAN (R 4.3.3)
  lava           1.8.0      2024-03-05 [1] CRAN (R 4.3.3)
  lhs            1.1.6      2022-12-17 [1] CRAN (R 4.3.3)
  lifecycle      1.0.4      2023-11-07 [1] CRAN (R 4.3.3)
@@ -506,16 +550,13 @@ U = min(U_1, \; U_2) = min(R_1 - \frac{n_1(n_1+1)} {2}, \; R_2 - \frac{n_2(n_2+1
  lubridate      1.9.3      2023-09-27 [1] CRAN (R 4.3.3)
  magrittr       2.0.3      2022-03-30 [1] CRAN (R 4.3.3)
  MASS           7.3-60.0.1 2024-01-13 [2] CRAN (R 4.3.3)
- Matrix         1.6-5      2024-01-11 [2] CRAN (R 4.3.3)
+ Matrix       * 1.6-5      2024-01-11 [2] CRAN (R 4.3.3)
  memoise        2.0.1      2021-11-26 [1] CRAN (R 4.3.3)
- mgcv           1.9-1      2023-12-21 [2] CRAN (R 4.3.3)
  modeldata    * 1.3.0      2024-01-21 [1] CRAN (R 4.3.3)
  munsell        0.5.1      2024-04-01 [1] CRAN (R 4.3.3)
- nlme           3.1-164    2023-11-27 [2] CRAN (R 4.3.3)
  nnet           7.3-19     2023-05-03 [2] CRAN (R 4.3.3)
  parallelly     1.37.1     2024-02-29 [1] CRAN (R 4.3.3)
  parsnip      * 1.2.1      2024-03-22 [1] CRAN (R 4.3.3)
- permute      * 0.9-7      2022-01-27 [1] CRAN (R 4.3.3)
  pillar         1.9.0      2023-03-22 [1] CRAN (R 4.3.3)
  pkgconfig      2.0.3      2019-09-22 [1] CRAN (R 4.3.3)
  prodlim        2023.08.28 2023-08-28 [1] CRAN (R 4.3.3)
@@ -541,8 +582,8 @@ U = min(U_1, \; U_2) = min(R_1 - \frac{n_1(n_1+1)} {2}, \; R_2 - \frac{n_2(n_2+1
  tune         * 1.2.1      2024-04-18 [1] CRAN (R 4.3.3)
  tzdb           0.4.0      2023-05-12 [1] CRAN (R 4.3.3)
  utf8           1.2.4      2023-10-22 [1] CRAN (R 4.3.3)
+ uwot         * 0.2.2      2024-04-21 [1] CRAN (R 4.3.3)
  vctrs          0.6.5      2023-12-01 [1] CRAN (R 4.3.3)
- vegan        * 2.6-4      2022-10-11 [1] CRAN (R 4.3.3)
  withr          3.0.0      2024-01-16 [1] CRAN (R 4.3.3)
  workflows    * 1.1.4      2024-02-19 [1] CRAN (R 4.3.3)
  workflowsets * 1.1.0      2024-03-21 [1] CRAN (R 4.3.3)
@@ -950,13 +991,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./stat01_diversity.html" class="pagination-link" aria-label="Diversity measures">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Diversity measures</span></span>
+      <a href="./pre01_pca.html" class="pagination-link" aria-label="Principal Component Analysis">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Principal Component Analysis</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./stat03_mult_testing.html" class="pagination-link" aria-label="Multiple testing correction">
-        <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Multiple testing correction</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./apply00_intro.html" class="pagination-link" aria-label="Modeling of Microbiome Data">
+        <span class="nav-page-text">Modeling of Microbiome Data</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

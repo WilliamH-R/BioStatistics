@@ -177,7 +177,7 @@ window.Quarto = {
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="./tidy00_book_intro.html" class="sidebar-item-text sidebar-link">
+            <a href="./tidy00_intro.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Tidy Modelling with R</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -376,10 +376,12 @@ window.Quarto = {
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  tibble<span class="sc">::</span><span class="fu">as_tibble</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<p>The previously introduced Logistic Regression works through probabilities whereas Support Vector Machines (SVMs) have a different approach. If two classes are linearly separable, a linear boundary can be placed between them. The boundary is placed in the middle between the classes and the distance between the boundary and the classes is maximized, called the margin. SVMs are different from an ordinary separating hyperplane in that it allows for some misclassification, which is called a soft margin.</p>
-<p>The models previously introduced are all linear models, i.e.&nbsp;they find a linear boundary between classes to make classifiers. Cases where data is not linearly separable then becomes a problem, as the models performs suboptimally. In its own right, SVMs are linear models, but by applying data transformations, the model can find a non-linear boundary between classes which is achieved through the Kernel Trick introduced later.</p>
+<p>The models previously introduced are all linear models, i.e.&nbsp;they find a linear boundary between classes to make predictions. Cases where data is not linearly separable then becomes a problem, as the models performs suboptimally. In its own right, Support Vector Machines (SVMs) are linear models, but by applying data transformations, the model can find a non-linear boundary between classes which is achieved through the Kernel Trick introduced later.</p>
+<p>SVMs have both classification and regression capabilities, but here the focus is on classification. The previously introduced Logistic Regression (<a href="stat05_log_reg.html" class="quarto-xref"><span>Chapter 8</span></a>) works through probabilities whereas SVMs have a different approach. If two classes are linearly separable, a linear boundary can be placed between them. The boundary is placed in the middle between the classes and the distance between the boundary and the classes is maximized, called the margin. SVMs are different from an ordinary separating hyperplane in that it allows for some misclassification, called a soft margin.</p>
 <p>For exemplifying, the <code>iris</code> data is once again used where the two below classes are perfectly linearly separable. SVM finds a line in the exact middle of the two classes such that the margin is maximized. The margin is the distance between the boundary and the nearest observation in each class. The observations on the margin and within (introduced later) the margin are called support vectors. Below, the blue line is the optimal separating hyperplane (OSH), the green lines are parallel to the OSH but placed on top of the support vectors. The distance between the green lines, indicated by the red line, is the margin. By maximizing that margin, SVM finds the optimal boundary between the classes.</p>
 <div class="cell">
+<details class="code-fold">
+<summary>Show the code</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>iris <span class="sc">|&gt;</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Species <span class="sc">!=</span> <span class="st">"versicolor"</span>) <span class="sc">|&gt;</span> </span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Sepal.Width,</span>
@@ -400,6 +402,7 @@ window.Quarto = {
 <span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>                   <span class="at">xend =</span> <span class="fl">3.75</span>,</span>
 <span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>                   <span class="at">yend =</span> <span class="fl">1.04</span>),</span>
 <span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>               <span class="at">color =</span> <span class="st">"red"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -417,14 +420,15 @@ y = -\frac{A}{B}x - \frac{C}{B} \rightarrow Ax + By + C = 0
 Ax + By + C = 0 \rightarrow \begin{bmatrix} A &amp; B \end{bmatrix} \begin{bmatrix} x \\ y \end{bmatrix} + C = 0 \\
 \rightarrow w^Tx + b = 0
 \]</span></p>
-<p>The distance between two parallel lines is calculated as:</p>
+<p>As the distance between two parallel lines is maximized, an equation for calculating it is needed:</p>
 <p><span class="math display">\[
 d = \frac{|C_2 - C_1|}{\sqrt{A^2 + B^2}}
 \]</span></p>
-<p>Two tricks are then applied to the equation. First, the two parallel lines making up the margin (green in the plot above), are expressed by <span class="math inline">\(w^Tx + b = 1\)</span> and <span class="math inline">\(w^Tx + b = -1\)</span>, respectively. 1 and -1 is used as the classes are either 1 or -1. Also, the absolute difference between the two lines is then 2, which is why the margin can be calculated as <span class="math inline">\(d = \frac{2}{\sqrt{A^2 + B^2}}\)</span>. Second, <span class="math inline">\(w\)</span> is a vector of the coefficients <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span>, and <span class="math inline">\(\sqrt{A^2 + B^2}\)</span> is the length of a vector spanned by <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span>, i.e.&nbsp;the length of <span class="math inline">\(w\)</span>. The margin is then calculated as <span class="math inline">\(d = \frac{2}{||w||}\)</span>. The distance can now be expressed without the use of the coefficients <span class="math inline">\(A\)</span>, <span class="math inline">\(B\)</span> and <span class="math inline">\(C\)</span>.</p>
-<p>Given the above, constrains are put on the model to ensure observations are correctly classified. The constrains are as follows:</p>
+<p>Two tricks are then applied to the equation. First, the two parallel lines making up the margin (green in the plot above), are expressed by <span class="math inline">\(w^Tx + b = 1\)</span> and <span class="math inline">\(w^Tx + b = -1\)</span>, respectively. <code>1</code> and <code>-1</code> are used as the classes are either <code>1</code> or <code>-1</code>. Also, the difference between the intercept of the two lines is then <code>2</code>, which is why the margin can be calculated as <span class="math inline">\(d = \frac{2}{\sqrt{A^2 + B^2}}\)</span>. Second, <span class="math inline">\(w\)</span> is a vector of the coefficients <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span>, and <span class="math inline">\(\sqrt{A^2 + B^2}\)</span> is the length of a vector spanned by <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span>, i.e.&nbsp;the length of <span class="math inline">\(w\)</span>. The margin is then calculated as <span class="math inline">\(d = \frac{2}{||w||}\)</span>. The distance can now be expressed without the use of the coefficients <span class="math inline">\(A\)</span>, <span class="math inline">\(B\)</span> and <span class="math inline">\(C\)</span>.</p>
+<p>As the equation for the supporting lines were defined as being equal to <code>1</code> and <code>-1</code> respectively, constrains for classifying correctly can be set up as follows:</p>
 <p><span class="math display">\[
-w^Tx_i - b \geq 1, \text{ if } y_i = 1 \\
+w^Tx_i - b \geq 1, \text{ if } y_i = 1
+\]</span> <span class="math display">\[
 w^Tx_i - b \leq -1, \text{ if } y_i = -1
 \]</span></p>
 <p>By multiplying the expression with <span class="math inline">\(y_i\)</span>, the two expressions can be gathered into one:</p>
@@ -506,7 +510,7 @@ K(x,y) = (1 + \sqrt{2}x_1 + \sqrt{2}x_2 + \sqrt{2}x_1x_2 + x_1^2 + x_2^2)
 \phi(x)^T = (1 + \sqrt{2}x_1 + \sqrt{2}x_2 + \sqrt{2}x_1x_2 + x_1^2 + x_2^2)\\
 \phi(y) = (1 + \sqrt{2}y_1 + \sqrt{2}y_2 + \sqrt{2}y_1y_2 + y_1^2 + y_2^2)
 \]</span></p>
-<p>Ultimately, the Kernel Trick allows for calculating the dot product in the input <span class="math inline">\((x^Ty)\)</span> space without transforming the data into a higher dimension, here six dimensions and then calculating the dot product.</p>
+<p>Ultimately, the Kernel Trick allows for calculating the dot product in the input <span class="math inline">\((x^Ty)\)</span> space without transforming the data into a higher dimension, here six dimensions, and then calculating the dot product.</p>
 
 
 </section>

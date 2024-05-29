@@ -6,10 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="William Hagedorn-Rasmussen">
-<meta name="dcterms.date" content="2026-07-05">
 
-<title>BioStatistics</title>
+<title>BioStatistics - References</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -26,7 +24,6 @@ ul.task-list li input[type="checkbox"] {
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
-  margin-bottom: 0em;
 }
 .hanging-indent div.csl-entry {
   margin-left:2em;
@@ -52,7 +49,7 @@ div.csl-indent {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./tidy00_intro.html" rel="next">
+<link href="./apply03_model_non_lin.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -102,7 +99,7 @@ div.csl-indent {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Preface</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./references.html">References</a></li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -129,7 +126,7 @@ div.csl-indent {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Preface</span></a>
   </div>
 </li>
@@ -275,7 +272,7 @@ div.csl-indent {
   </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./references.html" class="sidebar-item-text sidebar-link">
+  <a href="./references.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">References</span></a>
   </div>
 </li>
@@ -285,40 +282,21 @@ div.csl-indent {
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="4">
-    <h2 id="toc-title">Table of contents</h2>
-   
-  <ul>
-  <li><a href="#preface" id="toc-preface" class="nav-link active" data-scroll-target="#preface">Preface</a></li>
-  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
-  </ul>
-</nav>
+        
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">BioStatistics</h1>
+<h1 class="title">References</h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>William Hagedorn-Rasmussen </p>
-          </div>
-  </div>
     
-    <div>
-    <div class="quarto-title-meta-heading">Published</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">July 5, 2026</p>
-    </div>
-  </div>
   
     
   </div>
@@ -328,22 +306,31 @@ div.csl-indent {
 </header>
 
 
-<section id="preface" class="level1 unnumbered">
-<h1 class="unnumbered">Preface</h1>
-<p>This book introduces the concept of Tidy Modelling through the package <code>tidymodels</code>, and is designed to be a practical guide to the tools and techniques that are used in the Tidy Modelling framework. It is aimed at people who are familiar with the basics of R and <code>tidyverse</code> and are interested in learning how to use the <code>tidymodels</code> package to build and evaluate models. Further, a series of statistical concepts often used in Bioinformatics and Biostatistics are introduced in the context of Tidy Modelling.</p>
-<p>To cover all the topics, the book is divided into four parts. The first part introduces the <code>tidymodels</code> package and its core principles such as data splitting, pre-processing, model building, and evaluation. The second part introduces some statistical concepts such as hypothesis testing, linear regression, logistic regression, and diversity measures. The concepts are introduced in a structured manner. A problem is introduced followed by a description of the method and how it solves the introduced problem. Then, the math behind the method is introduced and lastly, visual representation. Deviations from this structure are made when necessary. The third part contain some commonly applied preprocessing techniques useful when analysing data with many variables as they focus on dimensionality reduction.</p>
-<p>The final part combines the concepts introduced in the first three parts to build and evaluate models for a real-world dataset. A study pertaining to microbiome and disease prediction is used. The raw data are 16S rRNA amplicon reads used to describe multiple sclerosis (MS) <span class="citation" data-cites="Cox2021">(<a href="references.html#ref-Cox2021" role="doc-biblioref">Cox et al. 2021</a>)</span>. The samples were pre-processed using the pipeline described in the <a href="https://github.com/WilliamH-R/BioStatistics">GitHub repository</a> from which this book is created. After preprocessing, a count matrix was obtained with 456 observations (samples), and the abundance of 123 genera. For each observation, the sex and age of the person is known among other information. All of these features are used to build several models trying to predict the disease status of the person.</p>
-</section>
-<section id="references" class="level1">
-<h1>References</h1>
-
-
-<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
 <div id="ref-Cox2021" class="csl-entry" role="listitem">
-Cox, Laura M., Amir Hadi Maghzi, Shirong Liu, Stephanie K. Tankou, Fyonn H. Dhang, Valerie Willocq, Anya Song, et al. 2021. <span>“Gut Microbiome in Progressive Multiple Sclerosis.”</span> <em>Annals of Neurology</em> 89 (June): 1195–1211. <a href="https://doi.org/10.1002/ANA.26084">https://doi.org/10.1002/ANA.26084</a>.
+Cox, Laura M., Amir Hadi Maghzi, Shirong Liu, Stephanie K. Tankou, Fyonn
+H. Dhang, Valerie Willocq, Anya Song, et al. 2021. <span>“Gut Microbiome
+in Progressive Multiple Sclerosis.”</span> <em>Annals of Neurology</em>
+89 (June): 1195–1211. <a href="https://doi.org/10.1002/ANA.26084">https://doi.org/10.1002/ANA.26084</a>.
+</div>
+<div id="ref-Faith1992" class="csl-entry" role="listitem">
+Faith, Daniel P. 1992. <span>“Conservation Evaluation and Phylogenetic
+Diversity.”</span> <em>Biological Conservation</em> 61 (January): 1–10.
+<a href="https://doi.org/10.1016/0006-3207(92)91201-3">https://doi.org/10.1016/0006-3207(92)91201-3</a>.
+</div>
+<div id="ref-Pielou1966" class="csl-entry" role="listitem">
+Pielou, E. C. 1966. <span>“The Measurement of Diversity in Different
+Types of Biological Collections.”</span> <em>Journal of Theoretical
+Biology</em> 13: 131–44. <a href="https://doi.org/10.1016/0022-5193(66)90013-0">https://doi.org/10.1016/0022-5193(66)90013-0</a>.
+</div>
+<div id="ref-Shannon1948" class="csl-entry" role="listitem">
+Shannon, C. E. 1948. <span>“A Mathematical Theory of
+Communication.”</span> <em>Bell System Technical Journal</em> 27:
+623–56. <a href="https://doi.org/10.1002/J.1538-7305.1948.TB00917.X">https://doi.org/10.1002/J.1538-7305.1948.TB00917.X</a>.
 </div>
 </div>
-</section>
+
+
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -735,11 +722,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="./apply03_model_non_lin.html" class="pagination-link" aria-label="Non-Linear Modelling">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Non-Linear Modelling</span></span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./tidy00_intro.html" class="pagination-link" aria-label="Tidy Modelling with R">
-        <span class="nav-page-text">Tidy Modelling with R</span> <i class="bi bi-arrow-right-short"></i>
-      </a>
   </div>
 </nav>
 </div> <!-- /content -->

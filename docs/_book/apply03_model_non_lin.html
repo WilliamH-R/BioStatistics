@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>BioStatistics - 5&nbsp; Wilcoxon test</title>
+<title>BioStatistics - 16&nbsp; Non-Linear Modelling</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -64,8 +64,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./stat03_mult_testing.html" rel="next">
-<link href="./stat01_diversity.html" rel="prev">
+<link href="./references.html" rel="next">
+<link href="./apply02_model_lin.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -144,7 +144,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./stat00_intro.html">Applied bio-statistical methods</a></li><li class="breadcrumb-item"><a href="./stat02_wilcoxon.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Wilcoxon test</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./apply00_intro.html">Modeling of Microbiome Data</a></li><li class="breadcrumb-item"><a href="./apply03_model_non_lin.html"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Non-Linear Modelling</span></a></li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -221,7 +221,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./stat02_wilcoxon.html" class="sidebar-item-text sidebar-link active">
+  <a href="./stat02_wilcoxon.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Wilcoxon test</span></span></a>
   </div>
 </li>
@@ -309,7 +309,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./apply03_model_non_lin.html" class="sidebar-item-text sidebar-link">
+  <a href="./apply03_model_non_lin.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Non-Linear Modelling</span></span></a>
   </div>
 </li>
@@ -331,16 +331,17 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#session-info" id="toc-session-info" class="nav-link active" data-scroll-target="#session-info"><span class="header-section-number">6</span> Session Info</a></li>
+  <li><a href="#workflow-set-preparation" id="toc-workflow-set-preparation" class="nav-link active" data-scroll-target="#workflow-set-preparation"><span class="header-section-number">16.1</span> Workflow Set Preparation</a></li>
+  <li><a href="#tune-hyperparameters" id="toc-tune-hyperparameters" class="nav-link" data-scroll-target="#tune-hyperparameters"><span class="header-section-number">16.2</span> Tune Hyperparameters</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./stat00_intro.html">Applied bio-statistical methods</a></li><li class="breadcrumb-item"><a href="./stat02_wilcoxon.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Wilcoxon test</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./apply00_intro.html">Modeling of Microbiome Data</a></li><li class="breadcrumb-item"><a href="./apply03_model_non_lin.html"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Non-Linear Modelling</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Wilcoxon test</span></h1>
+<h1 class="title"><span id="sec-non_lin" class="quarto-section-identifier"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Non-Linear Modelling</span></span></h1>
 </div>
 
 
@@ -361,18 +362,18 @@ window.Quarto = {
 <div class="cell">
 <details class="code-fold">
 <summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1337</span>)</span>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1338</span>)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"tidymodels"</span>)</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>tidymodels<span class="sc">::</span><span class="fu">tidymodels_prefer</span>()</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"vegan"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"embed"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <p>Load data.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Show the code</summary>
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>count_matrix <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_rds</span>(<span class="st">"https://github.com/WilliamH-R/BioStatistics/raw/main/data/count_matrix/count_matrix.rds"</span>) <span class="sc">|&gt;</span> </span>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>count_matrix_clr <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_rds</span>(<span class="st">"https://github.com/WilliamH-R/BioStatistics/raw/main/data/count_matrix/count_matrix_clr.rds"</span>) <span class="sc">|&gt;</span> </span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span><span class="st">"NA"</span>)</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>meta <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="at">file =</span> <span class="st">"data/metadata.txt"</span>) <span class="sc">|&gt;</span> </span>
@@ -397,163 +398,219 @@ window.Quarto = {
 <span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>         <span class="at">EDSS =</span> <span class="fu">as.factor</span>(EDSS))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<p>After calculating some metric for two groups, e.g.&nbsp;the Shannon Index as a measure of diversity introduced in #sec-shannon_index, one is left with two groups of values. Simply stating the numerical difference between the groups is not enough to determine if the difference is statistically significant. To do this, hypothesis testing is used. The null hypothesis is that there is no difference between the groups, and the alternative hypothesis is that there is a difference.</p>
-<p>A plethora of statistical tests exists. The choice of test depends on the type of data. For example, if the data is normally distributed, the t-test can be used to compare the means of two groups. If the data is not normally distributed, the Wilcoxon test is an option. Below, the Shannon Index for the full data set have been calculated and plotted stratified by the patient status (Healthy vs Multiple Sclerosis (MS)). As can be seen from the plots, the Shannon Index does not seem to follow a normal distribution for both groups.</p>
+<p>Chosen parameters.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>shannon <span class="ot">&lt;-</span> count_matrix <span class="sc">|&gt;</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">column_to_rownames</span>(<span class="at">var =</span> <span class="st">"Sample"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">diversity</span>(<span class="at">index =</span> <span class="st">"shannon"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>(<span class="at">rownames =</span> <span class="st">"Sample"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">Shannon =</span> value) <span class="sc">|&gt;</span> </span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(meta,</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>            <span class="at">by =</span> <span class="st">"Sample"</span>)</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>shannon <span class="sc">|&gt;</span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Shannon,</span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>             <span class="at">fill =</span> Patient_status)) <span class="sc">+</span></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"bin"</span>,</span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>           <span class="at">binwidth =</span> <span class="fl">0.1</span>) <span class="sc">+</span></span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> Patient_status)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>params</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$percentage_train
+[1] 0.8
+
+$n_folds
+[1] 5
+
+$grid_size
+[1] 100
+
+$rbf_sigma_lower
+[1] -10
+
+$rbf_sigma_higher
+[1] -4</code></pre>
+</div>
+</div>
+<p>Due to the data transformations which the kernels allow, SVMs can model non-linear relationships between the features and the response allowing for the method to capture complex structures. The risk of overfitting is higher for non-linear models as they are more flexible making the model more prone to capture noise in the data. It emphasizes the need for cross-validation and hyperparameter optimization. The code is structured in the same way as for the linear models, so to avoid repetition explanations are kept to a minimum.</p>
+<section id="workflow-set-preparation" class="level2" data-number="16.1">
+<h2 data-number="16.1" class="anchored" data-anchor-id="workflow-set-preparation"><span class="header-section-number">16.1</span> Workflow Set Preparation</h2>
+<p>The count matrix is joined with the metadata such that the patient status is known for each sample.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>count_matrix_clr <span class="ot">&lt;-</span> count_matrix_clr <span class="sc">|&gt;</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">inner_join</span>(meta,</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>             <span class="at">by =</span> <span class="st">"Sample"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span><span class="fu">c</span>(Sample, Treatment, Ethnicity, Location,</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>            Age, BMI, Disease_severity, EDSS, Sex)) <span class="sc">|&gt;</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">relocate</span>(Patient_status)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The objects needed for cross-validation are created.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>count_matrix_clr_split <span class="ot">&lt;-</span> <span class="fu">initial_split</span>(count_matrix_clr,</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>                                        <span class="at">prop =</span> params<span class="sc">$</span>percentage_train,</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>                                        <span class="at">strata =</span> Patient_status)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>count_matrix_clr_train <span class="ot">&lt;-</span> <span class="fu">training</span>(count_matrix_clr_split)</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>count_matrix_clr_test <span class="ot">&lt;-</span> <span class="fu">testing</span>(count_matrix_clr_split)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>count_matrix_clr_folds <span class="ot">&lt;-</span> <span class="fu">vfold_cv</span>(count_matrix_clr_train,</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">v =</span> params<span class="sc">$</span>n_folds)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>As for the linear model chapter, two recipes are created. One without any pre-processing steps, one with UMAP for feature selection.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>stand_recipe <span class="ot">&lt;-</span> <span class="fu">recipe</span>(Patient_status <span class="sc">~</span> .,</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>                       <span class="at">data =</span> count_matrix_clr_train)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>umap_recipe <span class="ot">&lt;-</span> stand_recipe <span class="sc">|&gt;</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  embed<span class="sc">::</span><span class="fu">step_umap</span>(<span class="fu">all_predictors</span>(),</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>                   <span class="at">num_comp =</span> <span class="dv">7</span>,</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>                   <span class="at">neighbors =</span> <span class="dv">4</span>,</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>                   <span class="at">min_dist =</span> <span class="fl">0.01</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The model specification is created. The SVM model is used with a radial basis function kernel. The hyperparameters <code>cost</code> and <code>rbf_sigma</code> are tuned. <code>cost</code> is similar to <span class="math inline">\(\xi\)</span> from the chapter on SVM, i.e.&nbsp;how much observations are allowed to cross the margin thereby controlling the Bias-Variance trade off. Low values allows for misclassifications creating a simple model with high bias and low variance. Vice versa for high values which penalizes misclassifications. <code>rbf_sigma</code> scales the distance between points inversely. Low values decreases the distance between points in the high dimensions, high values increases the distance. When the distances are lower, the observations affect each other more, creating a more complex model with high variance and low bias.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>svm_spec <span class="ot">&lt;-</span> <span class="fu">svm_rbf</span>(<span class="at">cost =</span> <span class="fu">tune</span>(),</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>                    <span class="at">rbf_sigma =</span> <span class="fu">tune</span>()) <span class="sc">|&gt;</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_engine</span>(<span class="st">"kernlab"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_mode</span>(<span class="st">"classification"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The ranges of the hyperparameters are updated.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>svm_param_ranges <span class="ot">&lt;-</span> svm_spec <span class="sc">|&gt;</span> </span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">extract_parameter_set_dials</span>() <span class="sc">|&gt;</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">update</span>(<span class="at">rbf_sigma =</span> <span class="fu">rbf_sigma</span>(<span class="fu">c</span>(params<span class="sc">$</span>rbf_sigma_lower,</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>                                 params<span class="sc">$</span>rbf_sigma_higher)))</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>svm_param_ranges <span class="sc">|&gt;</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">extract_parameter_dials</span>(<span class="st">"rbf_sigma"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Radial Basis Function sigma (quantitative)
+Transformer: log-10 [1e-100, Inf]
+Range (transformed scale): [-10, -4]</code></pre>
+</div>
+</div>
+<p>The workflow set is created by combining the recipes and specifications.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create workflow set</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>workflow_set <span class="ot">&lt;-</span> <span class="fu">workflow_set</span>(</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">preproc =</span> <span class="fu">list</span>(<span class="at">stand =</span> stand_recipe,</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">umap =</span> umap_recipe),</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">models =</span> <span class="fu">list</span>(<span class="at">svm =</span> svm_spec)</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Update workflow set with hyperparameter ranges</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>workflow_set <span class="ot">&lt;-</span> workflow_set <span class="sc">|&gt;</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">option_add</span>(<span class="at">id =</span> <span class="st">"stand_svm"</span>,</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>             <span class="at">param_info =</span> svm_param_ranges) <span class="sc">|&gt;</span></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">option_add</span>(<span class="at">id =</span> <span class="st">"umap_svm"</span>,</span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>             <span class="at">param_info =</span> svm_param_ranges)</span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>workflow_set</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A workflow set/tibble: 2 × 4
+  wflow_id  info             option    result    
+  &lt;chr&gt;     &lt;list&gt;           &lt;list&gt;    &lt;list&gt;    
+1 stand_svm &lt;tibble [1 × 4]&gt; &lt;opts[1]&gt; &lt;list [0]&gt;
+2 umap_svm  &lt;tibble [1 × 4]&gt; &lt;opts[1]&gt; &lt;list [0]&gt;</code></pre>
+</div>
+</div>
+</section>
+<section id="tune-hyperparameters" class="level2" data-number="16.2">
+<h2 data-number="16.2" class="anchored" data-anchor-id="tune-hyperparameters"><span class="header-section-number">16.2</span> Tune Hyperparameters</h2>
+<p>The same grid search is performed as for the linear models. The grid search is performed for a grid of size 100.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Set grid search settings</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>grid_settings <span class="ot">&lt;-</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">control_grid</span>(</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">save_pred =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">parallel_over =</span> <span class="st">"everything"</span>,</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">save_workflow =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">extract =</span> <span class="cf">function</span>(x) x</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Perform grid search</span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>grid_results <span class="ot">&lt;-</span> workflow_set <span class="sc">|&gt;</span></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">workflow_map</span>(</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">fn =</span> <span class="st">"tune_grid"</span>,</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">seed =</span> <span class="dv">1337</span>,</span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">resamples =</span> count_matrix_clr_folds,</span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">grid =</span> params<span class="sc">$</span>grid_size,</span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">control =</span> grid_settings</span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Performance across the grid search is visualized. From the search, it would seem the grid ranges should be adjusted as the performance is not plateauing.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>grid_results <span class="sc">|&gt;</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">collect_metrics</span>() <span class="sc">|&gt;</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(.metric <span class="sc">==</span> <span class="st">"roc_auc"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(wflow_id) <span class="sc">|&gt;</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(mean)) <span class="sc">|&gt;</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">rank =</span> <span class="fu">row_number</span>()) <span class="sc">|&gt;</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">|&gt;</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> rank,</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>             <span class="at">y =</span> mean,</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>             <span class="at">col =</span> wflow_id)) <span class="sc">+</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> mean <span class="sc">-</span> std_err,</span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>                    <span class="at">ymax =</span> mean <span class="sc">+</span> std_err)) <span class="sc">+</span></span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>) <span class="sc">+</span></span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Rank"</span>,</span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"AUC"</span>) <span class="sc">+</span></span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> wflow_id,</span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>             <span class="at">ncol =</span> <span class="dv">2</span>, <span class="at">scales =</span> <span class="st">"free_y"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="stat02_wilcoxon_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="apply03_model_non_lin_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
-<p>The Wilcoxon test is a non-parametric test, which means it do not assume that the samples have been taken from a specific distribution, e.g.&nbsp;the normal distribution. Two different Wilcoxon tests exists, one for comparing dependent samples and one for comparing independent samples. Samples would be dependent if they were e.g.&nbsp;taken from the same patient at different times. Since the samples compared here originates from different patients, the samples are independent. Hence, the optimal test to use is the Wilcoxon Rank Sum test, also called the Mann-Whitney U test.</p>
-<p>The test is rank-based which means all the data is first ranked and then used to calculate the test statistic. After ranking the data, the sum of the ranks for the two groups are calculated. U is then calculated as:</p>
-<p><span class="math display">\[
-U = min(U_1, \; U_2) = min(R_1 - \frac{n_1(n_1+1)} {2}, \; R_2 - \frac{n_2(n_2+1)} {2})
-\]</span></p>
-<p>Where <span class="math inline">\(R_1\)</span> and <span class="math inline">\(R_2\)</span> is the sum of the ranks for the first and second group, respectively. Likewise, <span class="math inline">\(n_1\)</span> and <span class="math inline">\(n_2\)</span> is the number of samples in the first and second group, respectively. The U statistic is then used to find the p-value, which is used to determine if the difference between the two groups is statistically significant. The p-value is the probability of observing a U statistic as extreme as the one observed, given that the null hypothesis of no difference between <span class="math inline">\(U_1\)</span> and <span class="math inline">\(U_2\)</span> is true. The Wilcoxon Rank Sum test for the Shannon Index is shown below. As the p-value is much lower than the usual significance level of 0.05, we can conclude that the Shannon Index is significantly different between the two groups. Here, the two groups are the healthy and MS patients.</p>
+<p>The best hyperparameters are extracted and added to the workflow for fitting and predicting.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">wilcox.test</span>(Shannon <span class="sc">~</span> Patient_status,</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>            <span class="at">data =</span> shannon <span class="sc">|&gt;</span> <span class="fu">filter</span>(Sex <span class="sc">==</span> <span class="st">"male"</span>)) <span class="sc">|&gt;</span> </span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  broom<span class="sc">::</span><span class="fu">tidy</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 1 × 4
-  statistic p.value method                                           alternative
-      &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;                                            &lt;chr&gt;      
-1       450 0.00928 Wilcoxon rank sum test with continuity correcti… two.sided  </code></pre>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract best hyperparameters</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>workflow_ids <span class="ot">&lt;-</span> grid_results <span class="sc">|&gt;</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(wflow_id)</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>tuning_params_result <span class="ot">&lt;-</span> workflow_ids <span class="sc">|&gt;</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>  purrr<span class="sc">::</span><span class="fu">map</span>(<span class="cf">function</span>(id) {</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>    grid_results <span class="sc">|&gt;</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>      <span class="fu">extract_workflow_set_result</span>(id) <span class="sc">|&gt;</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>      <span class="fu">select_best</span>(<span class="at">metric =</span> <span class="st">"roc_auc"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>      <span class="fu">mutate</span>(<span class="at">wflow_id =</span> id)</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>  }) <span class="sc">|&gt;</span></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_rows</span>() <span class="sc">|&gt;</span></span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(wflow_id, cost, rbf_sigma)</span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Finalize</span></span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>workflow_set_final <span class="ot">&lt;-</span> workflow_ids <span class="sc">|&gt;</span></span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a>  purrr<span class="sc">::</span><span class="fu">map</span>(<span class="cf">function</span>(id) {</span>
+<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a>    grid_results <span class="sc">|&gt;</span></span>
+<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a>      <span class="fu">extract_workflow</span>(id) <span class="sc">|&gt;</span> </span>
+<span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a>      <span class="fu">finalize_workflow</span>(tuning_params_result <span class="sc">|&gt;</span> </span>
+<span id="cb15-22"><a href="#cb15-22" aria-hidden="true" tabindex="-1"></a>                          <span class="fu">filter</span>(wflow_id <span class="sc">==</span> id))</span>
+<span id="cb15-23"><a href="#cb15-23" aria-hidden="true" tabindex="-1"></a>  })</span>
+<span id="cb15-24"><a href="#cb15-24" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(workflow_set_final) <span class="ot">&lt;-</span> workflow_ids</span>
+<span id="cb15-25"><a href="#cb15-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-26"><a href="#cb15-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit</span></span>
+<span id="cb15-27"><a href="#cb15-27" aria-hidden="true" tabindex="-1"></a>workflow_set_fit <span class="ot">&lt;-</span> workflow_ids <span class="sc">|&gt;</span></span>
+<span id="cb15-28"><a href="#cb15-28" aria-hidden="true" tabindex="-1"></a>  purrr<span class="sc">::</span><span class="fu">map</span>(<span class="cf">function</span>(id) {</span>
+<span id="cb15-29"><a href="#cb15-29" aria-hidden="true" tabindex="-1"></a>    workflow_set_final[[id]] <span class="sc">|&gt;</span></span>
+<span id="cb15-30"><a href="#cb15-30" aria-hidden="true" tabindex="-1"></a>      <span class="fu">last_fit</span>(<span class="at">split =</span> count_matrix_clr_split)</span>
+<span id="cb15-31"><a href="#cb15-31" aria-hidden="true" tabindex="-1"></a>  })</span>
+<span id="cb15-32"><a href="#cb15-32" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(workflow_set_fit) <span class="ot">&lt;-</span> workflow_ids</span>
+<span id="cb15-33"><a href="#cb15-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-34"><a href="#cb15-34" aria-hidden="true" tabindex="-1"></a><span class="co"># Predict</span></span>
+<span id="cb15-35"><a href="#cb15-35" aria-hidden="true" tabindex="-1"></a>roc_auc_results <span class="ot">&lt;-</span> workflow_ids <span class="sc">|&gt;</span></span>
+<span id="cb15-36"><a href="#cb15-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">map</span>(<span class="cf">function</span>(id) {</span>
+<span id="cb15-37"><a href="#cb15-37" aria-hidden="true" tabindex="-1"></a>    workflow_set_fit[[id]] <span class="sc">|&gt;</span></span>
+<span id="cb15-38"><a href="#cb15-38" aria-hidden="true" tabindex="-1"></a>      <span class="fu">collect_predictions</span>() <span class="sc">|&gt;</span></span>
+<span id="cb15-39"><a href="#cb15-39" aria-hidden="true" tabindex="-1"></a>      <span class="fu">roc_curve</span>(<span class="at">truth =</span> Patient_status,</span>
+<span id="cb15-40"><a href="#cb15-40" aria-hidden="true" tabindex="-1"></a>                .pred_MS,</span>
+<span id="cb15-41"><a href="#cb15-41" aria-hidden="true" tabindex="-1"></a>                <span class="at">event_level =</span> <span class="st">"second"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb15-42"><a href="#cb15-42" aria-hidden="true" tabindex="-1"></a>      <span class="fu">mutate</span>(<span class="at">wflow_id =</span> id)</span>
+<span id="cb15-43"><a href="#cb15-43" aria-hidden="true" tabindex="-1"></a>  }) <span class="sc">|&gt;</span> <span class="fu">bind_rows</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</div>
-<section id="session-info" class="level1" data-number="6">
-<h1 data-number="6"><span class="header-section-number">6</span> Session Info</h1>
+<p>The ROC curves are visualized for the different models suggesting <code>stand_svm</code> is the better model.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>sessioninfo<span class="sc">::</span><span class="fu">session_info</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>─ Session info ───────────────────────────────────────────────────────────────
- setting  value
- version  R version 4.3.3 (2024-02-29 ucrt)
- os       Windows 11 x64 (build 22631)
- system   x86_64, mingw32
- ui       RTerm
- language (EN)
- collate  English_United Kingdom.utf8
- ctype    English_United Kingdom.utf8
- tz       Europe/Copenhagen
- date     2024-05-29
- pandoc   3.1.11 @ C:/Program Files/RStudio/resources/app/bin/quarto/bin/tools/ (via rmarkdown)
-
-─ Packages ───────────────────────────────────────────────────────────────────
- package      * version    date (UTC) lib source
- backports      1.4.1      2021-12-13 [1] CRAN (R 4.3.1)
- broom        * 1.0.5      2023-06-09 [1] CRAN (R 4.3.3)
- cachem         1.0.8      2023-05-01 [1] CRAN (R 4.3.3)
- class          7.3-22     2023-05-03 [2] CRAN (R 4.3.3)
- cli            3.6.2      2023-12-11 [1] CRAN (R 4.3.3)
- cluster        2.1.6      2023-12-01 [2] CRAN (R 4.3.3)
- codetools      0.2-19     2023-02-01 [2] CRAN (R 4.3.3)
- colorspace     2.1-0      2023-01-23 [1] CRAN (R 4.3.3)
- conflicted     1.2.0      2023-02-01 [1] CRAN (R 4.3.3)
- data.table     1.15.4     2024-03-30 [1] CRAN (R 4.3.3)
- dials        * 1.2.1      2024-02-22 [1] CRAN (R 4.3.3)
- DiceDesign     1.10       2023-12-07 [1] CRAN (R 4.3.3)
- digest         0.6.35     2024-03-11 [1] CRAN (R 4.3.3)
- dplyr        * 1.1.4      2023-11-17 [1] CRAN (R 4.3.2)
- evaluate       0.23       2023-11-01 [1] CRAN (R 4.3.3)
- fansi          1.0.6      2023-12-08 [1] CRAN (R 4.3.3)
- farver         2.1.1      2022-07-06 [1] CRAN (R 4.3.3)
- fastmap        1.1.1      2023-02-24 [1] CRAN (R 4.3.3)
- foreach        1.5.2      2022-02-02 [1] CRAN (R 4.3.3)
- furrr          0.3.1      2022-08-15 [1] CRAN (R 4.3.3)
- future         1.33.2     2024-03-26 [1] CRAN (R 4.3.3)
- future.apply   1.11.2     2024-03-28 [1] CRAN (R 4.3.3)
- generics       0.1.3      2022-07-05 [1] CRAN (R 4.3.3)
- ggplot2      * 3.5.1      2024-04-23 [1] CRAN (R 4.3.3)
- globals        0.16.3     2024-03-08 [1] CRAN (R 4.3.3)
- glue           1.7.0      2024-01-09 [1] CRAN (R 4.3.3)
- gower          1.0.1      2022-12-22 [1] CRAN (R 4.3.1)
- GPfit          1.0-8      2019-02-08 [1] CRAN (R 4.3.3)
- gtable         0.3.5      2024-04-22 [1] CRAN (R 4.3.3)
- hardhat        1.3.1      2024-02-02 [1] CRAN (R 4.3.3)
- hms            1.1.3      2023-03-21 [1] CRAN (R 4.3.3)
- htmltools      0.5.8.1    2024-04-04 [1] CRAN (R 4.3.3)
- htmlwidgets    1.6.4      2023-12-06 [1] CRAN (R 4.3.3)
- infer        * 1.0.7      2024-03-25 [1] CRAN (R 4.3.3)
- ipred          0.9-14     2023-03-09 [1] CRAN (R 4.3.3)
- iterators      1.0.14     2022-02-05 [1] CRAN (R 4.3.3)
- jsonlite       1.8.8      2023-12-04 [1] CRAN (R 4.3.3)
- knitr          1.46       2024-04-06 [1] CRAN (R 4.3.3)
- labeling       0.4.3      2023-08-29 [1] CRAN (R 4.3.1)
- lattice      * 0.22-5     2023-10-24 [2] CRAN (R 4.3.3)
- lava           1.8.0      2024-03-05 [1] CRAN (R 4.3.3)
- lhs            1.1.6      2022-12-17 [1] CRAN (R 4.3.3)
- lifecycle      1.0.4      2023-11-07 [1] CRAN (R 4.3.3)
- listenv        0.9.1      2024-01-29 [1] CRAN (R 4.3.3)
- lubridate      1.9.3      2023-09-27 [1] CRAN (R 4.3.3)
- magrittr       2.0.3      2022-03-30 [1] CRAN (R 4.3.3)
- MASS           7.3-60.0.1 2024-01-13 [2] CRAN (R 4.3.3)
- Matrix         1.6-5      2024-01-11 [2] CRAN (R 4.3.3)
- memoise        2.0.1      2021-11-26 [1] CRAN (R 4.3.3)
- mgcv           1.9-1      2023-12-21 [2] CRAN (R 4.3.3)
- modeldata    * 1.3.0      2024-01-21 [1] CRAN (R 4.3.3)
- munsell        0.5.1      2024-04-01 [1] CRAN (R 4.3.3)
- nlme           3.1-164    2023-11-27 [2] CRAN (R 4.3.3)
- nnet           7.3-19     2023-05-03 [2] CRAN (R 4.3.3)
- parallelly     1.37.1     2024-02-29 [1] CRAN (R 4.3.3)
- parsnip      * 1.2.1      2024-03-22 [1] CRAN (R 4.3.3)
- permute      * 0.9-7      2022-01-27 [1] CRAN (R 4.3.3)
- pillar         1.9.0      2023-03-22 [1] CRAN (R 4.3.3)
- pkgconfig      2.0.3      2019-09-22 [1] CRAN (R 4.3.3)
- prodlim        2023.08.28 2023-08-28 [1] CRAN (R 4.3.3)
- purrr        * 1.0.2      2023-08-10 [1] CRAN (R 4.3.3)
- R6             2.5.1      2021-08-19 [1] CRAN (R 4.3.3)
- Rcpp           1.0.12     2024-01-09 [1] CRAN (R 4.3.3)
- readr          2.1.5      2024-01-10 [1] CRAN (R 4.3.3)
- recipes      * 1.0.10     2024-02-18 [1] CRAN (R 4.3.3)
- rlang          1.1.3      2024-01-10 [1] CRAN (R 4.3.3)
- rmarkdown      2.26       2024-03-05 [1] CRAN (R 4.3.3)
- rpart          4.1.23     2023-12-05 [2] CRAN (R 4.3.3)
- rsample      * 1.2.1      2024-03-25 [1] CRAN (R 4.3.3)
- rstudioapi     0.16.0     2024-03-24 [1] CRAN (R 4.3.3)
- scales       * 1.3.0      2023-11-28 [1] CRAN (R 4.3.3)
- sessioninfo    1.2.2      2021-12-06 [1] CRAN (R 4.3.3)
- survival       3.5-8      2024-02-14 [2] CRAN (R 4.3.3)
- tibble       * 3.2.1      2023-03-20 [1] CRAN (R 4.3.3)
- tidymodels   * 1.2.0      2024-03-25 [1] CRAN (R 4.3.3)
- tidyr        * 1.3.1      2024-01-24 [1] CRAN (R 4.3.3)
- tidyselect     1.2.1      2024-03-11 [1] CRAN (R 4.3.3)
- timechange     0.3.0      2024-01-18 [1] CRAN (R 4.3.3)
- timeDate       4032.109   2023-12-14 [1] CRAN (R 4.3.2)
- tune         * 1.2.1      2024-04-18 [1] CRAN (R 4.3.3)
- tzdb           0.4.0      2023-05-12 [1] CRAN (R 4.3.3)
- utf8           1.2.4      2023-10-22 [1] CRAN (R 4.3.3)
- vctrs          0.6.5      2023-12-01 [1] CRAN (R 4.3.3)
- vegan        * 2.6-4      2022-10-11 [1] CRAN (R 4.3.3)
- withr          3.0.0      2024-01-16 [1] CRAN (R 4.3.3)
- workflows    * 1.1.4      2024-02-19 [1] CRAN (R 4.3.3)
- workflowsets * 1.1.0      2024-03-21 [1] CRAN (R 4.3.3)
- xfun           0.43       2024-03-25 [1] CRAN (R 4.3.3)
- yaml           2.3.8      2023-12-11 [1] CRAN (R 4.3.2)
- yardstick    * 1.3.1      2024-03-21 [1] CRAN (R 4.3.3)
-
- [1] C:/Users/Willi/AppData/Local/R/win-library/4.3
- [2] C:/Program Files/R/R-4.3.3/library
-
-──────────────────────────────────────────────────────────────────────────────</code></pre>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>roc_auc_results <span class="sc">|&gt;</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="dv">1</span> <span class="sc">-</span> specificity,</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>             <span class="at">y =</span> sensitivity,</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>             <span class="at">col =</span> wflow_id)) <span class="sc">+</span> </span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_path</span>(<span class="at">lwd =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">lty =</span> <span class="dv">3</span>) <span class="sc">+</span> </span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_equal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="apply03_model_non_lin_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 
@@ -950,13 +1007,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./stat01_diversity.html" class="pagination-link" aria-label="Diversity measures">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Diversity measures</span></span>
+      <a href="./apply02_model_lin.html" class="pagination-link" aria-label="Linear Modelling">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Linear Modelling</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./stat03_mult_testing.html" class="pagination-link" aria-label="Multiple testing correction">
-        <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Multiple testing correction</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./references.html" class="pagination-link" aria-label="References">
+        <span class="nav-page-text">References</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

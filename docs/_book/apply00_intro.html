@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>BioStatistics - Tidy Modelling with R</title>
+<title>BioStatistics - Modeling of Microbiome Data</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,7 +20,27 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -30,8 +50,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./tidy01_intro_package.html" rel="next">
-<link href="./index.html" rel="prev">
+<link href="./apply01_model_diversity.html" rel="next">
+<link href="./pre02_umap.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -81,7 +101,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./tidy00_book_intro.html">Tidy Modelling with R</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./apply00_intro.html">Modeling of Microbiome Data</a></li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -114,7 +134,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="./tidy00_book_intro.html" class="sidebar-item-text sidebar-link active">
+            <a href="./tidy00_intro.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Tidy Modelling with R</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -225,7 +245,7 @@ ul.task-list li input[type="checkbox"] {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="./apply00_intro.html" class="sidebar-item-text sidebar-link">
+            <a href="./apply00_intro.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Modeling of Microbiome Data</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -271,7 +291,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Tidy Modelling with R</h1>
+<h1 class="title">Modeling of Microbiome Data</h1>
 </div>
 
 
@@ -288,9 +308,14 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>R is already a great tool for data analysis and visualization. However, when it comes to building and evaluating models, it can be a bit cumbersome. Different packages have different syntax and conventions, which can make it difficult to switch between them. The <code>tidymodels</code> package aims to solve this problem by providing a consistent and easy-to-use interface for building and evaluating models. The <code>tidymodels</code> package is a collection of packages that work together to make the process of building and evaluating models easier and more consistent. It works excellently as an extension to <code>tidyverse</code> by using the same methodology and syntax. In this chapter, the principles of the <code>tidymodels</code> package is introduced as well as how to create, evaluate, and tune many models at a time.</p>
+<p>In the first chapter, the concepts of <code>tidymodeling</code> were introduced. In the second chapter, the statistical concepts that are often used in Bioinformatics and Biostatistics were introduced. The third chapter touched upon different preprocessing techniques to apply. This chapter combines the first three chapters to build and evaluate models for a real-world dataset. As mentioned in the preface, the dataset used is 16S rRNA amplicon reads used to describe multiple sclerosis (MS) <span class="citation" data-cites="Cox2021">(<a href="references.html#ref-Cox2021" role="doc-biblioref">Cox et al. 2021</a>)</span>. Here, the data is used to predict the disease status of the person.</p>
 
 
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
+<div id="ref-Cox2021" class="csl-entry" role="listitem">
+Cox, Laura M., Amir Hadi Maghzi, Shirong Liu, Stephanie K. Tankou, Fyonn H. Dhang, Valerie Willocq, Anya Song, et al. 2021. <span>“Gut Microbiome in Progressive Multiple Sclerosis.”</span> <em>Annals of Neurology</em> 89 (June): 1195–1211. <a href="https://doi.org/10.1002/ANA.26084">https://doi.org/10.1002/ANA.26084</a>.
+</div>
+</div>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -682,13 +707,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./index.html" class="pagination-link" aria-label="Preface">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Preface</span>
+      <a href="./pre02_umap.html" class="pagination-link" aria-label="Uniform Manifold Approximation and Projection">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Uniform Manifold Approximation and Projection</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./tidy01_intro_package.html" class="pagination-link" aria-label="Introduction to Tidy Modelling">
-        <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction to Tidy Modelling</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./apply01_model_diversity.html" class="pagination-link" aria-label="Diversity Measures">
+        <span class="nav-page-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Diversity Measures</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
