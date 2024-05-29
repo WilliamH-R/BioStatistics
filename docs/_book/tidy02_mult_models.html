@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>BioStatistics - 2&nbsp; Creating multiple models</title>
+<title>BioStatistics - 2&nbsp; Creating Multiple Models</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -115,7 +115,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./tidy00_intro.html">Tidy Modelling with R</a></li><li class="breadcrumb-item"><a href="./tidy02_mult_models.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Creating multiple models</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./tidy00_intro.html">Tidy Modelling with R</a></li><li class="breadcrumb-item"><a href="./tidy02_mult_models.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Creating Multiple Models</span></a></li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -164,13 +164,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./tidy02_mult_models.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Creating multiple models</span></span></a>
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Creating Multiple Models</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./tidy03_hyperparam.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Tuning hyperparameters and overfitting</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Tuning Hyperparameters and Overfitting</span></span></a>
   </div>
 </li>
       </ul>
@@ -178,7 +178,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a href="./stat00_intro.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Applied bio-statistical methods</span></a>
+ <span class="menu-text">Applied Biostatistical Methods</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -187,19 +187,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./stat01_diversity.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Diversity measures</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Diversity Measures</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./stat02_wilcoxon.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Wilcoxon test</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Wilcoxon Test</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./stat03_mult_testing.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Multiple testing correction</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Multiple Testing Correction</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -304,7 +304,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#cross-validation" id="toc-cross-validation" class="nav-link active" data-scroll-target="#cross-validation"><span class="header-section-number">2.1</span> Cross-validation</a></li>
   <li><a href="#recipes" id="toc-recipes" class="nav-link" data-scroll-target="#recipes"><span class="header-section-number">2.2</span> Recipes</a></li>
-  <li><a href="#evaluation-metrics-across-models" id="toc-evaluation-metrics-across-models" class="nav-link" data-scroll-target="#evaluation-metrics-across-models"><span class="header-section-number">2.3</span> Evaluation metrics across models</a></li>
+  <li><a href="#evaluation-metrics-across-models" id="toc-evaluation-metrics-across-models" class="nav-link" data-scroll-target="#evaluation-metrics-across-models"><span class="header-section-number">2.3</span> Evaluation Metrics Across Models</a></li>
   <li><a href="#session-info" id="toc-session-info" class="nav-link" data-scroll-target="#session-info"><span class="header-section-number">3</span> Session Info</a></li>
   </ul>
 </nav>
@@ -312,9 +312,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./tidy00_intro.html">Tidy Modelling with R</a></li><li class="breadcrumb-item"><a href="./tidy02_mult_models.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Creating multiple models</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./tidy00_intro.html">Tidy Modelling with R</a></li><li class="breadcrumb-item"><a href="./tidy02_mult_models.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Creating Multiple Models</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Creating multiple models</span></h1>
+<h1 class="title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Creating Multiple Models</span></h1>
 </div>
 
 
@@ -447,7 +447,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </section>
 <section id="evaluation-metrics-across-models" class="level2" data-number="2.3">
-<h2 data-number="2.3" class="anchored" data-anchor-id="evaluation-metrics-across-models"><span class="header-section-number">2.3</span> Evaluation metrics across models</h2>
+<h2 data-number="2.3" class="anchored" data-anchor-id="evaluation-metrics-across-models"><span class="header-section-number">2.3</span> Evaluation Metrics Across Models</h2>
 <p>Two simple evaluation metrics for logistic regressions are the accuracy and Area Under the Curve (AUC). It is implicit that it is area under the Receiver Operating Characteristic (ROC) curve. To view these two evaluation metrics (the column <code>mean</code>):</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">collect_metrics</span>(lg_models) <span class="sc">|&gt;</span> </span>
@@ -1071,8 +1071,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./tidy03_hyperparam.html" class="pagination-link" aria-label="Tuning hyperparameters and overfitting">
-        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Tuning hyperparameters and overfitting</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./tidy03_hyperparam.html" class="pagination-link" aria-label="Tuning Hyperparameters and Overfitting">
+        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Tuning Hyperparameters and Overfitting</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

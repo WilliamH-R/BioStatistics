@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>BioStatistics - 6&nbsp; Multiple testing correction</title>
+<title>BioStatistics - 6&nbsp; Multiple Testing Correction</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -144,7 +144,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./stat00_intro.html">Applied bio-statistical methods</a></li><li class="breadcrumb-item"><a href="./stat03_mult_testing.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Multiple testing correction</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./stat00_intro.html">Applied Biostatistical Methods</a></li><li class="breadcrumb-item"><a href="./stat03_mult_testing.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Multiple Testing Correction</span></a></li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -193,13 +193,13 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./tidy02_mult_models.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Creating multiple models</span></span></a>
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Creating Multiple Models</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./tidy03_hyperparam.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Tuning hyperparameters and overfitting</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Tuning Hyperparameters and Overfitting</span></span></a>
   </div>
 </li>
       </ul>
@@ -207,7 +207,7 @@ window.Quarto = {
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a href="./stat00_intro.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Applied bio-statistical methods</span></a>
+ <span class="menu-text">Applied Biostatistical Methods</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -216,19 +216,19 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./stat01_diversity.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Diversity measures</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Diversity Measures</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./stat02_wilcoxon.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Wilcoxon test</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Wilcoxon Test</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./stat03_mult_testing.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Multiple testing correction</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Multiple Testing Correction</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -331,10 +331,10 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#fwer-correction-bonferroni" id="toc-fwer-correction-bonferroni" class="nav-link active" data-scroll-target="#fwer-correction-bonferroni"><span class="header-section-number">6.1</span> FWER correction (Bonferroni)</a></li>
-  <li><a href="#false-discovery-rate-correction-benjamini-hochberg" id="toc-false-discovery-rate-correction-benjamini-hochberg" class="nav-link" data-scroll-target="#false-discovery-rate-correction-benjamini-hochberg"><span class="header-section-number">6.2</span> False Discovery Rate correction (Benjamini-Hochberg)</a>
+  <li><a href="#fwer-correction-bonferroni" id="toc-fwer-correction-bonferroni" class="nav-link active" data-scroll-target="#fwer-correction-bonferroni"><span class="header-section-number">6.1</span> FWER Correction (Bonferroni)</a></li>
+  <li><a href="#false-discovery-rate-correction-benjamini-hochberg" id="toc-false-discovery-rate-correction-benjamini-hochberg" class="nav-link" data-scroll-target="#false-discovery-rate-correction-benjamini-hochberg"><span class="header-section-number">6.2</span> False Discovery Rate Correction (Benjamini-Hochberg)</a>
   <ul>
-  <li><a href="#adjusting-the-significance-level" id="toc-adjusting-the-significance-level" class="nav-link" data-scroll-target="#adjusting-the-significance-level"><span class="header-section-number">6.2.1</span> Adjusting the significance level</a></li>
+  <li><a href="#adjusting-the-significance-level" id="toc-adjusting-the-significance-level" class="nav-link" data-scroll-target="#adjusting-the-significance-level"><span class="header-section-number">6.2.1</span> Adjusting the Significance Level</a></li>
   <li><a href="#adjusting-the-p-values" id="toc-adjusting-the-p-values" class="nav-link" data-scroll-target="#adjusting-the-p-values"><span class="header-section-number">6.2.2</span> Adjusting the p-values</a></li>
   </ul></li>
   <li><a href="#session-info" id="toc-session-info" class="nav-link" data-scroll-target="#session-info"><span class="header-section-number">7</span> Session Info</a></li>
@@ -344,9 +344,9 @@ window.Quarto = {
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./stat00_intro.html">Applied bio-statistical methods</a></li><li class="breadcrumb-item"><a href="./stat03_mult_testing.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Multiple testing correction</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./stat00_intro.html">Applied Biostatistical Methods</a></li><li class="breadcrumb-item"><a href="./stat03_mult_testing.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Multiple Testing Correction</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Multiple testing correction</span></h1>
+<h1 class="title"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Multiple Testing Correction</span></h1>
 </div>
 
 
@@ -531,7 +531,7 @@ P(false\; positive) = 1 - (1 - \alpha)^{m} = 1 - (1 - 0.05)^{16} = 0.56
 <p>The probability of finding at least on false positive is also referred to as the Family-Wise Error Rate (FWER).</p>
 <p>A way to correct for multiple testing is needed to avoid these high probabilities of false positives. There are several methods for correcting for multiple testing including common methods such as Bonferroni correction and the Benjamini-Hochberg Procedure</p>
 <section id="fwer-correction-bonferroni" class="level2" data-number="6.1">
-<h2 data-number="6.1" class="anchored" data-anchor-id="fwer-correction-bonferroni"><span class="header-section-number">6.1</span> FWER correction (Bonferroni)</h2>
+<h2 data-number="6.1" class="anchored" data-anchor-id="fwer-correction-bonferroni"><span class="header-section-number">6.1</span> FWER Correction (Bonferroni)</h2>
 <p>The Bonferroni correction is a conservative method, which means that it is less likely to find significant results. To apply Bonferroni correction, the significance level is divided by the number of tests, which would then also affect the FWER (the probability of finding at least one false positive among the significant results). The Bonferroni adjusted significance level is then:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>alpha_bonferroni <span class="ot">&lt;-</span> alpha <span class="sc">/</span> <span class="fu">nrow</span>(p_values_per_group)</span>
@@ -556,7 +556,7 @@ FWER = 1 - (1 - \frac{\alpha}{m})^{m} = 1 - (1 - \frac{0.05}{16})^{16} = 0.049
 <p>The FWER is reduced from 56% to 4.9%, close to the original significance level of 5%. It is then expected to find fewer false positives, also called Type I errors. However, the chance of finding false negatives also increases (referred to as Type II errors). In this case, finding false negatives means accepting the null hypothesis when it was actually false, i.e.&nbsp;not finding a significant result when one exists. In some cases, using a very conservative method is preferred, especially when the cost of a false positive is high.</p>
 </section>
 <section id="false-discovery-rate-correction-benjamini-hochberg" class="level2" data-number="6.2">
-<h2 data-number="6.2" class="anchored" data-anchor-id="false-discovery-rate-correction-benjamini-hochberg"><span class="header-section-number">6.2</span> False Discovery Rate correction (Benjamini-Hochberg)</h2>
+<h2 data-number="6.2" class="anchored" data-anchor-id="false-discovery-rate-correction-benjamini-hochberg"><span class="header-section-number">6.2</span> False Discovery Rate Correction (Benjamini-Hochberg)</h2>
 <p>Another way to control for multiple testing is through the False Discovery Rate (FDR). FDR is the proportion of false positives among the significant results:</p>
 <p><span class="math display">\[
 FDR = \frac{FP}{FP + TP}
@@ -566,7 +566,7 @@ FDR = \frac{FP}{FP + TP}
 <p>Two ways to implement the method exists. Either the significance level is adjusted, or the p-values are adjusted, both giving the same significant hits. The latter is the most common way, but both are introduced.</p>
 <p>In general, each p-value is compared to a moving significance level instead of compared to a static value of <span class="math inline">\(\alpha\)</span>, e.g.&nbsp;<span class="math inline">\(0.05\)</span>. The moving significance level is dependent on the rank of the p-value and the number of tests. The lowest p-value gets rank 1, the second lowest rank 2, and so on. With a higher rank, the significance level increases, allowing for more significant hits.</p>
 <section id="adjusting-the-significance-level" class="level3" data-number="6.2.1">
-<h3 data-number="6.2.1" class="anchored" data-anchor-id="adjusting-the-significance-level"><span class="header-section-number">6.2.1</span> Adjusting the significance level</h3>
+<h3 data-number="6.2.1" class="anchored" data-anchor-id="adjusting-the-significance-level"><span class="header-section-number">6.2.1</span> Adjusting the Significance Level</h3>
 <p>All p-values are sorted in ascending order and ranked as mentioned above. A critical value for each rank is calculated by:</p>
 <p><span class="math display">\[
 \text{Critical Value} = \frac{k}{m} \cdot \alpha
@@ -1154,8 +1154,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./stat02_wilcoxon.html" class="pagination-link" aria-label="Wilcoxon test">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Wilcoxon test</span></span>
+      <a href="./stat02_wilcoxon.html" class="pagination-link" aria-label="Wilcoxon Test">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Wilcoxon Test</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">

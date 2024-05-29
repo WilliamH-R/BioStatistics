@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>BioStatistics - 3&nbsp; Tuning hyperparameters and overfitting</title>
+<title>BioStatistics - 3&nbsp; Tuning Hyperparameters and Overfitting</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -115,7 +115,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./tidy00_intro.html">Tidy Modelling with R</a></li><li class="breadcrumb-item"><a href="./tidy03_hyperparam.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Tuning hyperparameters and overfitting</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./tidy00_intro.html">Tidy Modelling with R</a></li><li class="breadcrumb-item"><a href="./tidy03_hyperparam.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Tuning Hyperparameters and Overfitting</span></a></li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -164,13 +164,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./tidy02_mult_models.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Creating multiple models</span></span></a>
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Creating Multiple Models</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./tidy03_hyperparam.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Tuning hyperparameters and overfitting</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Tuning Hyperparameters and Overfitting</span></span></a>
   </div>
 </li>
       </ul>
@@ -178,7 +178,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a href="./stat00_intro.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Applied bio-statistical methods</span></a>
+ <span class="menu-text">Applied Biostatistical Methods</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -187,19 +187,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./stat01_diversity.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Diversity measures</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Diversity Measures</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./stat02_wilcoxon.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Wilcoxon test</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Wilcoxon Test</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./stat03_mult_testing.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Multiple testing correction</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Multiple Testing Correction</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -302,10 +302,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#what-is-a-hyperparameter" id="toc-what-is-a-hyperparameter" class="nav-link active" data-scroll-target="#what-is-a-hyperparameter"><span class="header-section-number">3.1</span> What is a hyperparameter?</a></li>
-  <li><a href="#set-up-tuning" id="toc-set-up-tuning" class="nav-link" data-scroll-target="#set-up-tuning"><span class="header-section-number">3.2</span> Set up tuning</a></li>
-  <li><a href="#measure-performance-of-tuning" id="toc-measure-performance-of-tuning" class="nav-link" data-scroll-target="#measure-performance-of-tuning"><span class="header-section-number">3.3</span> Measure performance of tuning</a></li>
-  <li><a href="#finalize-hyperparameter-selection" id="toc-finalize-hyperparameter-selection" class="nav-link" data-scroll-target="#finalize-hyperparameter-selection"><span class="header-section-number">3.4</span> Finalize hyperparameter selection</a></li>
+  <li><a href="#introduction-to-hyperparameters" id="toc-introduction-to-hyperparameters" class="nav-link active" data-scroll-target="#introduction-to-hyperparameters"><span class="header-section-number">3.1</span> Introduction to Hyperparameters</a></li>
+  <li><a href="#setting-up-tuning" id="toc-setting-up-tuning" class="nav-link" data-scroll-target="#setting-up-tuning"><span class="header-section-number">3.2</span> Setting Up Tuning</a></li>
+  <li><a href="#measure-performance-of-tuning" id="toc-measure-performance-of-tuning" class="nav-link" data-scroll-target="#measure-performance-of-tuning"><span class="header-section-number">3.3</span> Measure Performance of Tuning</a></li>
+  <li><a href="#finalize-hyperparameter-selection" id="toc-finalize-hyperparameter-selection" class="nav-link" data-scroll-target="#finalize-hyperparameter-selection"><span class="header-section-number">3.4</span> Finalize Hyperparameter Selection</a></li>
   <li><a href="#session-info" id="toc-session-info" class="nav-link" data-scroll-target="#session-info"><span class="header-section-number">4</span> Session Info</a></li>
   </ul>
 </nav>
@@ -313,9 +313,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./tidy00_intro.html">Tidy Modelling with R</a></li><li class="breadcrumb-item"><a href="./tidy03_hyperparam.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Tuning hyperparameters and overfitting</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./tidy00_intro.html">Tidy Modelling with R</a></li><li class="breadcrumb-item"><a href="./tidy03_hyperparam.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Tuning Hyperparameters and Overfitting</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Tuning hyperparameters and overfitting</span></h1>
+<h1 class="title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Tuning Hyperparameters and Overfitting</span></h1>
 </div>
 
 
@@ -356,12 +356,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>iris_folds <span class="ot">&lt;-</span> <span class="fu">vfold_cv</span>(iris)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<section id="what-is-a-hyperparameter" class="level2" data-number="3.1">
-<h2 data-number="3.1" class="anchored" data-anchor-id="what-is-a-hyperparameter"><span class="header-section-number">3.1</span> What is a hyperparameter?</h2>
+<section id="introduction-to-hyperparameters" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="introduction-to-hyperparameters"><span class="header-section-number">3.1</span> Introduction to Hyperparameters</h2>
 <p>A classical and simple example of a hyperparameter is the number of neighbors, usually denoted <code>k</code>, in a k-nearest neighbors (KNN) algorithm. This is a hyperparameter as it is not estimated during model fitting, but is specified a priori making it impossible to optimize during parameter estimation.</p>
 </section>
-<section id="set-up-tuning" class="level2" data-number="3.2">
-<h2 data-number="3.2" class="anchored" data-anchor-id="set-up-tuning"><span class="header-section-number">3.2</span> Set up tuning</h2>
+<section id="setting-up-tuning" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="setting-up-tuning"><span class="header-section-number">3.2</span> Setting Up Tuning</h2>
 <p>In the <code>tidymodels</code> universe, hyperparameters are marked for tuning in the specifications for a model. To exemplify, both the number of nearest neighbors and a range of weight functions are tuned.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>knn_spec <span class="ot">&lt;-</span> <span class="fu">nearest_neighbor</span>(<span class="at">neighbors =</span> <span class="fu">tune</span>(),</span>
@@ -372,7 +372,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Secondly, the recipe is set up. As no preprocessing is applied (e.g.&nbsp;log-transformation) it is quite simple.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>knn_rec <span class="ot">&lt;-</span> <span class="fu">recipe</span>(Species <span class="sc">~</span> ., <span class="co"># Use all other columns as predictors</span></span>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>knn_rec <span class="ot">&lt;-</span> <span class="fu">recipe</span>(Species <span class="sc">~</span> ., <span class="co"># Use all other columns as features (called predictors in tidymodels)</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>                  <span class="at">data =</span> iris)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The specs and recipe is then combined into a workflow:</p>
@@ -453,7 +453,7 @@ Range: [1, 15]</code></pre>
 </div>
 </section>
 <section id="measure-performance-of-tuning" class="level2" data-number="3.3">
-<h2 data-number="3.3" class="anchored" data-anchor-id="measure-performance-of-tuning"><span class="header-section-number">3.3</span> Measure performance of tuning</h2>
+<h2 data-number="3.3" class="anchored" data-anchor-id="measure-performance-of-tuning"><span class="header-section-number">3.3</span> Measure Performance of Tuning</h2>
 <p>A metric is needed to measure the performance of the hyperparameters. The ROC curve is used. The regular grid is tuned:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Performance metric</span></span>
@@ -506,7 +506,7 @@ Range: [1, 15]</code></pre>
 </div>
 </section>
 <section id="finalize-hyperparameter-selection" class="level2" data-number="3.4">
-<h2 data-number="3.4" class="anchored" data-anchor-id="finalize-hyperparameter-selection"><span class="header-section-number">3.4</span> Finalize hyperparameter selection</h2>
+<h2 data-number="3.4" class="anchored" data-anchor-id="finalize-hyperparameter-selection"><span class="header-section-number">3.4</span> Finalize Hyperparameter Selection</h2>
 <p>It would seem there is no visual difference between the weight functions. For the number of neighbors, the performance is highest for 10 and 15 neighbors. Preferably, the simplest of the two models is chosen.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>final_hyperparams <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">weight_func =</span> <span class="st">"gaussian"</span>,</span>
@@ -1067,13 +1067,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./tidy02_mult_models.html" class="pagination-link" aria-label="Creating multiple models">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Creating multiple models</span></span>
+      <a href="./tidy02_mult_models.html" class="pagination-link" aria-label="Creating Multiple Models">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Creating Multiple Models</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./stat00_intro.html" class="pagination-link" aria-label="Applied bio-statistical methods">
-        <span class="nav-page-text">Applied bio-statistical methods</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./stat00_intro.html" class="pagination-link" aria-label="Applied Biostatistical Methods">
+        <span class="nav-page-text">Applied Biostatistical Methods</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

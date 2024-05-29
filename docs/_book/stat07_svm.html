@@ -144,7 +144,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./stat00_intro.html">Applied bio-statistical methods</a></li><li class="breadcrumb-item"><a href="./stat07_svm.html"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Support Vector Machines</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./stat00_intro.html">Applied Biostatistical Methods</a></li><li class="breadcrumb-item"><a href="./stat07_svm.html"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Support Vector Machines</span></a></li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -193,13 +193,13 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./tidy02_mult_models.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Creating multiple models</span></span></a>
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Creating Multiple Models</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./tidy03_hyperparam.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Tuning hyperparameters and overfitting</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Tuning Hyperparameters and Overfitting</span></span></a>
   </div>
 </li>
       </ul>
@@ -207,7 +207,7 @@ window.Quarto = {
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a href="./stat00_intro.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Applied bio-statistical methods</span></a>
+ <span class="menu-text">Applied Biostatistical Methods</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -216,19 +216,19 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./stat01_diversity.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Diversity measures</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Diversity Measures</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./stat02_wilcoxon.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Wilcoxon test</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Wilcoxon Test</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./stat03_mult_testing.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Multiple testing correction</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Multiple Testing Correction</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -338,7 +338,7 @@ window.Quarto = {
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./stat00_intro.html">Applied bio-statistical methods</a></li><li class="breadcrumb-item"><a href="./stat07_svm.html"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Support Vector Machines</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./stat00_intro.html">Applied Biostatistical Methods</a></li><li class="breadcrumb-item"><a href="./stat07_svm.html"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Support Vector Machines</span></a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Support Vector Machines</span></h1>
 </div>
@@ -417,7 +417,9 @@ y = -\frac{A}{B}x - \frac{C}{B} \rightarrow Ax + By + C = 0
 \]</span></p>
 <p>As can be seen, <span class="math inline">\(a = -\frac{A}{B}\)</span> and <span class="math inline">\(b = -\frac{C}{B}\)</span>. <span class="math inline">\(A\)</span> is the slope, <span class="math inline">\(C\)</span> is the intercept and <span class="math inline">\(B\)</span> is a scaling factor. The equation <span class="math inline">\(Ax + By + C = 0\)</span> is the equation for a hyperplane, here in two dimensions. This form can be rewritten into a matrix form which is more used in the field:</p>
 <p><span class="math display">\[
-Ax + By + C = 0 \rightarrow \begin{bmatrix} A &amp; B \end{bmatrix} \begin{bmatrix} x \\ y \end{bmatrix} + C = 0 \\
+Ax + By + C = 0 \rightarrow \begin{bmatrix} A &amp; B \end{bmatrix} \begin{bmatrix} x \\ y \end{bmatrix} + C = 0
+\]</span></p>
+<p><span class="math display">\[
 \rightarrow w^Tx + b = 0
 \]</span></p>
 <p>As the distance between two parallel lines is maximized, an equation for calculating it is needed:</p>
@@ -437,13 +439,24 @@ y_i(w^Tx_i - b) \geq 1
 \]</span></p>
 <p>As stated in the introduction, the goal is to maximize the margin, i.e.&nbsp;the distance between the two green lines. The margin is calculated as <span class="math inline">\(d = \frac{2}{||w||}\)</span>, and the goal is to maximize <span class="math inline">\(d\)</span> which is the same as minimizing <span class="math inline">\(||w||\)</span>. The optimization problem subject to the constraints can then be formulated as:</p>
 <p><span class="math display">\[
-\min_{w,b}||w||^2 \\ \text{ subject to } \\ y_i(w^Tx_i - b) \geq 1, \;\; \forall i
+\min_{w,b}||w||^2
+\]</span></p>
+<p><span class="math display">\[
+\text{ subject to }
+\]</span> <span class="math display">\[
+y_i(w^Tx_i - b) \geq 1, \;\; \forall i
 \]</span></p>
 <p>The above formulation allows for no misclassifications, i.e a hard margin. The SVM has a soft margin and do allow for misclassifications. A new value <span class="math inline">\(\xi\)</span> is introduced. It is a vector with a value for each observation, indicating how far the observation can be from the correct side of the margin. Further, <span class="math inline">\(\lambda\)</span> is introduced as a penalty for misclassifications, similar to regularization for OLS. The final optimization problem for the SVM can then be formulated as:</p>
 <p><span class="math display">\[
-\min_{w,b,\xi}||w||^2 + \lambda\sum_{i=1}^{n}\xi_i \\
-\text{ subject to } \\
-y_i(w^Tx_i - b) \geq 1 - \xi_i, \;\; \forall i \\
+\min_{w,b,\xi}||w||^2 + \lambda\sum_{i=1}^{n}\xi_i
+\]</span></p>
+<p><span class="math display">\[
+\text{ subject to }
+\]</span></p>
+<p><span class="math display">\[
+y_i(w^Tx_i - b) \geq 1 - \xi_i, \;\; \forall i
+\]</span></p>
+<p><span class="math display">\[
 \xi_i \geq 0, \;\; \forall i
 \]</span></p>
 <p>If <span class="math inline">\(\lambda\)</span> is small, the model allows for more misclassifications as the term <span class="math inline">\(\lambda\sum_{i=1}^{n}\xi_i\)</span> is small compared to <span class="math inline">\(||w||^2\)</span>. The opposite is seen if <span class="math inline">\(\lambda\)</span> is large. The optimal value for <span class="math inline">\(\lambda\)</span> is found through cross-validation.</p>
@@ -497,7 +510,8 @@ K(x,y) = \phi(x)^T \phi(y) =  (c + x^Ty)^d
 <p>Where <span class="math inline">\(K(x,y)\)</span> is a vector of transformed values for each observation in <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span>, <span class="math inline">\(\phi\)</span> is a feature mapping, <span class="math inline">\(d\)</span> is the degree of the polynomial and <span class="math inline">\(c\)</span> is a hyperparameter. <span class="math inline">\(c\)</span> has a regularizing effect where larger values reduces the effect of <span class="math inline">\(x^Ty\)</span>.</p>
 <p>The idea is, that instead of transforming <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> with <span class="math inline">\(\phi\)</span> and then calculating the dot product, the dot product can be calculated directly on the input space. This saves computational power as <span class="math inline">\(\phi\)</span> maps the data into a higher dimension, which is computationally expensive. The mathematical benefit of the Kernel Trick is exemplified below where <span class="math inline">\(c = 1\)</span> for simplicity. The feature mapping <span class="math inline">\(\phi\)</span> needed to transform the data can be found by expanding the polynomial kernel:</p>
 <p><span class="math display">\[
-K(x,y) = (1 + x^Ty)^2  = (1 + x_1y_1 + x_2y_2)^2 \rightarrow\\
+K(x,y) = (1 + x^Ty)^2  = (1 + x_1y_1 + x_2y_2)^2 \rightarrow
+\]</span> <span class="math display">\[
 K(x,y) = 1 + 2x_1y_1 + 2x_2y_2 + 2x_1y_1x_2y_2 + x_1^2y_1^2 + x_2^2y_2^2
 \]</span></p>
 <p>To get the above expanded expression by the dot product <span class="math inline">\(\phi(x)^T \phi(y)\)</span>, the feature mapping <span class="math inline">\(\phi\)</span> is:</p>
@@ -507,7 +521,9 @@ K(x,y) = (1 + \sqrt{2}x_1 + \sqrt{2}x_2 + \sqrt{2}x_1x_2 + x_1^2 + x_2^2)
 \]</span></p>
 <p>So the feature mapping <span class="math inline">\(\phi\)</span> is:</p>
 <p><span class="math display">\[
-\phi(x)^T = (1 + \sqrt{2}x_1 + \sqrt{2}x_2 + \sqrt{2}x_1x_2 + x_1^2 + x_2^2)\\
+\phi(x)^T = (1 + \sqrt{2}x_1 + \sqrt{2}x_2 + \sqrt{2}x_1x_2 + x_1^2 + x_2^2)
+\]</span></p>
+<p><span class="math display">\[
 \phi(y) = (1 + \sqrt{2}y_1 + \sqrt{2}y_2 + \sqrt{2}y_1y_2 + y_1^2 + y_2^2)
 \]</span></p>
 <p>Ultimately, the Kernel Trick allows for calculating the dot product in the input <span class="math inline">\((x^Ty)\)</span> space without transforming the data into a higher dimension, here six dimensions, and then calculating the dot product.</p>

@@ -164,13 +164,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./tidy02_mult_models.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Creating multiple models</span></span></a>
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Creating Multiple Models</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./tidy03_hyperparam.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Tuning hyperparameters and overfitting</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Tuning Hyperparameters and Overfitting</span></span></a>
   </div>
 </li>
       </ul>
@@ -178,7 +178,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a href="./stat00_intro.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Applied bio-statistical methods</span></a>
+ <span class="menu-text">Applied Biostatistical Methods</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -187,19 +187,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./stat01_diversity.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Diversity measures</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Diversity Measures</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./stat02_wilcoxon.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Wilcoxon test</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Wilcoxon Test</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./stat03_mult_testing.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Multiple testing correction</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Multiple Testing Correction</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -421,7 +421,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>A common first step in microbiome studies is to consider the diversity between groups. Here, Richness, Pielou Index and Shannon’s Diversity Index are calculated stratified by disease severity. Instead of the simply calculating the diversity measures for healthy versus MS patients, the diversity measures are calculated for each combination of healthy, relapsing-remitting MS and progressive MS. This is done to see if the diversity measures can differentiate between the different disease severities.</p>
 <section id="species-richness" class="level2" data-number="14.1">
 <h2 data-number="14.1" class="anchored" data-anchor-id="species-richness"><span class="header-section-number">14.1</span> Species Richness</h2>
-<p>As mentioned previously, Richness is the number of unique species in a sample. Here, the number of unique species in each sample is calculated and stratified by disease severity. The violin plot shows the distribution of the richness values for each disease severity.</p>
+<p>As mentioned previously, Richness is the number of unique organisms in a sample. Here, the number of unique genera in each sample is calculated and stratified by disease severity. The violin plot shows the distribution of the richness values for each disease severity.</p>
 <p>By visual inspection, it would seem that patients with MS, either relapsing-remitting or progressive, have a higher richness compared to healthy controls. Interestingly, a sample seem to have a richness of 0. This could indicate that either something went wrong in the sequencing process or in the subsequent data processing moving from raw sequence reads to a count matrix.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>richness <span class="ot">&lt;-</span> count_matrix <span class="sc">|&gt;</span></span>
@@ -493,7 +493,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="shannon-index" class="level2" data-number="14.2">
 <h2 data-number="14.2" class="anchored" data-anchor-id="shannon-index"><span class="header-section-number">14.2</span> Shannon Index</h2>
-<p>Both the richness and the evenness of a sample is considered when calculating the Shannon Index. If a group has a generally high Shannon Index, it means that the group has a high number of unique species and that the species are evenly distributed. The violin plot shows the distribution of the Shannon Index values for each disease severity.</p>
+<p>Both the richness and the evenness of a sample is considered when calculating the Shannon Index. If a group has a generally high Shannon Index, it means that the group has a high number of unique genera and that they are evenly distributed. The violin plot shows the distribution of the Shannon Index values for each disease severity.</p>
 <p>Similarly to the richness, it would seem that patients with MS, either relapsing-remitting or progressive, have a higher Shannon Index compared to healthy controls, i.e.&nbsp;more unique taxa and more evenly distributed taxa.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>shannon <span class="ot">&lt;-</span> count_matrix <span class="sc">|&gt;</span></span>
@@ -545,8 +545,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="pielou-index-evenness" class="level2" data-number="14.3">
 <h2 data-number="14.3" class="anchored" data-anchor-id="pielou-index-evenness"><span class="header-section-number">14.3</span> Pielou Index (Evenness)</h2>
-<p>Even though richness is needed to calculated the Shannon Index which in turn is needed to calculate the Pielou Index, the richness is not of importance. The independence comes from the division in the formula as the Pielou Index compares the Shannon Index of the sample to Shannon Index of a perfectly even sample of the same size. Then, the Pielou Index is a measure of how evenly the species are distributed in a sample.</p>
-<p>Opposite to the richness and the Shannon Index, the Pielou Index seems to be lowest for the relapsing-remitting MS group whereas the healthy controls and progressive MS have similar values. This could indicate that the species in the relapsing-remitting MS group are not as evenly distributed as in the other groups. Further, this also indicate that the higher Shannon Index in the relapsing-remitting group is due to a higher number of unique species and not due to a more even distribution of the species.</p>
+<p>Even though richness is needed to calculated the Shannon Index which in turn is needed to calculate the Pielou Index, the richness is not of importance. The independence comes from the division in the formula as the Pielou Index compares the Shannon Index of the sample to Shannon Index of a perfectly even sample of the same size. Then, the Pielou Index is a measure of how evenly the species (here genera) are distributed in a sample.</p>
+<p>Opposite richness and Shannon Index, Pielou Index seems to be lowest for the relapsing-remitting MS group whereas the healthy controls and progressive MS have similar values. This could indicate that the organisms in the relapsing-remitting MS group are not as evenly distributed as in the other groups. Further, this also indicate that the higher Shannon Index in the relapsing-remitting group is due to a higher number of unique organisms and not due to a more even distribution of the organisms.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>pielou <span class="ot">&lt;-</span> shannon <span class="sc">|&gt;</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Pielou =</span> Shannon <span class="sc">/</span> <span class="fu">log</span>(count))</span>

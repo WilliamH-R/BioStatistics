@@ -164,13 +164,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./tidy02_mult_models.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Creating multiple models</span></span></a>
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Creating Multiple Models</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./tidy03_hyperparam.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Tuning hyperparameters and overfitting</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Tuning Hyperparameters and Overfitting</span></span></a>
   </div>
 </li>
       </ul>
@@ -178,7 +178,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a href="./stat00_intro.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Applied bio-statistical methods</span></a>
+ <span class="menu-text">Applied Biostatistical Methods</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -187,19 +187,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./stat01_diversity.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Diversity measures</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Diversity Measures</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./stat02_wilcoxon.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Wilcoxon test</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Wilcoxon Test</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./stat03_mult_testing.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Multiple testing correction</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Multiple Testing Correction</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -302,9 +302,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#introdution-to-dataset" id="toc-introdution-to-dataset" class="nav-link active" data-scroll-target="#introdution-to-dataset"><span class="header-section-number">1.1</span> Introdution to dataset</a></li>
+  <li><a href="#introdution-to-the-dataset" id="toc-introdution-to-the-dataset" class="nav-link active" data-scroll-target="#introdution-to-the-dataset"><span class="header-section-number">1.1</span> Introdution to the Dataset</a></li>
   <li><a href="#training--and-test-set" id="toc-training--and-test-set" class="nav-link" data-scroll-target="#training--and-test-set"><span class="header-section-number">1.2</span> Training- and Test Set</a></li>
-  <li><a href="#fitting-a-model" id="toc-fitting-a-model" class="nav-link" data-scroll-target="#fitting-a-model"><span class="header-section-number">1.3</span> Fitting a model</a></li>
+  <li><a href="#fitting-a-model" id="toc-fitting-a-model" class="nav-link" data-scroll-target="#fitting-a-model"><span class="header-section-number">1.3</span> Fitting A Model</a></li>
   <li><a href="#prediction" id="toc-prediction" class="nav-link" data-scroll-target="#prediction"><span class="header-section-number">1.4</span> Prediction</a></li>
   <li><a href="#session-info" id="toc-session-info" class="nav-link" data-scroll-target="#session-info"><span class="header-section-number">2</span> Session Info</a></li>
   </ul>
@@ -353,8 +353,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">droplevels</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<section id="introdution-to-dataset" class="level2" data-number="1.1">
-<h2 data-number="1.1" class="anchored" data-anchor-id="introdution-to-dataset"><span class="header-section-number">1.1</span> Introdution to dataset</h2>
+<section id="introdution-to-the-dataset" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="introdution-to-the-dataset"><span class="header-section-number">1.1</span> Introdution to the Dataset</h2>
 <p>For simplicity, the <code>iris</code> dataset is used since the structure is simple, and readers should be familiar with it. As a quick reminder, the dataset consists of five variables (columns) and 150 observations (rows). The first four variables are doubles describing the size of the flower, used as features. The last variable, the response, is a factor indicating the species of flower, used as the response. To make this a binary logistic classification problem, and not multiclass, the setosa species have been excluded.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(iris)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -407,7 +407,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </section>
 <section id="fitting-a-model" class="level2" data-number="1.3">
-<h2 data-number="1.3" class="anchored" data-anchor-id="fitting-a-model"><span class="header-section-number">1.3</span> Fitting a model</h2>
+<h2 data-number="1.3" class="anchored" data-anchor-id="fitting-a-model"><span class="header-section-number">1.3</span> Fitting A Model</h2>
 <p>The <code>parsnip</code> package standardizes creating models. When learning a new technique, here <code>parsnip</code>, it is a good idea to apply well known theory. Therefore, a linear logistic regression model is used to predict the species of a flower given the dimensions of the sepal and the petal. If the reader is unfamiliar with the theory, it is recommended to read the chapter on logistic regression (<a href="stat05_log_reg.html" class="quarto-xref"><span>Chapter 8</span></a>).</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>lg_model <span class="ot">&lt;-</span> <span class="fu">logistic_reg</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -983,8 +983,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./tidy02_mult_models.html" class="pagination-link" aria-label="Creating multiple models">
-        <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Creating multiple models</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./tidy02_mult_models.html" class="pagination-link" aria-label="Creating Multiple Models">
+        <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Creating Multiple Models</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

@@ -193,13 +193,13 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./tidy02_mult_models.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Creating multiple models</span></span></a>
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Creating Multiple Models</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./tidy03_hyperparam.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Tuning hyperparameters and overfitting</span></span></a>
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Tuning Hyperparameters and Overfitting</span></span></a>
   </div>
 </li>
       </ul>
@@ -207,7 +207,7 @@ window.Quarto = {
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a href="./stat00_intro.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Applied bio-statistical methods</span></a>
+ <span class="menu-text">Applied Biostatistical Methods</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -216,19 +216,19 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./stat01_diversity.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Diversity measures</span></span></a>
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Diversity Measures</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./stat02_wilcoxon.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Wilcoxon test</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Wilcoxon Test</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./stat03_mult_testing.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Multiple testing correction</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Multiple Testing Correction</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -338,7 +338,7 @@ window.Quarto = {
   <li><a href="#eigenvectors-and-eigenvalues" id="toc-eigenvectors-and-eigenvalues" class="nav-link" data-scroll-target="#eigenvectors-and-eigenvalues"><span class="header-section-number">12.2.2</span> Eigenvectors and Eigenvalues</a></li>
   <li><a href="#importance-of-scaling" id="toc-importance-of-scaling" class="nav-link" data-scroll-target="#importance-of-scaling"><span class="header-section-number">12.2.3</span> Importance of Scaling</a></li>
   <li><a href="#explained-variance" id="toc-explained-variance" class="nav-link" data-scroll-target="#explained-variance"><span class="header-section-number">12.2.4</span> Explained Variance</a></li>
-  <li><a href="#projection-of-data-onto-pcs" id="toc-projection-of-data-onto-pcs" class="nav-link" data-scroll-target="#projection-of-data-onto-pcs"><span class="header-section-number">12.2.5</span> Projection of Data onto PCs</a></li>
+  <li><a href="#projection-of-data-onto-pcs" id="toc-projection-of-data-onto-pcs" class="nav-link" data-scroll-target="#projection-of-data-onto-pcs"><span class="header-section-number">12.2.5</span> Projection of Data Onto PCs</a></li>
   </ul></li>
   <li><a href="#count-matrix" id="toc-count-matrix" class="nav-link" data-scroll-target="#count-matrix"><span class="header-section-number">12.3</span> Count Matrix</a></li>
   <li><a href="#session-info" id="toc-session-info" class="nav-link" data-scroll-target="#session-info"><span class="header-section-number">13</span> Session Info</a></li>
@@ -573,31 +573,34 @@ mpg -5.116685 36.324103</code></pre>
 det(\Sigma - \lambda I) = 0
 \]</span></p>
 <p>Where <span class="math inline">\(\Sigma\)</span> is the covariance matrix, <span class="math inline">\(\lambda\)</span> is the eigenvalue, and <span class="math inline">\(I\)</span> is the identity matrix. As the covariance matrix in the example is a 2x2 matrix, the identity matrix is likewise a 2x2 matrix and two eigenvalues are found. The eigenvalues are then found by solving the equation:</p>
-$$ det(
-<span class="math display">\[\begin{bmatrix}
+<p><span class="math display">\[
+det\left(
+\begin{bmatrix}
 0.96 &amp; -5.12 \\
 -5.12 &amp; 36.32
-\end{bmatrix}\]</span>
-<ul>
-<li><span class="math display">\[\begin{bmatrix}
+\end{bmatrix}
+-
+\begin{bmatrix}
 \lambda &amp; 0 \\
 0 &amp; \lambda
-\end{bmatrix}\]</span>
-)</li>
-</ul>
-<p>=</p>
-det(
-<span class="math display">\[\begin{bmatrix}
+\end{bmatrix}
+\right)
+=
+det\left(
+\begin{bmatrix}
 (0.96 - \lambda) &amp; -5.12 \\
 -5.12 &amp; (36.32 - \lambda)
-\end{bmatrix}\]</span>
-<p>)</p>
-<p>=</p>
-<p>0 $$</p>
+\end{bmatrix}
+\right) = 0
+\]</span></p>
 <p>It can be further simplified to:</p>
 <p><span class="math display">\[
-(0.96 - \lambda)(36.32 - \lambda) - (-5.12 \cdot -5.12) =\\
-34.87 - 0.96\lambda - 36.32\lambda + \lambda^2 - 26.21 = \\
+(0.96 - \lambda)(36.32 - \lambda) - (-5.12 \cdot -5.12) =
+\]</span></p>
+<p><span class="math display">\[
+34.87 - 0.96\lambda - 36.32\lambda + \lambda^2 - 26.21 =
+\]</span></p>
+<p><span class="math display">\[
 8.66 - 37.28\lambda + \lambda^2 = 0
 \]</span></p>
 <p>Solving the quadratic equation, the <span class="math inline">\(\lambda\)</span> values are:</p>
@@ -609,18 +612,20 @@ det(
 \Sigma \cdot v = \lambda \cdot v
 \]</span></p>
 <p>Where <span class="math inline">\(\Sigma\)</span> is the covariance matrix, <span class="math inline">\(v\)</span> is the eigenvector, and <span class="math inline">\(\lambda\)</span> is the eigenvalue. For the two eigenvectors, the equations are:</p>
-$$
-<span class="math display">\[\begin{bmatrix}
+<p><span class="math display">\[
+\begin{bmatrix}
 0.96 &amp; -5.12 \\
 -5.12 &amp; 36.32
-\end{bmatrix} \cdot\]</span>
-<p>v_1 = 37.05 v_1 \</p>
-<span class="math display">\[\begin{bmatrix}
+\end{bmatrix}
+\cdot v_1 = 37.05 \cdot v_1
+\]</span></p>
+<p><span class="math display">\[
+\begin{bmatrix}
 0.96 &amp; -5.12 \\
 -5.12 &amp; 36.32
-\end{bmatrix} \cdot\]</span>
-<p>v_2 = 0.234 v_2</p>
-<p>$$</p>
+\end{bmatrix}
+\cdot v_2 = 0.234 \cdot v_2
+\]</span></p>
 <p>The two vectors are then:</p>
 <p><span class="math display">\[
 v_1 = \begin{bmatrix}
@@ -726,18 +731,22 @@ v_1 = \begin{bmatrix}
 X_{i,j \;standardized} = \frac{X_{i,j} - \mu_{j}}{sd_j}
 \]</span></p>
 <p>Where <code>X</code> is the data matrix, <code>i</code> is the observation and <code>j</code> is the feature, <span class="math inline">\(\mu\)</span> is the mean and <span class="math inline">\(sd\)</span> is the standard deviation. Using standardized data, the eigenvectors and their eigenvalues are:</p>
-$$ v_1 =
-<span class="math display">\[\begin{bmatrix}
+<p><span class="math display">\[
+v_1 =
+\begin{bmatrix}
 0.707 \\
 -0.707
-\end{bmatrix}\]</span>
-<p>, ; ; _1 = 1.87\</p>
+\end{bmatrix},
+\; \; \lambda_1 = 1.87\\
+\]</span></p>
+<p><span class="math display">\[
 v_2 =
-<span class="math display">\[\begin{bmatrix}
+\begin{bmatrix}
 0.707 \\
 0.707
-\end{bmatrix}\]</span>
-<p>, ; ; _2 = 0.13 $$</p>
+\end{bmatrix},
+\; \; \lambda_2 = 0.13
+\]</span></p>
 <p>The eigenvectors are now orthogonal, and the first eigenvector (green) is the one that maximizes the variance of the data. The eigenvectors are scaled by their associated eigenvalue:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>mtcars <span class="sc">|&gt;</span> </span>
@@ -796,7 +805,7 @@ v_2 =
 </div>
 </section>
 <section id="projection-of-data-onto-pcs" class="level3" data-number="12.2.5">
-<h3 data-number="12.2.5" class="anchored" data-anchor-id="projection-of-data-onto-pcs"><span class="header-section-number">12.2.5</span> Projection of Data onto PCs</h3>
+<h3 data-number="12.2.5" class="anchored" data-anchor-id="projection-of-data-onto-pcs"><span class="header-section-number">12.2.5</span> Projection of Data Onto PCs</h3>
 <p>The original data can be projected onto the PCA space by multiplying the data matrix with the eigenvectors. The projection ensures a change of basis, such that PC1 is the new x-axis, PC2 is the new y-axis, and so forth. The projection happens by:</p>
 <p><span class="math display">\[
 S = XU
