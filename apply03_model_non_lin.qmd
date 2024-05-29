@@ -104,7 +104,7 @@ umap_recipe <- stand_recipe |>
                    min_dist = 0.01)
 ```
 
-The model specification is created. The SVM model is used with a radial basis function kernel. The hyperparameters `cost` and `rbf_sigma` are tuned. `cost` is the $\xi$ from the chapter on SVM, i.e. how much observations are allowed to cross the margin and `rbf_sigma` controls how smooth the decision boundary is.
+The model specification is created. The SVM model is used with a radial basis function kernel. The hyperparameters `cost` and `rbf_sigma` are tuned. `cost` is similar to $\xi$ from the chapter on SVM, i.e. how much observations are allowed to cross the margin thereby controlling the Bias-Variance trade off. Low values allows for misclassifications creating a simple model with high bias and low variance. Vice versa for high values which penalizes misclassifications. `rbf_sigma` scales the distance between points inversely. Low values decreases the distance between points in the high dimensions, high values increases the distance. When the distances are lower, the observations affect each other more, creating a more complex model with high variance and low bias.
 
 ```{r}
 svm_spec <- svm_rbf(cost = tune(),
