@@ -1,6 +1,6 @@
 Set seed and load packages.
 ```{r}
-#| output: FALSE
+#| output: false
 #| code-fold: true
 #| code-summary: "Show the code"
 
@@ -13,7 +13,7 @@ library("vegan")
 
 Load data.
 ```{r}
-#| output: FALSE
+#| output: false
 #| code-fold: true
 #| code-summary: "Show the code"
 
@@ -50,7 +50,9 @@ For a simple example, the odds of getting a six with one die is $1/6$. If multip
 
 To setup a scenario where multiple testing becomes relevant, the `Age` and `BMI` columns are split into groups. The Wilcoxon Rank Sum test is then performed for each group. The number of data points affect the power of a test, i.e. the chances of finding a statistically significant difference, if one exist. Therefore, the number of data points in each group should be similar. The groups are defined as follows and the distribution is:
 
-```{r warning=FALSE}
+```{r}
+#| warning: false
+
 meta <- meta |> 
   mutate(Age_group = case_when(Age >= 30 & Age < 36.6 ~ "30-36.6",
                                Age >= 36.6 & Age < 41 ~ "36.6-41",

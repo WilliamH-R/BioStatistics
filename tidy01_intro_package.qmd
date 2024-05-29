@@ -1,6 +1,6 @@
 Set seed and load packages.
 ```{r}
-#| output: FALSE
+#| output: false
 #| code-fold: true
 #| code-summary: "Show the code"
 
@@ -12,7 +12,7 @@ tidymodels::tidymodels_prefer()
 
 Load data.
 ```{r}
-#| output: FALSE
+#| output: false
 #| code-fold: true
 #| code-summary: "Show the code"
 
@@ -48,7 +48,7 @@ iris |>
 
 If we saw a class imbalance, we would have used the below code for splitting the data. The `prop` argument indicates that 90% of the data is used for training and 20% for testing.
 ```{r}
-#| eval: FALSE
+#| eval: false
 
 iris_split <- initial_split(iris,
                             prop = 0.90,

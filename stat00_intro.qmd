@@ -1,6 +1,6 @@
 Load packages.
 ```{r}
-#| output: FALSE
+#| output: false
 #| code-fold: true
 #| code-summary: "Show the code"
 

@@ -1,6 +1,6 @@
 Set seed and load packages.
 ```{r}
-#| output: FALSE
+#| output: false
 #| code-fold: true
 #| code-summary: "Show the code"
 
@@ -13,7 +13,7 @@ library("plotly")
 
 Load data.
 ```{r}
-#| output: FALSE
+#| output: false
 #| code-fold: true
 #| code-summary: "Show the code"
 
@@ -66,7 +66,9 @@ mtcars |>
 Two coefficients are used to try and model the data. The coefficients are the slope of the line for the weight and horse power. High coefficients means steep slopes, which in turn suggests that the response (mpg) is sensitive to the features (wt and hp). When presented to new data which is different from the training data, the model predicts wildly different responses due to the sensitivity to changes. The model then generalizes poorly to new data and is said to have high variance. By increasing lambda, the slope is reduced, and the model becomes less sensitive to the features. This is the bias-variance trade-off in action as seen in the following code chunks.
 
 
-```{r warning = FALSE}
+```{r}
+#| warning: false
+
 # CV folds object
 mtcars_split <- initial_split(mtcars)
 mtcars_train <- training(mtcars_split)
@@ -166,7 +168,9 @@ ridge_coefficients |>
 
 We can plot each of the fitted models on top of the scatterplot to see how the coefficients change with lambda. Due to the limitations of 3D-plotting with `plotly`, legends for each lambda value are not shown. The lambda values can instead be found be hovering each of the planes in the plot. It is seen, that the slopes are reduced as lambda increases.
 
-```{r warning = FALSE}
+```{r}
+#| warning: false
+
 # Make predictions for each function
 ridge_predictions <- ridge_models |>
   map2(lambda_grid, function(model, lambda) {
