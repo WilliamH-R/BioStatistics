@@ -98,7 +98,7 @@ A common first step in microbiome studies is to consider the diversity between g
 
 ## Species Richness
 
-As mentioned previously, Richness is the number of unique species in a sample. Here, the number of unique species in each sample is calculated and stratified by disease severity. The violin plot shows the distribution of the richness values for each disease severity.
+As mentioned previously, Richness is the number of unique organisms in a sample. Here, the number of unique genera in each sample is calculated and stratified by disease severity. The violin plot shows the distribution of the richness values for each disease severity.
 
 By visual inspection, it would seem that patients with MS, either relapsing-remitting or progressive, have a higher richness compared to healthy controls. Interestingly, a sample seem to have a richness of 0. This could indicate that either something went wrong in the sequencing process or in the subsequent data processing moving from raw sequence reads to a count matrix.
 
@@ -152,7 +152,7 @@ richness |>
 
 ## Shannon Index
 
-Both the richness and the evenness of a sample is considered when calculating the Shannon Index. If a group has a generally high Shannon Index, it means that the group has a high number of unique species and that the species are evenly distributed. The violin plot shows the distribution of the Shannon Index values for each disease severity.
+Both the richness and the evenness of a sample is considered when calculating the Shannon Index. If a group has a generally high Shannon Index, it means that the group has a high number of unique genera and that they are evenly distributed. The violin plot shows the distribution of the Shannon Index values for each disease severity.
 
 Similarly to the richness, it would seem that patients with MS, either relapsing-remitting or progressive, have a higher Shannon Index compared to healthy controls, i.e. more unique taxa and more evenly distributed taxa.
 
@@ -193,9 +193,9 @@ shannon |>
 
 ## Pielou Index (Evenness)
 
-Even though richness is needed to calculated the Shannon Index which in turn is needed to calculate the Pielou Index, the richness is not of importance. The independence comes from the division in the formula as the Pielou Index compares the Shannon Index of the sample to Shannon Index of a perfectly even sample of the same size. Then, the Pielou Index is a measure of how evenly the species are distributed in a sample.
+Even though richness is needed to calculated the Shannon Index which in turn is needed to calculate the Pielou Index, the richness is not of importance. The independence comes from the division in the formula as the Pielou Index compares the Shannon Index of the sample to Shannon Index of a perfectly even sample of the same size. Then, the Pielou Index is a measure of how evenly the species (here genera) are distributed in a sample.
 
-Opposite to the richness and the Shannon Index, the Pielou Index seems to be lowest for the relapsing-remitting MS group whereas the healthy controls and progressive MS have similar values. This could indicate that the species in the relapsing-remitting MS group are not as evenly distributed as in the other groups. Further, this also indicate that the higher Shannon Index in the relapsing-remitting group is due to a higher number of unique species and not due to a more even distribution of the species.
+Opposite richness and Shannon Index, Pielou Index seems to be lowest for the relapsing-remitting MS group whereas the healthy controls and progressive MS have similar values. This could indicate that the organisms in the relapsing-remitting MS group are not as evenly distributed as in the other groups. Further, this also indicate that the higher Shannon Index in the relapsing-remitting group is due to a higher number of unique organisms and not due to a more even distribution of the organisms.
 
 ```{r}
 pielou <- shannon |>

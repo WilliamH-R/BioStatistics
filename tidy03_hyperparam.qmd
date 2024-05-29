@@ -26,13 +26,13 @@ iris <- iris |>
 iris_folds <- vfold_cv(iris)
 ```
 
-# Tuning hyperparameters and overfitting
+# Tuning Hyperparameters and Overfitting
 
-## What is a hyperparameter?
+## Introduction to Hyperparameters
 
 A classical and simple example of a hyperparameter is the number of neighbors, usually denoted `k`, in a k-nearest neighbors (KNN) algorithm. This is a hyperparameter as it is not estimated during model fitting, but is specified a priori making it impossible to optimize during parameter estimation.
 
-## Set up tuning
+## Setting Up Tuning
 In the `tidymodels` universe, hyperparameters are marked for tuning in the specifications for a model. To exemplify, both the number of nearest neighbors and a range of weight functions are tuned.
 
 ```{r}
@@ -46,7 +46,7 @@ knn_spec <- nearest_neighbor(neighbors = tune(),
 Secondly, the recipe is set up. As no preprocessing is applied (e.g. log-transformation) it is quite simple.
 
 ```{r}
-knn_rec <- recipe(Species ~ ., # Use all other columns as predictors
+knn_rec <- recipe(Species ~ ., # Use all other columns as features (called predictors in tidymodels)
                   data = iris)
 ```
 
@@ -88,7 +88,7 @@ grid_regular(knn_params,
              levels = 4)
 ```
 
-## Measure performance of tuning
+## Measure Performance of Tuning
 A metric is needed to measure the performance of the hyperparameters. The ROC curve is used. The regular grid is tuned:
 
 ```{r}
@@ -118,7 +118,7 @@ knn_tune |>
   facet_wrap(~ weight_func)
 ```
 
-## Finalize hyperparameter selection
+## Finalize Hyperparameter Selection
 It would seem there is no visual difference between the weight functions. For the number of neighbors, the performance is highest for 10 and 15 neighbors. Preferably, the simplest of the two models is chosen.
 
 ```{r}

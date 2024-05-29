@@ -64,13 +64,13 @@ params
 
 # Linear Modelling {#sec-lin}
 
-Logistic Regression is a linear model since the decision boundary is linear. Linear models tend to be faster due to the less complex math, and are thereby also better for scalability (large data sets). Further, linear models are easier to interpret, as the coefficients can be directly interpreted as the effect of the feature on the response. Linear models also contain some built in regularization as they cannot memorize the data set, which can help avoid overfitting.
+Logistic Regression is a linear model since the decision boundary is linear. Linear models tend to be faster due to the less complex math, and are thereby also better for scalability (large data sets). Further, linear models are easier to interpret, as the coefficients can be directly interpreted as the effect of the feature on the response. Linear models also contain some built in regularization as they cannot memorize the data set which can help avoiding overfitting.
 
 The issues with linear models occur when the data do not contain linear relationships, in which case the model will not be able to capture the underlying structure.
 
-In this chapter, different logistic regression models are built to predict the disease status of the patients. The models are built using different pre-processing steps and different hyperparameter combinations.
+In this chapter, different logistic regression models are built to predict the disease status of individuals. The models are built using different preprocessing steps and different hyperparameter combinations.
 
-## Data wrangling
+## Data Wrangling
 The data is joined with the metadata as the `Patient_status` is used as the response. Only the columns that are needed for the model are kept. Notice `inner_join()` is used such that only rows for which both the count matrix and metadata are available are kept.
 
 ```{r}
@@ -84,7 +84,7 @@ count_matrix_clr <- count_matrix_clr |>
 
 
 ## Cross-Validation
-The data is split into a training and testing set using cross-validation to avoid overfitting. This is especially needed, as some hyperparameters needs to be tuned.
+The data is split into a training and testing set using cross-validation to avoid overfitting. This is especially needed as hyperparameters are to be tuned.
 
 The data is split:
 ```{r}
@@ -99,13 +99,12 @@ The CV object is created:
 ```{r}
 count_matrix_clr_folds <- vfold_cv(count_matrix_clr_train,
                                    v = params$n_folds)
-count_matrix_clr_folds
 ```
 
 ## Recipes
 The recipes contains two pieces of important information. The first is the formula that describes the relationship between the features and the response. In this case, which genera to use for predicting disease. The second is the pre-processing steps that are applied to the data before the model is built. This could include steps such as scaling, log-transform or imputing missing values. Here, the data is already clr-transformed.
 
-Three recipes are created. One without any pre-processing steps, one where Principal Component Analysis (PCA) is applied to the data and one where UMAP is applied. In all cases, all features are used to try and predict the response `Patient_status`.
+Two recipes are created. One without any pre-processing steps and one where PCA is applied for dimensionality reduction. In both cases, all features are used to try and predict the response `Patient_status`.
 
 ```{r}
 stand_recipe <- recipe(Patient_status ~ .,
@@ -114,12 +113,6 @@ stand_recipe <- recipe(Patient_status ~ .,
 pca_recipe <- stand_recipe |> 
   step_pca(all_predictors(),
            num_comp = 7)
-
-# umap_recipe <- stand_recipe |> 
-#   step_umap(all_predictors(),
-#             num_comp = 7,
-#             neighbors = 4,
-#             min_dist = 0.01)
 ```
 
 ## Model Specifications
@@ -153,7 +146,7 @@ log_spec |>
   extract_parameter_dials("mixture")
 ```
 
-For the penalty, values between $10^-10$ and $1$ are used pr default. The range is increased to $5*10^1$. The updated range is saved in a new object, but the information is not added to the models until the workflow is created further down. As seen from the output, the information do not pertain to a specific model, but simply contain ranges for different hyperparameters.
+For the penalty, values between $10^{-10}$ and $1$ are used per default. The range is increased to $5\cdot10^1$. The updated range is saved in a new object, but the information is not added to the models until the workflow is created further down. As seen from the output, the information do not pertain to a specific model, but simply contain ranges for different hyperparameters.
 
 ```{r}
 log_param_ranges <- log_spec |> 
@@ -190,7 +183,7 @@ workflow_set <- workflow_set(
 workflow_set
 ```
 
-The parameter objects which contain the hyperparameter ranges are added to the workflow:
+The parameter objects which contain the hyperparameter ranges are added to the workflow (note the `option` column is changed):
 
 ```{r}
 workflow_set <- workflow_set |>
@@ -198,8 +191,6 @@ workflow_set <- workflow_set |>
              param_info = log_param_ranges) |>
   option_add(id = "pca_log",
              param_info = log_param_ranges) |>
-  # option_add(id = "umap_log",
-  #            param_info = log_param_ranges) |>
   option_add(id = "stand_log_ridge",
              param_info = log_penalty_param_ranges) |>
   option_add(id = "stand_log_lasso",
@@ -207,15 +198,11 @@ workflow_set <- workflow_set |>
   option_add(id = "pca_log_ridge",
              param_info = log_penalty_param_ranges) |>
   option_add(id = "pca_log_lasso",
-             param_info = log_penalty_param_ranges) #|>
-  # option_add(id = "umap_log_ridge",
-  #            param_info = log_penalty_param_ranges) |>
-  # option_add(id = "umap_log_lasso",
-  #            param_info = log_penalty_param_ranges)
+             param_info = log_penalty_param_ranges)
 workflow_set
 ```
 
-## Tune hyperparameters
+## Tune Hyperparameters
 
 All workflows in the workflow set contains hyperparameters. These are tuned with a search grid using the function `tune_grid()`. As `workflow_set` contain multiple workflows, the `tune_grid()` function can be mapped over the workflows to tune all hyperparameters using `workflow_map()`, a `purrr`-like map function.
 
@@ -257,7 +244,8 @@ autoplot(
   lims(y = c(0.4, 1)) +
   theme(legend.position = "none") +
   facet_wrap(~ wflow_id,
-             ncol = 2)
+             ncol = 2) +
+  lims(y = c(0.5, 1))
 ```
 
 The issue with wrappers, e.g. the convenience function `autoplot()`, is that they do not always provide the flexibility needed. A cleaner plot is created by extracting the data and manually plotting it. The plot shows the AUC for each workflow, with error bars showing the standard error.
@@ -284,9 +272,7 @@ grid_results |>
              scales = "free_y")
 ```
 
-A couple of interesting insights can be gained from looking at the optimal hyperparameters. When comparing the two ENet models (`stand_log` vs `pca_log`), the mixture is higher for `pca_log`, i.e. preferring Lasso over Ridge. This is opposite expectations as PCA should reduce the number of features, which in turn should reduce the need for Lasso regularization. However, `penalty` is several orders of magnitude lower for `pca_log` meaning the Lasso regularization is less strict.
-
-When comparing the full Ridge and Lasso models between the two preprocessing steps, the `penalty` is lower when PCA preprocessing is performed. This is expected as PCA reduces the number of features reducing the need for regularization.
+A couple of interesting insights can be gained from looking at the optimal hyperparameters (see table below). When comparing the two ENet models (`stand_log` vs `pca_log`), the mixture is higher for `pca_log`, i.e. preferring Lasso over Ridge. This is opposite expectations as PCA should reduce the number of features, which in turn should reduce the need for Lasso regularization. However, `penalty` is several orders of magnitude lower for `pca_log` meaning the Lasso regularization is less strict. When comparing the full Ridge and Lasso models between the two preprocessing steps, the `penalty` is lower when PCA preprocessing is performed. This is expected as PCA reduces the number of features reducing the need for regularization.
 
 ```{r}
 workflow_ids <- grid_results |>
@@ -311,7 +297,7 @@ tuning_params_result <- workflow_ids |>
 tuning_params_result
 ```
 
-## Finalize workflow
+## Finalize Workflow
 As the hyperparameters have been tuned, the final workflow can be created which is done by adding the hyperparameters to the workflow.
 
 ```{r}
@@ -349,7 +335,7 @@ workflow_set_fit <- workflow_ids |>
 names(workflow_set_fit) <- workflow_ids
 ```
 
-## Visualize performance
+## Visualize Performance
 
 Different options exist for visualizing the performance of the models. One option is to look at the confusion matrices. The example below shows the confusion matrix for the `stand_log` model. From the table it can be seen that the model always predict MS, regardless of the true status.
 
@@ -420,7 +406,7 @@ workflow_ids |>
 
 ## Fine Tuning Hyperparameters
 
-The hyperparameters were tuned using a grid search of size `r params$grid_size`. The best result of each workflow is chosen solely on the best value of AUC. It is possible, that a slightly worse performing model is preferred due to it being simpler. Models with a larger `penalty` are simpler as the coefficients are closer to zero, or less coefficients are present. A rule "one standard error" is often used to choose the simplest model that is within one standard error of the best model.
+The hyperparameters were tuned using a grid search of size `r params$grid_size`. The best result of each workflow is chosen solely on the best value of AUC. It is possible, that a slightly worse performing model is preferred due to it being simpler. Models with a larger `penalty` are simpler as the coefficients are closer to zero, or less coefficients are present. A "one standard error rule" can be used to choose the simplest model that is within one standard error of the best model.
 
 ```{r}
 #| code-fold: true
@@ -532,7 +518,7 @@ roc_auc_results_fine |>
   scale_color_viridis_d()
 ```
 
-Finding the best performing model based on the AUC do not make sense after applying the one standard error rule, as a worse performing model was deliberately chosen to increase simplicity of the model.
+Finding the best performing model based on the AUC is nonsensical after applying the one standard error rule, as a worse performing model was deliberately chosen to increase simplicity of the model.
 
 ```{r}
 #| code-fold: true

@@ -210,32 +210,32 @@ det\left(
 0.96 & -5.12 \\
 -5.12 & 36.32
 \end{bmatrix}
-
-- \begin{bmatrix}
+-
+\begin{bmatrix}
 \lambda & 0 \\
 0 & \lambda
 \end{bmatrix}
 \right)
-
 = 
-
 det\left(
 \begin{bmatrix}
 (0.96 - \lambda) & -5.12 \\
 -5.12 & (36.32 - \lambda)
 \end{bmatrix}
-\right)
-
-=
-
-0
+\right) = 0
 $$
 
 It can be further simplified to:
 
 $$
-(0.96 - \lambda)(36.32 - \lambda) - (-5.12 \cdot -5.12) =\\
-34.87 - 0.96\lambda - 36.32\lambda + \lambda^2 - 26.21 = \\
+(0.96 - \lambda)(36.32 - \lambda) - (-5.12 \cdot -5.12) =
+$$
+
+$$
+34.87 - 0.96\lambda - 36.32\lambda + \lambda^2 - 26.21 =
+$$
+
+$$
 8.66 - 37.28\lambda + \lambda^2 = 0
 $$
 
@@ -257,17 +257,16 @@ $$
 \begin{bmatrix}
 0.96 & -5.12 \\
 -5.12 & 36.32
-\end{bmatrix} \cdot
+\end{bmatrix}
+\cdot v_1 = 37.05 \cdot v_1
+$$
 
-v_1 = 37.05 \cdot v_1 \\
-
+$$
 \begin{bmatrix}
 0.96 & -5.12 \\
 -5.12 & 36.32
-\end{bmatrix} \cdot
-
-v_2 = 0.234 \cdot v_2
-
+\end{bmatrix}
+\cdot v_2 = 0.234 \cdot v_2
 $$
 
 The two vectors are then:
@@ -368,15 +367,21 @@ $$
 Where `X` is the data matrix, `i` is the observation and `j` is the feature, $\mu$ is the mean and $sd$ is the standard deviation. Using standardized data, the eigenvectors and their eigenvalues are:
 
 $$
-v_1 = \begin{bmatrix}
+v_1 =
+\begin{bmatrix}
 0.707 \\
 -0.707
-\end{bmatrix}, \; \; \lambda_1 = 1.87\\
+\end{bmatrix},
+\; \; \lambda_1 = 1.87\\
+$$
 
-v_2 = \begin{bmatrix}
+$$
+v_2 =
+\begin{bmatrix}
 0.707 \\
 0.707
-\end{bmatrix}, \; \; \lambda_2 = 0.13
+\end{bmatrix},
+\; \; \lambda_2 = 0.13
 $$
 
 The eigenvectors are now orthogonal, and the first eigenvector (green) is the one that maximizes the variance of the data. The eigenvectors are scaled by their associated eigenvalue:
@@ -427,7 +432,7 @@ var_explained |>
        y = "Proportion Explained")
 ```
 
-### Projection of Data onto PCs
+### Projection of Data Onto PCs
 
 The original data can be projected onto the PCA space by multiplying the data matrix with the eigenvectors. The projection ensures a change of basis, such that PC1 is the new x-axis, PC2 is the new y-axis, and so forth. The projection happens by:
 

@@ -64,7 +64,10 @@ $$
 As can be seen, $a = -\frac{A}{B}$ and $b = -\frac{C}{B}$. $A$ is the slope, $C$ is the intercept and $B$ is a scaling factor. The equation $Ax + By + C = 0$ is the equation for a hyperplane, here in two dimensions. This form can be rewritten into a matrix form which is more used in the field:
 
 $$
-Ax + By + C = 0 \rightarrow \begin{bmatrix} A & B \end{bmatrix} \begin{bmatrix} x \\ y \end{bmatrix} + C = 0 \\
+Ax + By + C = 0 \rightarrow \begin{bmatrix} A & B \end{bmatrix} \begin{bmatrix} x \\ y \end{bmatrix} + C = 0
+$$
+
+$$
 \rightarrow w^Tx + b = 0
 $$
 
@@ -94,15 +97,31 @@ $$
 As stated in the introduction, the goal is to maximize the margin, i.e. the distance between the two green lines. The margin is calculated as $d = \frac{2}{||w||}$, and the goal is to maximize $d$ which is the same as minimizing $||w||$. The optimization problem subject to the constraints can then be formulated as:
 
 $$
-\min_{w,b}||w||^2 \\ \text{ subject to } \\ y_i(w^Tx_i - b) \geq 1, \;\; \forall i
+\min_{w,b}||w||^2
+$$
+
+$$
+\text{ subject to }
+$$
+$$
+y_i(w^Tx_i - b) \geq 1, \;\; \forall i
 $$
 
 The above formulation allows for no misclassifications, i.e a hard margin. The SVM has a soft margin and do allow for misclassifications. A new value $\xi$ is introduced. It is a vector with a value for each observation, indicating how far the observation can be from the correct side of the margin. Further, $\lambda$ is introduced as a penalty for misclassifications, similar to regularization for OLS. The final optimization problem for the SVM can then be formulated as:
 
 $$
-\min_{w,b,\xi}||w||^2 + \lambda\sum_{i=1}^{n}\xi_i \\
-\text{ subject to } \\
-y_i(w^Tx_i - b) \geq 1 - \xi_i, \;\; \forall i \\
+\min_{w,b,\xi}||w||^2 + \lambda\sum_{i=1}^{n}\xi_i
+$$
+
+$$
+\text{ subject to }
+$$
+
+$$
+y_i(w^Tx_i - b) \geq 1 - \xi_i, \;\; \forall i
+$$
+
+$$
 \xi_i \geq 0, \;\; \forall i
 $$
 
@@ -153,7 +172,9 @@ Where $K(x,y)$ is a vector of transformed values for each observation in $x$ and
 The idea is, that instead of transforming $x$ and $y$ with $\phi$ and then calculating the dot product, the dot product can be calculated directly on the input space. This saves computational power as $\phi$ maps the data into a higher dimension, which is computationally expensive. The mathematical benefit of the Kernel Trick is exemplified below where $c = 1$ for simplicity. The feature mapping $\phi$ needed to transform the data can be found by expanding the polynomial kernel:
 
 $$
-K(x,y) = (1 + x^Ty)^2  = (1 + x_1y_1 + x_2y_2)^2 \rightarrow\\
+K(x,y) = (1 + x^Ty)^2  = (1 + x_1y_1 + x_2y_2)^2 \rightarrow
+$$
+$$
 K(x,y) = 1 + 2x_1y_1 + 2x_2y_2 + 2x_1y_1x_2y_2 + x_1^2y_1^2 + x_2^2y_2^2
 $$
 
@@ -167,7 +188,10 @@ $$
 So the feature mapping $\phi$ is:
 
 $$
-\phi(x)^T = (1 + \sqrt{2}x_1 + \sqrt{2}x_2 + \sqrt{2}x_1x_2 + x_1^2 + x_2^2)\\
+\phi(x)^T = (1 + \sqrt{2}x_1 + \sqrt{2}x_2 + \sqrt{2}x_1x_2 + x_1^2 + x_2^2)
+$$
+
+$$
 \phi(y) = (1 + \sqrt{2}y_1 + \sqrt{2}y_2 + \sqrt{2}y_1y_2 + y_1^2 + y_2^2)
 $$
 

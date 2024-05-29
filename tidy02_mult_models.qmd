@@ -32,7 +32,7 @@ iris_test <- testing(iris_split)
 ```
 
 
-# Creating multiple models
+# Creating Multiple Models
 ## Cross-validation
 The reasonings for, and theoretical aspects of, cross-validation (CV) are expected to be already known. In the `tidymodels` universe, CV is setup as:
 ```{r}
@@ -96,7 +96,7 @@ lg_models <- lg_models |>
 lg_models
 ```
 
-## Evaluation metrics across models
+## Evaluation Metrics Across Models
 Two simple evaluation metrics for logistic regressions are the accuracy and Area Under the Curve (AUC). It is implicit that it is area under the Receiver Operating Characteristic (ROC) curve. To view these two evaluation metrics (the column `mean`):
 ```{r}
 collect_metrics(lg_models) |> 

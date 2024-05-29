@@ -20,7 +20,7 @@ Load data.
 count_matrix_test <- readr::read_rds("https://github.com/WilliamH-R/BioStatistics/raw/main/data/count_matrix/count_matrix_test.rds")
 ```
 
-# Diversity measures
+# Diversity Measures
 
 One might suspect, that due to some disease, the microbiome of an individual is altered. To quantify this, a measure is needed to quantify the diversity between the two groups. Either, the diversity for each sample can be calculated and compared between the two groups (alpha diversity), or the diversity between the samples in the two groups can be calculated (beta diversity).
 
@@ -165,9 +165,9 @@ shannon |>
   mutate(Pielou = Shannon / log(n()))
 ```
 
-### Faith's phylogenetic diversity (Faith's PD)
+### Faith's Phylogenetic Diversity
 
-Faith's PD consider phylogenetic distances within a sample. The PD for a sample is calculated as the total sum of branch lengths from a phylogenetic tree, where the tree only contains the organisms found in a given sample [@Faith1992]. Imagine a scenario with four organisms, where organism `a` and `b` are closely related, and so are organism `c` and `d`:
+Faith's Phylogenetic Diversity (Faith's PD) consider phylogenetic distances within a sample. The PD for a sample is calculated as the total sum of branch lengths from a phylogenetic tree, where the tree only contains the organisms found in a given sample [@Faith1992]. Imagine a scenario with four organisms, where organism `a` and `b` are closely related, and so are organism `c` and `d`:
 
 ![Phylogenetic tree](images/tree_example.png){#fig-tree_example}
 

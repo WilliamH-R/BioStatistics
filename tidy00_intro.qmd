@@ -1,4 +1,4 @@
-# Tidy Modelling with R
+# Tidy Modelling with R {#sec-tidy_intro}
 
 R is already a great tool for data wrangling, analysis and visualisation. However, when it comes to building and evaluating models, it can be a bit cumbersome. Different packages have different syntax and conventions, which makes it difficult to switch between them. The `tidymodels` package aims to solve this problem by providing a consistent and easy-to-use interface for building and evaluating models.
 

@@ -42,7 +42,7 @@ meta <- read.csv(file = "data/metadata.txt") |>
          EDSS = as.factor(EDSS))
 ```
 
-# Multiple testing correction
+# Multiple Testing Correction
 
 The p-value is the probability of observing a test statistic as extreme as the one observed, given that the null hypothesis is true. Essentially, a value denoting the probability that the observed data was drawn from the population, if the null hypothesis is true. If multiple samples are tested, the probability of observing a significant result by chance increases which is exactly why correcting for multiple testing is important.
 
@@ -143,7 +143,7 @@ The probability of finding at least on false positive is also referred to as the
 A way to correct for multiple testing is needed to avoid these high probabilities of false positives. There are several methods for correcting for multiple testing including common methods such as Bonferroni correction and the Benjamini-Hochberg Procedure
 
 
-## FWER correction (Bonferroni)
+## FWER Correction (Bonferroni)
 The Bonferroni correction is a conservative method, which means that it is less likely to find significant results. To apply Bonferroni correction, the significance level is divided by the number of tests, which would then also affect the FWER (the probability of finding at least one false positive among the significant results). The Bonferroni adjusted significance level is then:
 
 ```{r}
@@ -166,7 +166,7 @@ $$
 
 The FWER is reduced from 56% to 4.9%, close to the original significance level of 5%. It is then expected to find fewer false positives, also called Type I errors. However, the chance of finding false negatives also increases (referred to as Type II errors). In this case, finding false negatives means accepting the null hypothesis when it was actually false, i.e. not finding a significant result when one exists. In some cases, using a very conservative method is preferred, especially when the cost of a false positive is high.
 
-## False Discovery Rate correction (Benjamini-Hochberg)
+## False Discovery Rate Correction (Benjamini-Hochberg)
 Another way to control for multiple testing is through the False Discovery Rate (FDR). FDR is the proportion of false positives among the significant results:
 
 $$
@@ -181,7 +181,7 @@ Two ways to implement the method exists. Either the significance level is adjust
 
 In general, each p-value is compared to a moving significance level instead of compared to a static value of $\alpha$, e.g. $0.05$. The moving significance level is dependent on the rank of the p-value and the number of tests. The lowest p-value gets rank 1, the second lowest rank 2, and so on. With a higher rank, the significance level increases, allowing for more significant hits.
 
-### Adjusting the significance level
+### Adjusting the Significance Level
 All p-values are sorted in ascending order and ranked as mentioned above. A critical value for each rank is calculated by:
 
 $$

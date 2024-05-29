@@ -92,9 +92,9 @@ plot_multiple_poly_models <- function(data,
 }
 ```
 
-# Bias and Variance {#sec-bias_var}
+# Bias and Variance
 
-# Introduction to the Bias-Variance Tradeoff
+# Introduction to the Bias-Variance Tradeoff {#sec-bias_var}
 
 In supervised machine learning, the ultimate goal is usually to create models which can predict the response of unseen data. This is the ability of a model to generalize well to new data and is measured by the Generalization Error. The ability to generalize can be decomposed into the balance between bias and variance of a model. Therefore, understanding bias and variance is crucial in machine learning since it aids in developing models that generalize well to new data.
 

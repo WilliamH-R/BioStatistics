@@ -8,7 +8,7 @@ library("tidymodels")
 tidymodels::tidymodels_prefer()
 ```
 
-# Applied bio-statistical methods
+# Applied Biostatistical Methods {#sec-stat_intro}
 
 In this part, each of the following parts delve into an area of biostatistics. This includes a chapter on diversity measures, hypothesis testing and several chapters on models such as Ordinary Linear Regression. Each chapter is structured in a similar way. First, a commonly occurring problem is introduced, followed by an explanation of the method and how it solves the problem. Then, the math behind the method is then explained, and lastly, a visual representation. Deviations from this structure may occur when e.g. a text based introduction is insufficient.
 
@@ -30,7 +30,7 @@ count_matrix_test <- count_matrix |>
 count_matrix_test
 ```
 
-Microbiome data is inherently compositional, meaning that the sum of all genera in a sample is constant, so the count numbers indicate the proportion of a specific genera. As a consequence of compositional data, commonly used statistical tools are not applicable. To avoid this compositionality, the count matrix is transformed using the centered log-ratio (clr) transformation.
+Microbiome data is inherently compositional, meaning that the sum of all genera in a sample is constant, so the count numbers indicate the proportion of a specific genus. As a consequence of compositional data, commonly used statistical tools are not applicable. To avoid this compositionality, the count matrix is transformed using the centered log-ratio (clr) transformation.
 
 ```{r}
 count_matrix_clr <- readr::read_rds("https://github.com/WilliamH-R/BioStatistics/raw/main/data/count_matrix/count_matrix_clr.rds")

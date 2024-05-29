@@ -24,7 +24,7 @@ iris <- iris |>
 ```
 
 # Introduction to Tidy Modelling
-## Introdution to dataset
+## Introdution to the Dataset
 For simplicity, the `iris` dataset is used since the structure is simple, and readers should be familiar with it. As a quick reminder, the dataset consists of five variables (columns) and 150 observations (rows). The first four variables are doubles describing the size of the flower, used as features. The last variable, the response, is a factor indicating the species of flower, used as the response. To make this a binary logistic classification problem, and not multiclass, the setosa species have been excluded.
 ```{r}
 dim(iris)
@@ -63,7 +63,7 @@ iris_train <- training(iris_split)
 iris_test <- testing(iris_split)
 ```
 
-## Fitting a model
+## Fitting A Model
 The `parsnip` package standardizes creating models. When learning a new technique, here `parsnip`, it is a good idea to apply well known theory. Therefore, a linear logistic regression model is used to predict the species of a flower given the dimensions of the sepal and the petal. If the reader is unfamiliar with the theory, it is recommended to read the chapter on logistic regression (@sec-logistic_regression).
 ```{r}
 lg_model <- logistic_reg()

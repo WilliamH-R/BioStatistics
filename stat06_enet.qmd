@@ -244,7 +244,7 @@ plot_w_predictions
 
 ### Applying Ridge Regression to Logistic Regression
 
-Recall from @sec-logistic_regression, that the algorithm seek to maximize the likelihoods:
+Recall from @sec-logistic_regression on Logistic Regression, that the algorithm seek to maximize the likelihoods:
 
 $$
 \beta_{LR} = \max_{\beta} \; L(\beta,x_i,y_i)

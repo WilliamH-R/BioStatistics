@@ -169,7 +169,7 @@ grid_results <- workflow_set |>
   )
 ```
 
-Performance across the grid search is visualized. From the search, it would seem the grid ranges should be adjusted as the performance is not plateauing.
+Performance across the grid search is visualized. From the search, it would seem the grid ranges should be increased further as the performance is not plateauing.
 
 ```{r}
 grid_results |>

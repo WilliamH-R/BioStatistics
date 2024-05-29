@@ -43,9 +43,9 @@ meta <- read.csv(file = "data/metadata.txt") |>
 ```
 
 
-# Wilcoxon test
+# Wilcoxon Test
 
-After calculating some metric for two groups, e.g. the Shannon Index as a measure of diversity introduced in #sec-shannon_index, one is left with two groups of values. Simply stating the numerical difference between the groups is not enough to determine if the difference is statistically significant. To do this, hypothesis testing is used. The null hypothesis is that there is no difference between the groups, and the alternative hypothesis is that there is a difference.
+After calculating some metric for two groups, e.g. the Shannon Index as a measure of diversity introduced in @sec-shannon_index, one is left with two groups of values. Simply stating the numerical difference between the groups is not enough to determine if the difference is statistically significant. To do this, hypothesis testing is used. The null hypothesis is that there is no difference between the groups, and the alternative hypothesis is that there is a difference.
 
 A plethora of statistical tests exists. The choice of test depends on the type of data. For example, if the data is normally distributed, the t-test can be used to compare the means of two groups. If the data is not normally distributed, the Wilcoxon test is an option. Below, the Shannon Index for the full data set have been calculated and plotted stratified by the patient status (Healthy vs Multiple Sclerosis (MS)). As can be seen from the plots, the Shannon Index does not seem to follow a normal distribution for both groups.
 
