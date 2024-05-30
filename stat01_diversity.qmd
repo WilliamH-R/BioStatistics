@@ -240,7 +240,7 @@ $$
 BC_{jk} = \frac{\sum_{i=1}^{R} |S_{ij} - S_{ik}|}{\sum_{i=1}^{R} (S_{ij} + S_{ik})}
 $$
 
-Where $S_{ij}$ and $S_{ik}$ are the abundances of the $i$'th organism in sample $j$ and $k$, respectively. $R$ is the number of organisms. With the test data, the Bray-Curtis dissimilarity is calculated as follows:
+Where $S_{ij}$ and $S_{ik}$ are the abundances of the $i$'th organism in sample $j$ and $k$, respectively. $R$ is the number of organisms [@Bray1957]. With the test data, the Bray-Curtis dissimilarity is calculated as follows:
 
 $$
 BC_{SRR14214860, SRR14214861} = \frac{|0 - 0| + |11 - 12| + |190 - 0| + |486 - 5|}
