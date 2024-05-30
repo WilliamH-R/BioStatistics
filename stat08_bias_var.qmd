@@ -134,6 +134,8 @@ samples_10k |>
   ggplot(aes(x = value)) +
   geom_histogram(bins = 50,
                  fill = "steelblue") +
+  scale_y_continuous(expand = c(0, 0,
+                                0.01, 0.01)) +
   labs(title = "Normal Distribution",
        x = "Value",
        y = "Count") +
@@ -153,6 +155,8 @@ bootstrap_10k |>
   ggplot(aes(x = value)) +
   geom_histogram(bins = 50,
                  fill = "steelblue") +
+  scale_y_continuous(expand = c(0, 0,
+                                0.01, 0.01)) +
   labs(title = "Bootstrap Sample",
        x = "Value",
        y = "Count") +
