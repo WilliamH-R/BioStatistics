@@ -67,7 +67,8 @@ iris_umap |>
   ggplot(aes(x = V1,
              y = V2,
              col = Species)) +
-  geom_point()
+  geom_point(size = 3) +
+  theme(text=element_text(size=13))
 ```
 
 The following section includes more details on how UMAP works. As mentioned, the first step is to find the distance between all observations in the high-dimensional space (first step in @fig-UMAP). The default distance metric is often Euclidean, but other metrics can be used.
@@ -122,7 +123,8 @@ count_matrix_umap |>
   ggplot(aes(x = V1,
              y = V2,
              col = Patient_status)) +
-  geom_point()
+  geom_point(size = 3) +
+  theme(text=element_text(size=13))
 ```
 
 # Session Info

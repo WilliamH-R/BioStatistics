@@ -75,9 +75,11 @@ iris_prob <- iris |>
 iris_prob_plot <- iris_prob |>
   ggplot(aes(x = Petal.Length,
              y = Species_prob)) +
-  geom_point(aes(col = Species)) +
+  geom_point(aes(col = Species),
+             size = 3) +
   labs(x = "Petal Length",
-       y = "Probability of virginica")
+       y = "Probability of virginica") +
+  theme(text=element_text(size=13))
 iris_prob_plot
 ```
 
@@ -91,10 +93,12 @@ iris_logit_plot <- iris_prob |>
                                    )) |>
   ggplot(aes(x = Petal.Length,
              y = Species_logit)) +
-  geom_point(aes(col = Species)) +
+  geom_point(aes(col = Species),
+             size = 3) +
   scale_y_discrete(limits = c("-Inf", "-2", "-1", "0", "1", "2", "Inf")) +
   labs(x = "Petal Length",
-       y = "log(odds) of virginica")
+       y = "log(odds) of virginica") +
+  theme(text=element_text(size=13))
 iris_logit_plot
 ```
 

@@ -112,10 +112,11 @@ knn_tune |>
   mutate(estimate_avg = mean(.estimate)) |>
   ggplot(aes(x = neighbors,
              y = estimate_avg)) +
-  geom_point() +
-  geom_line() +
+  geom_point(size = 3) +
+  geom_line(linewidth = 0.7) +
   scale_x_continuous(breaks = c(1, 5, 10, 15)) +
-  facet_wrap(~ weight_func)
+  facet_wrap(~ weight_func) +
+  theme(text=element_text(size=13))
 ```
 
 ## Finalize Hyperparameter Selection

@@ -182,14 +182,16 @@ grid_results |>
   ggplot(aes(x = rank,
              y = mean,
              col = wflow_id)) +
-  geom_point() +
+  geom_point(size = 2) +
   geom_errorbar(aes(ymin = mean - std_err,
                     ymax = mean + std_err)) +
   theme(legend.position = "none") +
   labs(x = "Rank",
        y = "AUC") +
   facet_wrap(~ wflow_id,
-             ncol = 2, scales = "free_y")
+             ncol = 2, scales = "free_y") +
+  lims(y = c(0.3, 1)) +
+  theme(text=element_text(size=13))
 ```
 
 The best hyperparameters are extracted and added to the workflow for fitting and predicting.
@@ -249,5 +251,6 @@ roc_auc_results |>
              col = wflow_id)) + 
   geom_path(lwd = 1) +
   geom_abline(lty = 3) + 
-  coord_equal()
+  coord_equal() +
+  theme(text=element_text(size=13))
 ```

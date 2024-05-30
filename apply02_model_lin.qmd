@@ -172,9 +172,7 @@ A workflow set for all combinations of recipes and models is created:
 ```{r}
 workflow_set <- workflow_set(
   preproc = list(stand = stand_recipe,
-                 pca = pca_recipe#,
-                 #umap = umap_recipe
-                 ),
+                 pca = pca_recipe),
   models = list(log = log_spec,
                 log_ridge = log_ridge_spec,
                 log_lasso = log_lasso_spec)
@@ -240,12 +238,13 @@ autoplot(
   metric = "roc_auc",
   type = "wflow_id"
 ) +
-  geom_point(aes(y = mean)) +
+  geom_point(aes(y = mean),
+             size = 2) +
   lims(y = c(0.4, 1)) +
   theme(legend.position = "none") +
   facet_wrap(~ wflow_id,
              ncol = 2) +
-  lims(y = c(0.5, 1))
+  theme(text=element_text(size=13))
 ```
 
 The issue with wrappers, e.g. the convenience function `autoplot()`, is that they do not always provide the flexibility needed. A cleaner plot is created by extracting the data and manually plotting it. The plot shows the AUC for each workflow, with error bars showing the standard error.
@@ -261,15 +260,17 @@ grid_results |>
   ggplot(aes(x = rank,
              y = mean,
              col = wflow_id)) +
-  geom_point() +
+  geom_point(size = 2) +
   geom_errorbar(aes(ymin = mean - std_err,
                     ymax = mean + std_err)) +
-  theme(legend.position = "none") +
   labs(x = "Rank",
        y = "AUC") +
   facet_wrap(~ wflow_id,
              ncol = 2,
-             scales = "free_y")
+             scales = "free_y") +
+  lims(y = c(0.4, 1)) +
+  theme(legend.position = "none",
+        text=element_text(size=13))
 ```
 
 A couple of interesting insights can be gained from looking at the optimal hyperparameters (see table below). When comparing the two ENet models (`stand_log` vs `pca_log`), the mixture is higher for `pca_log`, i.e. preferring Lasso over Ridge. This is opposite expectations as PCA should reduce the number of features, which in turn should reduce the need for Lasso regularization. However, `penalty` is several orders of magnitude lower for `pca_log` meaning the Lasso regularization is less strict. When comparing the full Ridge and Lasso models between the two preprocessing steps, the `penalty` is lower when PCA preprocessing is performed. This is expected as PCA reduces the number of features reducing the need for regularization.
@@ -375,7 +376,8 @@ roc_auc_results |>
             alpha = 0.5) +
   geom_abline(lty = 3) + 
   coord_equal() + 
-  scale_color_viridis_d()
+  scale_color_viridis_d() +
+  theme(text=element_text(size=13))
 ```
 
 Otherwise, the general rule is to choose the model with the highest AUC since it is the model that performs best across all thresholds. `stand_log_ridge` performs slightly better than the other models.
@@ -397,11 +399,14 @@ workflow_ids |>
   geom_label(aes(label = round(mean, 3)),
              position = position_stack(vjust = 0.9),
              show.legend = FALSE) +
+  scale_y_continuous(expand = c(0, 0,
+                                0.01, 0.01)) +
   labs(title = "AUC",
        x = "Workflow ID",
        y = "AUC by Workflows") +
   theme(axis.text.x = element_blank(),
-        axis.ticks.x = element_blank())
+        axis.ticks.x = element_blank(),
+        theme(text=element_text(size=13)))
 ```
 
 ## Fine Tuning Hyperparameters
@@ -451,7 +456,8 @@ ridge_results |>
   labs(title = "Standard Preprocessing, Ridge",
        x = "Penalty",
        y = "AUC") +
-  lims(y = c(0, 0.75))
+  lims(y = c(0.4, 1)) +
+  theme(text=element_text(size=13))
 ```
 
 The practice is applied to all the models by extracting, finalizing, fitting, predicting and then visualizing as done in the above.
@@ -515,7 +521,8 @@ roc_auc_results_fine |>
             alpha = 0.6) +
   geom_abline(lty = 3) + 
   coord_equal() + 
-  scale_color_viridis_d()
+  scale_color_viridis_d() +
+  theme(text=element_text(size=13))
 ```
 
 Finding the best performing model based on the AUC is nonsensical after applying the one standard error rule, as a worse performing model was deliberately chosen to increase simplicity of the model.
@@ -555,11 +562,13 @@ workflow_ids |>
   geom_label(aes(label = round(mean, 3)),
              position = position_stack(vjust = 0.9),
              show.legend = FALSE) +
+  scale_y_continuous(expand = c(0, 0)) +
   labs(title = "AUC",
        x = "Workflow ID",
        y = "AUC by Workflows") +
   theme(axis.text.x = element_blank(),
-        axis.ticks.x = element_blank())
+        axis.ticks.x = element_blank()) +
+  theme(text=element_text(size=13))
 ```
 
 # Session Info

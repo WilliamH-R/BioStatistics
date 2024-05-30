@@ -64,14 +64,17 @@ plot_multiple_poly_models <- function(data,
   p <- ggplot(data,
               aes(x = X,
                   y = y)) +
-    geom_point(aes(color = "Data points")) +
-    stat_function(fun = sin,
-                  aes(color = "True sine function")) +
+    geom_point(aes(color = "Data points"),
+               size = 2) +
+    stat_function(aes(color = "True sine function"),
+                  fun = sin,
+                  linewidth = 1) +
     labs(title = stringr::str_c("Polynomial Degree ", degree, " with Multiple Fits"),
          x = "X",
          y = "y",
          color = "Legend") +
-    lims(y = c(-2, 2))
+    lims(y = c(-2, 2)) +
+    theme(text=element_text(size=13))
   
   for (i in 1:n_models) {
     
@@ -133,7 +136,8 @@ samples_10k |>
                  fill = "steelblue") +
   labs(title = "Normal Distribution",
        x = "Value",
-       y = "Count")
+       y = "Count") +
+  theme(text=element_text(size=13))
 ```
 
 Bootstrapping the samples should result in a similar distribution, but contains different values, i,e. different data sets but drawn from the same distribution:
@@ -151,7 +155,8 @@ bootstrap_10k |>
                  fill = "steelblue") +
   labs(title = "Bootstrap Sample",
        x = "Value",
-       y = "Count")
+       y = "Count") +
+  theme(text=element_text(size=13))
 ```
 
 ## Bias and Variance Example
@@ -165,15 +170,18 @@ The data generated show clear signs of following a sine function, but with some 
 
 ```{r}
 ggplot(df_poly, aes(x = X, y = y)) +
-  geom_point(aes(color = "Data points")) +
+  geom_point(aes(color = "Data points"),
+             size = 2) +
   stat_function(aes(color = "True sine function"),
-                fun = sin) +
+                fun = sin,
+                linewidth = 1) +
   labs(title = "Generated Data",
        x = "X",
        y = "y",
        color = "Legend") +
   scale_color_manual(values = c("Data points" = "steelblue",
-                                "True sine function" = "black"))
+                                "True sine function" = "black")) +
+  theme(text=element_text(size=13))
 ```
 
 A polynomial of degree 1 (a linear prediction), obviously do not capture the complexity of the data, but is consistent across different training sets, i.e. high bias and low variance.

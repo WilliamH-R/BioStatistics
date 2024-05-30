@@ -87,7 +87,8 @@ meta |>
                  stat = "count") +
   labs(title = "BMI distribution",
        x = "BMI group",
-       y = "Count")
+       y = "Count") +
+  theme(text=element_text(size=13))
 ```
 The Shannon Index is then calculated. As mentioned in @sec-shannon_index, it is a within sample metric, so which subset a sample belongs to is irrelevant for the calculation. Afterwards, the Wilcoxon Rank Sum test is performed for each subset and gathered:
 

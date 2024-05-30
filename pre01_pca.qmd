@@ -64,7 +64,8 @@ mtcars |>
        x = "Weight (1000 lbs)",
        y = "Miles pr Gallon",
        colour = "Cylinders") +
-  scale_colour_viridis_c()
+  scale_colour_viridis_c() +
+  theme(text=element_text(size=13))
 ```
 
 The data is centered, i.e. the mean of each feature is subtracted from each observation within that feature.
@@ -76,7 +77,7 @@ $$
 Where `X` is the data matrix, `i` is the observation and `j` is the feature and $\mu$ the mean. By subtracting the mean, all data observations are centered around the origin. This makes some mathematical operations easier, such as rotating the coordinate system. Centering the data do not affect the correlation between observations. The resulting plot is then:
 
 ```{r}
-mtcars |> 
+mtcars_centered_plot <- mtcars |> 
   ggplot(aes(x = wt - mean(wt),
              y = mpg - mean(mpg),
              col = cyl - mean(cyl))) +
@@ -85,7 +86,9 @@ mtcars |>
        x = "Weight (1000 lbs)",
        y = "Miles pr Gallon",
        colour = "Cylinders") +
-  scale_colour_viridis_c()
+  scale_colour_viridis_c() +
+  theme(text=element_text(size=13))
+mtcars_centered_plot
 ```
 
 A line is to be fit to the data. This line should maximize the variance of the data, i.e. maximize the sum of squared distances from the origin to the points projected on to the line. A rough sketch of the scenario can be seen below. A proposed best fit line that maximizes the variance of the data is drawn in red. The dashed green line is a point projected onto the proposed best fit line. The dashed blue line is the distance from the point on the line to the origin. It is the length of the blue line that is maximized across all data points.
@@ -95,11 +98,7 @@ A line is to be fit to the data. This line should maximize the variance of the d
 #| code-fold: true
 #| code-summary: "Show the code"
 
-mtcars |> 
-  ggplot(aes(x = wt - mean(wt),
-             y = mpg - mean(mpg),
-             col = cyl - mean(cyl))) +
-  geom_point(size = 3) +
+mtcars_centered_plot +
   geom_abline(intercept = 0, slope = -6, colour = "red") +
   geom_segment(aes(x = -1, y = 12.5, xend = -1.35, yend = 8.4),
                colour = "green",
@@ -108,13 +107,9 @@ mtcars |>
   geom_segment(aes(x = -1.35, y = 8.4, xend = 0, yend = 0), 
                colour = "steelblue",
                linetype = "dashed",
-               size = 1) +
-  labs(title = "Miles pr Gallon vs Weight",
-       x = "Weight (1000 lbs)",
-       y = "Miles pr Gallon",
-       colour = "Cylinders") +
-  scale_colour_viridis_c()
+               size = 1)
 ```
+
 
 The line that maximizes the sum of squared distances is PC1. All future Principal Components are orthogonal to the previous and run through the origin, which means no optimization for subsequent PCs. To visualize PC1, all data points are projected onto the line, and the line is rotated to be horizontal and act as a new x-axis. The resulting plot is:
 
@@ -145,7 +140,8 @@ pca_mtcars |>
        x = "PC1",
        y = "",
        colour = "Cylinders") +
-  scale_colour_viridis_c()
+  scale_colour_viridis_c() +
+  theme(text=element_text(size=13))
 ```
 
 As can be observed from plotting PC1, the groupings of the data is conserved, but the dimensions are reduced to a single line. The same method can be applied to high dimensional data, such as the count matrix.
@@ -298,62 +294,36 @@ Two eigenvectors can be plotted on top of the data to show the direction of the 
 
 ```{r}
 #| warning: false
-mtcars |> 
-  ggplot(aes(x = wt - mean(wt),
-             y = mpg - mean(mpg),
-             col = cyl - mean(cyl))) +
-  geom_point(size = 3) +
+mtcars_centered_plot +
   geom_segment(aes(x = 0, y = 0, xend = -0.14, yend = 1),
                colour = "green",
                size = 1) +
   geom_segment(aes(x = 0, y = 0, xend = 1, yend = 0.14), 
                colour = "steelblue",
-               size = 1) +
-  labs(title = "Miles pr Gallon vs Weight",
-       x = "Weight (1000 lbs)",
-       y = "Miles pr Gallon",
-       colour = "Cylinders") +
-  scale_colour_viridis_c()
+               size = 1)
 ```
+
 
 To visually show that the two eigenvectors are indeed orthogonal, the plot can either be scaled to have the same aspect ratio on both axis, or to limit the axis to the same range:
 
 ```{r}
 #| warning: false
-mtcars |> 
-  ggplot(aes(x = wt - mean(wt),
-             y = mpg - mean(mpg),
-             col = cyl - mean(cyl))) +
-  geom_point(size = 3) +
+mtcars_centered_plot +
   geom_segment(aes(x = 0, y = 0, xend = -0.14, yend = 1),
                colour = "green",
                size = 1) +
   geom_segment(aes(x = 0, y = 0, xend = 1, yend = 0.14), 
                colour = "steelblue",
                size = 1) +
-  labs(title = "Miles pr Gallon vs Weight",
-       x = "Weight (1000 lbs)",
-       y = "Miles pr Gallon",
-       colour = "Cylinders") +
-  scale_colour_viridis_c() +
   coord_fixed()
 
-mtcars |> 
-  ggplot(aes(x = wt - mean(wt),
-             y = mpg - mean(mpg),
-             col = cyl - mean(cyl))) +
-  geom_point(size = 3) +
+mtcars_centered_plot +
   geom_segment(aes(x = 0, y = 0, xend = -0.14, yend = 1),
                colour = "green",
                size = 1) +
   geom_segment(aes(x = 0, y = 0, xend = 1, yend = 0.14), 
                colour = "steelblue",
                size = 1) +
-  labs(title = "Miles pr Gallon vs Weight",
-       x = "Weight (1000 lbs)",
-       y = "Miles pr Gallon",
-       colour = "Cylinders") +
-  scale_colour_viridis_c() +
   lims(x = c(-2, 2), y = c(-2, 2))
 ```
 
@@ -403,7 +373,8 @@ mtcars |>
        x = "Weight (1000 lbs)",
        y = "Miles pr Gallon",
        colour = "Cylinders") +
-  scale_colour_viridis_c()
+  scale_colour_viridis_c() +
+  theme(text=element_text(size=13))
 ```
 
 ### Explained Variance
@@ -426,10 +397,12 @@ var_explained |>
   geom_col(fill = "steelblue") +
   geom_text(aes(label = prop_explained),
             vjust = -0.5) +
-  scale_y_continuous(expand = c(0, 0.06)) +
+  scale_y_continuous(expand = c(0, 0,
+                                0.01, 0.1)) +
   labs(title = "Proportion of Variance Explained",
        x = "Principal Component",
-       y = "Proportion Explained")
+       y = "Proportion Explained") +
+  theme(text=element_text(size=13))
 ```
 
 ### Projection of Data Onto PCs
@@ -501,7 +474,8 @@ pca_mtcars |>
   labs(title = "PC2 vs PC1",
        x = "PC1",
        y = "PC2") +
-  coord_fixed()
+  coord_fixed() +
+  theme(text=element_text(size=13))
 ```
 
 ## Count Matrix
@@ -528,7 +502,8 @@ pca_count_matrix |>
        x = "Principal Component",
        y = "Proportion Explained") +
   theme(axis.text.x = element_blank(),
-        axis.ticks.x = element_blank())
+        axis.ticks.x = element_blank()) +
+  theme(text=element_text(size=13))
 ```
 
 A cummulative plot over the PCs can be used to determine how many PCs are needed to explain the data. The green dashed line is set at 70% of the variance explained, and the red dashed line is set at the 49th PC. The plot then shows that 49 PCs are needed to explain 70% of the variance.
@@ -552,7 +527,8 @@ pca_count_matrix |>
        x = "Principal Component",
        y = "Cummulative Proportion Explained") +
   theme(axis.text.x = element_blank(),
-        axis.ticks.x = element_blank())
+        axis.ticks.x = element_blank()) +
+  theme(text=element_text(size=13))
 ```
 
 It is for quite obvious reasons not possible to plot the first 49 PCs in a single plot. Instead, the first two PCs are plotted to show the data in a 2D space. The data is colored by the `Patient_status` response, which shows that the data is not easily separable in the 2D space. Since the first two PCs only explain approximately 1% of the variance, it is expected that the data is not separable. It is then also an assumption, that the data is even separable in the high dimensional space which is unknown. If the data is separable, it is expected that the separation is more pronounced in the higher dimensions as more variance is explained.
@@ -573,7 +549,8 @@ pca_count_matrix |>
   labs(title = "Principal Component Analysis",
        x = "PC1",
        y = "PC2",
-       colour = "Patient Status")
+       colour = "Patient Status") +
+  theme(text=element_text(size=13))
 ```
 
 # Session Info

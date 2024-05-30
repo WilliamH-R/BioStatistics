@@ -117,7 +117,8 @@ lg_models |>
   geom_label(aes(label = wflow_id)) +
   theme(legend.position = "none") +
   xlim(c(0.5, 6.5)) +
-  ggtitle("Accuracy Stratified on Model")
+  ggtitle("Accuracy Stratified on Model") +
+  theme(text=element_text(size=13))
   
 lg_models |> 
   collect_predictions() |> 
@@ -125,7 +126,8 @@ lg_models |>
   roc_curve(truth = Species,
             .pred_versicolor) |> 
   autoplot() +
-  ggtitle("ROC Rurve Stratified on Model")
+  ggtitle("ROC Rurve Stratified on Model") +
+  theme(text=element_text(size=12))
 ```
 
 # Session Info

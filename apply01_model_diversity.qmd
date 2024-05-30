@@ -124,7 +124,8 @@ richness |>
   labs(title = "Richness by Disease Severity",
        x = "Disease Severity",
        y = "Richness") +
-  theme(legend.position = "none")
+  theme(legend.position = "none") +
+  theme(text=element_text(size=13))
 ```
 
 To test if the difference in richness between the groups is statistically significant, a Wilcoxon rank sum test is performed. The test is performed for each combination of the three groups. The p-values are adjusted for multiple testing using Bonferroni correction.
@@ -178,7 +179,8 @@ shannon |>
   labs(title = "Shannon Index by Disease Severity",
        x = "Disease Severity",
        y = "Shannon Index") +
-  theme(legend.position = "none")
+  theme(legend.position = "none") +
+  theme(text=element_text(size=13))
 ```
 
 Again, p-values are calculated via the function `pairwise_wilcox_test()` which can be found in the helper function section in the beginning of the document. As can be seen from the results, there is a significant difference in the Shannon Index between the healthy controls and each of the MS groups.
@@ -211,7 +213,8 @@ pielou |>
        x = "Disease Severity",
        y = "Pielou Index") +
   theme(legend.position = "none") +
-  lims(y = c(0, 1))
+  lims(y = c(0, 1)) +
+  theme(text=element_text(size=13))
 ```
 
 Again, p-values are calculated via the function `pairwise_wilcox_test()` which can be found in the helper function section in the beginning of the document. As can be seen from the results, there is a significant difference in the Pielou Index between the relapsing-remitting group vs both of the other groups.

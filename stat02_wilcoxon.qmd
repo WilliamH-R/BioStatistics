@@ -63,7 +63,10 @@ shannon |>
              fill = Patient_status)) +
   geom_bar(stat = "bin",
            binwidth = 0.1) +
-  facet_wrap(~ Patient_status)
+  facet_wrap(~ Patient_status) +
+  scale_y_continuous(expand = c(0, 0,
+                                0.01, 0.01)) +
+  theme(text=element_text(size=13))
 ```
 
 The Wilcoxon test is a non-parametric test, which means it do not assume that the samples have been taken from a specific distribution, e.g. the normal distribution. Two different Wilcoxon tests exists, one for comparing dependent samples and one for comparing independent samples. Samples would be dependent if they were e.g. taken from the same patient at different times. Since the samples compared here originates from different patients, the samples are independent. Hence, the optimal test to use is the Wilcoxon Rank Sum test, also called the Mann-Whitney U test.

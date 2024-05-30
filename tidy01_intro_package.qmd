@@ -41,7 +41,10 @@ As is customary when modeling, the dataset is split into a training- and testing
 iris |> 
   ggplot(aes(x = Species,
              fill = Species)) +
-  geom_bar()
+  geom_bar() +
+  theme(text=element_text(size=13)) +
+  scale_y_continuous(expand = c(0, 0,
+                                0.01, 0.1))
 ```
 
 If a class imbalance was observed, using the `strata` argument should be used as in the below to ensure that the training- and testing set have the same distribution of the response variable. The `prop` argument indicates that 90% of the data is used for training and 10% for testing.

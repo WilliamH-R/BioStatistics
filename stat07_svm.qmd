@@ -39,13 +39,14 @@ iris |>
   ggplot(aes(x = Sepal.Width,
              y = Petal.Width,
              color = Species)) +
-  geom_point() +
+  geom_point(size = 3) +
   geom_abline(intercept = 0.1,
               slope = 0.5,
               color = "green") +
   geom_abline(intercept = -0.35,
               slope = 0.5,
-              color = "blue") +
+              color = "blue",
+              linewidth = 1) +
   geom_abline(intercept = -0.83,
               slope = 0.5,
               color = "green") +
@@ -53,7 +54,8 @@ iris |>
                    y = 1.85,
                    xend = 3.75,
                    yend = 1.04),
-               color = "red")
+               color = "red") +
+  theme(text=element_text(size=13))
 ```
 A linear function is often described as $y = ax + b$ where $a$ is the slope and $b$ is the intercept. A more versatile form of the linear function is:
 
@@ -143,7 +145,8 @@ test_data |>
   ggplot(aes(x = value,
              y = 0,
              color = class)) +
-  geom_point(size = 3)
+  geom_point(size = 3) +
+  theme(text=element_text(size=13))
 ```
 
 The data can be transformed by adding a new dimension, e.g. the square of the original value. The data is then linearly separable:
@@ -156,7 +159,9 @@ test_data |>
   geom_point(size = 3) +
   geom_abline(intercept = -850,
               slope = 61,
-              color = "blue")
+              color = "blue",
+              linewidth = 1) +
+  theme(text=element_text(size=13))
 ```
 
 Applying a transformation of this type is computationally expensive, especially with large data sets. A trick can be applied through kernels, hence The Kernel Trick, by exploiting dot products and thereby reduce the computational cost.

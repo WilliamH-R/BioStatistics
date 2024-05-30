@@ -45,7 +45,8 @@ mtcars |>
   labs(title = "Miles pr Gallon vs Weight",
        x = "Weight (1000 lbs)",
        y = "Miles pr Gallon",
-       colour = "Miles per gallon")
+       colour = "Miles per gallon") +
+  theme(text=element_text(size=13))
 ```
 
 In this simple case, the model is fitting the line to the data by changing the slope and intercept of the line. The combination which minimizes the sum of the squared residuals (SSR) is chosen. This results in a three dimensional space, where the slope and intercept are plotted along the x and y axis, and the sum of the squared residuals are plotted along the z-axis. Some combination of slope and intercept results in a minimum in the 3D plane. This combination can be found by taking the derivative of the sum of the squared residuals with respect to the slope and intercept, and set it equal to zero.
