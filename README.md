@@ -15,8 +15,7 @@ From the plethora of modeling techniques available, I was to pick a few that wer
 The metagenomics pipeline was used to preprocess the 16S data. The data is availabla at Short Read Archive (SRA) under the accession number PRJNA721421. The pipeline was used to preprocess the data and to obtain the OTU table. All shell scripts used is to be found in the [GitHub Repository](https://github.com/WilliamH-R/BioStatistics) under `src/`. The pipeline was as follows:
 
 1. **Download**: The raw reads were downloaded with `fastq-dump` using the script `src/01_download_fastq.sh`
-  - Command run: `src/01_download_fastq.sh -f data/PRJNA721421_acc.txt -d data/_raw/ -t paired \\`
-                  `-l data/logs/download.log -p 10`
+  - Command run: `src/01_download_fastq.sh -f data/PRJNA721421_acc.txt -d data/_raw/ -t paired -l data/logs/download.log -p 10`
 
 2. **Trimming**: The raw reads were trimmed with fastp using the script `src/02_fastp_trim.sh`
   - Command run: `src/02_fastp_trim.sh -r data/_raw/ -t data/trimmed_reads/ -T paired -m false -l data/logs/fastp.log`
